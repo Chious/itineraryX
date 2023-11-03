@@ -1,0 +1,32 @@
+[
+  {
+    "title": "Siddhartha",
+    "author": "BBC World Service",
+    "imgSrc": "https://picsum.photos/300/300?text=1"
+  },
+  {
+    "title": "The Little Prince",
+    "author": "Ferrai",
+    "imgSrc": "https://picsum.photos/300/300?text=2"
+  },
+  {
+    "title": "To Kill a Mockingbird",
+    "author": "Facebook",
+    "imgSrc": "https://picsum.photos/300/300?text=3"
+  },
+  {
+    "title": "The Alchemist",
+    "author": "Gillete",
+    "imgSrc": "https://picsum.photos/300/300?text=4"
+  },
+  {
+    "title": "A Game of Thrones",
+    "author": "ebay",
+    "imgSrc": "https://picsum.photos/300/300?text=5"
+  },
+  {
+    "title": "The Count of Mountain in the Sky",
+    "author": "General Electric",
+    "imgSrc": "https://picsum.photos/300/300?text=6"
+  }
+]

@@ -1,0 +1,12 @@
+.podcast-card-img {
+  border: 1px solid white;
+  border-radius: 5px;
+  width: 144px;
+  height: 144px;
+}
+
+.podcast-now-playing {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
