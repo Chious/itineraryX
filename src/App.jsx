@@ -3,9 +3,10 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Home from "./pages/Home";
 import Pending from "./pages/Pending";
 import Login from "./pages/Login";
-import Podcast from "./pages/Podcast";
-import Favorite from "./pages/Favorite";
 import MUIthemeProvider from "./styles/themeProvider";
+import EditMap from "./pages/EditMap";
+import UserPage from "./pages/UserPage";
+import Register from "./pages/Register";
 
 function App() {
   return (
@@ -17,8 +18,9 @@ function App() {
               <Route path="home" element={<Home />} />
               <Route path="pending" element={<Pending />} />
               <Route path="login" element={<Login />} />
-              <Route path="podcast" element={<Podcast />} />
-              <Route path="favorite" element={<Favorite />} />
+              <Route path="register" element={<Register />} />
+              <Route path="map" element={<EditMap />} />
+              <Route path="user" element={<UserPage />} />
             </Routes>
           </BrowserRouter>
         </MUIthemeProvider>
