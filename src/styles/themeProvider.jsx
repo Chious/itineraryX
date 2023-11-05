@@ -6,7 +6,7 @@ export default function MUIthemeProvider(props) {
       MuiSvgIcon: {
         styleOverrides: {
           root: {
-            color: "#FF7F50",
+            color: "gray",
           },
         },
       },

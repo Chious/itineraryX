@@ -53,6 +53,7 @@ Users should be able to:
 ### Useful resources
 
 1. [Downgrade React Vite from v18 to v17](https://dev.to/ifeanyichima/how-to-downgrade-from-react-18-to-1702-818) -- to apply `react-swipeable-views`
+2. [React DnD](https://react-dnd.github.io/react-dnd/examples) -- Make Component Dargable.
 
 ## Development resources
 
