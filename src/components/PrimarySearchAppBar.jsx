@@ -158,7 +158,7 @@ export default function PrimarySearchAppBar(props) {
   return (
     <Stack width="100vw" height="100vh" direction="column">
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" sx={{ height: "8vh" }}>
+        <AppBar position="static" sx={{ height: "70px" }}>
           <Toolbar>
             <IconButton
               size="large"
@@ -235,7 +235,7 @@ export default function PrimarySearchAppBar(props) {
         {renderMobileMenu}
         {renderMenu}
       </Box>
-      <Box height="92vh">{props.children}</Box>
+      <Box height="calc(100vh - 70px)">{props.children}</Box>
     </Stack>
   );
 }
