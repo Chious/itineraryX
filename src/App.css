@@ -91,6 +91,7 @@ video {
   font: inherit;
   vertical-align: baseline;
   font-family: "Noto Sans TC", sans-serif;
+  color: black;
 }
 /* HTML5 display-role reset for older browsers */
 article,
