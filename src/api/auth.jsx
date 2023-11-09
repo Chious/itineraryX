@@ -1,16 +1,64 @@
 import axios from "axios";
 
-export default async function ItineraryLogin() {
+export const ItineraryLogin = async ({ account, password }) => {
+  const url = import.meta.env.VITE_BASE_URL + "/users/login";
+  const bodyParam = {
+    email: account,
+    password: password,
+  };
+  const result = await axios
+    .post(url, bodyParam)
+    .then((res) => {
+      const token = res.data.data.token;
+      localStorage.setItem("token", token);
+      return true;
+    })
+    .catch((err) => {
+      if (err.request.status === 500) {
+        console.log("Error account or password");
+        return false;
+      } else {
+        console.log("unknown error");
+        return false;
+      }
+    });
+
+  return result;
+};
+
+export const ItineraryRegister = async ({
+  name,
+  account,
+  password,
+  passwordCheck,
+}) => {
   const url = import.meta.env.VITE_BASE_URL + "/users/signup";
   const bodyParam = {
-    email: "user01@example.com",
-    password: "12345678",
+    name: name,
+    email: account,
+    password: password,
+    passwordCheck: passwordCheck,
   };
-  axios
+  const result = await axios
     .post(url, bodyParam)
-    .then((data) => {
-      const token = data.data.token;
+    .then((res) => {
+      const token = res.data.data.token;
       localStorage.setItem("token", token);
+      return true;
     })
-    .catch((err) => console.log(err));
-}
+    .catch((err) => {
+      if (err.request.status === 500) {
+        //console.log("Error account or password");
+        if (err.request.message === "Error: Email already exist") {
+          return "email";
+        } else {
+          return "user";
+        }
+      } else {
+        //console.log("unknown error");
+        return false;
+      }
+    });
+
+  return result;
+};
