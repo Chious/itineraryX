@@ -7,6 +7,7 @@ import MUIthemeProvider from "./styles/themeProvider";
 import EditMap from "./pages/EditMap";
 import UserPage from "./pages/UserPage";
 import Register from "./pages/Register";
+import Chatroom from "./pages/Chatroom";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
               <Route path="register" element={<Register />} />
               <Route path="map" element={<EditMap />} />
               <Route path="user" element={<UserPage />} />
+              <Route path="chat" element={<Chatroom />} />
             </Routes>
           </BrowserRouter>
         </MUIthemeProvider>
