@@ -4,8 +4,8 @@ import ChatRight from "./ChatRight";
 
 export default function Message({ data }) {
   const chats = data.map((chat, index) => {
-    const { id, user, message, time, avator } = chat;
-    const userId = localStorage.getItem("userID");
+    const { userId, user, message, time, avatar } = chat;
+    const userID = localStorage.getItem("userID");
 
     const date = new Date(time);
 
@@ -14,7 +14,7 @@ export default function Message({ data }) {
       day: "numeric",
     });
 
-    if (id === userId) {
+    if (userId === Number(userID)) {
       return <ChatRight message={message} time={formattedDate} key={index} />;
     } else {
       return (
@@ -22,7 +22,7 @@ export default function Message({ data }) {
           user={user}
           message={message}
           time={formattedDate}
-          avator={avator}
+          avatar={avatar}
           key={index}
         />
       );

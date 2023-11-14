@@ -1,14 +1,14 @@
 import { Box, Stack, Avatar } from "@mui/material";
 import Image from "mui-image";
 
-export default function ChatLeft({ user, message, time, avator }) {
+export default function ChatLeft({ user, message, time, avatar }) {
   const firstName = user[0];
-  const avatorIcon =
-    avator === undefined ? (
+  const avatarIcon =
+    avatar === null ? (
       <Avatar>{firstName}</Avatar>
     ) : (
       <Image
-        src={avator}
+        src={avatar}
         duration={0}
         width="40px"
         height="40px"
@@ -20,7 +20,7 @@ export default function ChatLeft({ user, message, time, avator }) {
   return (
     <Stack sx={{ p: 1 }} spacing={1}>
       <Stack direction="row" alignItems="center" spacing={1}>
-        {avatorIcon}
+        {avatarIcon}
         <p>{user}</p>
       </Stack>
 

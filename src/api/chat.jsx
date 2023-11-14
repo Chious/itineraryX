@@ -23,7 +23,7 @@ export const getChats = async () => {
   }
 };
 
-export const postChat = async ({ input }) => {
+export const postChat = async (input) => {
   const url = baseUrl + "/chats/";
   const userId = localStorage.getItem("userID");
 

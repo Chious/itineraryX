@@ -23,9 +23,9 @@ export default function Chatroom() {
     setInput(e.target.value);
   };
 
-  const handleSubmit = async ({ input }) => {
+  const handleSubmit = async (input) => {
     if (input.length !== 0) {
-      const response = await postChat({ input });
+      const response = await postChat(input);
 
       if (response === "success") {
         const getChat = await getChats();
@@ -78,7 +78,7 @@ export default function Chatroom() {
               <ToggleButton
                 value="check"
                 onClick={async () => {
-                  handleSubmit({ input });
+                  await handleSubmit(input);
                 }}
               >
                 <SendIcon />
