@@ -29,10 +29,10 @@ export default function Chatroom() {
 
       if (response === "success") {
         const getChat = await getChats();
+        setInput("");
 
         if (getChat !== undefined) {
           setData(getChat);
-          console.log("getChat: ", getChat);
         }
       }
     }

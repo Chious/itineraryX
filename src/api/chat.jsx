@@ -37,7 +37,7 @@ export const postChat = async (input) => {
   const config = { headers: { Authorization: `Bearer ${token}` } };
 
   const response = await axios
-    .post(url, config, bodyParams)
+    .post(url, bodyParams, config)
     .then((data) => {
       return data;
     })
