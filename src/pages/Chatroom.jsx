@@ -4,7 +4,40 @@ import SendIcon from "@mui/icons-material/Send";
 import CloseIcon from "@mui/icons-material/Close";
 import Message from "../components/Chatroom/Message";
 
+import { getChats, postChat } from "../api/chat";
+import { useEffect, useState } from "react";
+
 export default function Chatroom() {
+  const [input, setInput] = useState("");
+  const [data, setData] = useState([]); // Save message in the chatroom
+
+  useEffect(async () => {
+    const getChat = await getChats();
+
+    if (getChat !== undefined) {
+      setData(getChat);
+    }
+  }, []);
+
+  const handleInput = (e) => {
+    setInput(e.target.value);
+  };
+
+  const handleSubmit = async ({ input }) => {
+    if (input.length !== 0) {
+      const response = await postChat({ input });
+
+      if (response === "success") {
+        const getChat = await getChats();
+
+        if (getChat !== undefined) {
+          setData(getChat);
+          console.log("getChat: ", getChat);
+        }
+      }
+    }
+  };
+
   return (
     <PrimarySearchAppBar>
       <Box
@@ -33,15 +66,21 @@ export default function Chatroom() {
               <p>Chatroom title</p>
               <CloseIcon />
             </Stack>
-            <Message />
+            <Message data={data} />
             <Stack direction="row">
               <TextField
                 id="standard-basic"
                 label="Standard"
                 variant="filled"
                 fullWidth
+                onChange={handleInput}
               />
-              <ToggleButton value="check">
+              <ToggleButton
+                value="check"
+                onClick={async () => {
+                  handleSubmit({ input });
+                }}
+              >
                 <SendIcon />
               </ToggleButton>
             </Stack>

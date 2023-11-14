@@ -10,7 +10,9 @@ export const ItineraryLogin = async ({ account, password }) => {
     .post(url, bodyParam)
     .then((res) => {
       const token = res.data.data.token;
+      const id = res.data.data.user.id;
       localStorage.setItem("token", token);
+      localStorage.setItem("userID", id);
       return true;
     })
     .catch((err) => {
@@ -43,7 +45,9 @@ export const ItineraryRegister = async ({
     .post(url, bodyParam)
     .then((res) => {
       const token = res.data.data.token;
+      const id = res.data.data.user.id;
       localStorage.setItem("token", token);
+      localStorage.setItem("userID", id);
       return true;
     })
     .catch((err) => {
@@ -61,4 +65,20 @@ export const ItineraryRegister = async ({
     });
 
   return result;
+};
+
+export const getUser = async () => {
+  const url = import.meta.env.VITE_BASE_URL + "/users/";
+  const token = localStorage.getItem("token");
+
+  const config = { headers: { Authorization: `Bearer ${token}` } };
+
+  axios
+    .get(token, config)
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };

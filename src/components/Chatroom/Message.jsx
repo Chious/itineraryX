@@ -1,17 +1,30 @@
 import { Stack } from "@mui/material";
 import ChatLeft from "./ChatLeft";
 import ChatRight from "./ChatRight";
-import data from "../../data/chat.json";
 
-export default function Message() {
-  const chats = data.map((chat) => {
-    const { user, message, time, avator } = chat;
+export default function Message({ data }) {
+  const chats = data.map((chat, index) => {
+    const { id, user, message, time, avator } = chat;
+    const userId = localStorage.getItem("userID");
 
-    if (user === "me") {
-      return <ChatRight message={message} time={time} />;
+    const date = new Date(time);
+
+    const formattedDate = date.toLocaleString("default", {
+      month: "short",
+      day: "numeric",
+    });
+
+    if (id === userId) {
+      return <ChatRight message={message} time={formattedDate} key={index} />;
     } else {
       return (
-        <ChatLeft user={user} message={message} time={time} avator={avator} />
+        <ChatLeft
+          user={user}
+          message={message}
+          time={formattedDate}
+          avator={avator}
+          key={index}
+        />
       );
     }
   });

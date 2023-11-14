@@ -4,7 +4,7 @@ import Image from "mui-image";
 export default function ChatLeft({ user, message, time, avator }) {
   const firstName = user[0];
   const avatorIcon =
-    avator.length === 0 ? (
+    avator === undefined ? (
       <Avatar>{firstName}</Avatar>
     ) : (
       <Image
