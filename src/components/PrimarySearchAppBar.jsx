@@ -16,6 +16,8 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { Stack } from "@mui/material";
+import Button from '@mui/material/Button';
+
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -60,7 +62,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function PrimarySearchAppBar(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
+  const open = Boolean(anchorEl);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -81,6 +83,10 @@ export default function PrimarySearchAppBar(props) {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -98,8 +104,8 @@ export default function PrimarySearchAppBar(props) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>New Itinerary</MenuItem>
+      <MenuItem onClick={handleMenuClose}>My Itinerary</MenuItem>
     </Menu>
   );
 
@@ -140,7 +146,7 @@ export default function PrimarySearchAppBar(props) {
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem>
         <IconButton
           size="large"
           aria-label="account of current user"
@@ -158,7 +164,7 @@ export default function PrimarySearchAppBar(props) {
   return (
     <Stack width="100vw" height="100vh" direction="column">
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" sx={{ height: "70px" }}>
+        <AppBar position="static" sx={{ height: "70px", backgroundColor: '#90caf9' }}>
           <Toolbar>
             <IconButton
               size="large"
@@ -166,6 +172,7 @@ export default function PrimarySearchAppBar(props) {
               color="inherit"
               aria-label="open drawer"
               sx={{ mr: 2 }}
+              onClick={handleClick}
             >
               <MenuIcon />
             </IconButton>
@@ -175,7 +182,7 @@ export default function PrimarySearchAppBar(props) {
               component="div"
               sx={{ display: { xs: "none", sm: "block" } }}
             >
-              MUI
+              ItineraryX
             </Typography>
             <Search>
               <SearchIconWrapper>
@@ -188,6 +195,7 @@ export default function PrimarySearchAppBar(props) {
             </Search>
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              <Button href="#text-buttons" color="secondary" size="large">Start Planing!</Button>
               <IconButton
                 size="large"
                 aria-label="show 4 new mails"
@@ -212,7 +220,7 @@ export default function PrimarySearchAppBar(props) {
                 aria-label="account of current user"
                 aria-controls={menuId}
                 aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
+                onClick={handleMobileMenuOpen}
                 color="inherit"
               >
                 <AccountCircle />

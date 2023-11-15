@@ -7,6 +7,7 @@ import MUIthemeProvider from "./styles/themeProvider";
 import EditMap from "./pages/EditMap";
 import UserPage from "./pages/UserPage";
 import Register from "./pages/Register";
+import Home1 from "./pages/Home1";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route path="home" element={<Home />} />
+              <Route path="home1" element={<Home1 />} />
               <Route path="pending" element={<Pending />} />
               <Route path="login" element={<Login />} />
               <Route path="register" element={<Register />} />
