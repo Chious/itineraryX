@@ -158,10 +158,10 @@ export default function Navbar() {
   return (
     <Stack width='100vw' height='auto' direction='column'>
       <Box>
-        <AppBar position="static" sx={{backgroundColor:'white'}} elevation={0}>
+        <AppBar position="static" sx={{backgroundColor:'#B4C4D9'}} elevation={0}>
           <Toolbar>
             <CardMedia
-              style={{width:'9vw', height:'1vw', objectFit:'cover'}}
+              style={{width:'10vw', height:'1.2vw', objectFit:'cover'}}
               image="/src/images/material/ItineraryX Logo.png"
               title="background"
               elevation={0}
@@ -177,8 +177,8 @@ export default function Navbar() {
                   inputProps={{ 'aria-label': 'search' }}
                 />
               </Search>
-              <Button variant="text" size='large'>Start!</Button>
-              <Button variant="contained" size='large'>Login</Button>
+              <Button variant="text" size='large' sx={{color:'#38358C', fontFamily:'Poppins', fontWeight:500}}>Start!</Button>
+              <Button variant="contained" size='large' sx={{backgroundColor:'#38358C', fontFamily:'Poppins', fontWeight:500}}>Login</Button>
               <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                 <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                   <Badge badgeContent={4} color="error">

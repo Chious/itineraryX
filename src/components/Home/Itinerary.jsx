@@ -16,8 +16,8 @@ const images = [
     width: '30%',
   },
   {
-    url: '/src/images/spot/Osaka.jpeg',
-    title: 'Osaka',
+    url: '/src/images/spot/California.jpeg',
+    title: 'California',
     width: '30%',
   },
 ];
@@ -79,11 +79,11 @@ const ImageBackdrop = styled('span')(({ theme }) => ({
 
 const ImageMarked = styled('span')(({ theme }) => ({
   height: 3,
-  width: 18,
+  width: 100,
   backgroundColor: theme.palette.common.white,
   position: 'absolute',
   bottom: -2,
-  left: 'calc(50% - 9px)',
+  left: 'calc(50% - 50px)',
   transition: theme.transitions.create('opacity'),
 }));
 
@@ -94,6 +94,7 @@ export default function DestinationList() {
         <ImageButton
           focusRipple
           key={image.title}
+          sx={{boxShadow:'8'}}
           style={{
             width: image.width,
             height: '40vw',
@@ -113,6 +114,8 @@ export default function DestinationList() {
                 p: 4,
                 pt: 2,
                 pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
+                fontSize: 30,
+                fontFamily:'Poppins', fontWeight:600
               }}
             >
               {image.title}
