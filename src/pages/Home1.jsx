@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from "../components/Home/Navbar"
 import { Card, CardMedia, Typography, Box, Stack, Grid } from '@mui/material';
 import DestinationList from "../components/Home/Itinerary";
@@ -6,9 +6,21 @@ import TripCard from '../components/Home/TripCard';
 import PlanHelper from '../components/Home/PlanHelper';
 import Footer from '../components/Home/Footer';
 import DailyCard from '../components/Home/DailyCard';
+import { destination } from '../api/home';
 
 export default function Home() {
-  
+  const [place, setPlace] = useState(null);
+  const [image, setImage] = useState(null);
+  const [intro, setIntro] = useState(null);
+
+  useEffect(() => {
+    destination().then(data => {
+      setPlace(data.name);
+      setImage(data.image);
+      setIntro(data.intro);
+    });
+  }, []);
+
   return (
     <>
       <Stack width='100vw' height='auto' direction='column'>
@@ -32,7 +44,7 @@ export default function Home() {
               spacing={2}
               style={{display: 'flex'}}
             >
-              <Typography variant="h1" fontSize='8vw' style={{flex: 1, color:'white', fontWeight:'600', fontFamily:'Poppins'}}>
+              <Typography variant="h1" fontSize='8vw' style={{flex: 1, color:'white', fontWeight:'800', fontFamily:'Poppins'}}>
                 Explore the world with your friends.
               </Typography>
             </Stack>
@@ -66,7 +78,7 @@ export default function Home() {
           </Box>
         </Box>
         <Grid container spacing={0}>
-          <Grid item xs={5} spacing={0}>
+          <Grid item xs={5}>
             <Box style={{position:'relative'}}>
               <Card elevation={0}>
                 <CardMedia          
@@ -95,7 +107,7 @@ export default function Home() {
               </Box>
             </Box>
           </Grid>
-          <Grid item xs={7} spacing={0}>
+          <Grid item xs={7}>
             <Box style={{position:'relative'}}>
               <Card elevation={0}>
                 <CardMedia          
@@ -149,7 +161,7 @@ export default function Home() {
           </Grid>
         </Grid>
         <Grid container spacing={0}>
-          <Grid item xs={7} spacing={0}>
+          <Grid item xs={7}>
             <Box style={{position:'relative'}}>
               <Card elevation={0}>
                 <CardMedia         
@@ -160,13 +172,13 @@ export default function Home() {
                 />
                 <Box style={{position:'absolute', top:'50%', left:'50%', transform: 'translate(-50%, -50%)', width:'40vw'}}>
                   <Box>
-                    <DailyCard/>
+                    <DailyCard place={place} image={image} intro={intro}/>
                   </Box>
                 </Box>
               </Card>
               </Box>
           </Grid>
-          <Grid item xs={5} spacing={0}>
+          <Grid item xs={5}>
             <Box style={{position:'relative'}}>
               <Card elevation={0}>
                 <CardMedia          

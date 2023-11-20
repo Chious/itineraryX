@@ -5,22 +5,22 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 
-export default function DailyCard() {
+export default function DailyCard({place, image, intro}) {
   return (
     <Card sx={{borderRadius:'2vw', width:'100%', boxShadow:'8'}} >
       <CardActionArea>
         <CardMedia
           component="img"
           height="200vw"
-          image="/src/images/spot/Canada.jpeg"
-          alt="green iguana"
+          image={image}
+          alt="daily card"
         />
         <CardContent sx={{height:'22vw'}}>
           <Typography gutterBottom variant="h4" color='#38358C' component="div" sx={{fontFamily:'Poppins', fontWeight:600 }}>
-            Canada
+            {place}
           </Typography>
           <Typography variant="body2" color="black" sx={{fontSize:'1.5vw', fontFamily:'Poppins', fontWeight:600 }}>
-            Canada is a country in North America. Its ten provinces and three territories extend from the Atlantic Ocean to the Pacific Ocean and northward into the Arctic Ocean, making it the world's second-largest country by total area, with the world's longest coastline.
+            {intro}
           </Typography>
         </CardContent>
       </CardActionArea>
