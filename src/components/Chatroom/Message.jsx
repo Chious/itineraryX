@@ -5,7 +5,9 @@ import ChatRight from "./ChatRight";
 export default function Message({ data }) {
   const chats = data.map((chat, index) => {
     const { userId, user, message, time, avatar } = chat;
-    const userID = localStorage.getItem("userID");
+    const storedData = localStorage.getItem("user");
+    const userInfo = JSON.parse(storedData);
+    const userID = userInfo.id;
 
     const date = new Date(time);
 

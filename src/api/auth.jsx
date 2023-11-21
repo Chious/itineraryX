@@ -10,9 +10,15 @@ export const ItineraryLogin = async ({ account, password }) => {
     .post(url, bodyParam)
     .then((res) => {
       const token = res.data.data.token;
-      const id = res.data.data.user.id;
+      const user = res.data.data.user;
+      const { id, name, avatar } = user;
+
       localStorage.setItem("token", token);
-      localStorage.setItem("userID", id);
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ id: id, name: name, avatar: avatar })
+      );
+
       return true;
     })
     .catch((err) => {
@@ -45,9 +51,13 @@ export const ItineraryRegister = async ({
     .post(url, bodyParam)
     .then((res) => {
       const token = res.data.data.token;
-      const id = res.data.data.user.id;
+      const user = res.data.data.user;
+      const { id, name, avatar } = user;
       localStorage.setItem("token", token);
-      localStorage.setItem("userID", id);
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ id: id, name: name, avatar: avatar })
+      );
       return true;
     })
     .catch((err) => {

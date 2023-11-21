@@ -1,4 +1,4 @@
-import { Box, Stack, ToggleButton, TextField } from "@mui/material";
+import { Box, Stack, ToggleButton, TextField, IconButton } from "@mui/material";
 import PrimarySearchAppBar from "../components/PrimarySearchAppBar";
 import SendIcon from "@mui/icons-material/Send";
 import CloseIcon from "@mui/icons-material/Close";
@@ -6,6 +6,7 @@ import Message from "../components/Chatroom/Message";
 
 import { getChats, postChat } from "../api/chat";
 import { useEffect, useState } from "react";
+import BasicSpeedDial from "../components/Chatroom/BasicSpeedDail";
 
 export default function Chatroom() {
   const [input, setInput] = useState("");
@@ -38,6 +39,16 @@ export default function Chatroom() {
     }
   };
 
+  // open or close chatroom
+
+  const [openChat, setOpenChat] = useState(false);
+  const showCard =
+    openChat === true ? { visibility: "visible" } : { visibility: "hidden" };
+
+  const handleCloseChat = () => {
+    setOpenChat(false);
+  };
+
   return (
     <PrimarySearchAppBar>
       <Box
@@ -51,20 +62,23 @@ export default function Chatroom() {
         }}
       >
         <Stack
-          sx={{ width: "50%", height: "50%", background: "white", p: 2 }}
+          sx={{ width: "50%", height: "60%", background: "white", p: 2 }}
           spacing={1}
           justifyContent="center"
           alignItems="center"
         >
           <h1>Chatroom</h1>
-          <Box boxShadow={2} width="300px" height="295px">
+          <Box boxShadow={2} width="300px" height="303px" style={showCard}>
             <Stack
               direction="row"
+              alignItems="center"
               justifyContent="space-between"
-              sx={{ p: 1, background: "#F4F4F4" }}
+              sx={{ p: 0.5, background: "#F4F4F4" }}
             >
               <p>Chatroom title</p>
-              <CloseIcon />
+              <IconButton onClick={handleCloseChat}>
+                <CloseIcon />
+              </IconButton>
             </Stack>
             <Message data={data} />
             <Stack direction="row">
@@ -85,6 +99,7 @@ export default function Chatroom() {
               </ToggleButton>
             </Stack>
           </Box>
+          <BasicSpeedDial setOpenChat={setOpenChat} />
         </Stack>
       </Box>
     </PrimarySearchAppBar>

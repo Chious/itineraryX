@@ -1,49 +1,120 @@
-import { io } from "socket.io-client";
 import { useState, useEffect } from "react";
+import { Box, Stack, IconButton, TextField, ToggleButton } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import SendIcon from "@mui/icons-material/Send";
+import Message from "../components/Chatroom/Message";
+import { socket } from "./socket";
+import { sendMessage } from "./socketManager";
+import { postChat } from "../api/chat";
 
-const socket = io(import.meta.env.VITE_BASE_URL);
-
-export default function SocketChat() {
-  //Room State
-  const [room, setRoom] = useState("");
-
+export default function SocketChat({
+  openChat,
+  setOpenChat,
+  chatroomMessage,
+  setChatroomMessage,
+  room,
+}) {
   // Messages States
-  const [message, setMessage] = useState("");
-  const [messageReceived, setMessageReceived] = useState("");
+  const updateMessageReceived = (data) => {
+    const { userId, user, message, time, avatar } = data;
+    const newObj = {
+      userId: userId,
+      user: user,
+      message: message,
+      time: time,
+      avatar: avatar,
+    };
 
-  const joinRoom = () => {
-    if (room !== "") {
-      socket.emit("join_room", room);
-    }
-  };
+    const updateArray = chatroomMessage;
+    updateArray.push(newObj);
 
-  const sendMessage = () => {
-    socket.emit("send_message", { message, room });
+    setChatroomMessage(updateArray);
   };
 
   useEffect(() => {
     socket.on("receive_message", (data) => {
-      setMessageReceived(data.message);
+      updateMessageReceived(data);
     });
   }, [socket]);
+
+  //Get Chatroom while open page
+  const [messageInput, setMessageInput] = useState("");
+
+  /*
+    const getChat = await getChats();
+    getChatId();
+
+    if (getChat !== undefined) {
+      setData("getChat:", getChat);
+    }*/
+
+  const handleInput = (e) => {
+    setMessageInput(e.target.value);
+  };
+
+  const handleSubmit = async (messageInput) => {
+    if (messageInput.length !== 0) {
+      const storedData = localStorage.getItem("user");
+      const userInfo = JSON.parse(storedData);
+      const { id, avatar, name } = userInfo;
+
+      const sendMsg = {
+        userId: id,
+        user: name,
+        message: messageInput,
+        time: new Date(),
+        avatar: avatar,
+        room: room,
+      };
+
+      sendMessage(sendMsg);
+      const response = await postChat(sendMsg);
+
+      if (response === "success") {
+        setMessageInput("");
+      }
+    }
+  };
+
+  // Chatroom css setting
+  const showCard =
+    openChat === true ? { visibility: "visible" } : { visibility: "hidden" };
+
+  const handleCloseChat = () => {
+    setOpenChat(false);
+  };
+
   return (
-    <div className="App">
-      <input
-        placeholder="Room Number..."
-        onChange={(event) => {
-          setRoom(event.target.value);
-        }}
-      />
-      <button onClick={joinRoom}> Join Room</button>
-      <input
-        placeholder="Message..."
-        onChange={(event) => {
-          setMessage(event.target.value);
-        }}
-      />
-      <button onClick={sendMessage}> Send Message</button>
-      <h1> Message:</h1>
-      {messageReceived}
-    </div>
+    <Box boxShadow={2} width="300px" height="303px" style={showCard}>
+      <Stack
+        direction="row"
+        alignItems="center"
+        justifyContent="space-between"
+        sx={{ p: 0.5, background: "#F4F4F4" }}
+      >
+        <p>Chatroom title</p>
+        <IconButton onClick={handleCloseChat}>
+          <CloseIcon />
+        </IconButton>
+      </Stack>
+      <Message data={chatroomMessage} />
+      <Stack direction="row">
+        <TextField
+          id="standard-basic"
+          label="Standard"
+          variant="filled"
+          fullWidth
+          onChange={handleInput}
+        />
+        <ToggleButton
+          value="check"
+          onClick={async () => {
+            await handleSubmit(messageInput);
+          }}
+        >
+          <SendIcon />
+        </ToggleButton>
+      </Stack>
+    </Box>
   );
 }

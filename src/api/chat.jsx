@@ -3,8 +3,8 @@ import axios from "axios";
 const token = localStorage.getItem("token");
 const baseUrl = import.meta.env.VITE_BASE_URL;
 
-export const getChats = async () => {
-  const url = baseUrl + "/chats/1";
+export const getChats = async (chatroomID) => {
+  const url = baseUrl + `/chats/${chatroomID}`;
 
   const config = { headers: { Authorization: `Bearer ${token}` } };
 
@@ -23,14 +23,20 @@ export const getChats = async () => {
   }
 };
 
-export const postChat = async (input) => {
+export const postChat = async (data) => {
   const url = baseUrl + "/chats/";
-  const userId = localStorage.getItem("userID");
+
+  //Get Required Params
+  const storedData = localStorage.getItem("user");
+  const userInfo = JSON.parse(storedData);
+  const userId = userInfo.id;
+
+  const { room, message } = data;
 
   const bodyParams = {
-    itineraryId: 1,
+    itineraryId: room,
     userId: Number(userId),
-    message: input,
+    message: message,
     isImage: false,
   };
 
@@ -48,5 +54,24 @@ export const postChat = async (input) => {
 
   if (response !== undefined) {
     return response.data.status;
+  }
+};
+
+export const getChatId = async () => {
+  const url = `${baseUrl}/users/itineraryId`;
+
+  const config = { headers: { Authorization: `Bearer ${token}` } };
+
+  const response = await axios
+    .get(url, config)
+    .then((data) => {
+      return data.data.data.itineraryId;
+    })
+    .catch((err) => {
+      return err;
+    });
+
+  if (response !== undefined) {
+    return response;
   }
 };
