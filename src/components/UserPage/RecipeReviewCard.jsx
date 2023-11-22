@@ -42,7 +42,8 @@ export default function RecipeReviewCard({image, itineraries, setItineraries, se
   return (
     <div>
       {data.map(item=>(
-        <Card key={item.id} sx={{ maxWidth: 345 }}>
+        item && (
+          <Card key={item.id} sx={{ maxWidth: 345 }}>
           <CardHeader
             avatar={
               <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -120,6 +121,7 @@ export default function RecipeReviewCard({image, itineraries, setItineraries, se
             </CardContent>
           </Collapse>
         </Card>
+        )
       ))}
     </div>
   );

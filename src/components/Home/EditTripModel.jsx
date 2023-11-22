@@ -34,20 +34,21 @@ export default function EditTripModal({sx, id, text, itineraries, setItineraries
   const [endValue, setEndValue] = React.useState(null);
 
   const handleChange = (e) => setTitle(e.target.value)
-  const handleClick = async () => {
+  const handleClick = () => {
     const tripData = {
       itineraryId: id,
       title:title,
+      image:'/src/images/spot/California.jpeg',
       startTime: startValue.toISOString(),
       endTime: endValue.toISOString()
     }
     editItinerary(tripData)
     .then(data=>{
-      console.log(data)
+      // console.log(data)
       const newItineraries =
         itineraries.map(trip=>{
           if (trip.id === id) {
-            return data.data
+            return data
           } else {
             return trip
           }
@@ -55,6 +56,7 @@ export default function EditTripModal({sx, id, text, itineraries, setItineraries
       setItineraries(
         newItineraries
       );
+      handleClose()
     })
     .catch(error => {
       console.error('There was an error!', error);
@@ -65,6 +67,8 @@ export default function EditTripModal({sx, id, text, itineraries, setItineraries
     setItineraries(itineraries)
   }, [itineraries]);
 
+  const today = dayjs();
+  const yesterday = dayjs().subtract(1, 'day');
 
   return (
     <div>
@@ -77,7 +81,7 @@ export default function EditTripModal({sx, id, text, itineraries, setItineraries
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Your new itinerary
+            Edit your itinerary
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             <Box
@@ -104,23 +108,25 @@ export default function EditTripModal({sx, id, text, itineraries, setItineraries
                     <Grid item xs={12}>
                       <DatePicker
                         label="Start day"
-                        value={startValue ? startValue.format('YYYY-MM-DD') : null}
-                        defaultValue={dayjs('2022-04-17')}
+                        value={startValue ? startValue.toISOString() : null}
+                        defaultValue={today}
                         onChange={(newValue) => setStartValue(newValue)}
+                        disablePast
                       />
                     </Grid>
                     <Grid item xs={12}>
                       <DatePicker
                         label="End day"
-                        value={endValue}
-                        defaultValue={dayjs('2022-04-17')}
+                        value={endValue ? endValue.toISOString() : null}
+                        defaultValue={today}
                         onChange={(newValue) => setEndValue(newValue)}
+                        disablePast
                       />
                     </Grid>
                   </Grid>
                 </DemoContainer>
               </LocalizationProvider>
-              <Button onClick={handleClick}>Confirm</Button>
+              <Button onClick={handleClick}  >Confirm</Button>
             </Box>
           </Typography>
         </Box>

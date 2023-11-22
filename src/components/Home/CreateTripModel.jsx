@@ -44,6 +44,7 @@ export default function CreateTripModal({sx, text, itineraries, setItineraries, 
     .then(data=>{
       setItineraries([...itineraries, data]);
       setCount(itineraries.length+1)
+      handleClose()
     })
   }
 

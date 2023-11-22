@@ -14,7 +14,7 @@ export default function UserPage() {
     getItineraries().then(data=>{
       setItineraries(data)
       setCount(itineraries.length)
-      console.log(itineraries)
+      // console.log(itineraries)
     })
   }, [count])
 
