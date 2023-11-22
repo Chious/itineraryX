@@ -16,6 +16,7 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import { Stack } from '@mui/material';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -57,7 +58,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function Navbar() {
+export default function Navbar({itineraries,setItineraries, setCount}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -160,12 +161,14 @@ export default function Navbar() {
       <Box>
         <AppBar position="static" sx={{backgroundColor:'#B4C4D9'}} elevation={0}>
           <Toolbar>
-            <CardMedia
-              style={{width:'10vw', height:'1.2vw', objectFit:'cover'}}
-              image="/src/images/material/ItineraryX Logo.png"
-              title="background"
-              elevation={0}
-            />
+            <Link to="/home1">
+              <CardMedia
+                style={{width:'10vw', height:'1.2vw', objectFit:'cover'}}
+                image="/src/images/material/ItineraryX Logo.png"
+                title="background"
+                elevation={0}
+              />
+            </Link>
             <Box sx={{ flexGrow: 1 }} />
             <Stack direction="row" spacing={3}>
               <Search>
@@ -177,8 +180,9 @@ export default function Navbar() {
                   inputProps={{ 'aria-label': 'search' }}
                 />
               </Search>
-              <Button variant="text" size='large' sx={{color:'#38358C', fontFamily:'Poppins', fontWeight:500}}>Start!</Button>
-              <Button variant="contained" size='large' sx={{backgroundColor:'#38358C', fontFamily:'Poppins', fontWeight:500}}>Login</Button>
+              {/* <Button variant="text" size='large' sx={{color:'#38358C', fontFamily:'Poppins', fontWeight:500}} onClick={handleClick}>Start!</Button> */}
+              <Button component={Link} to="/user" sx={{color:'#38358C', fontFamily:'Poppins', fontWeight:500}}>Start!</Button>
+              <Button component={Link} to="/login" variant="contained" size='large' sx={{backgroundColor:'#38358C', fontFamily:'Poppins', fontWeight:500}}>Login</Button>
               <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                 <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                   <Badge badgeContent={4} color="error">

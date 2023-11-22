@@ -6,7 +6,7 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import RecipeReviewCard from "./RecipeReviewCard";
 
-export default function LabTabs() {
+export default function LabTabs({image, itineraries,setItineraries, setCount}) {
   const [value, setValue] = React.useState("1");
 
   const handleChange = (event, newValue) => {
@@ -23,7 +23,7 @@ export default function LabTabs() {
           </TabList>
         </Box>
         <TabPanel value="1">
-          <RecipeReviewCard />
+          <RecipeReviewCard image={image} itineraries={itineraries} setItineraries={setItineraries} setCount={setCount}/>
         </TabPanel>
         <TabPanel value="2">待定</TabPanel>
       </TabContext>
