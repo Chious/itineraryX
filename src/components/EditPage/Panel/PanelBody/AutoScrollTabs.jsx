@@ -17,9 +17,11 @@ const StyledTab = styled(Tab)`
 `;
 
 export default function AutoScrollTabs() {
+  const [numOfTabs, setNumOfTabs] = React.useState(2);  // 修改：取得行程的天數
   const [activeTab, setActiveTab] = React.useState('0');
+
   const tabRefs = React.useRef(
-    Array(5)
+    Array(numOfTabs)
       .fill()
       .map(() => React.createRef())
   );
@@ -52,11 +54,15 @@ export default function AutoScrollTabs() {
           aria-label="scrollable auto tabs"
           sx={{ position: 'relative', zIndex: 3, boxShadow: 1 }}
         >
-          <StyledTab className="tab" label="Day 1" value="0" />
-          <StyledTab className="tab" label="Day 2" value="1" />
-          <StyledTab className="tab" label="Day 3" value="2" />
-          <StyledTab className="tab" label="Day 4" value="3" />
-          <StyledTab className="tab" label="Day 5" value="4" />
+          {Array(numOfTabs)
+            .fill()
+            .map((_, index) => (
+              <StyledTab
+                className="tab"
+                label={`Day ${index + 1}`}
+                value={`${index}`}
+              />
+            ))}
           <Button>+</Button>
         </StyledTabs>
 
@@ -68,20 +74,22 @@ export default function AutoScrollTabs() {
           gap={3}
           sx={{ overflowY: 'scroll' }}
         >
-          {Array.from({ length: 5 }).map((_, index) => (
-            <>
-              {index > 0 && (
-                <Divider sx={{ borderStyle: 'dashed', borderWidth: '1px' }} />
-              )}
-              <Stack
-                className="location-list-container"
-                padding={0}
-                ref={tabRefs.current[index]}
-              >
-                <DestinationList index={index} />
-              </Stack>
-            </>
-          ))}
+          {Array(numOfTabs)
+            .fill()
+            .map((_, index) => (
+              <>
+                {index > 0 && (
+                  <Divider sx={{ borderStyle: 'dashed', borderWidth: '1px' }} />
+                )}
+                <Stack
+                  className="location-list-container"
+                  padding={0}
+                  ref={tabRefs.current[index]}
+                >
+                  <DestinationList day={index + 1} />
+                </Stack>
+              </>
+            ))}
         </Stack>
       </Stack>
     </>

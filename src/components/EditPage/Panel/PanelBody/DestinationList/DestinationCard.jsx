@@ -6,7 +6,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import photo from '../../../../../assets/joshua-hibbert-Pn6iimgM-wo-unsplash.jpg';
 
-export default function DestinationCard() {
+export default function DestinationCard({ destination }) {
   return (
     <Card
       className="destination-card"
@@ -37,7 +37,7 @@ export default function DestinationCard() {
         style={{
           flexShrink: '0',
           width: '100px',
-          backgroundImage: `url(${photo})`,
+          backgroundImage: `url(${destination.image})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
@@ -56,18 +56,20 @@ export default function DestinationCard() {
         }}
       >
         <Stack spacing={0.5}>
-          <Typography sx={{ fontWeight: 'bold' }}>台北車站</Typography>
+          <Typography sx={{ fontSize: '0.9rem', fontWeight: 'bold' }}>
+            {destination.name}
+          </Typography>
           <Stack direction="row" gap="2px">
             <LocationOnIcon sx={{ fontSize: '0.9rem' }} />
             <Typography
               sx={{
                 color: 'text.secondary',
-                fontSize: '0.8rem',
+                fontSize: '0.7rem',
                 lineHeight: '1.1',
                 wordWrap: 'break-word',
               }}
             >
-              台北市中正區忠孝西路一段49號
+              {destination.address}
             </Typography>
           </Stack>
         </Stack>

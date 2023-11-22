@@ -9,8 +9,24 @@ import DestinationItem from './DestinationItem';
 import TransportationItem from './TransportationItem';
 import AddBtn from '../AddBtn';
 
-export default function DestinationList({ index }) {
-  return (
+import { useDestinations } from '../../../temp_data/trip_reducer';
+import { Typography } from '@mui/material';
+
+export default function DestinationList({ day }) {
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [destinations, setDestinations] = React.useState([]);
+  const data = useDestinations();
+
+  React.useEffect(() => {
+    if (data && data.length > 0) {
+      setDestinations(data[day - 1]);
+      setIsLoading(false);
+    }
+  }, [data, day]);
+
+  return isLoading ? (
+    <Grid>Loading...</Grid>
+  ) : (
     <>
       <Grid container className="location-list-grid" width="100%" padding={0}>
         <List
@@ -41,7 +57,7 @@ export default function DestinationList({ index }) {
           <ListSubheader width="100%" sx={{ padding: '0', zIndex: '2' }}>
             <Grid item xs={3} padding="1px 10px">
               <Chip
-                label={`Day ${index + 1}`}
+                label={`Day ${day}`}
                 color="primary"
                 sx={{
                   width: '100%',
@@ -55,17 +71,22 @@ export default function DestinationList({ index }) {
           </ListSubheader>
 
           {/* display transportation & destination */}
-          {Array.from({ length: 5 }).map((_, itemID) => (
-            <>
-              {itemID > 0 && <TransportationItem />}
-              <ListItem
-                key={`item-${index + 1}-${itemID + 1}`}
-                sx={{ padding: 0 }}
-              >
-                <DestinationItem number={itemID + 1} />
-              </ListItem>
-            </>
-          ))}
+          {destinations ? (
+            Array(destinations.length).fill().map((_, itemId) => (
+              <>
+                {itemId > 0 && <TransportationItem />}
+                <ListItem key={`item-${day}-${itemId}`} sx={{ padding: 0 }}>
+                  <DestinationItem destination={destinations[itemId]} />
+                </ListItem>
+              </>
+            ))
+          ) : (
+            <Grid container justifyContent="flex-end">
+              <Grid item xs={9}>
+                <Typography>請點擊按鈕添加景點</Typography>
+              </Grid>
+            </Grid>
+          )}
 
           {/* display add button */}
           <Grid item xs={3}>

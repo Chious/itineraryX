@@ -1,11 +1,14 @@
+import moment from 'moment';
 import { useTheme } from '@emotion/react';
 import Grid from '@mui/material/Grid';
 import Chip from '@mui/material/Chip';
 import DestinationCard from './DestinationCard';
 
-export default function DestinationItem({ number }) {
+export default function DestinationItem({ destination }) {
   const theme = useTheme();
   const primaryColor = theme.palette.primary.main;
+
+  const time = moment(destination.date).format('hh:mm a');
 
   return (
     <Grid
@@ -26,7 +29,7 @@ export default function DestinationItem({ number }) {
         }}
       >
         <Chip
-          label={`${'08:00'}`}
+          label={`${time}`}
           sx={{
             backgroundColor: 'white',
             zIndex: '1',
@@ -42,7 +45,7 @@ export default function DestinationItem({ number }) {
 
       {/* display the destination */}
       <Grid item xs={9}>
-        <DestinationCard />
+        <DestinationCard destination={destination} />
       </Grid>
     </Grid>
   );
