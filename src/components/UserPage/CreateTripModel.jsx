@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { createItinerary } from '../../api/userpage.jsx';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -12,6 +12,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import Grid from '@mui/material/Grid';
+import { ItinerariesContext } from '../../context/UserPageContext.jsx';
 
 const style = {
   position: 'absolute',
@@ -25,13 +26,14 @@ const style = {
   p: 4,
 };
 
-export default function CreateTripModal({sx, text, itineraries, setItineraries, setCount}) {
+export default function CreateTripModal({sx, text}) {
   const [title, setTitle] = useState('')
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [startValue, setStartValue] = React.useState(null);
   const [endValue, setEndValue] = React.useState(null);
+  const {itineraries, setItineraries, setCount} = useContext(ItinerariesContext)
 
   const handleChange = (e) => setTitle(e.target.value)
   const handleClick = () => {
@@ -52,6 +54,7 @@ export default function CreateTripModal({sx, text, itineraries, setItineraries, 
     setCount(itineraries.length);
   }, [itineraries]);
 
+  const today = dayjs();
 
   return (
     <div>
@@ -92,16 +95,18 @@ export default function CreateTripModal({sx, text, itineraries, setItineraries, 
                       <DatePicker
                         label="Start day"
                         value={startValue ? startValue.format('YYYY-MM-DD') : null}
-                        defaultValue={dayjs('2022-04-17')}
+                        defaultValue={today}
                         onChange={(newValue) => setStartValue(newValue)}
+                        disablePast
                       />
                     </Grid>
                     <Grid item xs={12}>
                       <DatePicker
                         label="End day"
                         value={endValue}
-                        defaultValue={dayjs('2022-04-17')}
+                        defaultValue={today}
                         onChange={(newValue) => setEndValue(newValue)}
+                        disablePast
                       />
                     </Grid>
                   </Grid>

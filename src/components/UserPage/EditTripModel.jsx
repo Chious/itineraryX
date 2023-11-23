@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -12,6 +12,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import Grid from '@mui/material/Grid';
 import { editItinerary } from '../../api/userpage.jsx';
+import { ItinerariesContext } from '../../context/UserPageContext.jsx';
 
 const style = {
   position: 'absolute',
@@ -25,13 +26,22 @@ const style = {
   p: 4,
 };
 
-export default function EditTripModal({sx, id, text, itineraries, setItineraries, setCount}) {
+export default function EditTripModal({sx, id, text}) {
   const [title, setTitle] = useState('')
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    const itinerary = itineraries.find(itinerary => itinerary.id === id);
+    if (itinerary) {
+      setTitle(itinerary.title);
+      setStartValue(dayjs(itinerary.startTime))
+      setEndValue(dayjs(itinerary.endTime))
+    }
+    setOpen(true)
+  };
   const handleClose = () => setOpen(false);
   const [startValue, setStartValue] = React.useState(null);
   const [endValue, setEndValue] = React.useState(null);
+  const {itineraries, setItineraries} = useContext(ItinerariesContext)
 
   const handleChange = (e) => setTitle(e.target.value)
   const handleClick = () => {
@@ -108,7 +118,7 @@ export default function EditTripModal({sx, id, text, itineraries, setItineraries
                     <Grid item xs={12}>
                       <DatePicker
                         label="Start day"
-                        value={startValue ? startValue.toISOString() : null}
+                        value={startValue}
                         defaultValue={today}
                         onChange={(newValue) => setStartValue(newValue)}
                         disablePast
@@ -117,7 +127,7 @@ export default function EditTripModal({sx, id, text, itineraries, setItineraries
                     <Grid item xs={12}>
                       <DatePicker
                         label="End day"
-                        value={endValue ? endValue.toISOString() : null}
+                        value={endValue}
                         defaultValue={today}
                         onChange={(newValue) => setEndValue(newValue)}
                         disablePast

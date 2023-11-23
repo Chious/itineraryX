@@ -58,7 +58,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function Navbar({itineraries,setItineraries, setCount}) {
+export default function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -180,7 +180,6 @@ export default function Navbar({itineraries,setItineraries, setCount}) {
                   inputProps={{ 'aria-label': 'search' }}
                 />
               </Search>
-              {/* <Button variant="text" size='large' sx={{color:'#38358C', fontFamily:'Poppins', fontWeight:500}} onClick={handleClick}>Start!</Button> */}
               <Button component={Link} to="/user" sx={{color:'#38358C', fontFamily:'Poppins', fontWeight:500}}>Start!</Button>
               <Button component={Link} to="/login" variant="contained" size='large' sx={{backgroundColor:'#38358C', fontFamily:'Poppins', fontWeight:500}}>Login</Button>
               <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
