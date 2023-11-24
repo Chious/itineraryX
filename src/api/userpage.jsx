@@ -47,3 +47,16 @@ export const editItinerary = async (payload) => {
 
   return result.data.data
 }
+
+export const getUser = async (payload) => {
+  const url = `${baseUrl}/users/${payload}`
+  const params = {userId: payload}
+  const config = { 
+    headers: { Authorization: `Bearer ${token}` },
+    data: params
+  }
+
+  const result = await axios.get(url, config)
+
+  return result.data.data
+}

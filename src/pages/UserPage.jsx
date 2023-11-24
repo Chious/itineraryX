@@ -19,15 +19,16 @@ export default function UserPage() {
   }, [count])
 
   return (
-    <>
+    <Box display="flex" flexDirection="column" minHeight="100vh">
       <ItinerariesContext.Provider value={{itineraries, setItineraries, setCount}}>
         <Navbar/>
         <Box width="100%" height="100%" sx={{ background: "white", p: 2 }}>
-          <h1 style={{color:'#38358C', fontWeight:'bold', marginTop:'0.5vw',marginBottom:'1.5vw', fontFamily:'Poppins', fontWeight:600, fontSize:40 }}>My itineraries</h1>
+          <h1 style={{color:'#38358C', fontWeight:'bold', marginTop:'0.5vw',marginBottom:'1.5vw', fontFamily:'Poppins', fontWeight:600, fontSize:40 }}>My Account</h1>
           <LabTabs image={'../../src/images/spot/California.jpeg'} />
         </Box>
-        <CreateTripModal sx={{color:'#38358C', fontFamily:'Poppins', fontWeight:500, position:'fixed', bottom:30, right:30, fontSize:25}} text={'+'} />
+        <Box sx={{ flexGrow: 1 }} bgcolor='white' />
+        <CreateTripModal sx={{ position:'fixed', bottom:30, right:30 }} />
       </ItinerariesContext.Provider>
-    </>
+    </Box>
   );
 }

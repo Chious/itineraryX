@@ -13,6 +13,8 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import Grid from '@mui/material/Grid';
 import { ItinerariesContext } from '../../context/UserPageContext.jsx';
+import { IconButton } from '@mui/material';
+import plusImage from '../../images/material/add.png'
 
 const style = {
   position: 'absolute',
@@ -26,7 +28,7 @@ const style = {
   p: 4,
 };
 
-export default function CreateTripModal({sx, text}) {
+export default function CreateTripModal({sx}) {
   const [title, setTitle] = useState('')
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -58,7 +60,9 @@ export default function CreateTripModal({sx, text}) {
 
   return (
     <div>
-      <Button onClick={handleOpen} variant='contained' sx={sx}>{text}</Button>
+      <IconButton onClick={handleOpen} sx={sx} size='small' bgcolor='blue'>
+        <img src={plusImage} alt="Create Trip" width={50} height={50}/>
+      </IconButton>
       <Modal
         open={open}
         onClose={handleClose}
