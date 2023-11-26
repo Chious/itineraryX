@@ -10,6 +10,8 @@ import moment from 'moment';
 import { useEffect } from 'react';
 import {
   getItinerary,
+  isLoading_actions,
+  useIsLoadingDispatch,
   itinerary_actions,
   useItinerary,
   useItineraryDispatch,
@@ -17,6 +19,7 @@ import {
   destinations_actions,
   useDestinations,
   useDestinationsDispatch,
+  useIsLoading,
   // postDistances,
   // distances_actions,
   // useDistances,
@@ -24,6 +27,9 @@ import {
 } from '../temp_data/trip_reducer';
 
 export default function Panel() {
+  ////////// 測試 //////////
+  const isLoadingDispatch = useIsLoadingDispatch();
+
   const itinerary = useItinerary();
   const itineraryDispatch = useItineraryDispatch();
   const destinations = useDestinations();
@@ -31,8 +37,8 @@ export default function Panel() {
   // const distances = useDistances();
   // const distancesDispatch = useDistancesDispatch();
 
-  // 取得指定行程的資料
   useEffect(() => {
+    // 取得指定行程的資料
     const fetchItinerary = async () => {
       const id = 1; // 修改：動態取得行程id
       const data = await getItinerary(id);
@@ -42,12 +48,7 @@ export default function Panel() {
       });
     };
 
-    fetchItinerary();
-    // console.log(itinerary);
-  }, []);
-
-  // 取得指定行程中的所有景點
-  useEffect(() => {
+    // 取得指定行程中的所有景點
     const fetchDestinations = async () => {
       const id = 1; // 修改：動態取得行程id
       const days = 2; // 修改：動態取得行程天數
@@ -58,7 +59,11 @@ export default function Panel() {
         const data = await getDestination(id, date);
         destinations_data.push([]);
         data.forEach((item) =>
-          destinations_data[i].push({ ...item.Place, date: item.date })
+          destinations_data[i].push({
+            ...item.Place,
+            id: item.id, // 將placeId換成destinationId
+            date: item.date,
+          })
         );
       }
       destinationsDispatch({
@@ -67,9 +72,14 @@ export default function Panel() {
       });
     };
 
-    fetchDestinations();
-    // console.log(destinations);
+    Promise.all([fetchItinerary(), fetchDestinations()]).then(() => {
+      isLoadingDispatch({ type: isLoading_actions.SET_FALSE });
+    });
   }, []);
+
+  // useEffect(() => {
+  //   // isLoadingDispatch({ type: isLoading_actions.SET_FALSE });
+  // }, [])
 
   // 修改：post的API改成get的API
   // useEffect(() => {

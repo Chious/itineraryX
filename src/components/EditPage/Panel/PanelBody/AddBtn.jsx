@@ -8,7 +8,7 @@ export default function AddBtn() {
         minWidth: '30px',
         minHeight: '30px',
         borderRadius: '50%',
-        boxShadow: '3'
+        boxShadow: '3',
       }}
     >
       +

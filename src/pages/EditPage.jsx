@@ -7,12 +7,14 @@ import {
   DestinationsProvider,
   // DistancesProvider,
 } from '@/components/EditPage/temp_data/trip_reducer.jsx';
+import { IsLoadingProvider } from '../components/EditPage/temp_data/trip_reducer';
 
 export default function EditPage() {
   return (
-    <ItineraryProvider>
-      <DestinationsProvider>
-        {/* <DistancesProvider> */}
+    <IsLoadingProvider>
+      <ItineraryProvider>
+        <DestinationsProvider>
+          {/* <DistancesProvider> */}
           <Box
             className="edit-page"
             sx={{ height: '100vh', overflow: 'hidden' }}
@@ -42,8 +44,9 @@ export default function EditPage() {
               </Stack>
             </PrimarySearchAppBar>
           </Box>
-        {/* </DistancesProvider> */}
-      </DestinationsProvider>
-    </ItineraryProvider>
+          {/* </DistancesProvider> */}
+        </DestinationsProvider>
+      </ItineraryProvider>
+    </IsLoadingProvider>
   );
 }

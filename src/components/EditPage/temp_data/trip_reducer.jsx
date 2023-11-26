@@ -44,12 +44,19 @@ export const getDestination = async (id, date) => {
 
 //////////////////// reducer ////////////////////
 
+const IsLoadingContext = createContext();
+const IsLoadingDispatchContext = createContext();
 const ItineraryContext = createContext();
 const ItineraryDispatchContext = createContext();
 const DestinationsContext = createContext();
 const DestinationsDispatchContext = createContext();
 // const DistancesContext = createContext();
 // const DistancesDispatchContext = createContext();
+
+export const isLoading_actions = {
+  SET_TRUE: 'SET_TRUE',
+  SET_FALSE: 'SET_FALSE',
+};
 
 export const itinerary_actions = {
   ADD_DAY: 'ADD_DAY', // 新增天數
@@ -69,6 +76,18 @@ export const destinations_actions = {
 //   GET_DISTANCE: 'GET_DISTANCE', // 取得兩個景點間的交通資訊
 //   ADD_DISTANCE: 'ADD_DISTANCE', // 新增兩個景點間的交通資訊
 // };
+
+function isLoadingReducer(isLoading, action) {
+  switch (action.type) {
+    case isLoading_actions.SET_TRUE:
+      return true;
+    case isLoading_actions.SET_FALSE:
+      return false;
+    default:
+      console.log('isLoading dispatch error');
+      break;
+  }
+}
 
 function itineraryReducer(itinerary, action) {
   switch (action.type) {
@@ -105,6 +124,18 @@ function destinationsReducer(destinations, action) {
 //       break;
 //   }
 // }
+
+export function IsLoadingProvider({ children }) {
+  const [isLoading, isLoadingDispatch] = useReducer(isLoadingReducer, true);
+
+  return (
+    <IsLoadingContext.Provider value={isLoading}>
+      <IsLoadingDispatchContext.Provider value={isLoadingDispatch}>
+        {children}
+      </IsLoadingDispatchContext.Provider>
+    </IsLoadingContext.Provider>
+  );
+}
 
 export function ItineraryProvider({ children }) {
   const [itinerary, itineraryDispatch] = useReducer(itineraryReducer, {});
@@ -144,6 +175,14 @@ export function DestinationsProvider({ children }) {
 //     </DistancesContext.Provider>
 //   );
 // }
+
+export function useIsLoading() {
+  return useContext(IsLoadingContext);
+}
+
+export function useIsLoadingDispatch() {
+  return useContext(IsLoadingDispatchContext);
+}
 
 export function useItinerary() {
   return useContext(ItineraryContext);

@@ -7,7 +7,6 @@ import DestinationCard from './DestinationCard';
 export default function DestinationItem({ destination }) {
   const theme = useTheme();
   const primaryColor = theme.palette.primary.main;
-
   const time = moment(destination.date).format('hh:mm a');
 
   return (

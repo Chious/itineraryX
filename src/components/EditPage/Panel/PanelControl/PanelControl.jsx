@@ -3,9 +3,7 @@ import { useTheme } from '@mui/material/styles';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import PeopleIcon from '@mui/icons-material/People';
 
-import {
-  useItinerary,
-} from '../../temp_data/trip_reducer';
+import { useItinerary } from '../../temp_data/trip_reducer';
 
 export default function PanelControl() {
   const theme = useTheme();
