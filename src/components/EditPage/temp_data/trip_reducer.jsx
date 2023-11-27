@@ -58,6 +58,20 @@ export const postDestinations = async (itineraryId, datetime, placeId) => {
   }
 };
 
+// 修改Destination資料
+export const patchDestinations = async (destinationId, date) => {
+  try {
+    const url = baseUrl + `/destinations`;
+    const reqBody = {
+      destinationId: destinationId,
+      date: date,
+    };
+    const res = await axios.patch(url, reqBody, config);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 // 刪除Destination資料
 export const deleteDestinations = async (destinationId) => {
   try {
@@ -178,6 +192,21 @@ function destinationsReducer(destinations, action) {
       };
       const newDestinations = JSON.parse(JSON.stringify(destinations));
       newDestinations[day].splice(insertionId, 0, newDestination);
+      return newDestinations;
+    }
+    case destinations_actions.CHANGE_DESTINATION_TIME: {
+      const { destinationId, datetime } = action.payload;
+      const newDestinations = destinations.map((destinationsByDay) => {
+        return destinationsByDay.map((item) => {
+          if (item.id === destinationId) return { ...item, date: datetime };
+          return item;
+        });
+      });
+      newDestinations.map((destinationsByDay) =>
+        destinationsByDay.sort(function (a, b) {
+          return moment(a.date).diff(moment(b.date));
+        })
+      );
       return newDestinations;
     }
     case destinations_actions.DELETE_DESTINATION: {
