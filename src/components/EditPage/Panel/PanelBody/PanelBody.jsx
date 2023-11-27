@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import moment from 'moment';
 import Box from '@mui/material/Box';
 import AutoScrollTabs from './AutoScrollTabs/AutoScrollTabs';
-import DestinationCreateForm from './DestinationCreateForm/DestinationCreateForm';
+import DestinationCreateForm from './CRUD/DestinationCreateForm';
 import AddBtn from './AddBtn';
 
 import {
@@ -40,21 +40,10 @@ export default function PanelBody() {
     const date = moment(itinerary.startTime)
       .add(dayGap, 'days')
       .format('YYYY/MM/DD');
-    const time = formRef.current.time.value; // '09:01'
+    const time = formRef.current.time.value;
     const datetime = moment(date + time, 'YYYY/MM/DDHH:mm')
       .utc()
-      .format('YYYY-MM-DD[T]HH:mm:ss[Z]'); // '2023-01-02T01:01:00Z'
-    // const datetimeData = {
-    //   // place: formRef.current.place.value,
-    //   // day: Number(formRef.current.day.value),
-    //   // time: moment(formRef.current.time.value),
-    //   datetime: datetime, // { datetime: '2023-01-01T14:33:00Z' }
-    // };
-    // console.log(time, dayGap, date, datetime, data);
-    // placeInfoDispatch({
-    //   type: placeInfo_actions.SET_PLACE_INFO,
-    //   payload: datetimeData,
-    // });
+      .format('YYYY-MM-DD[T]HH:mm:ss[Z]');
     // 更新後端資料庫
     const placeData = await postMaps(placeInfo.placeId);
     const resData = await postDestinations(

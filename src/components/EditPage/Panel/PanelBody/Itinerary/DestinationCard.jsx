@@ -1,12 +1,10 @@
-import Stack from '@mui/material/Stack';
-import { Box, IconButton, Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import photo from '../../../../../assets/joshua-hibbert-Pn6iimgM-wo-unsplash.jpg';
+import MoreBtnPopper from '../CRUD/MoreBtnPopper';
 
-export default function DestinationCard({ destination }) {
+export default function DestinationCard({ day, destination }) {
   return (
     <Card
       className="destination-card"
@@ -20,16 +18,8 @@ export default function DestinationCard({ destination }) {
         position: 'relative',
       }}
     >
-      {/* icon button for edit function */}
-      <IconButton
-        sx={{
-          position: 'absolute',
-          top: '5px',
-          right: '5px',
-        }}
-      >
-        <MoreHorizIcon sx={{ fontSize: '1.2rem' }} />
-      </IconButton>
+      {/* button for edit & delete function */}
+      <MoreBtnPopper day={day} destinationId={destination.id} />
 
       {/* image */}
       <div

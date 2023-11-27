@@ -1,5 +1,3 @@
-import { Fragment } from 'react';
-
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import ListItem from '@mui/material/ListItem';
@@ -29,7 +27,7 @@ export default function DayItineraryContent({
         </ListItem>
       )}
       <ListItem key={`destination-${day}-${order}`} sx={{ padding: 0 }}>
-        <DestinationItem destination={destinationsByDay[order]} />
+        <DestinationItem day={day} destination={destinationsByDay[order]} />
       </ListItem>
     </>
   ));

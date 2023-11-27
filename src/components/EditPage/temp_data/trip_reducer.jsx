@@ -58,6 +58,20 @@ export const postDestinations = async (itineraryId, datetime, placeId) => {
   }
 };
 
+// 刪除Destination資料
+export const deleteDestinations = async (destinationId) => {
+  try {
+    const url = baseUrl + `/destinations`;
+    const reqBody = {
+      destinationId: destinationId,
+    };
+    const res = await axios.delete(url, reqBody, config);
+    // console.log(res.data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 // 新增兩個景點之間的交通資訊
 // export const postDistances = async ({ reqBody }) => {
 //   try {
@@ -96,7 +110,7 @@ export const itinerary_actions = {
 export const destinations_actions = {
   GET_DESTINATIONS: 'GET_DESTINATIONS', // 取得行程中的所有景點
   ADD_DESTINATION: 'ADD_DESTINATION', // 將景點加入行程
-  GET_PLACE: 'GET_PLACE', // 搜尋景點
+  // GET_PLACE: 'GET_PLACE', // 搜尋景點
   CHANGE_DESTINATION_TIME: 'CHANGE_DESTINATION_TIME', // 修改景點的抵達時間
   DELETE_DESTINATION: 'DELETE_DESTINATION', // 刪除行程中的景點
 };
@@ -146,30 +160,31 @@ function destinationsReducer(destinations, action) {
     case destinations_actions.ADD_DESTINATION: {
       const data = action.payload;
       const day = data.day;
-      const targetDate = moment(data.date).local();
-      console.log(targetDate.format());
+      const newDate = moment(data.date).local();
       const destinationsByDay = destinations[day];
-      const insertionId = destinationsByDay.findIndex((_, index) => {
-        // 新增的景點插入最後一個index
-        if (index === destinationsByDay.length) return true;
-        const beforeDate = moment(destinationsByDay[index]?.date).local();
-        const afterDate = moment(destinationsByDay[index + 1]?.date).local();
-        console.log(beforeDate.format(), afterDate.format());
-        // 新增的景點插入第一個index
-        if (index === 0 && targetDate.isBefore(beforeDate)) return true;
-        // 新增的景點插入中間的位置
-        if (beforeDate.isBefore(targetDate) && afterDate.isAfter(targetDate))
-          return true;
+      let insertionId = undefined;
+      destinationsByDay.forEach((_, index) => {
+        const beforeDate = moment(destinationsByDay[index].date).local();
+        const afterDate = moment(destinationsByDay[index + 1]?.date)?.local();
+        if (index === 0 && newDate.isBefore(beforeDate)) insertionId = 0;
+        if (beforeDate.isBefore(newDate) && afterDate.isAfter(newDate))
+          insertionId = index + 1;
       });
-
+      if (insertionId === undefined) insertionId = destinationsByDay.length;
       const newDestination = {
         ...data.Place,
         id: data.id,
         date: data.date,
       };
-      const newDestinations = [...destinations];
+      const newDestinations = JSON.parse(JSON.stringify(destinations));
       newDestinations[day].splice(insertionId, 0, newDestination);
-      console.log(insertionId);
+      return newDestinations;
+    }
+    case destinations_actions.DELETE_DESTINATION: {
+      const dayIndex = action.dayIndex;
+      const order = action.order;
+      const newDestinations = JSON.parse(JSON.stringify(destinations));
+      newDestinations[dayIndex].splice(order, 1);
       return newDestinations;
     }
     default:

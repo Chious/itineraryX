@@ -1,7 +1,5 @@
 import { useEffect, useRef } from 'react';
-import Modal from '@mui/material/Modal';
 import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
@@ -99,7 +97,7 @@ export default function DestinationCreateForm({
             placeholder="search place..."
             required
             ref={inputDivRef}
-            style={{width: '100%'}}
+            style={{ width: '100%' }}
           />
         </Grid>
 
