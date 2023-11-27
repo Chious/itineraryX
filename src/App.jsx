@@ -8,6 +8,7 @@ import EditMap from "./pages/EditMap";
 import UserPage from "./pages/UserPage";
 import Register from "./pages/Register";
 import Chatroom from "./pages/Chatroom";
+import ChatroomSocket from "./pages/ChatroomSocket";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
               <Route path="map" element={<EditMap />} />
               <Route path="user" element={<UserPage />} />
               <Route path="chat" element={<Chatroom />} />
+              <Route path="chat2" element={<ChatroomSocket />} />
             </Routes>
           </BrowserRouter>
         </MUIthemeProvider>
