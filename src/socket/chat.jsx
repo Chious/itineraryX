@@ -5,7 +5,7 @@ import SendIcon from "@mui/icons-material/Send";
 import Message from "../components/Chatroom/Message";
 import { socket } from "./socket";
 import { sendMessage } from "./socketManager";
-import { postChat } from "../api/chat";
+import { postChat, getChatroomTitle } from "../api/chat";
 
 export default function SocketChat({
   openChat,
@@ -14,6 +14,13 @@ export default function SocketChat({
   setChatroomMessage,
   room,
 }) {
+  const [roomTitle, setRoomTitle] = useState("Default");
+
+  useEffect(async () => {
+    const response = await getChatroomTitle(room);
+    setRoomTitle(response);
+  }, []);
+
   // Messages States
   const updateMessageReceived = (data) => {
     const { userId, user, message, time, avatar } = data;
@@ -92,7 +99,7 @@ export default function SocketChat({
         justifyContent="space-between"
         sx={{ p: 0.5, background: "#F4F4F4" }}
       >
-        <p>Chatroom title</p>
+        <p>{roomTitle}</p>
         <IconButton onClick={handleCloseChat}>
           <CloseIcon />
         </IconButton>

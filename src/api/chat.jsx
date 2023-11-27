@@ -75,3 +75,18 @@ export const getChatId = async () => {
     return response;
   }
 };
+
+export const getChatroomTitle = async (itineraryId) => {
+  console.log("getting");
+  const url = `${baseUrl}/itineraries/${itineraryId}`;
+  const config = { headers: { Authorization: `Bearer ${token}` } };
+
+  const response = await axios
+    .get(url, config)
+    .then((data) => {
+      return data.data.data.title;
+    })
+    .catch((err) => console.log(err));
+
+  return response;
+};

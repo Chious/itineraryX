@@ -22,6 +22,7 @@ export const ItineraryLogin = async ({ account, password }) => {
       return true;
     })
     .catch((err) => {
+      console.log(err);
       if (err.request.status === 500) {
         console.log("Error account or password");
         return false;
