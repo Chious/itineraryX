@@ -6,8 +6,9 @@ import {
   ItineraryProvider,
   DestinationsProvider,
   // DistancesProvider,
+  IsLoadingProvider,
+  PlaceInfoProvider,
 } from '@/components/EditPage/temp_data/trip_reducer.jsx';
-import { IsLoadingProvider } from '../components/EditPage/temp_data/trip_reducer';
 
 export default function EditPage() {
   return (
@@ -15,20 +16,21 @@ export default function EditPage() {
       <ItineraryProvider>
         <DestinationsProvider>
           {/* <DistancesProvider> */}
-          <Box
-            className="edit-page"
-            sx={{ height: '100vh', overflow: 'hidden' }}
-          >
-            <PrimarySearchAppBar>
-              <Stack className="container" direction="row" height="100%">
-                <Box className="edit-panel" width="400px" height="100%">
-                  <Panel />
-                </Box>
-                <Box
-                  className="edit-map"
-                  sx={{ width: 'calc(100vw - 400px)', height: '100%' }}
-                >
-                  {/* <iframe
+          <PlaceInfoProvider>
+            <Box
+              className="edit-page"
+              sx={{ height: '100vh', overflow: 'hidden' }}
+            >
+              <PrimarySearchAppBar>
+                <Stack className="container" direction="row" height="100%">
+                  <Box className="edit-panel" width="400px" height="100%">
+                    <Panel />
+                  </Box>
+                  <Box
+                    className="edit-map"
+                    sx={{ width: 'calc(100vw - 400px)', height: '100%' }}
+                  >
+                    <iframe
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}
@@ -39,11 +41,12 @@ export default function EditPage() {
                       import.meta.env.VITE_MAP_TOKEN
                     }
     &q=Space+Needle,Seattle+WA`}
-                  ></iframe> */}
-                </Box>
-              </Stack>
-            </PrimarySearchAppBar>
-          </Box>
+                  ></iframe>
+                  </Box>
+                </Stack>
+              </PrimarySearchAppBar>
+            </Box>
+          </PlaceInfoProvider>
           {/* </DistancesProvider> */}
         </DestinationsProvider>
       </ItineraryProvider>

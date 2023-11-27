@@ -50,7 +50,7 @@ export default function DayItinerary({ day }) {
           />
 
           {/* display add button */}
-          <Grid item xs={3}>
+          <Grid item xs={rwdColumns[0]}>
             <ListItem
               sx={{
                 paddingTop: '2rem',

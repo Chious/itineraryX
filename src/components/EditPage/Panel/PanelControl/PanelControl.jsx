@@ -24,7 +24,7 @@ export default function PanelControl() {
         background: 'white',
         boxShadow: 1,
         position: 'relative',
-        zIndex: 3,
+        zIndex: 5,
       }}
     >
       <Stack className="trip-title" direction="row" gap="1rem">

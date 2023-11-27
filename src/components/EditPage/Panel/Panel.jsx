@@ -15,7 +15,7 @@ import {
   itinerary_actions,
   useItinerary,
   useItineraryDispatch,
-  getDestination,
+  getDestinations,
   destinations_actions,
   useDestinations,
   useDestinationsDispatch,
@@ -56,7 +56,7 @@ export default function Panel() {
       const destinations_data = [];
       for (let i = 0; i < days; i++) {
         const date = startDate.add(i, 'days').format('YYYY-MM-DD');
-        const data = await getDestination(id, date);
+        const data = await getDestinations(id, date);
         destinations_data.push([]);
         data.forEach((item) =>
           destinations_data[i].push({

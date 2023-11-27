@@ -7,7 +7,7 @@ import TabContent from './TabContent';
 import { useIsLoading, useItinerary } from '../../../temp_data/trip_reducer';
 
 export default function AutoScrollTabs() {
-  const [numOfTabs, setNumOfTabs] = React.useState(0); // 修改：取得行程的天數
+  const [numOfTabs, setNumOfTabs] = React.useState(0);
   const [activeTab, setActiveTab] = React.useState('0');
   const isLoading = useIsLoading();
   const itinerary = useItinerary();
