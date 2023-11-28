@@ -75,16 +75,15 @@ export const patchDestinations = async (destinationId, date) => {
 // 刪除Destination資料
 export const deleteDestinations = async (destinationId) => {
   try {
-    const url = baseUrl + `/destinations`;
-    const reqBody = {
-      destinationId: destinationId,
-    };
-    const res = await axios.delete(url, reqBody, config);
-    // console.log(res.data);
+    const url = baseUrl + `/destinations/${destinationId}`;
+    const res = await axios.delete(url, config);
   } catch (error) {
     console.log(error);
   }
 };
+
+// 取得兩個景點間的交通資訊
+export const getRoutes = async ({ originId, destinationId }) => {};
 
 // 新增兩個景點之間的交通資訊
 // export const postDistances = async ({ reqBody }) => {
