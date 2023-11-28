@@ -19,7 +19,7 @@ export default function DestinationCard({ day, destination }) {
       }}
     >
       {/* button for edit & delete function */}
-      <MoreBtnPopper day={day} destinationId={destination.id} />
+      <MoreBtnPopper day={day} destinationId={destination.destinationId} />
 
       {/* image */}
       <div

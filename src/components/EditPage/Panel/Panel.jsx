@@ -1,7 +1,3 @@
-/**
- * useEffect 是否需搭配 useCallback、useMemo？
- */
-
 import Stack from '@mui/material/Stack';
 import PanelControl from './PanelControl/PanelControl';
 import PanelBody from './PanelBody/PanelBody';
@@ -43,7 +39,7 @@ export default function Panel() {
       const id = 1; // 修改：動態取得行程id
       const data = await getItinerary(id);
       itineraryDispatch({
-        type: itinerary_actions.GET_ITINERARY,
+        type: itinerary_actions.SET_ITINERARY,
         payload: data,
       });
     };
@@ -57,17 +53,18 @@ export default function Panel() {
       for (let i = 0; i < days; i++) {
         const date = startDate.add(i, 'days').format('YYYY-MM-DD');
         const data = await getDestinations(id, date);
+        console.log(data)
         destinations_data.push([]);
         data.forEach((item) =>
           destinations_data[i].push({
-            ...item.Place,
-            id: item.id, // 將placeId換成destinationId
+            ...item.Place, // id 為 placeId
+            destinationId: item.id, // destinationId 為 destinationId
             date: item.date,
           })
         );
       }
       destinationsDispatch({
-        type: destinations_actions.GET_DESTINATIONS,
+        type: destinations_actions.SET_DESTINATIONS,
         payload: destinations_data,
       });
     };

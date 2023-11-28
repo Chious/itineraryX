@@ -83,7 +83,9 @@ export const deleteDestinations = async (destinationId) => {
 };
 
 // 取得兩個景點間的交通資訊
-export const getRoutes = async ({ originId, destinationId }) => {};
+// export const getRoutes = async({ originId, destinationId }) => {
+
+// };
 
 // 新增兩個景點之間的交通資訊
 // export const postDistances = async ({ reqBody }) => {
@@ -104,8 +106,8 @@ const ItineraryContext = createContext();
 const ItineraryDispatchContext = createContext();
 const DestinationsContext = createContext();
 const DestinationsDispatchContext = createContext();
-// const DistancesContext = createContext();
-// const DistancesDispatchContext = createContext();
+// const RoutesContext = createContext();
+// const RoutesDispatchContext = createContext();
 const PlaceInfoContext = createContext();
 const PlaceInfoDispatchContext = createContext();
 
@@ -116,21 +118,23 @@ export const isLoading_actions = {
 
 export const itinerary_actions = {
   ADD_DAY: 'ADD_DAY', // 新增天數
-  GET_ITINERARY: 'GET_ITINERARY', // 取得指定行程的資訊
+  SET_ITINERARY: 'SET_ITINERARY', // 儲存行程的資訊
   DELETE_DAY: 'DELETE_DAY', // 刪除天數
 };
 
 export const destinations_actions = {
-  GET_DESTINATIONS: 'GET_DESTINATIONS', // 取得行程中的所有景點
+  SET_DESTINATIONS: 'SET_DESTINATIONS', // 儲存行程中的所有景點
   ADD_DESTINATION: 'ADD_DESTINATION', // 將景點加入行程
   // GET_PLACE: 'GET_PLACE', // 搜尋景點
   CHANGE_DESTINATION_TIME: 'CHANGE_DESTINATION_TIME', // 修改景點的抵達時間
   DELETE_DESTINATION: 'DELETE_DESTINATION', // 刪除行程中的景點
 };
 
-// export const distances_actions = {
-//   GET_DISTANCE: 'GET_DISTANCE', // 取得兩個景點間的交通資訊
-//   ADD_DISTANCE: 'ADD_DISTANCE', // 新增兩個景點間的交通資訊
+// export const routes_actions = {
+//   SET_START_END_POINTS: 'SET_START_END_POINTS', // 設置起終點陣列
+//   SET_ROUTES: 'SET_ROUTES',
+//   GET_ROUTES: 'GET_ROUTES', // 取得兩個景點間的交通資訊
+//   ADD_ROUTES: 'ADD_ROUTES', // 新增兩個景點間的交通資訊
 // };
 
 export const placeInfo_actions = {
@@ -153,7 +157,7 @@ function isLoadingReducer(isLoading, action) {
 
 function itineraryReducer(itinerary, action) {
   switch (action.type) {
-    case itinerary_actions.GET_ITINERARY:
+    case itinerary_actions.SET_ITINERARY:
       const data = action.payload;
       const itinerary_data = JSON.parse(JSON.stringify(data));
       return itinerary_data;
@@ -165,7 +169,7 @@ function itineraryReducer(itinerary, action) {
 
 function destinationsReducer(destinations, action) {
   switch (action.type) {
-    case destinations_actions.GET_DESTINATIONS: {
+    case destinations_actions.SET_DESTINATIONS: {
       const data = action.payload;
       const newDestinations = JSON.parse(JSON.stringify(data));
       return newDestinations;
@@ -185,8 +189,8 @@ function destinationsReducer(destinations, action) {
       });
       if (insertionId === undefined) insertionId = destinationsByDay.length;
       const newDestination = {
-        ...data.Place,
-        id: data.id,
+        ...data.Place, // id 為 placeId
+        destinationId: data.id, // destinationId 為 destinationId
         date: data.date,
       };
       const newDestinations = JSON.parse(JSON.stringify(destinations));
@@ -197,8 +201,9 @@ function destinationsReducer(destinations, action) {
       const { destinationId, datetime } = action.payload;
       const newDestinations = destinations.map((destinationsByDay) => {
         return destinationsByDay.map((item) => {
-          if (item.id === destinationId) return { ...item, date: datetime };
-          return item;
+          if (item.destinationId === destinationId)
+            return { ...item, date: datetime }; // 修改成新的景點時間
+          else return item;
         });
       });
       newDestinations.map((destinationsByDay) =>
@@ -221,12 +226,12 @@ function destinationsReducer(destinations, action) {
   }
 }
 
-// function distancesReducer(distances, action) {
+// function routesReducer(routes, action) {
 //   switch (action.type) {
-//     case distances_actions.ADD_DISTANCE:
-//       const data = actions.payload;
-//       const distances_data = JSON.parse(JSON.stringify(data));
-//       return [...distances, distances_data];
+//     case routes_actions.SET_ROUTES:
+//       const data = action.payload;
+//       const newRoutes = JSON.parse(JSON.stringify(data))
+//       return newRoutes;
 //     default:
 //       console.log('distances dispatch error');
 //       break;

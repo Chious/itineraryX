@@ -87,7 +87,7 @@ export default function MoreBtnPopper({ day, destinationId }) {
     // if (!openBtnPopper) return;
     const dayIndex = day - 1;
     const order = destinations[dayIndex].findIndex(
-      (item) => item.id === destinationId
+      (item) => item.destinationId === destinationId
     );
     if (order === -1) return;
     // 更新前端
