@@ -4,8 +4,8 @@ const baseUrl = import.meta.env.VITE_BASE_URL
 const token = localStorage.getItem('token')
 const config = { headers: { Authorization: `Bearer ${token}` } }
 
-export const getItinerary = async () => {
-  const url = baseUrl+'/itineraries/2'
+export const getItinerary = async (id) => {
+  const url = baseUrl+`/itineraries/${id}`
 
   const result = await axios.get(url, config)
 
@@ -48,15 +48,37 @@ export const editItinerary = async (payload) => {
   return result.data.data
 }
 
-export const getUser = async (payload) => {
-  const url = `${baseUrl}/users/${payload}`
-  const params = {userId: payload}
+export const editUserAccount = async (payload) => {
+  const url = baseUrl+'/users/'
+
+  try {
+    const result = await axios.put(url, payload, config)
+    return result.data.data.user
+  } catch (error) {
+    console.error('Error:', error.response.data);
+    throw error;
+  }
+}
+
+export const deleteParticipant = async (payload) => {
+  const url = baseUrl+`/itineraries/participant?itineraryId=${payload.itineraryId}&participantId=${payload.participantId}`
   const config = { 
     headers: { Authorization: `Bearer ${token}` },
-    data: params
+    data: payload
   }
-
-  const result = await axios.get(url, config)
+  const result = await axios.delete(url, config)
 
   return result.data.data
+}
+
+export const addParticipant = async (payload) => {
+  const url = baseUrl+'/itineraries/participant'
+
+  try {
+    const result = await axios.post(url, payload, config)
+    return result.data
+  } catch (error) {
+    console.error('Error:', error.response.data);
+    throw error;
+  }
 }

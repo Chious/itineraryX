@@ -6,6 +6,7 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import RecipeReviewCard from "./RecipeReviewCard";
 import EditAccount from "./EditAccount";
+import ProfileCardDemo from "./UserAccount";
 
 export default function LabTabs({image}) {
   const [value, setValue] = React.useState("1");
@@ -25,7 +26,8 @@ export default function LabTabs({image}) {
           </TabList>
         </Box>
         <TabPanel value="1">
-          <EditAccount/>
+          {/* <EditAccount/> */}
+          <ProfileCardDemo/>
         </TabPanel>
         <TabPanel value="2">
           <RecipeReviewCard image={image}/>

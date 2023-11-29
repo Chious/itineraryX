@@ -24,9 +24,9 @@ export default function Home() {
   return (
     <>
       <Stack width='100vw' height='auto' direction='column'>
-        <Box>
+        {/* <Box>
           <Navbar></Navbar>
-        </Box>
+        </Box> */}
         <Box style={{position:'relative'}}>
           <Card elevation={0}>
             <CardMedia          
@@ -46,6 +46,10 @@ export default function Home() {
             >
               <Typography variant="h1" fontSize='8vw' style={{flex: 1, color:'white', fontWeight:'800', fontFamily:'Poppins'}}>
                 Explore the world with your friends.
+                {/* <h1>1234</h1>
+                <h2>1234</h2>
+                <h3>1234</h3>
+                <button>123</button> */}
               </Typography>
             </Stack>
           </Box>
