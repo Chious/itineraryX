@@ -82,21 +82,44 @@ export const deleteDestinations = async (destinationId) => {
   }
 };
 
-// 取得兩個景點間的交通資訊
-// export const getRoutes = async({ originId, destinationId }) => {
+// 取得兩個景點間的交通路線資訊
+export const getRoutes = async (itId, oId, dId) => {
+  try {
+    const url =
+      baseUrl +
+      `/routes/?itineraryId=${itId}&originId=${oId}&destinationId=${dId}`;
+    const res = await axios.get(url, config);
+    return res.data.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-// };
+// 新增兩個景點之間的交通路線資訊
+export const postRoutes = async (reqBody) => {
+  try {
+    const url = baseUrl + `/routes`;
+    const res = await axios.post(url, reqBody, config);
+    return res.data.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-// 新增兩個景點之間的交通資訊
-// export const postDistances = async ({ reqBody }) => {
-//   try {
-//     const url = baseUrl + `/maps/distanceMatrix`;
-//     const res = await axios.post(url, reqBody, config);
-//     return res;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+// 修改兩個景點之間的交通方式
+export const patchRoutes = async (routeId, mode) => {
+  try {
+    const url = baseUrl + `/routes`;
+    const reqBody = {
+      routeId: routeId,
+      transportationMode: mode,
+    };
+    const res = await axios.patch(url, reqBody, config);
+    console.log(res.data.data);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 //////////////////// reducer ////////////////////
 
@@ -106,8 +129,8 @@ const ItineraryContext = createContext();
 const ItineraryDispatchContext = createContext();
 const DestinationsContext = createContext();
 const DestinationsDispatchContext = createContext();
-// const RoutesContext = createContext();
-// const RoutesDispatchContext = createContext();
+const RoutesContext = createContext();
+const RoutesDispatchContext = createContext();
 const PlaceInfoContext = createContext();
 const PlaceInfoDispatchContext = createContext();
 
@@ -130,12 +153,10 @@ export const destinations_actions = {
   DELETE_DESTINATION: 'DELETE_DESTINATION', // 刪除行程中的景點
 };
 
-// export const routes_actions = {
-//   SET_START_END_POINTS: 'SET_START_END_POINTS', // 設置起終點陣列
-//   SET_ROUTES: 'SET_ROUTES',
-//   GET_ROUTES: 'GET_ROUTES', // 取得兩個景點間的交通資訊
-//   ADD_ROUTES: 'ADD_ROUTES', // 新增兩個景點間的交通資訊
-// };
+export const routes_actions = {
+  SET_IS_Loaded: 'SET_IS_Loaded',
+  SET_ROUTES: 'SET_ROUTES', // 儲存交通路線資訊陣列
+};
 
 export const placeInfo_actions = {
   // GET_PLACE_INFO: 'GET_PLACE_INFO', // 取得搜尋景點的資訊
@@ -226,17 +247,24 @@ function destinationsReducer(destinations, action) {
   }
 }
 
-// function routesReducer(routes, action) {
-//   switch (action.type) {
-//     case routes_actions.SET_ROUTES:
-//       const data = action.payload;
-//       const newRoutes = JSON.parse(JSON.stringify(data))
-//       return newRoutes;
-//     default:
-//       console.log('distances dispatch error');
-//       break;
-//   }
-// }
+function routesReducer(routes, action) {
+  switch (action.type) {
+    case routes_actions.SET_IS_Loaded: {
+      const newRoutesState = JSON.parse(JSON.stringify(routes));
+      newRoutesState.isLoaded = action.payload;
+      return newRoutesState;
+    }
+    case routes_actions.SET_ROUTES: {
+      const newRoutesState = JSON.parse(JSON.stringify(routes));
+      const newRoutes = JSON.parse(JSON.stringify(action.payload));
+      newRoutesState.routes = newRoutes;
+      return newRoutesState;
+    }
+    default:
+      console.log('routes dispatch error');
+      break;
+  }
+}
 
 function placeInfoReducer(placeInfo, action) {
   switch (action.type) {
@@ -290,17 +318,20 @@ export function DestinationsProvider({ children }) {
   );
 }
 
-// export function DistancesProvider({ children }) {
-//   const [distances, distancesDispatch] = useReducer(distancesReducer, []);
+export function RoutesProvider({ children }) {
+  const [routes, routesDispatch] = useReducer(routesReducer, {
+    isLoaded: false,
+    routes: [],
+  });
 
-//   return (
-//     <DistancesContext.Provider value={distances}>
-//       <DistancesDispatchContext.Provider value={distancesDispatch}>
-//         {children}
-//       </DistancesDispatchContext.Provider>
-//     </DistancesContext.Provider>
-//   );
-// }
+  return (
+    <RoutesContext.Provider value={routes}>
+      <RoutesDispatchContext.Provider value={routesDispatch}>
+        {children}
+      </RoutesDispatchContext.Provider>
+    </RoutesContext.Provider>
+  );
+}
 
 export function PlaceInfoProvider({ children }) {
   const [placeInfo, placeInfoDispatch] = useReducer(placeInfoReducer, {});
@@ -338,13 +369,13 @@ export function useDestinationsDispatch() {
   return useContext(DestinationsDispatchContext);
 }
 
-// export function useDistances() {
-//   return useContext(DistancesContext);
-// }
+export function useRoutes() {
+  return useContext(RoutesContext);
+}
 
-// export function useDistancesDispatch() {
-//   return useContext(DestinationsDispatchContext);
-// }
+export function useRoutesDispatch() {
+  return useContext(RoutesDispatchContext);
+}
 
 export function usePlaceInfo() {
   return useContext(PlaceInfoContext);

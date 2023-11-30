@@ -15,11 +15,6 @@ import {
   destinations_actions,
   useDestinations,
   useDestinationsDispatch,
-  useIsLoading,
-  // postDistances,
-  // distances_actions,
-  // useDistances,
-  // useDistancesDispatch,
 } from '../temp_data/trip_reducer';
 
 export default function Panel() {
@@ -30,8 +25,6 @@ export default function Panel() {
   const itineraryDispatch = useItineraryDispatch();
   const destinations = useDestinations();
   const destinationsDispatch = useDestinationsDispatch();
-  // const distances = useDistances();
-  // const distancesDispatch = useDistancesDispatch();
 
   useEffect(() => {
     // 取得指定行程的資料
@@ -53,7 +46,6 @@ export default function Panel() {
       for (let i = 0; i < days; i++) {
         const date = startDate.add(i, 'days').format('YYYY-MM-DD');
         const data = await getDestinations(id, date);
-        console.log(data)
         destinations_data.push([]);
         data.forEach((item) =>
           destinations_data[i].push({
@@ -73,28 +65,6 @@ export default function Panel() {
       isLoadingDispatch({ type: isLoading_actions.SET_FALSE });
     });
   }, []);
-
-  // useEffect(() => {
-  //   // isLoadingDispatch({ type: isLoading_actions.SET_FALSE });
-  // }, [])
-
-  // 修改：post的API改成get的API
-  // useEffect(() => {
-  //   const fetchDistances = async () => {
-  //     const reqBody = {
-  //       elements: {
-  //         itineraryId: 1,
-  //         date: '2023-01-01T01:20:30Z',
-  //         transportationMode: 'driving',
-  //         originId: 11,
-  //         destinationId: 12,
-  //       },
-  //     };
-  //     const data = await postDistances(reqBody)
-  //     console.log(data)
-  //   };
-  //   fetchDistances();
-  // });
 
   return (
     <Stack
