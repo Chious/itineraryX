@@ -3,10 +3,6 @@ import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
 import { useState, useEffect } from 'react';
 import EditUserAccount from './EditUserAccount';
-
-// import { styled } from '@mui/material/styles';
-// import Paper from '@mui/material/Paper';
-
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
@@ -21,39 +17,30 @@ const Types = ({content, sx}) => {
 }
 
 const ImageAvatars = ({avatar}) => {
-
   return (
     <Stack direction="row" spacing={2}>
       <Avatar 
-        alt="Remy Sharp" 
+        alt="avatar" 
         src={avatar}
-        sx={{ width: 80, height: 80 }}
+        sx={{ width: 100, height: 100 }}
       />
       <Types/>
     </Stack>
   );
 }
 
-
-// const Item = styled(Paper)(({ theme }) => ({
-//   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-//   ...theme.typography.body2,
-//   padding: theme.spacing(1),
-//   textAlign: 'center',
-//   color: theme.palette.text.secondary,
-// }));
-
-export default function DirectionStack() {
+export default function UserAccount() {
   const [userInfo, setUserInfo] =useState({})
   const [userName, setUserName] = useState('')
   const [userAvatar, setUserAvatar] = useState('')
-  
+  const data = JSON.parse(localStorage.getItem('user'))
+
   useEffect(()=>{
-    const data = JSON.parse(localStorage.getItem('user'))
     setUserInfo(data)
     setUserName(data.name)
     setUserAvatar(data.avatar)
-  }, [])
+  }, [localStorage.getItem('user')])
+  
   return (
     <div>
       <Stack direction="row" spacing={2}>
@@ -63,7 +50,7 @@ export default function DirectionStack() {
           <Types content={userInfo.email} />
         </Stack>        
       </Stack>
-      <Stack direction='row' spacing={2}>
+      <Stack direction='row' spacing={2} marginTop={4}>
         <EditUserAccount userName={userName} userAvatar={userAvatar} setUserName={setUserName} setUserAvatar={setUserAvatar}/>
       </Stack>
     </div>

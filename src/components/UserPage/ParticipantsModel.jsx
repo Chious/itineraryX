@@ -4,13 +4,11 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { deleteParticipant, getItinerary } from '../../api/userpage';
-
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
-import { Button, TextField } from '@mui/material';
 import AddParticipantInput from './AddParticipantInput';
 
 const style = {
@@ -72,10 +70,14 @@ export default function ParticipantsModal({id, holderId}) {
                     <ListItemButton>
                       <Typography>{item.name}</Typography>
                     </ListItemButton>
-                    <IconButton aria-label="delete" disabled={item.id === holderId}>
-                      <DeleteIcon onClick={() => {
+                    <IconButton 
+                      aria-label="delete" 
+                      disabled={item.id === holderId} 
+                      onClick={() => {
                         handleDelete({itineraryId: itineraryId, participantId: item.id})
-                      }}/>
+                      }}
+                    >
+                      <DeleteIcon />
                     </IconButton>
                   </ListItem>
                 ))}

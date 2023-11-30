@@ -12,12 +12,12 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import CardDeleteButtons from "./CardDeleteButton";
 import CardEditButtons from "./CardEditButton";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { ItinerariesContext } from "../../context/UserPageContext";
 import { Stack } from "@mui/material";
 import ParticipantsModal from "./ParticipantsModel";
 
-export default function RecipeReviewCard({image}) {
+export default function ItineraryCard({image}) {
   const {itineraries} = useContext(ItinerariesContext)
 
   // console.log(itineraries)

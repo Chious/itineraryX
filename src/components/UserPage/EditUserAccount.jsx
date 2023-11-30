@@ -1,27 +1,14 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import TextField from '@mui/material/TextField';
-import { useState, useEffect, useContext } from 'react';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import dayjs from 'dayjs';
-import Grid from '@mui/material/Grid';
-import { editItinerary, editUserAccount } from '../../api/userpage.jsx';
-import { ItinerariesContext } from '../../context/UserPageContext.jsx';
-import { UploadFileTwoTone } from '@mui/icons-material';
-import UploadInput from './UploadInput.jsx';
+import React, { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { Box, Button, TextField, Stack, Typography } from '@mui/material';
+import { editUser } from "../../api/userpage";
 
 const style = {
   // position: 'absolute',
   // top: '50%',
   // left: '50%',
   // transform: 'translate(-50%, -50%)',
-  width: 400,
+  width: 600,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 5,
@@ -29,70 +16,43 @@ const style = {
   marginTop: 5
 };
 
-export default function EditUserAccount({userName, userAvatar, setUserName, setUserAvatar}) {
+export default function EditUserAccount({userName, userAvatar}) {
   const [tempName, setTempName] = useState('')
   const [tempAvatar, setTempAvatar] = useState('')
-  const [selectedFile, setSelectedFile] = useState(null);
-
-  const handleNameChange = (e) => setTempName(e.target.value)
-  const handleAvatarChange = (e) => setTempAvatar(e.target.value)
-
-  const handleClick = () => {
-
-    const userData = {
-      name: tempName,
-      avatar: tempAvatar
-    }
-
-    editUserAccount(userData)
-    .then(data =>{
-      // console.log(data)
-      setUserName(data.name)
-      setUserAvatar(data.avatar)
-      const userInfo = localStorage.getItem('user')
-      localStorage.removeItem('user')
-      localStorage.setItem('user', JSON.stringify({...JSON.parse(userInfo), name: data.name}))
-    }
-    )
-  }
+  const { register, handleSubmit } = useForm();
 
   useEffect(() => {
     setTempName(userName)
     setTempAvatar(userAvatar)
   }, [userName, userAvatar]);
 
+  const onSubmit = async (data) => {
+    try {
+      const responseData = await editUser(data.username, data.file[0]);
+      const name = responseData.data.user.name;
+      const avatar = responseData.data.user.avatar;
+      const userInfo = localStorage.getItem('user');
+      localStorage.removeItem('user');
+      localStorage.setItem('user', JSON.stringify({...JSON.parse(userInfo), name: name, avatar: avatar}));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <div>
-      <Box sx={style}>
-        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-          <Box
-            component="form"
-            sx={{
-              '& .MuiTextField-root': { m: 1, width: '25ch' },
-            }}
-            noValidate
-            autoComplete="off"
-          >
-            <Grid container spacing={0}>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  id="outlined-required"
-                  label="Your user name"
-                  placeholder="Your user name"
-                  onChange={handleNameChange}
-                  value={tempName}
-                  defaultValue={tempName}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <UploadInput tempAvatar={tempAvatar} setTempAvatar={setTempAvatar} tempName={tempName}/>
-              </Grid>
-            </Grid>
-            <Button onClick={handleClick}  >Save change</Button>
-          </Box>
-        </Typography>
-      </Box>
-    </div>
+    <Box sx={style}>
+      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+        <Box className="App">
+          <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form">
+            <Stack spacing={2}>
+              <Typography variant="h5">Edit your account</Typography>
+              <TextField {...register("username")} type="text" label="Username" variant="outlined" value={tempName} onChange={(e) => setTempName(e.target.value)}/>
+              <TextField {...register("file")} type="file"  variant="outlined" />
+            </Stack>
+            <Button type="submit" sx={{fontSize:20, marginTop:2}}>Confirm</Button>
+          </form>
+        </Box>
+      </Typography>
+    </Box>
   );
 }

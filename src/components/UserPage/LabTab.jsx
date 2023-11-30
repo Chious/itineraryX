@@ -4,9 +4,8 @@ import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-import RecipeReviewCard from "./RecipeReviewCard";
-import EditAccount from "./EditAccount";
-import ProfileCardDemo from "./UserAccount";
+import ItineraryCard from "./ItineraryCard";
+import UserAccount from "./UserAccount";
 
 export default function LabTabs({image}) {
   const [value, setValue] = React.useState("1");
@@ -26,11 +25,10 @@ export default function LabTabs({image}) {
           </TabList>
         </Box>
         <TabPanel value="1">
-          {/* <EditAccount/> */}
-          <ProfileCardDemo/>
+          <UserAccount/>
         </TabPanel>
         <TabPanel value="2">
-          <RecipeReviewCard image={image}/>
+          <ItineraryCard image={image}/>
         </TabPanel>
         <TabPanel value="3">待定</TabPanel>
       </TabContext>

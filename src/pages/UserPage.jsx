@@ -1,27 +1,23 @@
 import { Box } from "@mui/material";
-import Navbar from "../components/Home/Navbar";
 import LabTabs from "../components/UserPage/LabTab";
 import { useEffect, useState } from "react";
 import { getItineraries } from "../api/userpage.jsx";
 import CreateTripModal from "../components/UserPage/CreateTripModel.jsx";
 import { ItinerariesContext } from "../context/UserPageContext.jsx";
-import { Outlet } from 'react-router-dom';
 
 export default function UserPage() {
   const [itineraries, setItineraries] = useState([])
-  const [count, setCount] = useState(0)
 
   useEffect(()=>{
     getItineraries().then(data=>{
       setItineraries(data)
-      setCount(itineraries.length)
       // console.log(itineraries)
     })
   }, [itineraries])
 
   return (
     <Box display="flex" flexDirection="column" minHeight="100vh">
-      <ItinerariesContext.Provider value={{itineraries, setItineraries, setCount}}>
+      <ItinerariesContext.Provider value={{itineraries, setItineraries}}>
         <Box sx={{ flexGrow: 1 }} bgcolor='white' >
           <Box width="100%" height="100%" sx={{ background: "white", p: 2 }}>
             <h1 style={{color:'#38358C', fontWeight:'bold', marginTop:'0.5vw',marginBottom:'1.5vw', fontFamily:'Poppins', fontWeight:600, fontSize:40 }}>My Account</h1>
@@ -30,7 +26,6 @@ export default function UserPage() {
           </Box>
         </Box>
       </ItinerariesContext.Provider>
-      <Outlet/>
     </Box>
   );
 }

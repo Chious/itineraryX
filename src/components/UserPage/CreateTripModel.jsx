@@ -35,7 +35,7 @@ export default function CreateTripModal({sx}) {
   const handleClose = () => setOpen(false);
   const [startValue, setStartValue] = React.useState(null);
   const [endValue, setEndValue] = React.useState(null);
-  const {itineraries, setItineraries, setCount} = useContext(ItinerariesContext)
+  const {itineraries, setItineraries} = useContext(ItinerariesContext)
 
   const handleChange = (e) => setTitle(e.target.value)
   const handleClick = () => {
@@ -47,14 +47,9 @@ export default function CreateTripModal({sx}) {
     createItinerary(tripData)
     .then(data=>{
       setItineraries([...itineraries, data]);
-      setCount(itineraries.length+1)
       handleClose()
     })
   }
-
-  useEffect(() => {
-    setCount(itineraries.length);
-  }, [itineraries]);
 
   const today = dayjs();
 

@@ -48,17 +48,26 @@ export const editItinerary = async (payload) => {
   return result.data.data
 }
 
-export const editUserAccount = async (payload) => {
+export const editUser = async (username, file) => {
+  const formData = new FormData();
+  const token = localStorage.getItem('token')
   const url = baseUrl+'/users/'
+  formData.append("name", username);
+  formData.append("avatar", file);
 
-  try {
-    const result = await axios.put(url, payload, config)
-    return result.data.data.user
-  } catch (error) {
-    console.error('Error:', error.response.data);
-    throw error;
-  }
-}
+  const response = await axios({
+    method: 'put',
+    url: url,
+    data: formData,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${token}`
+    }
+  });
+
+  return response.data;
+};
+
 
 export const deleteParticipant = async (payload) => {
   const url = baseUrl+`/itineraries/participant?itineraryId=${payload.itineraryId}&participantId=${payload.participantId}`
