@@ -2,17 +2,16 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import { deleteItinerary } from '../../api/userpage';
 import { useContext } from 'react';
-import { ItinerariesContext } from '../../context/UserPageContext';
+import { useItineraries } from '../../context/UserPageContext';
 
 export default function CardDeleteButtons({id}) {
-  const {itineraries, setItineraries, setCount} = useContext(ItinerariesContext)
+  const {itineraries, setItineraries} = useItineraries()
   const handleClick = () =>{
     // console.log(id)
     deleteItinerary(id)
     .then(data=>{
       const updatedItineraries = itineraries.filter(itinerary => itinerary.id !== id);
       setItineraries(updatedItineraries);
-      setCount(itineraries.length - 1);
       // console.log(data)
     })
   }

@@ -10,6 +10,7 @@ import Register from "./pages/Register";
 import Home1 from "./pages/Home1";
 import Chatroom from "./pages/Chatroom";
 import ChatroomSocket from "./pages/ChatroomSocket";
+import { ItinerariesProvider } from "./context/UserPageContext";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <div className="app">
         <MUIthemeProvider>
           <BrowserRouter>
+          <ItinerariesProvider>
             <Routes>
               <Route path="home" element={<Home />} />
               <Route path="home1" element={<Home1 />} />
@@ -28,6 +30,7 @@ function App() {
               <Route path="chat" element={<Chatroom />} />
               <Route path="chat2" element={<ChatroomSocket />} />
             </Routes>
+          </ItinerariesProvider>
           </BrowserRouter>
         </MUIthemeProvider>
       </div>

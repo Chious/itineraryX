@@ -12,7 +12,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import Grid from '@mui/material/Grid';
-import { ItinerariesContext } from '../../context/UserPageContext.jsx';
+import { useItineraries } from '../../context/UserPageContext.jsx';
 import { IconButton } from '@mui/material';
 import plusImage from '../../images/material/add.png'
 
@@ -35,7 +35,7 @@ export default function CreateTripModal({sx}) {
   const handleClose = () => setOpen(false);
   const [startValue, setStartValue] = React.useState(null);
   const [endValue, setEndValue] = React.useState(null);
-  const {itineraries, setItineraries} = useContext(ItinerariesContext)
+  const {itineraries, setItineraries} = useItineraries()
 
   const handleChange = (e) => setTitle(e.target.value)
   const handleClick = () => {

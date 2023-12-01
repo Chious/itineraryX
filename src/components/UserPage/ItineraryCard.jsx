@@ -12,30 +12,24 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import CardDeleteButtons from "./CardDeleteButton";
 import CardEditButtons from "./CardEditButton";
-import { ItinerariesContext } from "../../context/UserPageContext";
 import { Stack } from "@mui/material";
 import ParticipantsModal from "./ParticipantsModel";
-import { useEffect, useState } from "react";
-import { getItineraries } from "../../api/userpage.jsx";
+import { useItineraries } from "../../context/UserPageContext";
 
 export default function ItineraryCard({image}) {
-  const [itineraries, setItineraries] = useState([])
+  const {itineraries} = useItineraries()
 
-  useEffect(()=>{
-    getItineraries().then(data=>{
-      setItineraries(data)
-      // console.log(itineraries)
-    })
-  }, [])
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+  const formatDate = (dateString) => {
+  const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+  const [month, day, year] = new Date(dateString)
+    .toLocaleDateString(undefined, options)
+    .split('/');
+  return `${year}/${month}/${day}`;
+};
 
   // console.log(itineraries)
 
   return (
-    <ItinerariesContext.Provider value={{itineraries, setItineraries}}>
       <Stack direction='row' spacing={2}   sx={{ 
         display: 'grid', 
         gridTemplateColumns: 'repeat(auto-fill, minmax(345px, 1fr))', 
@@ -56,7 +50,7 @@ export default function ItineraryCard({image}) {
                   </IconButton>
                 }
                 title={item.title}
-                subheader={`Start from ${item.startTime} to ${item.endTime}`}
+                subheader={`Start from ${formatDate(item.startTime)} to ${formatDate(item.endTime)}`}
               />
               <CardMedia
                 component="img"
@@ -82,6 +76,5 @@ export default function ItineraryCard({image}) {
           )
         ))}
       </Stack>
-    </ItinerariesContext.Provider>
   );
 }
