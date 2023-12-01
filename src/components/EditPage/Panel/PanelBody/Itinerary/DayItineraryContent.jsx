@@ -54,10 +54,7 @@ export default function DayItineraryContent({
           const originId = placePairs[day][order].originId;
           const destinationId = placePairs[day][order].destinationId;
           let route = await getRoutes(itineraryId, originId, destinationId);
-          console.log(route);
           if (!route) {
-            console.log('trigger');
-            console.log(route);
             const reqBody = {
               itineraryId: itineraryId,
               transportationMode: 'walking', // 預設值walking
@@ -65,7 +62,6 @@ export default function DayItineraryContent({
               destinationId: destinationId,
             };
             route = await postRoutes(reqBody);
-            console.log(route);
           }
           newRoutes[day].push(route);
         }
@@ -80,14 +76,14 @@ export default function DayItineraryContent({
       });
     };
 
-    routesDispatch({
-      type: routes_actions.SET_IS_Loaded,
-      payload: false,
-    });
+    // routesDispatch({
+    //   type: routes_actions.SET_IS_Loaded,
+    //   payload: false,
+    // });
     fetchRoutes(destinations);
   }, [destinations]);
 
-  if (!destinationsByDay) {
+  if (!destinations[day - 1] || destinations[day - 1].length === 0) {
     return (
       <Grid key={`empty-${day}`} container justifyContent="flex-end">
         <Grid item xs={rwdColumns[1]}>

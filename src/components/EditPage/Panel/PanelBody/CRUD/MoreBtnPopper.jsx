@@ -12,6 +12,8 @@ import {
   useDestinations,
   useDestinationsDispatch,
   useItinerary,
+  useRoutesDispatch,
+  routes_actions,
 } from '../../../temp_data/trip_reducer';
 
 const btnStyle = {
@@ -52,6 +54,7 @@ export default function MoreBtnPopper({ day, destinationId }) {
   const itinerary = useItinerary();
   const destinations = useDestinations();
   const destinationsDispatch = useDestinationsDispatch();
+  const routesDispatch = useRoutesDispatch();
 
   const handlePopperClickAway = () => setOpenBtnPopper(false);
   const handleMoreBtnClick = () => setOpenBtnPopper((prev) => !prev);
@@ -72,7 +75,11 @@ export default function MoreBtnPopper({ day, destinationId }) {
       destinationId: destinationId,
       datetime: datetime,
     };
-    // 更新前端
+    // 更新前端（更新destinations、更新routes）
+    routesDispatch({
+      type: routes_actions.SET_IS_Loaded,
+      payload: false,
+    });
     destinationsDispatch({
       type: destinations_actions.CHANGE_DESTINATION_TIME,
       payload: data,
@@ -90,7 +97,11 @@ export default function MoreBtnPopper({ day, destinationId }) {
       (item) => item.destinationId === destinationId
     );
     if (order === -1) return;
-    // 更新前端
+    // 更新前端（更新destinations、更新routes）
+    routesDispatch({
+      type: routes_actions.SET_IS_Loaded,
+      payload: false,
+    });
     destinationsDispatch({
       type: destinations_actions.DELETE_DESTINATION,
       dayIndex: dayIndex,
@@ -102,45 +113,45 @@ export default function MoreBtnPopper({ day, destinationId }) {
   }
 
   return (
-    <ClickAwayListener onClickAway={handlePopperClickAway}>
-      <Box sx={btnStyle}>
+    <Box sx={btnStyle}>
+      <ClickAwayListener onClickAway={handlePopperClickAway}>
         <Button type="button" onClick={handleMoreBtnClick}>
           <MoreHorizIcon sx={{ fontSize: '1.2rem' }} />
         </Button>
-        {openBtnPopper && (
-          <Box sx={BtnPopperStyle}>
-            <List sx={{ p: 0 }}>
-              <ListItem sx={{ p: 0 }}>
-                <ListItemButton
-                  sx={{ padding: '5px' }}
-                  onClick={handleEditModalOpen}
-                >
-                  edit
-                </ListItemButton>
-                <Modal open={openEditModal} onClose={handleEditModalClose}>
-                  <Box sx={EditModalStyle}>
-                    <form ref={formRef} onSubmit={handleDestinationEdit}>
-                      <label>New time</label>
-                      <input id="time" type="time" />
-                      <Button type="submit" variant="contained">
-                        Change time
-                      </Button>
-                    </form>
-                  </Box>
-                </Modal>
-              </ListItem>
-              <ListItem sx={{ p: 0 }}>
-                <ListItemButton
-                  sx={{ padding: '5px' }}
-                  onClick={handleDeleteBtnClick}
-                >
-                  delete
-                </ListItemButton>
-              </ListItem>
-            </List>
-          </Box>
-        )}
-      </Box>
-    </ClickAwayListener>
+      </ClickAwayListener>
+      {openBtnPopper && (
+        <Box sx={BtnPopperStyle}>
+          <List sx={{ p: 0 }}>
+            <ListItem sx={{ p: 0 }}>
+              <ListItemButton
+                sx={{ padding: '5px' }}
+                onClick={handleEditModalOpen}
+              >
+                edit
+              </ListItemButton>
+              <Modal open={openEditModal} onClose={handleEditModalClose}>
+                <Box sx={EditModalStyle}>
+                  <form ref={formRef} onSubmit={handleDestinationEdit}>
+                    <label>New time</label>
+                    <input id="time" type="time" />
+                    <Button type="submit" variant="contained">
+                      Change time
+                    </Button>
+                  </form>
+                </Box>
+              </Modal>
+            </ListItem>
+            <ListItem sx={{ p: 0 }}>
+              <ListItemButton
+                sx={{ padding: '5px' }}
+                onClick={handleDeleteBtnClick}
+              >
+                delete
+              </ListItemButton>
+            </ListItem>
+          </List>
+        </Box>
+      )}
+    </Box>
   );
 }

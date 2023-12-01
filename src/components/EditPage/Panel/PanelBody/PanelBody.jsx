@@ -16,6 +16,8 @@ import {
   postDestinations,
   useDestinationsDispatch,
   destinations_actions,
+  useRoutesDispatch,
+  routes_actions,
 } from '../../temp_data/trip_reducer';
 
 export default function PanelBody() {
@@ -27,7 +29,7 @@ export default function PanelBody() {
   const destinations = useDestinations();
   const destinationsDispatch = useDestinationsDispatch();
   const placeInfo = usePlaceInfo();
-  const placeInfoDispatch = usePlaceInfoDispatch();
+  const routesDispatch = useRoutesDispatch();
   const formRef = useRef(null);
 
   const handleFormOpen = () => setOpenForm(true);
@@ -55,7 +57,11 @@ export default function PanelBody() {
       ...resData,
       day: dayGap,
     };
-    // 前端setState
+    // 更新前端（更新destinations、更新routes）
+    routesDispatch({
+      type: routes_actions.SET_IS_Loaded,
+      payload: false,
+    });
     destinationsDispatch({
       type: destinations_actions.ADD_DESTINATION,
       payload: destinationData,

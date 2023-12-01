@@ -115,7 +115,7 @@ export const patchRoutes = async (routeId, mode) => {
       transportationMode: mode,
     };
     const res = await axios.patch(url, reqBody, config);
-    console.log(res.data.data);
+    return res.data.data;
   } catch (error) {
     console.log(error);
   }

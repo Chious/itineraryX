@@ -31,6 +31,12 @@ export default function Panel() {
     const fetchItinerary = async () => {
       const id = 1; // 修改：動態取得行程id
       const data = await getItinerary(id);
+      const startTime = moment(data.startTime);
+      const endTime = moment(data.endTime);
+      const itineraryInfo = {
+        ...data,
+        days: endTime.diff(startTime, 'days') + 1,  // 行程的天數
+      };
       itineraryDispatch({
         type: itinerary_actions.SET_ITINERARY,
         payload: data,
@@ -44,10 +50,10 @@ export default function Panel() {
       const startDate = moment('2023-01-01'); // 後端日期格式是否需要修改？
       const destinations_data = [];
       for (let i = 0; i < days; i++) {
-        const date = startDate.add(i, 'days').format('YYYY-MM-DD');
+        const date = startDate.clone().add(i, 'days').format('YYYY-MM-DD');
         const data = await getDestinations(id, date);
         destinations_data.push([]);
-        data.forEach((item) =>
+        data?.forEach((item) =>
           destinations_data[i].push({
             ...item.Place, // id 為 placeId
             destinationId: item.id, // destinationId 為 destinationId
