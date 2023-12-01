@@ -30,7 +30,7 @@ export default function EditTripModal({sx, id, text}) {
   const [title, setTitle] = useState('')
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
-    const itinerary = itineraries.find(itinerary => itinerary.id === id);
+  const itinerary = itineraries.find(itinerary => itinerary.id === id);
     if (itinerary) {
       setTitle(itinerary.title);
       setStartValue(dayjs(itinerary.startTime))

@@ -7,7 +7,26 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
+const FooterIcon = ({ IconComponent, color }) => (
+  <IconButton aria-label={IconComponent.displayName} color={color}>
+    <IconComponent fontSize='small' sx={{color:'#38358C'}}/>
+  </IconButton>
+);
+
+const FooterLink = ({ text }) => (
+  <Typography textAlign={'center'} color={'#38358C'} fontSize={10} fontWeight={'bold'} sx={{fontFamily:'Poppins', fontWeight:600 }}>{text}</Typography>
+);
+
 export default function Footer() {
+  const socialMediaIcons = [
+    { IconComponent: InstagramIcon, color: 'primary' },
+    { IconComponent: FacebookIcon, color: 'primary' },
+    { IconComponent: TwitterIcon, color: 'secondary' },
+    { IconComponent: YouTubeIcon, color: 'primary' }
+  ];
+
+  const links = ['About', 'Our team', 'Contact'];
+
   return (
     <Stack
       width='100vw' 
@@ -30,29 +49,15 @@ export default function Footer() {
         marginTop={4}
         marginBottom={1}
         bgcolor={'#B4C4D9'}
-        
       >
         <Stack direction="row" spacing={4} alignItems={'center'}>
           <Typography textAlign={'center'} color={'#38358C'} fontSize={20} sx={{letterSpacing:3,fontFamily:'Poppins', fontWeight:600}}>ItineraryX</Typography>
         </Stack>
         <Stack direction="row" spacing={2} alignItems={'center'} marginLeft={20} marginRight={20}>
-          <Typography textAlign={'center'} color={'#38358C'} fontSize={10} fontWeight={'bold'} sx={{fontFamily:'Poppins', fontWeight:600 }}>About</Typography>
-          <Typography textAlign={'center'} color={'#38358C'} fontSize={10} fontWeight={'bold'} sx={{fontFamily:'Poppins', fontWeight:600 }}>Our team</Typography>
-          <Typography textAlign={'center'} color={'#38358C'} fontSize={10} fontWeight={'bold'} sx={{fontFamily:'Poppins', fontWeight:600 }}>Contact</Typography>
+          {links.map((link, index) => <FooterLink key={index} text={link} />)}
         </Stack>
         <Stack direction="row" spacing={0} alignItems={'center'}>
-          <IconButton aria-label="instagram" >
-            <InstagramIcon fontSize='small' sx={{color:'#38358C'}}/>
-          </IconButton>
-          <IconButton aria-label="facebook" color="primary">
-            <FacebookIcon fontSize='small' sx={{color:'#38358C'}}/>
-          </IconButton>
-          <IconButton color="secondary" aria-label="twitter">
-            <TwitterIcon fontSize='small' sx={{color:'#38358C'}}/>
-          </IconButton>
-          <IconButton color="primary" aria-label="youtube">
-            <YouTubeIcon fontSize='small' sx={{color:'#38358C'}}/>
-          </IconButton>
+          {socialMediaIcons.map((icon, index) => <FooterIcon key={index} {...icon} />)}
         </Stack>
       </Stack>
       <Stack 

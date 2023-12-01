@@ -27,8 +27,8 @@ export default function TripCard({image, name, info}) {
               padding: '15px',
             }}
           >
-            <Typography variant="h5" sx={{color:'white', fontWeight:'bold', fontFamily:'Poppins', fontWeight:600}}>{name}</Typography>
-            <Typography variant="h6" sx={{color:'white', fontWeight:'bold', fontSize:'1.5vw', fontFamily:'Poppins', fontWeight:600}}>{info}</Typography>
+            <Typography variant="h5" sx={{color:'white', fontFamily:'Poppins', fontWeight:600}}>{name}</Typography>
+            <Typography variant="h6" sx={{color:'white', fontSize:'1.5vw', fontFamily:'Poppins', fontWeight:600}}>{info}</Typography>
           </Box>
         </Box>
       </CardActionArea>

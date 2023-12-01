@@ -11,7 +11,6 @@ import Home1 from "./pages/Home1";
 import Chatroom from "./pages/Chatroom";
 import ChatroomSocket from "./pages/ChatroomSocket";
 import Itinerary from "./pages/Itinerary";
-import Navbar from "./components/Home/Navbar";
 
 function App() {
   return (
@@ -19,7 +18,6 @@ function App() {
       <div className="app">
         <MUIthemeProvider>
           <BrowserRouter>
-          <Navbar/>
             <Routes>
               <Route path="home" element={<Home />} />
               <Route path="home1" element={<Home1 />} />
@@ -27,12 +25,7 @@ function App() {
               <Route path="login" element={<Login />} />
               <Route path="register" element={<Register />} />
               <Route path="map" element={<EditPage />} />
-              <Route path="user" element={<UserPage />} >
-                {/* <Route index element={<Itinerary/>}/>
-                <Route path="itinerary" element={<Itinerary/>}/> */}
-                {/* <Route path="*" element={<UserPage/>}/> */}
-              </Route>
-              <Route path="user/itinerary" element={<Itinerary/>} />
+              <Route path="user" element={<UserPage />} />
               <Route path="itinerary" element={<Itinerary />} />
               <Route path="chat" element={<Chatroom />} />
               <Route path="chat2" element={<ChatroomSocket />} />

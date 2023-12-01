@@ -19,9 +19,9 @@ export default function LabTabs({image}) {
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <TabList onChange={handleChange} aria-label="lab API tabs example">
-            <Tab label="Edit account" value="1" style={{color:'#38358C', fontWeight:'bold', fontFamily:'Poppins', fontWeight:600, opacity:0.7 }} />
-            <Tab label="My trip" value="2" style={{color:'#38358C', fontWeight:'bold', fontFamily:'Poppins', fontWeight:600, opacity:0.7 }} />
-            <Tab label="Scheduled trip" value="3" style={{color:'#38358C', fontWeight:'bold', fontFamily:'Poppins', fontWeight:600, opacity:0.7 }}/>
+            <Tab label="Edit account" value="1" style={{color:'#38358C', fontFamily:'Poppins', fontWeight:600, opacity:0.7 }} />
+            <Tab label="My trip" value="2" style={{color:'#38358C', fontFamily:'Poppins', fontWeight:600, opacity:0.7 }} />
+            <Tab label="Scheduled trip" value="3" style={{color:'#38358C', fontFamily:'Poppins', fontWeight:600, opacity:0.7 }}/>
           </TabList>
         </Box>
         <TabPanel value="1">

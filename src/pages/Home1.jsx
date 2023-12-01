@@ -24,9 +24,9 @@ export default function Home() {
   return (
     <>
       <Stack width='100vw' height='auto' direction='column'>
-        {/* <Box>
+        <Box>
           <Navbar></Navbar>
-        </Box> */}
+        </Box>
         <Box style={{position:'relative'}}>
           <Card elevation={0}>
             <CardMedia          
@@ -71,10 +71,10 @@ export default function Home() {
               spacing={2}
               style={{display: 'flex'}}
             >
-              <Typography variant="h4" fontSize='1.5vw' style={{color:'#B4C4D9', fontWeight:'bold', fontFamily:'Poppins', fontWeight:600 }}>
+              <Typography variant="h4" fontSize='1.5vw' style={{color:'#B4C4D9', fontFamily:'Poppins', fontWeight:600 }}>
                 Beautiful Places Around The World
               </Typography>
-              <Typography variant="h1" fontSize='3vw' style={{color:'#38358C', fontWeight:'bold', marginTop:'0.5vw',fontFamily:'Poppins', fontWeight:600 }}>
+              <Typography variant="h1" fontSize='3vw' style={{color:'#38358C', marginTop:'0.5vw',fontFamily:'Poppins', fontWeight:600 }}>
                 Featured Destinations
               </Typography>
               <DestinationList/>
@@ -100,10 +100,10 @@ export default function Home() {
                     alignItems="flex-start"
                     style={{display: 'flex'}}
                   >
-                    <Typography variant="h1" fontSize='5vw' style={{flex: 1, color:'white', fontWeight:'bold', fontFamily:'Poppins', fontWeight:600 }}>
+                    <Typography variant="h1" fontSize='5vw' style={{flex: 1, color:'white', fontFamily:'Poppins', fontWeight:600 }}>
                       Get ready for your lifetime journey
                     </Typography>
-                    <Typography variant="h1" fontSize='2vw' style={{flex: 1, color:'white', fontWeight:'bold', marginTop:'3vw', color:'#B4C4D9', fontFamily:'Poppins', fontWeight:600 }}>
+                    <Typography variant="h1" fontSize='2vw' style={{flex: 1, marginTop:'3vw', color:'#B4C4D9', fontFamily:'Poppins', fontWeight:600 }}>
                       Convenience.<br/>Synchronization.
                     </Typography>
                   </Stack>
@@ -137,7 +137,7 @@ export default function Home() {
                           alignItems="center" 
                           style={{display: 'flex'}}
                         >
-                          <Typography variant="h1" fontSize='3.5vw' style={{flex: 1, color:'#38358C', fontWeight:'bold', textAlign:'left', marginBottom: '2vw', fontFamily:'Poppins', fontWeight:600 }}>
+                          <Typography variant="h1" fontSize='3.5vw' style={{flex: 1, color:'#38358C', textAlign:'left', marginBottom: '2vw', fontFamily:'Poppins', fontWeight:600 }}>
                             Our exclusive trip
                           </Typography>
                           <Grid container spacing={0} marginBottom={9}>
@@ -151,7 +151,7 @@ export default function Home() {
                               <TripCard image={'/src/images/spot/Osaka.jpeg'} name={'Osaka'} info={'Six day trip'}/>
                             </Grid>
                           </Grid>
-                          <Typography variant="h1" fontSize='2vw' style={{flex: 1, color:'#38358C', fontWeight:'bold', textAlign:'left', marginBottom: '1vw', fontFamily:'Poppins', fontWeight:600 }}>
+                          <Typography variant="h1" fontSize='2vw' style={{flex: 1, color:'#38358C', textAlign:'left', marginBottom: '1vw', fontFamily:'Poppins', fontWeight:600 }}>
                             Your trip helper
                           </Typography>
                           <PlanHelper/>
@@ -216,11 +216,11 @@ export default function Home() {
                                 alignItems="flex-start"
                                 style={{display: 'flex'}}
                               >
-                                <Typography variant="h1" fontSize='4.5vw' sx={{color:'white'}} style={{flex: 1, fontWeight:'bold', fontFamily:'Poppins', fontWeight:600 }}>
+                                <Typography variant="h1" fontSize='4.5vw' sx={{color:'white'}} style={{flex: 1, fontFamily:'Poppins', fontWeight:600 }}>
                                   Our daily recommended tour
                                 </Typography>
                               </Stack>
-                              <Typography variant="h1" fontSize='2.5vw' fontWeight={'bold'} style={{flex: 1, color:'white', fontWeight:'bolder', marginTop:'3vw', color:'#B4C4D9', fontFamily:'Poppins', fontWeight:600 }}>
+                              <Typography variant="h1" fontSize='2.5vw' fontWeight={'bold'} style={{flex: 1, marginTop:'3vw', color:'#B4C4D9', fontFamily:'Poppins', fontWeight:600 }}>
                                 Collection of most breath-taking places
                               </Typography>
                             </Box>
