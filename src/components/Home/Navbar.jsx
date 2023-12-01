@@ -227,14 +227,6 @@ export default function Navbar() {
         {renderMobileMenu}
         {renderMenu}
       </Box>
-      {/* <Box>
-        <CardMedia
-          style={{width:'100vw', height:'60vw', objectFit:'cover', opacity:'0.05'}}
-          image="/src/images/material/world.jpg"
-          title="background"
-          elevation={0}
-        />
-      </Box> */}
     </Stack>
   );
 }

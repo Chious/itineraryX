@@ -16,7 +16,7 @@ const style = {
   marginTop: 5
 };
 
-export default function EditUserAccount({userName, userAvatar}) {
+export default function EditUserAccount({userName, userAvatar, setUserName, setUserAvatar}) {
   const [tempName, setTempName] = useState('')
   const [tempAvatar, setTempAvatar] = useState('')
   const { register, handleSubmit } = useForm();
@@ -34,6 +34,8 @@ export default function EditUserAccount({userName, userAvatar}) {
       const userInfo = localStorage.getItem('user');
       localStorage.removeItem('user');
       localStorage.setItem('user', JSON.stringify({...JSON.parse(userInfo), name: name, avatar: avatar}));
+      setUserName(name)
+      setUserAvatar(avatar)
     } catch (error) {
       console.log(error);
     }

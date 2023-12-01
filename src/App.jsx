@@ -10,7 +10,6 @@ import Register from "./pages/Register";
 import Home1 from "./pages/Home1";
 import Chatroom from "./pages/Chatroom";
 import ChatroomSocket from "./pages/ChatroomSocket";
-import Itinerary from "./pages/Itinerary";
 
 function App() {
   return (
@@ -26,7 +25,6 @@ function App() {
               <Route path="register" element={<Register />} />
               <Route path="map" element={<EditPage />} />
               <Route path="user" element={<UserPage />} />
-              <Route path="itinerary" element={<Itinerary />} />
               <Route path="chat" element={<Chatroom />} />
               <Route path="chat2" element={<ChatroomSocket />} />
             </Routes>
