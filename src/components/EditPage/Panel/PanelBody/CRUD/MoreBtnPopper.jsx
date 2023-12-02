@@ -113,45 +113,45 @@ export default function MoreBtnPopper({ day, destinationId }) {
   }
 
   return (
-    <Box sx={btnStyle}>
-      <ClickAwayListener onClickAway={handlePopperClickAway}>
+    <ClickAwayListener onClickAway={handlePopperClickAway}>
+      <Box sx={btnStyle}>
         <Button type="button" onClick={handleMoreBtnClick}>
           <MoreHorizIcon sx={{ fontSize: '1.2rem' }} />
         </Button>
-      </ClickAwayListener>
-      {openBtnPopper && (
-        <Box sx={BtnPopperStyle}>
-          <List sx={{ p: 0 }}>
-            <ListItem sx={{ p: 0 }}>
-              <ListItemButton
-                sx={{ padding: '5px' }}
-                onClick={handleEditModalOpen}
-              >
-                edit
-              </ListItemButton>
-              <Modal open={openEditModal} onClose={handleEditModalClose}>
-                <Box sx={EditModalStyle}>
-                  <form ref={formRef} onSubmit={handleDestinationEdit}>
-                    <label>New time</label>
-                    <input id="time" type="time" />
-                    <Button type="submit" variant="contained">
-                      Change time
-                    </Button>
-                  </form>
-                </Box>
-              </Modal>
-            </ListItem>
-            <ListItem sx={{ p: 0 }}>
-              <ListItemButton
-                sx={{ padding: '5px' }}
-                onClick={handleDeleteBtnClick}
-              >
-                delete
-              </ListItemButton>
-            </ListItem>
-          </List>
-        </Box>
-      )}
-    </Box>
+        {openBtnPopper && (
+          <Box sx={BtnPopperStyle}>
+            <List sx={{ p: 0 }}>
+              <ListItem sx={{ p: 0 }}>
+                <ListItemButton
+                  sx={{ padding: '5px' }}
+                  onClick={handleEditModalOpen}
+                >
+                  edit
+                </ListItemButton>
+                <Modal open={openEditModal} onClose={handleEditModalClose}>
+                  <Box sx={EditModalStyle}>
+                    <form ref={formRef} onSubmit={handleDestinationEdit}>
+                      <label>New time</label>
+                      <input id="time" type="time" />
+                      <Button type="submit" variant="contained">
+                        Change time
+                      </Button>
+                    </form>
+                  </Box>
+                </Modal>
+              </ListItem>
+              <ListItem sx={{ p: 0 }}>
+                <ListItemButton
+                  sx={{ padding: '5px' }}
+                  onClick={handleDeleteBtnClick}
+                >
+                  delete
+                </ListItemButton>
+              </ListItem>
+            </List>
+          </Box>
+        )}
+      </Box>
+    </ClickAwayListener>
   );
 }
