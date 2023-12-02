@@ -1,11 +1,12 @@
 import axios from "axios";
 
 const baseUrl = import.meta.env.VITE_BASE_URL
-const token = localStorage.getItem('token')
-const config = { headers: { Authorization: `Bearer ${token}` } }
 
 export const getItinerary = async (id) => {
   const url = baseUrl+`/itineraries/${id}`
+
+  const token = localStorage.getItem('token')
+  const config = { headers: { Authorization: `Bearer ${token}` } }
 
   const result = await axios.get(url, config)
 
@@ -14,6 +15,8 @@ export const getItinerary = async (id) => {
 
 export const createItinerary = async (payload) => {
   const url = baseUrl+'/itineraries/'
+  const token = localStorage.getItem('token')
+  const config = { headers: { Authorization: `Bearer ${token}` } }
 
   const result = await axios.post(url, payload, config)
 
@@ -22,6 +25,8 @@ export const createItinerary = async (payload) => {
 
 export const getItineraries = async () => {
   const url = baseUrl+'/itineraries/'
+  const token = localStorage.getItem('token')
+  const config = { headers: { Authorization: `Bearer ${token}` } }
 
   const result = await axios.get(url, config)
 
@@ -31,6 +36,7 @@ export const getItineraries = async () => {
 export const deleteItinerary = async (payload) => {
   const url = baseUrl+'/itineraries/'
   const params = {itineraryId: payload}
+  const token = localStorage.getItem('token')
   const config = { 
     headers: { Authorization: `Bearer ${token}` },
     data: params
@@ -42,7 +48,8 @@ export const deleteItinerary = async (payload) => {
 
 export const editItinerary = async (payload) => {
   const url = baseUrl+'/itineraries/'
-  
+  const token = localStorage.getItem('token')
+  const config = { headers: { Authorization: `Bearer ${token}` } }
   const result = await axios.put(url, payload, config)
 
   return result.data.data
@@ -71,6 +78,7 @@ export const editUser = async (username, file) => {
 
 export const deleteParticipant = async (payload) => {
   const url = baseUrl+`/itineraries/participant?itineraryId=${payload.itineraryId}&participantId=${payload.participantId}`
+  const token = localStorage.getItem('token')
   const config = { 
     headers: { Authorization: `Bearer ${token}` },
     data: payload
@@ -82,6 +90,8 @@ export const deleteParticipant = async (payload) => {
 
 export const addParticipant = async (payload) => {
   const url = baseUrl+'/itineraries/participant'
+  const token = localStorage.getItem('token')
+  const config = { headers: { Authorization: `Bearer ${token}` } }
 
   try {
     const result = await axios.post(url, payload, config)
