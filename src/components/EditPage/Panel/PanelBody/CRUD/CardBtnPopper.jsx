@@ -46,7 +46,7 @@ const EditModalStyle = {
   p: 4,
 };
 
-export default function MoreBtnPopper({ day, destinationId }) {
+export default function CardBtnPopper({ day, destinationId }) {
   const [openBtnPopper, setOpenBtnPopper] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [editTime, setEditTime] = useState(null);
@@ -118,6 +118,7 @@ export default function MoreBtnPopper({ day, destinationId }) {
         <Button type="button" onClick={handleMoreBtnClick}>
           <MoreHorizIcon sx={{ fontSize: '1.2rem' }} />
         </Button>
+
         {openBtnPopper && (
           <Box sx={BtnPopperStyle}>
             <List sx={{ p: 0 }}>

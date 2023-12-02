@@ -2,7 +2,7 @@ import { Stack, Typography } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import MoreBtnPopper from '../CRUD/MoreBtnPopper';
+import CardBtnPopper from '../CRUD/CardBtnPopper';
 
 export default function DestinationCard({ day, destination }) {
   return (
@@ -19,7 +19,7 @@ export default function DestinationCard({ day, destination }) {
       }}
     >
       {/* button for edit & delete function */}
-      <MoreBtnPopper day={day} destinationId={destination.destinationId} />
+      <CardBtnPopper day={day} destinationId={destination.destinationId} />
 
       {/* image */}
       <div
