@@ -39,7 +39,7 @@ export default function AutoScrollTabs() {
           handleTabChange={handleTabChange}
         />
 
-        {/* tab content section */}
+        {/* content for each tab */}
         <TabContent
           tabRefs={tabRefs}
         />

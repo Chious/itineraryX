@@ -1,6 +1,6 @@
 import { Stack, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import PeopleIcon from '@mui/icons-material/People';
+import ForumIcon from '@mui/icons-material/Forum';
 
 import { useTripInfo } from '../../temp_data/trip_reducer';
 
@@ -24,11 +24,11 @@ export default function PanelControl() {
       }}
     >
       <Stack className="trip-title" direction="row" gap="1rem">
-        <ArrowBackIcon sx={{ color: 'black' }} />
+        <ArrowBackIcon sx={{ color: 'black', cursor: 'pointer' }} />
         <Typography sx={{ fontWeight: 'bold' }}>{itinerary.title}</Typography>
       </Stack>
       <Stack className="icon-container" direction="row">
-        <PeopleIcon sx={{ color: 'black' }} />
+        <ForumIcon sx={{ color: 'black', cursor: 'pointer' }} />
       </Stack>
     </Stack>
   );

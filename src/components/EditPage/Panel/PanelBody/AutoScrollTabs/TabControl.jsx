@@ -1,7 +1,6 @@
 import { styled } from '@mui/system';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Button from '@mui/material/Button';
 import { useTripInfo } from '../../../temp_data/trip_reducer';
 
 const StyledTabs = styled(Tabs)`
@@ -40,7 +39,6 @@ export default function TabControl({ activeTab, handleTabChange }) {
             value={`${index}`}
           />
         ))}
-      <Button>+</Button>
     </StyledTabs>
   );
 }

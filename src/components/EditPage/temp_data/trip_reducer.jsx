@@ -133,8 +133,6 @@ const PlaceInfoDispatchContext = createContext();
 export const tripInfo_actions = {
   SET_IS_Loaded: 'SET_IS_Loaded',
   SET_ITINERARY: 'SET_ITINERARY', // 儲存行程的資訊
-  ADD_DAY: 'ADD_DAY', // 新增天數
-  DELETE_DAY: 'DELETE_DAY', // 刪除天數
   SET_DESTINATIONS: 'SET_DESTINATIONS', // 儲存行程中的所有景點
   ADD_DESTINATION: 'ADD_DESTINATION', // 將景點加入行程
   CHANGE_DESTINATION_TIME: 'CHANGE_DESTINATION_TIME', // 修改景點的抵達時間
