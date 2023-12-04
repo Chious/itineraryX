@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
 
+// itineraries in home page 'Featured Destinations' section
 const images = [
   {
     url: '/src/images/spot/Kyoto.jpeg',

@@ -7,12 +7,14 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
+// social media icon template
 const FooterIcon = ({ IconComponent, color }) => (
   <IconButton aria-label={IconComponent.displayName} color={color}>
     <IconComponent fontSize='small' sx={{color:'#38358C'}}/>
   </IconButton>
 );
 
+// link template
 const FooterLink = ({ text }) => (
   <Typography textAlign={'center'} color={'#38358C'} fontSize={10} fontWeight={'bold'} sx={{fontFamily:'Poppins', fontWeight:600 }}>{text}</Typography>
 );

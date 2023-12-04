@@ -8,6 +8,7 @@ import RoomIcon from '@mui/icons-material/Room';
 import ThermostatIcon from '@mui/icons-material/Thermostat';
 import Typography from '@mui/material/Typography';
 
+// this is icons in home page 'Your trip helper' section
 const IconText = ({ IconComponent, text }) => (
   <Stack direction="column" alignItems="center">
     <IconButton aria-label={text}>

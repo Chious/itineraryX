@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import {Box} from '@mui/material';
 
+// trip card template in home page 'Our exclusive trip' section
 export default function TripCard({image, name, info}) {
   return (
     <Card sx={{width:'15vw', borderRadius:3, boxShadow:'8'}}>

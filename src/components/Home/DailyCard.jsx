@@ -5,6 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 
+// Daily recommended card in home page
 export default function DailyCard({place, image, intro}) {
   return (
     <Card sx={{borderRadius:'2vw', width:'100%', boxShadow:'8'}} >
