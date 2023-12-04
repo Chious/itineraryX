@@ -7,9 +7,9 @@ import ChatIcon from "@mui/icons-material/Chat";
 import { getChatId } from "../../api/chat";
 
 export default function BasicSpeedDial({ setOpenChat, setRoom }) {
-  const handleOpenChat = (key) => {
+  const handleOpenChat = (chatId) => {
     setOpenChat(true);
-    setRoom(key);
+    setRoom(chatId);
   };
 
   const [chatList, setChatList] = useState([1]);

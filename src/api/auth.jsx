@@ -11,17 +11,18 @@ export const ItineraryLogin = async ({ account, password }) => {
     .then((res) => {
       const token = res.data.data.token;
       const user = res.data.data.user;
-      const { id, name, avatar, email } = user;
+      const { id, name, avatar } = user;
 
       localStorage.setItem("token", token);
       localStorage.setItem(
         "user",
-        JSON.stringify({ id: id, name: name, avatar: avatar, email: email })
+        JSON.stringify({ id: id, name: name, avatar: avatar })
       );
 
       return true;
     })
     .catch((err) => {
+      console.log(err);
       if (err.request.status === 500) {
         console.log("Error account or password");
         return false;
@@ -52,11 +53,11 @@ export const ItineraryRegister = async ({
     .then((res) => {
       const token = res.data.data.token;
       const user = res.data.data.user;
-      const { id, name, avatar, email } = user;
+      const { id, name, avatar } = user;
       localStorage.setItem("token", token);
       localStorage.setItem(
         "user",
-        JSON.stringify({ id: id, name: name, avatar: avatar, email: email })
+        JSON.stringify({ id: id, name: name, avatar: avatar })
       );
       return true;
     })

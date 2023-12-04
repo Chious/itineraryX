@@ -10,6 +10,7 @@ import Register from "./pages/Register";
 import Home1 from "./pages/Home1";
 import Chatroom from "./pages/Chatroom";
 import ChatroomSocket from "./pages/ChatroomSocket";
+import MapPage from "./pages/MapPage";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
               <Route path="user" element={<UserPage />} />
               <Route path="chat" element={<Chatroom />} />
               <Route path="chat2" element={<ChatroomSocket />} />
+              <Route path="map2" element={<MapPage />} />
             </Routes>
           </BrowserRouter>
         </MUIthemeProvider>
