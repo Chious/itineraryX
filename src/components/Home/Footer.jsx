@@ -85,7 +85,7 @@ export default function Footer() {
               label="Your email"
               type="email"
               size="small"
-              marginRight={0}
+              sx={{marginRight:0}}
               InputProps={{
                 sx: {
                   height: '38px',

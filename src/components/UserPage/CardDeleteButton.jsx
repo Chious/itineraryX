@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import { deleteItinerary } from '../../api/userpage';
-import { useContext } from 'react';
 import { useItineraries } from '../../context/UserPageContext';
 
 export default function CardDeleteButtons({id}) {

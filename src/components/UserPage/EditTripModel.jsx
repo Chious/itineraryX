@@ -78,7 +78,6 @@ export default function EditTripModal({sx, id, text}) {
   }, [itineraries]);
 
   const today = dayjs();
-  const yesterday = dayjs().subtract(1, 'day');
 
   return (
     <div>
@@ -93,52 +92,50 @@ export default function EditTripModal({sx, id, text}) {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Edit your itinerary
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            <Box
-              component="form"
-              sx={{
-                '& .MuiTextField-root': { m: 1, width: '25ch' },
-              }}
-              noValidate
-              autoComplete="off"
-            >
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer components={['DatePicker', 'DatePicker']}>
-                  <Grid container spacing={0}>
-                    <Grid item xs={12}>
-                      <TextField
-                        required
-                        id="outlined-required"
-                        label="Trip title"
-                        placeholder="Trip title"
-                        onChange={handleChange}
-                        value={title}
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <DatePicker
-                        label="Start day"
-                        value={startValue}
-                        defaultValue={today}
-                        onChange={(newValue) => setStartValue(newValue)}
-                        disablePast
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <DatePicker
-                        label="End day"
-                        value={endValue}
-                        defaultValue={today}
-                        onChange={(newValue) => setEndValue(newValue)}
-                        disablePast
-                      />
-                    </Grid>
+          <Box
+            component="form"
+            sx={{
+              '& .MuiTextField-root': { m: 1, width: '25ch' },
+            }}
+            noValidate
+            autoComplete="off"
+          >
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DemoContainer components={['DatePicker', 'DatePicker']}>
+                <Grid container spacing={0}>
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      id="outlined-required"
+                      label="Trip title"
+                      placeholder="Trip title"
+                      onChange={handleChange}
+                      value={title}
+                    />
                   </Grid>
-                </DemoContainer>
-              </LocalizationProvider>
-              <Button onClick={handleClick}  >Confirm</Button>
-            </Box>
-          </Typography>
+                  <Grid item xs={12}>
+                    <DatePicker
+                      label="Start day"
+                      value={startValue}
+                      defaultValue={today}
+                      onChange={(newValue) => setStartValue(newValue)}
+                      disablePast
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <DatePicker
+                      label="End day"
+                      value={endValue}
+                      defaultValue={today}
+                      onChange={(newValue) => setEndValue(newValue)}
+                      disablePast
+                    />
+                  </Grid>
+                </Grid>
+              </DemoContainer>
+            </LocalizationProvider>
+            <Button onClick={handleClick}  >Confirm</Button>
+          </Box>
         </Box>
       </Modal>
     </div>

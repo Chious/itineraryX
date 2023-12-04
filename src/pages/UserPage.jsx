@@ -3,7 +3,7 @@ import LabTabs from "../components/UserPage/LabTab";
 import CreateTripModal from "../components/UserPage/CreateTripModel.jsx";
 import Navbar from "../components/Home/Navbar.jsx";
 import { ItinerariesProvider } from "../context/UserPageContext.jsx";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { getItineraries } from "../api/userpage.jsx";
 import { useItineraries } from "../context/UserPageContext.jsx";
 

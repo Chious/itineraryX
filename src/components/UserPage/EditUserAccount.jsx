@@ -43,18 +43,16 @@ export default function EditUserAccount({userName, userAvatar, setUserName, setU
 
   return (
     <Box sx={style}>
-      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-        <Box className="App">
-          <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form">
-            <Stack spacing={2}>
-              <Typography variant="h5">Edit your account</Typography>
-              <TextField {...register("username")} type="text" label="Username" variant="outlined" value={tempName} onChange={(e) => setTempName(e.target.value)}/>
-              <TextField {...register("file")} type="file"  variant="outlined" />
-            </Stack>
-            <Button type="submit" sx={{fontSize:20, marginTop:2}}>Confirm</Button>
-          </form>
-        </Box>
-      </Typography>
+      <Typography variant="h5" sx={{ mt: 2 }}>Edit your account</Typography>
+      <Box className="App">
+        <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form">
+          <Stack spacing={2}>
+            <TextField {...register("username")} type="text" label="Username" variant="outlined" value={tempName} onChange={(e) => setTempName(e.target.value)}/>
+            <TextField {...register("file")} type="file"  variant="outlined" />
+          </Stack>
+          <Button type="submit" sx={{fontSize:20, marginTop:2}}>Confirm</Button>
+        </form>
+      </Box>
     </Box>
   );
 }
