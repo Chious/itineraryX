@@ -53,6 +53,12 @@ export default function Login() {
     navigate("/register");
   };
 
+  // Forget password
+
+  const handleForget = () => {
+    navigate("/reset-password/?reset=true");
+  };
+
   return (
     <PrimarySearchAppBar>
       <Box
@@ -90,11 +96,14 @@ export default function Login() {
             sx={{ width: "350px" }}
             onChange={(e) => handlePassword(e)}
           />
-          <Stack direction="column" spacing={2}>
+          <Stack direction="row" spacing={2}>
             <Button onClick={handleLogin}>登入</Button>
             <Button onClick={handleRegister}>註冊</Button>
             <LoginModal open={open} setOpen={setOpen} message={message} />
           </Stack>
+          <Button sx={{ color: "gray" }} onClick={handleForget}>
+            忘記密碼
+          </Button>
         </Stack>
       </Box>
     </PrimarySearchAppBar>
