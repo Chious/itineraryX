@@ -4,9 +4,10 @@ import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-import RecipeReviewCard from "./RecipeReviewCard";
+import ItineraryCard from "./ItineraryCard";
+import UserAccount from "./UserAccount";
 
-export default function LabTabs() {
+export default function LabTabs({image}) {
   const [value, setValue] = React.useState("1");
 
   const handleChange = (event, newValue) => {
@@ -18,14 +19,18 @@ export default function LabTabs() {
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <TabList onChange={handleChange} aria-label="lab API tabs example">
-            <Tab label="我的行程" value="1" />
-            <Tab label="待定" value="2" />
+            <Tab label="Edit account" value="1" style={{color:'#38358C', fontFamily:'Poppins', fontWeight:600, opacity:0.7 }} />
+            <Tab label="My trip" value="2" style={{color:'#38358C', fontFamily:'Poppins', fontWeight:600, opacity:0.7 }} />
+            <Tab label="Scheduled trip" value="3" style={{color:'#38358C', fontFamily:'Poppins', fontWeight:600, opacity:0.7 }}/>
           </TabList>
         </Box>
         <TabPanel value="1">
-          <RecipeReviewCard />
+          <UserAccount/>
         </TabPanel>
-        <TabPanel value="2">待定</TabPanel>
+        <TabPanel value="2">
+          <ItineraryCard image={image}/>
+        </TabPanel>
+        <TabPanel value="3">待定</TabPanel>
       </TabContext>
     </Box>
   );

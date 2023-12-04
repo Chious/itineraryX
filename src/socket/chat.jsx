@@ -20,7 +20,6 @@ export default function SocketChat({
     const response = await getChatroomTitle(room);
     setRoomTitle(response);
   }, []);
-
   // Messages States
   const updateMessageReceived = (data) => {
     const { userId, user, message, time, avatar } = data;
