@@ -2,6 +2,7 @@ import { styled } from '@mui/system';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Button from '@mui/material/Button';
+import { useTripInfo } from '../../../temp_data/trip_reducer';
 
 const StyledTabs = styled(Tabs)`
   min-height: 40px;
@@ -14,12 +15,15 @@ const StyledTab = styled(Tab)`
   min-height: 30px;
 `;
 
-export default function TabControl({ numOfTabs, activeTab, handleChange }) {
+export default function TabControl({ activeTab, handleTabChange }) {
+  const tripInfo = useTripInfo();
+  const numOfTabs = tripInfo.itinerary.days;
+
   return (
     <StyledTabs
       className="tab-control"
       value={activeTab}
-      onChange={handleChange}
+      onChange={handleTabChange}
       variant="scrollable"
       scrollButtons="auto"
       allowScrollButtonsMobile

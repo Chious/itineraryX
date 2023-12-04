@@ -1,8 +1,12 @@
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import DayItinerary from '../Itinerary/DayItinerary';
+import { useTripInfo } from '../../../temp_data/trip_reducer';
 
-export default function TabContent({ numOfTabs, tabRefs }) {
+export default function TabContent({ tabRefs }) {
+  const tripInfo = useTripInfo();
+  const numOfDays = tripInfo.itinerary.days;
+
   return (
     <Stack
       className="tab-content"
@@ -12,7 +16,7 @@ export default function TabContent({ numOfTabs, tabRefs }) {
       gap={3}
       sx={{ overflowY: 'scroll' }}
     >
-      {Array(numOfTabs)
+      {Array(numOfDays)
         .fill()
         .map((_, index) => (
           <>

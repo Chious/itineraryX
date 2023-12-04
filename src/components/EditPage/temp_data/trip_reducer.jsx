@@ -123,32 +123,20 @@ export const patchRoutes = async (routeId, mode) => {
 
 //////////////////// reducer ////////////////////
 
-const IsLoadingContext = createContext();
-const IsLoadingDispatchContext = createContext();
-const ItineraryContext = createContext();
-const ItineraryDispatchContext = createContext();
-const DestinationsContext = createContext();
-const DestinationsDispatchContext = createContext();
+const TripInfoContext = createContext();
+const TripInfoDispatchContext = createContext();
 const RoutesContext = createContext();
 const RoutesDispatchContext = createContext();
 const PlaceInfoContext = createContext();
 const PlaceInfoDispatchContext = createContext();
 
-export const isLoading_actions = {
-  SET_TRUE: 'SET_TRUE',
-  SET_FALSE: 'SET_FALSE',
-};
-
-export const itinerary_actions = {
-  ADD_DAY: 'ADD_DAY', // 新增天數
+export const tripInfo_actions = {
+  SET_IS_Loaded: 'SET_IS_Loaded',
   SET_ITINERARY: 'SET_ITINERARY', // 儲存行程的資訊
+  ADD_DAY: 'ADD_DAY', // 新增天數
   DELETE_DAY: 'DELETE_DAY', // 刪除天數
-};
-
-export const destinations_actions = {
   SET_DESTINATIONS: 'SET_DESTINATIONS', // 儲存行程中的所有景點
   ADD_DESTINATION: 'ADD_DESTINATION', // 將景點加入行程
-  // GET_PLACE: 'GET_PLACE', // 搜尋景點
   CHANGE_DESTINATION_TIME: 'CHANGE_DESTINATION_TIME', // 修改景點的抵達時間
   DELETE_DESTINATION: 'DELETE_DESTINATION', // 刪除行程中的景點
 };
@@ -164,86 +152,82 @@ export const placeInfo_actions = {
   DELETE_PLACE_INFO: 'DELETE_PLACE_INFO', // 刪除搜尋景點的資訊
 };
 
-function isLoadingReducer(isLoading, action) {
+function tripInfoReducer(tripInfo, action) {
   switch (action.type) {
-    case isLoading_actions.SET_TRUE:
-      return true;
-    case isLoading_actions.SET_FALSE:
-      return false;
-    default:
-      console.log('isLoading dispatch error');
-      break;
-  }
-}
-
-function itineraryReducer(itinerary, action) {
-  switch (action.type) {
-    case itinerary_actions.SET_ITINERARY:
-      const data = action.payload;
-      const itinerary_data = JSON.parse(JSON.stringify(data));
-      return itinerary_data;
-    default:
-      console.log('itinerary dispatch error');
-      break;
-  }
-}
-
-function destinationsReducer(destinations, action) {
-  switch (action.type) {
-    case destinations_actions.SET_DESTINATIONS: {
-      const data = action.payload;
-      const newDestinations = JSON.parse(JSON.stringify(data));
-      return newDestinations;
+    case tripInfo_actions.SET_IS_Loaded: {
+      const newTripInfo = JSON.parse(JSON.stringify(tripInfo));
+      newTripInfo.isLoaded = action.payload;
+      return newTripInfo;
     }
-    case destinations_actions.ADD_DESTINATION: {
-      const data = action.payload;
-      const day = data.day;
-      const newDate = moment(data.date).local();
-      const destinationsByDay = destinations[day];
+    case tripInfo_actions.SET_ITINERARY: {
+      const newTripInfo = JSON.parse(JSON.stringify(tripInfo));
+      const newItinerary = JSON.parse(JSON.stringify(action.payload));
+      newTripInfo.itinerary = newItinerary;
+      return newTripInfo;
+    }
+    case tripInfo_actions.SET_DESTINATIONS: {
+      const newTripInfo = JSON.parse(JSON.stringify(tripInfo));
+      const newDestinations = JSON.parse(JSON.stringify(action.payload));
+      newTripInfo.destinations = newDestinations;
+      return newTripInfo;
+    }
+    case tripInfo_actions.ADD_DESTINATION: {
+      const { day, date, id, Place } = action.payload;
+      const utcDate = moment(date).utc(); // 將時間轉為UTC時間
+      const newTripInfo = JSON.parse(JSON.stringify(tripInfo));
+      const destinationsByDay = newTripInfo.destinations[day];
+      // 尋找新景點的插入位置
       let insertionId = undefined;
       destinationsByDay.forEach((_, index) => {
-        const beforeDate = moment(destinationsByDay[index].date).local();
-        const afterDate = moment(destinationsByDay[index + 1]?.date)?.local();
-        if (index === 0 && newDate.isBefore(beforeDate)) insertionId = 0;
-        if (beforeDate.isBefore(newDate) && afterDate.isAfter(newDate))
+        const beforeDate = moment(destinationsByDay[index].date).utc();
+        const afterDate = moment(destinationsByDay[index + 1]?.date).utc();
+        if (index === 0 && utcDate.isBefore(beforeDate)) insertionId = 0;
+        if (beforeDate.isBefore(utcDate) && afterDate.isAfter(utcDate))
           insertionId = index + 1;
       });
       if (insertionId === undefined) insertionId = destinationsByDay.length;
+      // 將新景點插入景點陣列
       const newDestination = {
-        ...data.Place, // id 為 placeId
-        destinationId: data.id, // destinationId 為 destinationId
-        date: data.date,
+        ...Place, // id 為 placeId
+        destinationId: id, // destinationId 為 destinationId
+        date: date,
       };
-      const newDestinations = JSON.parse(JSON.stringify(destinations));
-      newDestinations[day].splice(insertionId, 0, newDestination);
-      return newDestinations;
+      newTripInfo.destinations[day].splice(insertionId, 0, newDestination);
+      return newTripInfo;
     }
-    case destinations_actions.CHANGE_DESTINATION_TIME: {
+    case tripInfo_actions.CHANGE_DESTINATION_TIME: {
       const { destinationId, datetime } = action.payload;
-      const newDestinations = destinations.map((destinationsByDay) => {
-        return destinationsByDay.map((item) => {
-          if (item.destinationId === destinationId)
-            return { ...item, date: datetime }; // 修改成新的景點時間
-          else return item;
+      const newDestinations = tripInfo.destinations.map((destinationsByDay) => {
+        return destinationsByDay.map((destination) => {
+          if (destination.destinationId === destinationId)
+            return {
+              ...destination,
+              date: datetime, // utc time
+            };
+          // 將景點時間修改成新的時間
+          else return destination;
         });
       });
-      newDestinations.map((destinationsByDay) =>
+      // 重新排序景點
+      newDestinations.forEach((destinationsByDay) =>
         destinationsByDay.sort(function (a, b) {
           return moment(a.date).diff(moment(b.date));
         })
       );
-      return newDestinations;
+      const newTripInfo = JSON.parse(JSON.stringify(tripInfo));
+      newTripInfo.destinations = newDestinations;
+      return newTripInfo;
     }
-    case destinations_actions.DELETE_DESTINATION: {
-      const dayIndex = action.dayIndex;
-      const order = action.order;
-      const newDestinations = JSON.parse(JSON.stringify(destinations));
-      newDestinations[dayIndex].splice(order, 1);
-      return newDestinations;
+    case tripInfo_actions.DELETE_DESTINATION: {
+      const { dayIndex, order } = action.payload;
+      const newTripInfo = JSON.parse(JSON.stringify(tripInfo));
+      newTripInfo.destinations[dayIndex].splice(order, 1);
+      return newTripInfo;
     }
-    default:
-      console.log('destinations dispatch error');
+    default: {
+      console.log('tripInfo dispatch error');
       break;
+    }
   }
 }
 
@@ -279,42 +263,19 @@ function placeInfoReducer(placeInfo, action) {
   }
 }
 
-export function IsLoadingProvider({ children }) {
-  const [isLoading, isLoadingDispatch] = useReducer(isLoadingReducer, true);
+export function TripInfoProvider({ children }) {
+  const [tripInfo, tripInfoDispatch] = useReducer(tripInfoReducer, {
+    isLoaded: false,
+    itinerary: {},
+    destinations: [],
+  });
 
   return (
-    <IsLoadingContext.Provider value={isLoading}>
-      <IsLoadingDispatchContext.Provider value={isLoadingDispatch}>
+    <TripInfoContext.Provider value={tripInfo}>
+      <TripInfoDispatchContext.Provider value={tripInfoDispatch}>
         {children}
-      </IsLoadingDispatchContext.Provider>
-    </IsLoadingContext.Provider>
-  );
-}
-
-export function ItineraryProvider({ children }) {
-  const [itinerary, itineraryDispatch] = useReducer(itineraryReducer, {});
-
-  return (
-    <ItineraryContext.Provider value={itinerary}>
-      <ItineraryDispatchContext.Provider value={itineraryDispatch}>
-        {children}
-      </ItineraryDispatchContext.Provider>
-    </ItineraryContext.Provider>
-  );
-}
-
-export function DestinationsProvider({ children }) {
-  const [destinations, destinationsDispatch] = useReducer(
-    destinationsReducer,
-    []
-  );
-
-  return (
-    <DestinationsContext.Provider value={destinations}>
-      <DestinationsDispatchContext.Provider value={destinationsDispatch}>
-        {children}
-      </DestinationsDispatchContext.Provider>
-    </DestinationsContext.Provider>
+      </TripInfoDispatchContext.Provider>
+    </TripInfoContext.Provider>
   );
 }
 
@@ -345,28 +306,12 @@ export function PlaceInfoProvider({ children }) {
   );
 }
 
-export function useIsLoading() {
-  return useContext(IsLoadingContext);
+export function useTripInfo() {
+  return useContext(TripInfoContext);
 }
 
-export function useIsLoadingDispatch() {
-  return useContext(IsLoadingDispatchContext);
-}
-
-export function useItinerary() {
-  return useContext(ItineraryContext);
-}
-
-export function useItineraryDispatch() {
-  return useContext(ItineraryDispatchContext);
-}
-
-export function useDestinations() {
-  return useContext(DestinationsContext);
-}
-
-export function useDestinationsDispatch() {
-  return useContext(DestinationsDispatchContext);
+export function useTripInfoDispatch() {
+  return useContext(TripInfoDispatchContext);
 }
 
 export function useRoutes() {

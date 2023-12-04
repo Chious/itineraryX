@@ -6,14 +6,13 @@ import { Button, List, ListItem, ListItemButton, Modal } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 import {
-  deleteDestinations,
-  destinations_actions,
   patchDestinations,
-  useDestinations,
-  useDestinationsDispatch,
-  useItinerary,
-  useRoutesDispatch,
+  deleteDestinations,
+  tripInfo_actions,
+  useTripInfo,
+  useTripInfoDispatch,
   routes_actions,
+  useRoutesDispatch,
 } from '../../../temp_data/trip_reducer';
 
 const btnStyle = {
@@ -49,12 +48,12 @@ const EditModalStyle = {
 export default function CardBtnPopper({ day, destinationId }) {
   const [openBtnPopper, setOpenBtnPopper] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
-  const [editTime, setEditTime] = useState(null);
-  const formRef = useRef(null);
-  const itinerary = useItinerary();
-  const destinations = useDestinations();
-  const destinationsDispatch = useDestinationsDispatch();
+  const tripInfo = useTripInfo();
+  const tripInfoDispatch = useTripInfoDispatch();
+  const itinerary = tripInfo.itinerary;
+  const destinations = tripInfo.destinations;
   const routesDispatch = useRoutesDispatch();
+  const formRef = useRef(null);
 
   const handlePopperClickAway = () => setOpenBtnPopper(false);
   const handleMoreBtnClick = () => setOpenBtnPopper((prev) => !prev);
@@ -80,18 +79,18 @@ export default function CardBtnPopper({ day, destinationId }) {
       type: routes_actions.SET_IS_Loaded,
       payload: false,
     });
-    destinationsDispatch({
-      type: destinations_actions.CHANGE_DESTINATION_TIME,
+    tripInfoDispatch({
+      type: tripInfo_actions.CHANGE_DESTINATION_TIME,
       payload: data,
     });
     // 更新後端
     patchDestinations(destinationId, datetime);
-    setOpenEditModal(false);
+    // 關閉popper與modal表單
+    handlePopperClickAway()
+    handleEditModalClose();
   }
 
   function handleDeleteBtnClick(e) {
-    // e.stopPropagation();
-    // if (!openBtnPopper) return;
     const dayIndex = day - 1;
     const order = destinations[dayIndex].findIndex(
       (item) => item.destinationId === destinationId
@@ -102,13 +101,16 @@ export default function CardBtnPopper({ day, destinationId }) {
       type: routes_actions.SET_IS_Loaded,
       payload: false,
     });
-    destinationsDispatch({
-      type: destinations_actions.DELETE_DESTINATION,
-      dayIndex: dayIndex,
-      order: order,
+    tripInfoDispatch({
+      type: tripInfo_actions.DELETE_DESTINATION,
+      payload: {
+        dayIndex: dayIndex,
+        order: order,
+      },
     });
     // 更新後端
     deleteDestinations(destinationId);
+    // 關閉popper表單
     setOpenBtnPopper(false);
   }
 

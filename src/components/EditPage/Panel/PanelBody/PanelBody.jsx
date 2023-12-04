@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import moment from 'moment';
 import Box from '@mui/material/Box';
 import AutoScrollTabs from './AutoScrollTabs/AutoScrollTabs';
@@ -6,30 +6,23 @@ import DestinationCreateForm from './CRUD/DestinationCreateForm';
 import AddBtn from './AddBtn';
 
 import {
-  placeInfo_actions,
-  useIsLoading,
-  useItinerary,
-  useDestinations,
-  usePlaceInfoDispatch,
   postMaps,
-  usePlaceInfo,
   postDestinations,
-  useDestinationsDispatch,
-  destinations_actions,
-  useRoutesDispatch,
+  tripInfo_actions,
+  useTripInfo,
+  useTripInfoDispatch,
   routes_actions,
+  useRoutesDispatch,
+  usePlaceInfo,
 } from '../../temp_data/trip_reducer';
 
 export default function PanelBody() {
   const [openForm, setOpenForm] = useState(false);
-  const [numOfDays, setNumOfDays] = useState(0);
-  // const [formValue, setFormValue] = useState({});
-  const isLoading = useIsLoading();
-  const itinerary = useItinerary();
-  const destinations = useDestinations();
-  const destinationsDispatch = useDestinationsDispatch();
-  const placeInfo = usePlaceInfo();
+  const tripInfo = useTripInfo();
+  const tripInfoDispatch = useTripInfoDispatch();
+  const itinerary = tripInfo.itinerary;
   const routesDispatch = useRoutesDispatch();
+  const placeInfo = usePlaceInfo();
   const formRef = useRef(null);
 
   const handleFormOpen = () => setOpenForm(true);
@@ -53,29 +46,21 @@ export default function PanelBody() {
       datetime,
       placeData.id
     );
-    const destinationData = {
+    // 更新前端（更新destinations、更新routes）
+    const destination_data = {
       ...resData,
       day: dayGap,
     };
-    // 更新前端（更新destinations、更新routes）
     routesDispatch({
       type: routes_actions.SET_IS_Loaded,
       payload: false,
     });
-    destinationsDispatch({
-      type: destinations_actions.ADD_DESTINATION,
-      payload: destinationData,
+    tripInfoDispatch({
+      type: tripInfo_actions.ADD_DESTINATION,
+      payload: destination_data,
     });
     setOpenForm(false);
   }
-
-  useEffect(() => {
-    if (!isLoading) {
-      const startTime = moment(itinerary.startTime);
-      const endTime = moment(itinerary.endTime);
-      setNumOfDays(endTime.diff(startTime, 'days') + 1);
-    }
-  }, [itinerary, isLoading]);
 
   return (
     <Box
@@ -89,7 +74,6 @@ export default function PanelBody() {
         // a form to create destination
         <DestinationCreateForm
           formRef={formRef}
-          numOfDays={numOfDays}
           handleDestinationAdd={handleDestinationAdd}
           handleFormClose={handleFormClose}
         />

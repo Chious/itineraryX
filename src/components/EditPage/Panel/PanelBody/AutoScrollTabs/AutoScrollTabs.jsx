@@ -1,31 +1,21 @@
-import * as React from 'react';
-import moment from 'moment';
+import { useState, useRef, createRef } from 'react';
 import Stack from '@mui/material/Stack';
 import TabControl from './TabControl';
 import TabContent from './TabContent';
 
-import { useIsLoading, useItinerary } from '../../../temp_data/trip_reducer';
+import { useTripInfo } from '../../../temp_data/trip_reducer';
 
 export default function AutoScrollTabs() {
-  const [numOfTabs, setNumOfTabs] = React.useState(0);
-  const [activeTab, setActiveTab] = React.useState('0');
-  const isLoading = useIsLoading();
-  const itinerary = useItinerary();
-  const tabRefs = React.useRef(null);
+  const [activeTab, setActiveTab] = useState('0');
+  const tripInfo = useTripInfo();
+  const numOfTabs = tripInfo.itinerary.days;
 
-  React.useEffect(() => {
-    if (!isLoading) {
-      const startTime = moment(itinerary.startTime);
-      const endTime = moment(itinerary.endTime);
-      const days = endTime.diff(startTime, 'days') + 1;
-      setNumOfTabs(days);
-      tabRefs.current = Array(days)
-        .fill()
-        .map(() => React.createRef());
-    }
-  }, [itinerary, isLoading]);
+  const tabRefs = useRef(null);
+  tabRefs.current = Array(numOfTabs)
+    .fill()
+    .map(() => createRef());
 
-  const handleChange = (_event, newTabValue) => {
+  const handleTabChange = (_event, newTabValue) => {
     setActiveTab(newTabValue);
     const target = tabRefs.current[newTabValue];
     if (target) {
@@ -45,13 +35,14 @@ export default function AutoScrollTabs() {
       >
         {/* tab control panel */}
         <TabControl
-          numOfTabs={numOfTabs}
           activeTab={activeTab}
-          handleChange={handleChange}
+          handleTabChange={handleTabChange}
         />
 
         {/* tab content section */}
-        <TabContent numOfTabs={numOfTabs} tabRefs={tabRefs} />
+        <TabContent
+          tabRefs={tabRefs}
+        />
       </Stack>
     </>
   );

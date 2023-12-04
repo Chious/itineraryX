@@ -6,22 +6,22 @@ import DestinationItem from './DestinationItem';
 import TransportationItem from './TransportationItem';
 
 import {
-  useItinerary,
-  useDestinations,
+  getRoutes,
+  postRoutes,
+  useTripInfo,
   routes_actions,
   useRoutes,
   useRoutesDispatch,
-  getRoutes,
-  postRoutes,
 } from '../../../temp_data/trip_reducer';
 
 export default function DayItineraryContent({
   rwdColumns,
-  destinationsByDay,
   day,
 }) {
-  const itinerary = useItinerary();
-  const destinations = useDestinations();
+  const tripInfo = useTripInfo();
+  const itinerary = tripInfo.itinerary;
+  const destinations = tripInfo.destinations;
+  const destinationsByDay = destinations[day - 1];
   const routesState = useRoutes();
   const routesDispatch = useRoutesDispatch();
 
@@ -76,14 +76,11 @@ export default function DayItineraryContent({
       });
     };
 
-    // routesDispatch({
-    //   type: routes_actions.SET_IS_Loaded,
-    //   payload: false,
-    // });
     fetchRoutes(destinations);
   }, [destinations]);
 
-  if (!destinations[day - 1] || destinations[day - 1].length === 0) {
+  // 若有某天尚未添加任何景點則顯示提示訊息
+  if (!destinationsByDay || destinationsByDay.length === 0) {
     return (
       <Grid key={`empty-${day}`} container justifyContent="flex-end">
         <Grid item xs={rwdColumns[1]}>
