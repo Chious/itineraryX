@@ -8,6 +8,8 @@ import { useEffect } from 'react';
 import {
   getItinerary,
   getDestinations,
+  auth_actions,
+  useAuthDispatch,
   tripInfo_actions,
   useTripInfo,
   useTripInfoDispatch,
@@ -16,6 +18,7 @@ import {
 export default function Panel() {
   const tripInfo = useTripInfo();
   const tripInfoDispatch = useTripInfoDispatch();
+  const authDispatch = useAuthDispatch();
 
   useEffect(() => {
     // 取得指定行程的資料
@@ -63,9 +66,25 @@ export default function Panel() {
       });
     };
 
-    fetchItinerary().then((itinerary_data) =>
-      fetchDestinations(itinerary_data)
-    );
+    const auth = (itinerary_data) => {
+      ////////// 測試 //////////
+      localStorage.setItem('userId', 10);
+      const userId = Number(localStorage.getItem('userId'));
+      // 檢查使用者是否有編輯權限
+      const authorizedIds = itinerary_data.ParticipantsUser.map(
+        (participant) => participant.id
+      );
+      const authStatus = authorizedIds.includes(userId);
+      authDispatch({
+        type: auth_actions.SET_CAN_EDIT,
+        payload: authStatus,
+      });
+    };
+
+    fetchItinerary().then((itinerary_data) => {
+      fetchDestinations(itinerary_data);
+      auth(itinerary_data);
+    });
   }, []);
 
   if (!tripInfo.isLoaded) {

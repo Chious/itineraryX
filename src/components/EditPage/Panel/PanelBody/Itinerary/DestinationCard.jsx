@@ -3,8 +3,11 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CardBtnPopper from '../CRUD/CardBtnPopper';
+import { useAuth } from '../../../temp_data/trip_reducer';
 
 export default function DestinationCard({ day, destination }) {
+  const canEdit = useAuth().canEdit;
+
   return (
     <Card
       className="destination-card"
@@ -19,7 +22,9 @@ export default function DestinationCard({ day, destination }) {
       }}
     >
       {/* button for edit & delete function */}
-      <CardBtnPopper day={day} destinationId={destination.destinationId} />
+      {canEdit && (
+        <CardBtnPopper day={day} destinationId={destination.destinationId} />
+      )}
 
       {/* image */}
       <div

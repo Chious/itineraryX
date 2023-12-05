@@ -14,7 +14,7 @@ import DirectionsWalkIcon from '@mui/icons-material/DirectionsWalk';
 import PedalBikeIcon from '@mui/icons-material/PedalBike';
 
 import { ClickAwayListener } from '@mui/base/ClickAwayListener';
-import { patchRoutes } from '../../../temp_data/trip_reducer';
+import { patchRoutes, useAuth } from '../../../temp_data/trip_reducer';
 
 const icons = {
   driving: <DirectionsCarIcon color="black" />,
@@ -38,10 +38,10 @@ const BtnPopperStyle = {
 export default function TransportationItem({ rwdColumn, route }) {
   const [routeState, setRouteState] = useState(route);
   const [openBtnPopper, setOpenBtnPopper] = useState(false);
+  const canEdit = useAuth().canEdit;
 
   const handlePopperClickAway = () => setOpenBtnPopper(false);
   const handleRouteBtnClick = () => setOpenBtnPopper((prev) => !prev);
-
   const handleTransModeEdit = async (mode) => {
     const routeId = routeState.id;
     // 更新後端
@@ -54,17 +54,27 @@ export default function TransportationItem({ rwdColumn, route }) {
     }));
   };
 
+  let TransInfo = canEdit ? (
+    <ClickAwayListener onClickAway={handlePopperClickAway}>
+      <Button type="button" onClick={handleRouteBtnClick}>
+        <Stack direction="row" spacing={1}>
+          {icons[routeState.transportationMode]}
+          <Typography>about {routeState.durationText}</Typography>
+        </Stack>
+      </Button>
+    </ClickAwayListener>
+  ) : (
+    <Stack direction="row" spacing={1}>
+      {icons[routeState.transportationMode]}
+      <Typography>about {routeState.durationText}</Typography>
+    </Stack>
+  );
+
   return (
     <Grid container justifyContent="flex-end">
       <Grid item xs={rwdColumn}>
-        <ClickAwayListener onClickAway={handlePopperClickAway}>
-          <Button type="button" onClick={handleRouteBtnClick}>
-            <Stack direction="row" spacing={1}>
-              {icons[routeState.transportationMode]}
-              <Typography>about {routeState.durationText}</Typography>
-            </Stack>
-          </Button>
-        </ClickAwayListener>
+        {TransInfo}
+
         {openBtnPopper && (
           <Box sx={BtnPopperStyle}>
             <List sx={{ p: 0 }}>

@@ -2,9 +2,10 @@ import { Stack, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ForumIcon from '@mui/icons-material/Forum';
 
-import { useTripInfo } from '../../temp_data/trip_reducer';
+import { useAuth, useTripInfo } from '../../temp_data/trip_reducer';
 
 export default function PanelControl() {
+  const canEdit = useAuth().canEdit;
   const itinerary = useTripInfo().itinerary;
 
   return (
@@ -28,7 +29,7 @@ export default function PanelControl() {
         <Typography sx={{ fontWeight: 'bold' }}>{itinerary.title}</Typography>
       </Stack>
       <Stack className="icon-container" direction="row">
-        <ForumIcon sx={{ color: 'black', cursor: 'pointer' }} />
+        {canEdit && <ForumIcon sx={{ color: 'black', cursor: 'pointer' }} />}
       </Stack>
     </Stack>
   );

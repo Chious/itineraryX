@@ -123,12 +123,18 @@ export const patchRoutes = async (routeId, mode) => {
 
 //////////////////// reducer ////////////////////
 
+const AuthContext = createContext();
+const AuthDispatchContext = createContext();
 const TripInfoContext = createContext();
 const TripInfoDispatchContext = createContext();
 const RoutesContext = createContext();
 const RoutesDispatchContext = createContext();
 const PlaceInfoContext = createContext();
 const PlaceInfoDispatchContext = createContext();
+
+export const auth_actions = {
+  SET_CAN_EDIT: 'SET_CAN_EDIT', // 設置編輯權限
+};
 
 export const tripInfo_actions = {
   SET_IS_Loaded: 'SET_IS_Loaded',
@@ -149,6 +155,21 @@ export const placeInfo_actions = {
   SET_PLACE_INFO: 'SET_PLACE_INFO', // 暫存搜尋景點的資訊
   DELETE_PLACE_INFO: 'DELETE_PLACE_INFO', // 刪除搜尋景點的資訊
 };
+
+function authReducer(auth, action) {
+  switch (action.type) {
+    case auth_actions.SET_CAN_EDIT: {
+      const newAuth = {
+        canEdit: action.payload,
+      };
+      return newAuth;
+    }
+    default: {
+      console.log('auth dispatch error');
+      break;
+    }
+  }
+}
 
 function tripInfoReducer(tripInfo, action) {
   switch (action.type) {
@@ -261,6 +282,18 @@ function placeInfoReducer(placeInfo, action) {
   }
 }
 
+export function AuthProvider({ children }) {
+  const [auth, authDispatch] = useReducer(authReducer, { canEdit: false });
+
+  return (
+    <AuthContext.Provider value={auth}>
+      <AuthDispatchContext.Provider value={authDispatch}>
+        {children}
+      </AuthDispatchContext.Provider>
+    </AuthContext.Provider>
+  );
+}
+
 export function TripInfoProvider({ children }) {
   const [tripInfo, tripInfoDispatch] = useReducer(tripInfoReducer, {
     isLoaded: false,
@@ -302,6 +335,14 @@ export function PlaceInfoProvider({ children }) {
       </PlaceInfoDispatchContext.Provider>
     </PlaceInfoContext.Provider>
   );
+}
+
+export function useAuth() {
+  return useContext(AuthContext);
+}
+
+export function useAuthDispatch() {
+  return useContext(AuthDispatchContext);
 }
 
 export function useTripInfo() {

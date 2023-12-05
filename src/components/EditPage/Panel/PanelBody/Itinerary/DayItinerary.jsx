@@ -7,8 +7,10 @@ import Timeline from './Timeline';
 import DayNumber from './DayNumber';
 import DayItineraryContent from './DayItineraryContent';
 import AddBtn from '../AddBtn';
+import { useAuth } from '../../../temp_data/trip_reducer';
 
 export default function DayItinerary({ day }) {
+  const canEdit = useAuth().canEdit;
   const rwdColumns = [3, 9]; // grid system by MUI
 
   return (
@@ -32,18 +34,20 @@ export default function DayItinerary({ day }) {
           <DayItineraryContent rwdColumns={rwdColumns} day={day} />
 
           {/* display add button */}
-          <Grid item xs={rwdColumns[0]}>
-            <ListItem
-              sx={{
-                paddingTop: '2rem',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <AddBtn />
-            </ListItem>
-          </Grid>
+          {canEdit && (
+            <Grid item xs={rwdColumns[0]}>
+              <ListItem
+                sx={{
+                  paddingTop: '2rem',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <AddBtn />
+              </ListItem>
+            </Grid>
+          )}
         </List>
       </Grid>
     </>

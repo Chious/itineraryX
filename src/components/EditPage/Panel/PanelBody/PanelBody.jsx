@@ -8,6 +8,7 @@ import AddBtn from './AddBtn';
 import {
   postMaps,
   postDestinations,
+  useAuth,
   tripInfo_actions,
   useTripInfo,
   useTripInfoDispatch,
@@ -18,6 +19,8 @@ import {
 
 export default function PanelBody() {
   const [openForm, setOpenForm] = useState(false);
+  const auth = useAuth();
+  const canEdit = auth.canEdit;
   const tripInfo = useTripInfo();
   const tripInfoDispatch = useTripInfoDispatch();
   const itinerary = tripInfo.itinerary;
@@ -83,16 +86,18 @@ export default function PanelBody() {
       )}
 
       {/* add button on the bottom-right of the panel */}
-      <Box
-        style={{
-          position: 'absolute',
-          bottom: '2rem',
-          right: '2.5rem',
-          zIndex: '3',
-        }}
-      >
-        <AddBtn handleFormOpen={handleFormOpen} />
-      </Box>
+      {canEdit && (
+        <Box
+          style={{
+            position: 'absolute',
+            bottom: '2rem',
+            right: '2.5rem',
+            zIndex: '3',
+          }}
+        >
+          <AddBtn handleFormOpen={handleFormOpen} />
+        </Box>
+      )}
     </Box>
   );
 }
