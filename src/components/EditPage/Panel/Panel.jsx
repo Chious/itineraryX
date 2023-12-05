@@ -4,10 +4,9 @@ import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import PanelControl from './PanelControl/PanelControl';
 import PanelBody from './PanelBody/PanelBody';
+import { getItinerary, getDestinations } from '@/api/editPage.js';
 
 import {
-  getItinerary,
-  getDestinations,
   auth_actions,
   useAuthDispatch,
   tripInfo_actions,

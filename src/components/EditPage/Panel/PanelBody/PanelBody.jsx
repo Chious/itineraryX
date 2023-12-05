@@ -4,10 +4,9 @@ import Box from '@mui/material/Box';
 import DestinationCreateForm from './CRUD/DestinationCreateForm';
 import AutoScrollTabs from './AutoScrollTabs/AutoScrollTabs';
 import AddBtn from './AddBtn';
+import { postMaps, postDestinations } from '@/api/editPage.js';
 
 import {
-  postMaps,
-  postDestinations,
   useAuth,
   tripInfo_actions,
   useTripInfo,

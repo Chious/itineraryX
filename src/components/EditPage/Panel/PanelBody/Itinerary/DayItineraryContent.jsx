@@ -4,20 +4,16 @@ import ListItem from '@mui/material/ListItem';
 import Typography from '@mui/material/Typography';
 import DestinationItem from './DestinationItem';
 import TransportationItem from './TransportationItem';
+import { getRoutes, postRoutes } from '@/api/editPage.js';
 
 import {
-  getRoutes,
-  postRoutes,
   useTripInfo,
   routes_actions,
   useRoutes,
   useRoutesDispatch,
 } from '../../../temp_data/trip_reducer';
 
-export default function DayItineraryContent({
-  rwdColumns,
-  day,
-}) {
+export default function DayItineraryContent({ rwdColumns, day }) {
   const tripInfo = useTripInfo();
   const itinerary = tripInfo.itinerary;
   const destinations = tripInfo.destinations;

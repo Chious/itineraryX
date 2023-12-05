@@ -8,10 +8,9 @@ import ListItemButton from '@mui/material/ListItemButton';
 import Modal from '@mui/material/Modal';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { ClickAwayListener } from '@mui/base/ClickAwayListener';
+import { patchDestinations, deleteDestinations } from '@/api/editPage.js';
 
 import {
-  patchDestinations,
-  deleteDestinations,
   tripInfo_actions,
   useTripInfo,
   useTripInfoDispatch,
