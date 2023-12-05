@@ -2,8 +2,12 @@ import { Box, Stack, TextField, Button } from "@mui/material";
 import PrimarySearchAppBar from "../components/PrimarySearchAppBar";
 import Image from "mui-image";
 import logo from "../assets/itineraryX_logo.png";
-import { useRef, useState } from "react";
-import { getForgetToken, patchResetAccount } from "../api/auth";
+import { useEffect, useRef, useState } from "react";
+import {
+  checkTokenValid,
+  getForgetToken,
+  patchResetAccount,
+} from "../api/auth";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import LoginModal from "../components/Login/LoginModal";
 
@@ -123,6 +127,19 @@ const ConfirmForm = () => {
 
   const [searchParams] = useSearchParams();
   const token = useRef(searchParams.get("token"));
+
+  //Check if token is valid, if not redirect to home
+  useEffect(async () => {
+    if (token) {
+      const response = await checkTokenValid({ token });
+
+      if (response !== "success") {
+        navigate("/home1");
+      } else if (token === null) {
+        navigate("/home1");
+      }
+    }
+  }, []);
 
   // handle event in the form
   const handlePassword = (e) => {

@@ -132,3 +132,21 @@ export const patchResetAccount = async ({ token, password, passwordCheck }) => {
 
   return response;
 };
+
+export const checkTokenValid = async ({ token }) => {
+  const url = base_url + "/users/token";
+  const bodyParams = {
+    token: token,
+  };
+
+  const response = axios
+    .post(url, bodyParams)
+    .then((data) => {
+      return "success";
+    })
+    .catch((err) => {
+      return "failed";
+    });
+
+  return response;
+};
