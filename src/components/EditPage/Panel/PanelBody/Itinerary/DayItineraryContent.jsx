@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import ListItem from '@mui/material/ListItem';
+import Typography from '@mui/material/Typography';
 import DestinationItem from './DestinationItem';
 import TransportationItem from './TransportationItem';
 

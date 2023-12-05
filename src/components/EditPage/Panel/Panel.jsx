@@ -1,10 +1,10 @@
+import { useEffect } from 'react';
+import moment from 'moment';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import PanelControl from './PanelControl/PanelControl';
 import PanelBody from './PanelBody/PanelBody';
 
-import moment from 'moment';
-import { useEffect } from 'react';
 import {
   getItinerary,
   getDestinations,

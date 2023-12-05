@@ -1,4 +1,5 @@
-import { Stack, Typography } from '@mui/material';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ForumIcon from '@mui/icons-material/Forum';
 

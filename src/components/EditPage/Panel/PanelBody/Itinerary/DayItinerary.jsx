@@ -2,7 +2,6 @@ import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListSubheader from '@mui/material/ListSubheader';
-
 import Timeline from './Timeline';
 import DayNumber from './DayNumber';
 import DayItineraryContent from './DayItineraryContent';

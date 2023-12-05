@@ -1,18 +1,15 @@
 import { useState } from 'react';
-import {
-  Button,
-  Grid,
-  Box,
-  Stack,
-  Typography,
-  List,
-  ListItem,
-  ListItemButton,
-} from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import DirectionsWalkIcon from '@mui/icons-material/DirectionsWalk';
 import PedalBikeIcon from '@mui/icons-material/PedalBike';
-
 import { ClickAwayListener } from '@mui/base/ClickAwayListener';
 import { patchRoutes, useAuth } from '../../../temp_data/trip_reducer';
 

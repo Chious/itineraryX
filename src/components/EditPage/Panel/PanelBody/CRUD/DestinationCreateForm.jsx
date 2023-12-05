@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 import {
   useTripInfo,
