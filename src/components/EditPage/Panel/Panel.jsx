@@ -68,9 +68,11 @@ export default function Panel() {
 
     const auth = (itinerary_data) => {
       ////////// 測試 //////////
-      localStorage.setItem('userId', 10);
-      const userId = Number(localStorage.getItem('userId'));
+      localStorage.setItem('user', JSON.stringify({ id: 1 }));
       // 檢查使用者是否有編輯權限
+      const userInfo = JSON.parse(localStorage.getItem('user'));
+      if (!userInfo) return;
+      const userId = Number(userInfo.id);
       const authorizedIds = itinerary_data.ParticipantsUser.map(
         (participant) => participant.id
       );
