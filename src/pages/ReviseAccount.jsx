@@ -131,7 +131,7 @@ const ConfirmForm = () => {
   //Check if token is valid, if not redirect to home
   useEffect(async () => {
     if (token) {
-      const response = await checkTokenValid({ token });
+      const response = await checkTokenValid({ token: token.current });
 
       if (response !== "success") {
         navigate("/home1");
