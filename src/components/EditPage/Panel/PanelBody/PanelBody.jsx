@@ -37,11 +37,9 @@ export default function PanelBody() {
     const dayGap = Number(formRef.current.day.value) - 1;
     const date = moment(itinerary.startTime)
       .add(dayGap, 'days')
-      .format('YYYY/MM/DD');
+      .format('YYYY-MM-DD');
     const time = formRef.current.time.value;
-    const datetime = moment(date + time, 'YYYY/MM/DDHH:mm')
-      .utc()
-      .format('YYYY-MM-DD[T]HH:mm:ss[Z]');
+    const datetime = `${date}T${time}Z`;
     // 更新後端資料庫
     const placeData = await postMaps(placeInfo.placeId);
     const resData = await postDestinations(

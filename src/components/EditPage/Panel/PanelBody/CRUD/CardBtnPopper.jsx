@@ -63,14 +63,13 @@ export default function CardBtnPopper({ day, destinationId }) {
   function handleDestinationEdit(e) {
     e.preventDefault();
     e.stopPropagation();
-    const time = formRef.current.time.value;
+    const dayGap = day - 1;
     const date = moment(itinerary.startTime)
-      .add(day - 1, 'days')
+      .add(dayGap, 'days')
       .format('YYYY-MM-DD');
-    const datetime = moment(date + time, 'YYYY-MM-DDHH:mm')
-      .utc()
-      .format('YYYY-MM-DD[T]HH:mm:ss[Z]');
-    const data = {
+    const time = formRef.current.time.value;
+    const datetime = `${date}T${time}Z`;
+    const destination_data = {
       destinationId: destinationId,
       datetime: datetime,
     };
@@ -81,12 +80,12 @@ export default function CardBtnPopper({ day, destinationId }) {
     });
     tripInfoDispatch({
       type: tripInfo_actions.CHANGE_DESTINATION_TIME,
-      payload: data,
+      payload: destination_data,
     });
     // 更新後端
     patchDestinations(destinationId, datetime);
     // 關閉popper與modal表單
-    handlePopperClickAway()
+    handlePopperClickAway();
     handleEditModalClose();
   }
 

@@ -192,16 +192,16 @@ function tripInfoReducer(tripInfo, action) {
     }
     case tripInfo_actions.ADD_DESTINATION: {
       const { day, date, id, Place } = action.payload;
-      const utcDate = moment(date).utc(); // 將時間轉為UTC時間
+      const newDate = moment(date);
       const newTripInfo = JSON.parse(JSON.stringify(tripInfo));
       const destinationsByDay = newTripInfo.destinations[day];
       // 尋找新景點的插入位置
       let insertionId = undefined;
       destinationsByDay.forEach((_, index) => {
-        const beforeDate = moment(destinationsByDay[index].date).utc();
-        const afterDate = moment(destinationsByDay[index + 1]?.date).utc();
-        if (index === 0 && utcDate.isBefore(beforeDate)) insertionId = 0;
-        if (beforeDate.isBefore(utcDate) && afterDate.isAfter(utcDate))
+        const beforeDate = moment(destinationsByDay[index].date);
+        const afterDate = moment(destinationsByDay[index + 1]?.date);
+        if (index === 0 && newDate.isBefore(beforeDate)) insertionId = 0;
+        if (beforeDate.isBefore(newDate) && afterDate.isAfter(newDate))
           insertionId = index + 1;
       });
       if (insertionId === undefined) insertionId = destinationsByDay.length;
@@ -221,9 +221,8 @@ function tripInfoReducer(tripInfo, action) {
           if (destination.destinationId === destinationId)
             return {
               ...destination,
-              date: datetime, // utc time
+              date: datetime, // 將景點時間修改成新的時間
             };
-          // 將景點時間修改成新的時間
           else return destination;
         });
       });
