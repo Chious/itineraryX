@@ -1,7 +1,9 @@
 import axios from "axios";
 
+const base_url = import.meta.env.VITE_BASE_URL;
+
 export const ItineraryLogin = async ({ account, password }) => {
-  const url = import.meta.env.VITE_BASE_URL + "/users/login";
+  const url = base_url + "/users/login";
   const bodyParam = {
     email: account,
     password: password,
@@ -41,7 +43,7 @@ export const ItineraryRegister = async ({
   password,
   passwordCheck,
 }) => {
-  const url = import.meta.env.VITE_BASE_URL + "/users/signup";
+  const url = base_url + "/users/signup";
   const bodyParam = {
     name: name,
     email: account,
@@ -79,7 +81,7 @@ export const ItineraryRegister = async ({
 };
 
 export const getUser = async () => {
-  const url = import.meta.env.VITE_BASE_URL + "/users/";
+  const url = base_url + "/users/";
   const token = localStorage.getItem("token");
 
   const config = { headers: { Authorization: `Bearer ${token}` } };
@@ -92,4 +94,59 @@ export const getUser = async () => {
     .catch((err) => {
       console.log(err);
     });
+};
+
+export const getForgetToken = async ({ email }) => {
+  const url = base_url + "/users/forgetPassword";
+  const bodyParams = { email: email };
+
+  const response = axios
+    .post(url, bodyParams)
+    .then((data) => {
+      console.log(data.data.data.link);
+      return "success";
+    })
+    .catch((err) => {
+      return "failed";
+    });
+
+  return response;
+};
+
+export const patchResetAccount = async ({ token, password, passwordCheck }) => {
+  const url = base_url + "/users/forgetPassword";
+  const bodyParams = {
+    token: token,
+    password: password,
+    passwordCheck: passwordCheck,
+  };
+
+  const response = axios
+    .patch(url, bodyParams)
+    .then((data) => {
+      return "success";
+    })
+    .catch((err) => {
+      return "failed";
+    });
+
+  return response;
+};
+
+export const checkTokenValid = async ({ token }) => {
+  const url = base_url + "/users/token";
+  const bodyParams = {
+    token: token,
+  };
+
+  const response = axios
+    .post(url, bodyParams)
+    .then((data) => {
+      return "success";
+    })
+    .catch((err) => {
+      return "failed";
+    });
+
+  return response;
 };
