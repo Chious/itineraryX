@@ -3,7 +3,7 @@ import axios from 'axios';
 //////////////////// config ////////////////////
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
-const token = import.meta.env.VITE_USER_TOKEN;
+const token = localStorage.getItem('token');
 const config = { headers: { Authorization: `Bearer ${token}` } };
 
 //////////////////// axios ////////////////////
