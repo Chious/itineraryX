@@ -2,8 +2,7 @@ import { useState, useRef, createRef } from 'react';
 import Stack from '@mui/material/Stack';
 import TabControl from './TabControl';
 import TabContent from './TabContent';
-
-import { useTripInfo } from '../../../temp_data/trip_reducer';
+import { useTripInfo } from '@/contexts/TripInfoContext';
 
 export default function AutoScrollTabs() {
   const [activeTab, setActiveTab] = useState('0');
@@ -34,15 +33,10 @@ export default function AutoScrollTabs() {
         sx={{ bgcolor: 'white' }}
       >
         {/* tab control panel */}
-        <TabControl
-          activeTab={activeTab}
-          handleTabChange={handleTabChange}
-        />
+        <TabControl activeTab={activeTab} handleTabChange={handleTabChange} />
 
         {/* content for each tab */}
-        <TabContent
-          tabRefs={tabRefs}
-        />
+        <TabContent tabRefs={tabRefs} />
       </Stack>
     </>
   );

@@ -1,7 +1,7 @@
 import { styled } from '@mui/system';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import { useTripInfo } from '../../../temp_data/trip_reducer';
+import { useTripInfo } from '@/contexts/TripInfoContext';
 
 const StyledTabs = styled(Tabs)`
   min-height: 40px;

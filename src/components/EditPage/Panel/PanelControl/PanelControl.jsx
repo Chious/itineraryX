@@ -3,8 +3,7 @@ import Typography from '@mui/material/Typography';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ForumIcon from '@mui/icons-material/Forum';
 import { useAuth } from '@/contexts/AuthContext';
-
-import { useTripInfo } from '../../temp_data/trip_reducer';
+import { useTripInfo } from '@/contexts/TripInfoContext';
 
 export default function PanelControl() {
   const canEdit = useAuth().canEdit;

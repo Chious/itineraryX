@@ -6,11 +6,13 @@ import AutoScrollTabs from './AutoScrollTabs/AutoScrollTabs';
 import AddBtn from './AddBtn';
 import { postMaps, postDestinations } from '@/api/editPage.js';
 import { useAuth } from '@/contexts/AuthContext';
-
 import {
   tripInfo_actions,
   useTripInfo,
   useTripInfoDispatch,
+} from '@/contexts/TripInfoContext';
+
+import {
   routes_actions,
   useRoutesDispatch,
   usePlaceInfo,

@@ -2,9 +2,9 @@ import { useEffect, useRef } from 'react';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { useTripInfo } from '@/contexts/TripInfoContext';
 
 import {
-  useTripInfo,
   usePlaceInfoDispatch,
   placeInfo_actions,
 } from '../../../temp_data/trip_reducer';
@@ -22,7 +22,7 @@ export default function DestinationCreateForm({
   const tripInfo = useTripInfo();
   const numOfDays = tripInfo.itinerary.days;
   const placeInfoDispatch = usePlaceInfoDispatch();
-  
+
   const inputDivRef = useRef(null);
   const autocompleteRef = useRef(null);
   const rwdColumns = [3, 9];

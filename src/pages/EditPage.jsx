@@ -2,9 +2,9 @@ import { Box, Stack } from '@mui/material';
 import PrimarySearchAppBar from '../components/PrimarySearchAppBar';
 import Panel from '@/components/EditPage/Panel/Panel';
 import { AuthProvider } from '@/contexts/AuthContext';
+import { TripInfoProvider } from '@/contexts/TripInfoContext';
 
 import {
-  TripInfoProvider,
   RoutesProvider,
   PlaceInfoProvider,
 } from '@/components/EditPage/temp_data/trip_reducer.jsx';

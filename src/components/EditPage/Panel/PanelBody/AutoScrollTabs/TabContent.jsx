@@ -1,7 +1,7 @@
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import DayItinerary from '../Itinerary/DayItinerary';
-import { useTripInfo } from '../../../temp_data/trip_reducer';
+import { useTripInfo } from '@/contexts/TripInfoContext';
 
 export default function TabContent({ tabRefs }) {
   const tripInfo = useTripInfo();

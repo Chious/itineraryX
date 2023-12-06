@@ -6,12 +6,11 @@ import PanelControl from './PanelControl/PanelControl';
 import PanelBody from './PanelBody/PanelBody';
 import { getItinerary, getDestinations } from '@/api/editPage.js';
 import { auth_actions, useAuthDispatch } from '@/contexts/AuthContext';
-
 import {
   tripInfo_actions,
   useTripInfo,
   useTripInfoDispatch,
-} from '../temp_data/trip_reducer';
+} from '@/contexts/TripInfoContext';
 
 export default function Panel() {
   const tripInfo = useTripInfo();
