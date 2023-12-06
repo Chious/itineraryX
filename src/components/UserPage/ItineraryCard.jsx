@@ -14,7 +14,7 @@ import CardDeleteButtons from "./CardDeleteButton";
 import CardEditButtons from "./CardEditButton";
 import { Stack } from "@mui/material";
 import ParticipantsModal from "./ParticipantsModel";
-import { useItineraries } from "../../context/UserPageContext";
+import { useItineraries } from '../../contexts/UserPageContext';
 
 export default function ItineraryCard({image}) {
   const {itineraries} = useItineraries()

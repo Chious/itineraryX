@@ -12,7 +12,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import Grid from '@mui/material/Grid';
 import { editItinerary } from '../../api/userpage.jsx';
-import { useItineraries } from '../../context/UserPageContext.jsx';
+import { useItineraries } from '../../contexts/UserPageContext.jsx';
 
 const style = {
   position: 'absolute',
