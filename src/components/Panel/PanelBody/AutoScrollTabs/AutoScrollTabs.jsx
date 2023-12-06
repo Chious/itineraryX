@@ -32,10 +32,10 @@ export default function AutoScrollTabs() {
         height="100%"
         sx={{ bgcolor: 'white' }}
       >
-        {/* tab control panel */}
+        {/* the control panel of MUI automatic scroll tabs */}
         <TabControl activeTab={activeTab} handleTabChange={handleTabChange} />
 
-        {/* content for each tab */}
+        {/* the content for each tab */}
         <TabContent tabRefs={tabRefs} />
       </Stack>
     </>

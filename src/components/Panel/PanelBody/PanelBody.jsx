@@ -69,18 +69,18 @@ export default function PanelBody() {
       sx={{ position: 'relative' }}
     >
       {openForm ? (
-        // a form to create destination
+        // display the form to create destination
         <DestinationCreateForm
           formRef={formRef}
           handleDestinationAdd={handleDestinationAdd}
           handleFormClose={handleFormClose}
         />
       ) : (
-        // mui automatic scroll buttons
+        // MUI automatic scroll tabs component
         <AutoScrollTabs />
       )}
 
-      {/* add button on the bottom-right of the panel */}
+      {/* the add button on the bottom-right of the panel */}
       {canEdit && (
         <Box
           style={{

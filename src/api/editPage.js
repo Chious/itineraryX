@@ -6,7 +6,7 @@ const baseUrl = import.meta.env.VITE_BASE_URL;
 const token = localStorage.getItem('token');
 const config = { headers: { Authorization: `Bearer ${token}` } };
 
-//////////////////// axios ////////////////////
+//////////////////// itinerary API ////////////////////
 
 //  透過 id 取得指定行程的資訊
 export const getItinerary = async (id) => {
@@ -20,7 +20,9 @@ export const getItinerary = async (id) => {
   }
 };
 
-// 透過行程的 id & 日期 獲取行程景點資料
+//////////////////// destinations API ////////////////////
+
+// 透過行程的 id & 日期 來取得該行程的景點資料
 export const getDestinations = async (id, date) => {
   try {
     const url = baseUrl + `/destinations/?itineraryId=${id}&date=${date}`;
@@ -42,6 +44,7 @@ export const postMaps = async (placeId) => {
     console.log(error);
   }
 };
+
 // 新增Destination資料
 export const postDestinations = async (itineraryId, datetime, placeId) => {
   try {
@@ -82,7 +85,9 @@ export const deleteDestinations = async (destinationId) => {
   }
 };
 
-// 取得兩個景點間的交通路線資訊
+//////////////////// routes API ////////////////////
+
+// 取得兩個景點之間的交通路線資訊
 export const getRoutes = async (itId, oId, dId) => {
   try {
     const url =

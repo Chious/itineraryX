@@ -23,10 +23,10 @@ export default function DayItinerary({ day }) {
             position: 'relative',
           }}
         >
-          {/* timeline */}
+          {/* the timeline positioned on the left side of DayItinerary */}
           <Timeline rwdColumn={rwdColumns[0]} />
 
-          {/* display day number with list subheader */}
+          {/* display day number with list subheader component */}
           <DayNumber rwdColumn={rwdColumns[0]} day={day} />
 
           {/* display transportation & destination */}

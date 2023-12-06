@@ -18,9 +18,12 @@ export default function EditPage() {
             >
               <PrimarySearchAppBar>
                 <Stack className="container" direction="row" height="100%">
+                  {/* Panel component */}
                   <Box className="edit-panel" width="400px" height="100%">
                     <Panel />
                   </Box>
+
+                  {/* Map component */}
                   <Box
                     className="edit-map"
                     sx={{ width: 'calc(100vw - 400px)', height: '100%' }}

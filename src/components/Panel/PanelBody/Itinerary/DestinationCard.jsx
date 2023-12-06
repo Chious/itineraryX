@@ -22,12 +22,12 @@ export default function DestinationCard({ day, destination }) {
         position: 'relative',
       }}
     >
-      {/* button for edit & delete function */}
+      {/* the button for editing or deleting the destination */}
       {canEdit && (
         <CardBtnPopper day={day} destinationId={destination.destinationId} />
       )}
 
-      {/* image */}
+      {/* display the image of the destination */}
       <div
         className="img"
         style={{
@@ -39,7 +39,7 @@ export default function DestinationCard({ day, destination }) {
         }}
       ></div>
 
-      {/* destination info */}
+      {/* display the information of the destination */}
       <CardContent
         sx={{
           flexGrow: '1',

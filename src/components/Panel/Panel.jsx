@@ -49,8 +49,8 @@ export default function Panel() {
         destinations_data.push([]);
         data?.forEach((item) =>
           destinations_data[i].push({
-            ...item.Place, // id 為 placeId
-            destinationId: item.id, // destinationId 為 destinationId
+            ...item.Place, // 此處的id為placeId
+            destinationId: item.id, // 此處的id為destinationId
             date: item.date,
           })
         );
@@ -86,6 +86,7 @@ export default function Panel() {
     });
   }, []);
 
+  // 若資料尚未載入完畢將顯示Loading提示字樣
   if (!tripInfo.isLoaded) {
     // 優化：skeleton loading / skeleton preview
     return <Grid>Loading...</Grid>;

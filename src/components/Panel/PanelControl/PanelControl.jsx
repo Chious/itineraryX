@@ -25,10 +25,13 @@ export default function PanelControl() {
         zIndex: 5,
       }}
     >
+      {/* arrow back icon & itinerary title */}
       <Stack className="trip-title" direction="row" gap="1rem">
         <ArrowBackIcon sx={{ color: 'black', cursor: 'pointer' }} />
         <Typography sx={{ fontWeight: 'bold' }}>{itinerary.title}</Typography>
       </Stack>
+
+      {/* chatroom icon */}
       <Stack className="icon-container" direction="row">
         {canEdit && <ForumIcon sx={{ color: 'black', cursor: 'pointer' }} />}
       </Stack>
