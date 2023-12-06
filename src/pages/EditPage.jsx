@@ -1,6 +1,6 @@
 import { Box, Stack } from '@mui/material';
 import PrimarySearchAppBar from '../components/PrimarySearchAppBar';
-import Panel from '@/components/EditPage/Panel/Panel';
+import Panel from '@/components/Panel/Panel';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { TripInfoProvider } from '@/contexts/TripInfoContext';
 import { RoutesProvider } from '@/contexts/RoutesContext';
