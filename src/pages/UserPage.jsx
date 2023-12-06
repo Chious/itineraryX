@@ -2,10 +2,10 @@ import { Box } from "@mui/material";
 import LabTabs from "../components/UserPage/LabTab";
 import CreateTripModal from "../components/UserPage/CreateTripModel.jsx";
 import Navbar from "../components/Home/Navbar.jsx";
-import { ItinerariesProvider } from "../context/UserPageContext.jsx";
+import { ItinerariesProvider } from "../contexts/UserPageContext.jsx";
 import { useEffect } from "react";
 import { getItineraries } from "../api/userpage.jsx";
-import { useItineraries } from "../context/UserPageContext.jsx";
+import { useItineraries } from '../contexts/UserPageContext.jsx';
 
 export default function UserPage() {
   return (

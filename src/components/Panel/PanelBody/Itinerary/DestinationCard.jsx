@@ -1,12 +1,14 @@
 import Stack from '@mui/material/Stack';
-import { Box, IconButton, Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import photo from '../../../../../assets/joshua-hibbert-Pn6iimgM-wo-unsplash.jpg';
+import CardBtnPopper from '../CRUD/CardBtnPopper';
+import { useAuth } from '@/contexts/AuthContext';
 
-export default function DestinationCard() {
+export default function DestinationCard({ day, destination }) {
+  const canEdit = useAuth().canEdit;
+
   return (
     <Card
       className="destination-card"
@@ -20,30 +22,24 @@ export default function DestinationCard() {
         position: 'relative',
       }}
     >
-      {/* icon button for edit function */}
-      <IconButton
-        sx={{
-          position: 'absolute',
-          top: '5px',
-          right: '5px',
-        }}
-      >
-        <MoreHorizIcon sx={{ fontSize: '1.2rem' }} />
-      </IconButton>
+      {/* the button for editing or deleting the destination */}
+      {canEdit && (
+        <CardBtnPopper day={day} destinationId={destination.destinationId} />
+      )}
 
-      {/* image */}
+      {/* display the image of the destination */}
       <div
         className="img"
         style={{
           flexShrink: '0',
           width: '100px',
-          backgroundImage: `url(${photo})`,
+          backgroundImage: `url(${destination.image})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       ></div>
 
-      {/* destination info */}
+      {/* display the information of the destination */}
       <CardContent
         sx={{
           flexGrow: '1',
@@ -56,18 +52,20 @@ export default function DestinationCard() {
         }}
       >
         <Stack spacing={0.5}>
-          <Typography sx={{ fontWeight: 'bold' }}>台北車站</Typography>
+          <Typography sx={{ fontSize: '0.9rem', fontWeight: 'bold' }}>
+            {destination.name}
+          </Typography>
           <Stack direction="row" gap="2px">
             <LocationOnIcon sx={{ fontSize: '0.9rem' }} />
             <Typography
               sx={{
                 color: 'text.secondary',
-                fontSize: '0.8rem',
+                fontSize: '0.7rem',
                 lineHeight: '1.1',
                 wordWrap: 'break-word',
               }}
             >
-              台北市中正區忠孝西路一段49號
+              {destination.address}
             </Typography>
           </Stack>
         </Stack>
