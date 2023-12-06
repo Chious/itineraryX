@@ -6,7 +6,7 @@ import Timeline from './Timeline';
 import DayNumber from './DayNumber';
 import DayItineraryContent from './DayItineraryContent';
 import AddBtn from '../AddBtn';
-import { useAuth } from '../../../temp_data/trip_reducer';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function DayItinerary({ day }) {
   const canEdit = useAuth().canEdit;

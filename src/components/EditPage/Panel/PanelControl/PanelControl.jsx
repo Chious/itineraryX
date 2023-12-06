@@ -2,8 +2,9 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ForumIcon from '@mui/icons-material/Forum';
+import { useAuth } from '@/contexts/AuthContext';
 
-import { useAuth, useTripInfo } from '../../temp_data/trip_reducer';
+import { useTripInfo } from '../../temp_data/trip_reducer';
 
 export default function PanelControl() {
   const canEdit = useAuth().canEdit;

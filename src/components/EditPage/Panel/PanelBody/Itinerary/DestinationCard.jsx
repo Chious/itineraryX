@@ -4,7 +4,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CardBtnPopper from '../CRUD/CardBtnPopper';
-import { useAuth } from '../../../temp_data/trip_reducer';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function DestinationCard({ day, destination }) {
   const canEdit = useAuth().canEdit;

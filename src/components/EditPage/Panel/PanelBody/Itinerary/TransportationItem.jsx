@@ -12,8 +12,7 @@ import DirectionsWalkIcon from '@mui/icons-material/DirectionsWalk';
 import PedalBikeIcon from '@mui/icons-material/PedalBike';
 import { ClickAwayListener } from '@mui/base/ClickAwayListener';
 import { patchRoutes } from '@/api/editPage.js';
-
-import { useAuth } from '../../../temp_data/trip_reducer';
+import { useAuth } from '@/contexts/AuthContext';
 
 const icons = {
   driving: <DirectionsCarIcon color="black" />,

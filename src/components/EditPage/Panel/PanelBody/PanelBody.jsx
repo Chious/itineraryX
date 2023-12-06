@@ -5,9 +5,9 @@ import DestinationCreateForm from './CRUD/DestinationCreateForm';
 import AutoScrollTabs from './AutoScrollTabs/AutoScrollTabs';
 import AddBtn from './AddBtn';
 import { postMaps, postDestinations } from '@/api/editPage.js';
+import { useAuth } from '@/contexts/AuthContext';
 
 import {
-  useAuth,
   tripInfo_actions,
   useTripInfo,
   useTripInfoDispatch,
