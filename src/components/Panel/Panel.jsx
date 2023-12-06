@@ -1,3 +1,4 @@
+import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import moment from 'moment';
 import Grid from '@mui/material/Grid';
@@ -13,6 +14,7 @@ import {
 } from '@/contexts/TripInfoContext';
 
 export default function Panel() {
+  const { itineraryId } = useParams(); // 動態取得行程id
   const tripInfo = useTripInfo();
   const tripInfoDispatch = useTripInfoDispatch();
   const authDispatch = useAuthDispatch();
@@ -20,7 +22,7 @@ export default function Panel() {
   useEffect(() => {
     // 取得指定行程的資料
     const fetchItinerary = async () => {
-      const id = 1; // 修改：動態取得行程id
+      const id = itineraryId;
       const data = await getItinerary(id);
       const startTime = moment(data.startTime);
       const endTime = moment(data.endTime);

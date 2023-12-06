@@ -25,7 +25,7 @@ function App() {
               <Route path="pending" element={<Pending />} />
               <Route path="login" element={<Login />} />
               <Route path="register" element={<Register />} />
-              <Route path="map" element={<EditPage />} />
+              <Route path="edit/:itineraryId" element={<EditPage />} />
               <Route path="user" element={<UserPage />} />
               <Route path="chat" element={<Chatroom />} />
               <Route path="chat2" element={<ChatroomSocket />} />
