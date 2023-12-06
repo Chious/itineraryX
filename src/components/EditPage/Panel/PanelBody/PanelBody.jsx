@@ -7,13 +7,12 @@ import AddBtn from './AddBtn';
 import { postMaps, postDestinations } from '@/api/editPage.js';
 import { useAuth } from '@/contexts/AuthContext';
 import { routes_actions, useRoutesDispatch } from '@/contexts/RoutesContext';
+import { usePlaceInfo } from '@/contexts/PlaceInfoContext';
 import {
   tripInfo_actions,
   useTripInfo,
   useTripInfoDispatch,
 } from '@/contexts/TripInfoContext';
-
-import { usePlaceInfo } from '../../temp_data/trip_reducer';
 
 export default function PanelBody() {
   const [openForm, setOpenForm] = useState(false);

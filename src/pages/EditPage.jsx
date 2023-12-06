@@ -4,8 +4,7 @@ import Panel from '@/components/EditPage/Panel/Panel';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { TripInfoProvider } from '@/contexts/TripInfoContext';
 import { RoutesProvider } from '@/contexts/RoutesContext';
-
-import { PlaceInfoProvider } from '@/components/EditPage/temp_data/trip_reducer.jsx';
+import { PlaceInfoProvider } from '@/contexts/PlaceInfoContext';
 
 export default function EditPage() {
   return (

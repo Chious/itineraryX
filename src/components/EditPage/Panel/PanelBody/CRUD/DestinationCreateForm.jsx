@@ -3,11 +3,10 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useTripInfo } from '@/contexts/TripInfoContext';
-
 import {
   usePlaceInfoDispatch,
   placeInfo_actions,
-} from '../../../temp_data/trip_reducer';
+} from '@/contexts/PlaceInfoContext';
 
 const center = {
   lat: 23.42926,
