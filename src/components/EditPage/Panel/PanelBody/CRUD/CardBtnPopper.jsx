@@ -9,16 +9,12 @@ import Modal from '@mui/material/Modal';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { ClickAwayListener } from '@mui/base/ClickAwayListener';
 import { patchDestinations, deleteDestinations } from '@/api/editPage.js';
+import { routes_actions, useRoutesDispatch } from '@/contexts/RoutesContext';
 import {
   tripInfo_actions,
   useTripInfo,
   useTripInfoDispatch,
 } from '@/contexts/TripInfoContext';
-
-import {
-  routes_actions,
-  useRoutesDispatch,
-} from '../../../temp_data/trip_reducer';
 
 const btnStyle = {
   position: 'absolute',

@@ -6,12 +6,11 @@ import DestinationItem from './DestinationItem';
 import TransportationItem from './TransportationItem';
 import { getRoutes, postRoutes } from '@/api/editPage.js';
 import { useTripInfo } from '@/contexts/TripInfoContext';
-
 import {
   routes_actions,
   useRoutes,
   useRoutesDispatch,
-} from '../../../temp_data/trip_reducer';
+} from '@/contexts/RoutesContext';
 
 export default function DayItineraryContent({ rwdColumns, day }) {
   const tripInfo = useTripInfo();

@@ -3,11 +3,9 @@ import PrimarySearchAppBar from '../components/PrimarySearchAppBar';
 import Panel from '@/components/EditPage/Panel/Panel';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { TripInfoProvider } from '@/contexts/TripInfoContext';
+import { RoutesProvider } from '@/contexts/RoutesContext';
 
-import {
-  RoutesProvider,
-  PlaceInfoProvider,
-} from '@/components/EditPage/temp_data/trip_reducer.jsx';
+import { PlaceInfoProvider } from '@/components/EditPage/temp_data/trip_reducer.jsx';
 
 export default function EditPage() {
   return (
