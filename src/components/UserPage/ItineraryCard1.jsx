@@ -47,9 +47,6 @@ export default function ItineraryCard1({item, image}) {
       <CardActions disableSpacing>
         <CardDeleteButtons id={item.id} />
         <CardEditButtons id={item.id} />
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
         <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>

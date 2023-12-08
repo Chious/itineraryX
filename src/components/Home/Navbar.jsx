@@ -9,14 +9,23 @@ import Menu from '@mui/material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import { Stack, Typography } from '@mui/material';
+import { Stack } from '@mui/material';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 import { getNotification } from '../../api/home';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import NotificationButton from './NotificationButton';
 
 export default function Navbar() {
+  // state to store notification fetch data
   const [notification, setNotification] = React.useState([])
+
+  // state as dependency to trigger rerender after notification clicked
+  const [buttonClicked, setButtonClicked] = React.useState(false);
+
+  // state to store unread notification
+  const [unReadNotification, setUnReadNotification] = React.useState([])
 
   // fetch notification data
   React.useEffect(() => {
@@ -24,11 +33,19 @@ export default function Navbar() {
       getNotification()
       .then(data => {
         setNotification(data)
+        // console.log(data)
       })
     };
 
     fetchNotification();
-  }, []);
+  }, [buttonClicked]);
+
+  // filter out unread notification
+  React.useEffect(() => {
+    const unreadNum = [...notification].filter(item => item.isRead === 0) 
+    setUnReadNotification(unreadNum)
+    // console.log(unreadNum)
+  }, [notification])
 
   // state and function for profile icon
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -79,16 +96,10 @@ export default function Navbar() {
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
+      anchorReference="anchorPosition"
+      anchorPosition={{ top: 80, left: window.innerWidth}}
       id={menuId}
       keepMounted
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
@@ -97,31 +108,36 @@ export default function Navbar() {
       </Link>
     </Menu>
   );
-  
+
   // modal pop up after click notification icon
   const notificationId = 'primary-notification-menu';
   const renderNotification = (
     <Menu
       anchorEl={anchorEl2}
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
+      anchorReference="anchorPosition"
+      anchorPosition={{ top: 80, left: window.innerWidth}}
       id={notificationId}
       keepMounted
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
       open={isNotificationOpen}
       onClose={handleNotificationClose}
     >
-      <Box p={1}>
+      <Stack spacing={1} direction='column' p={2} width='300px'>
         {/* render notification */}
         {notification.map((item) => (
-          <Typography m={1} key={item.id} variant='h5'>{item.message}</Typography>
+          <Stack key={item.id} spacing={1} direction='row' justifyContent='flex-end'>
+            <Box display='flex' flexDirection='row' alignItems='center' justifyContent='center'>
+              {item.isRead === 0 && <FiberManualRecordIcon sx={{color: 'red', opacity:'0.6'}}/>}
+              {item.isRead === 0 ? (
+                <Link to={item.redirectUrl}>
+                  <NotificationButton item={item} buttonClicked={buttonClicked} setButtonClicked={setButtonClicked}/>
+                </Link>
+              ) : (
+                <NotificationButton item={item} buttonClicked={buttonClicked} setButtonClicked={setButtonClicked}/>
+              )}
+            </Box>
+          </Stack>
         ))}
-      </Box>
+      </Stack>
     </Menu>
   );
 
@@ -131,14 +147,14 @@ export default function Navbar() {
     <Menu
       anchorEl={mobileMoreAnchorEl}
       anchorOrigin={{
-        vertical: 'top',
+        vertical: 70,
         horizontal: 'right',
       }}
       id={mobileMenuId}
       keepMounted
       transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
+        vertical: 0,
+        horizontal: 0,
       }}
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
@@ -149,7 +165,7 @@ export default function Navbar() {
           aria-label="show new notifications"
           color="inherit"
         >
-          <Badge badgeContent={notification.length} color="error">
+          <Badge badgeContent={unReadNotification.length} color="error">
             <NotificationsIcon />
           </Badge>
         </IconButton>
@@ -195,7 +211,7 @@ export default function Navbar() {
                   onClick={handleNotificationOpen}
                   color="inherit"
                 >
-                  <Badge badgeContent={notification.length} color="error">
+                  <Badge badgeContent={unReadNotification.length} color="error">
                     <NotificationsIcon />
                   </Badge>
                 </IconButton>
