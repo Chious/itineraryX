@@ -16,3 +16,17 @@ export const destination = async () => {
     console.error('[Get Daily Card failed]: ', error)
   }
 };
+
+// Get user notification
+export const getNotification = async () => {
+  try {
+    const url = baseUrl + '/users/notifications'
+    const config = { headers: { Authorization: `Bearer ${token}` } }
+    
+    const result = await axios.get(url, config)
+
+    return result.data.data;
+  } catch (error) {
+    console.error('[Get notification failed]: ', error)
+  }
+}

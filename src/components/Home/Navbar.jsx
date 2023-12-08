@@ -1,64 +1,36 @@
 import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import { Stack } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
-
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-    width: 'auto',
-  },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '8ch',
-    },
-  },
-}));
+import { getNotification } from '../../api/home';
 
 export default function Navbar() {
+  const [notification, setNotification] = React.useState([])
+
+  // fetch notification data
+  React.useEffect(() => {
+    const fetchNotification = async () => {
+      getNotification()
+      .then(data => {
+        setNotification(data)
+      })
+    };
+
+    fetchNotification();
+  }, []);
+
+  // state and function for profile icon
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -82,6 +54,27 @@ export default function Navbar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  // state and function for notification icon
+  const [anchorEl2, setAnchorEl2] = React.useState(null);
+  const [mobileNotificationAnchorEl, setMobileNotificationAnchorEl] = React.useState(null);
+
+  const isNotificationOpen = Boolean(anchorEl2);
+  const isMobileNotificationOpen = Boolean(mobileNotificationAnchorEl);
+
+  const handleNotificationOpen = (event) => {
+    setAnchorEl2(event.currentTarget);
+  };
+
+  const handleMobileNotificationClose = () => {
+    setMobileNotificationAnchorEl(null);
+  };
+
+  const handleNotificationClose = () => {
+    setAnchorEl2(null);
+    handleMobileNotificationClose();
+  };
+
+  // modal pop up after click profile icon
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -99,11 +92,40 @@ export default function Navbar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <Link to='/account'>
+        <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      </Link>
+    </Menu>
+  );
+  
+  // modal pop up after click notification icon
+  const notificationId = 'primary-notification-menu';
+  const renderNotification = (
+    <Menu
+      anchorEl={anchorEl2}
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      id={notificationId}
+      keepMounted
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      open={isNotificationOpen}
+      onClose={handleNotificationClose}
+    >
+      <Box p={1}>
+        {/* render notification */}
+        {notification.map((item) => (
+          <Typography m={1} key={item.id} variant='h5'>{item.message}</Typography>
+        ))}
+      </Box>
     </Menu>
   );
 
+  // modal after click more icon under mobile mode
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
     <Menu
@@ -121,25 +143,16 @@ export default function Navbar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
+      <MenuItem onClick={handleNotificationOpen}>
         <IconButton
           size="large"
-          aria-label="show 17 new notifications"
+          aria-label="show new notifications"
           color="inherit"
         >
-          <Badge badgeContent={17} color="error">
+          <Badge badgeContent={notification.length} color="error">
             <NotificationsIcon />
           </Badge>
         </IconButton>
-        <p>Notifications</p>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
@@ -151,7 +164,6 @@ export default function Navbar() {
         >
           <AccountCircle />
         </IconButton>
-        <p>Profile</p>
       </MenuItem>
     </Menu>
   );
@@ -171,29 +183,19 @@ export default function Navbar() {
             </Link>
             <Box sx={{ flexGrow: 1 }} />
             <Stack direction="row" spacing={3}>
-              <Search>
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase
-                  placeholder="Search…"
-                  inputProps={{ 'aria-label': 'search' }}
-                />
-              </Search>
               <Button component={Link} to="/user" sx={{color:'#38358C', fontFamily:'Poppins', fontWeight:500}}>Start!</Button>
               <Button component={Link} to="/login" variant="contained" size='large' sx={{backgroundColor:'#38358C', fontFamily:'Poppins', fontWeight:500}}>Login</Button>
               <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                  <Badge badgeContent={4} color="error">
-                    <MailIcon />
-                  </Badge>
-                </IconButton>
                 <IconButton
                   size="large"
-                  aria-label="show 17 new notifications"
+                  edge="end"
+                  aria-label="show new notifications"
+                  aria-controls={notificationId}
+                  aria-haspopup="true"
+                  onClick={handleNotificationOpen}
                   color="inherit"
                 >
-                  <Badge badgeContent={17} color="error">
+                  <Badge badgeContent={notification.length} color="error">
                     <NotificationsIcon />
                   </Badge>
                 </IconButton>
@@ -226,6 +228,7 @@ export default function Navbar() {
         </AppBar>
         {renderMobileMenu}
         {renderMenu}
+        {renderNotification}
       </Box>
     </Stack>
   );

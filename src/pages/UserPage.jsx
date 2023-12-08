@@ -3,9 +3,10 @@ import LabTabs from "../components/UserPage/LabTab";
 import CreateTripModal from "../components/UserPage/CreateTripModel.jsx";
 import Navbar from "../components/Home/Navbar.jsx";
 import { ItinerariesProvider } from "../context/UserPageContext.jsx";
-import { useEffect } from "react";
-import { getItineraries } from "../api/userpage.jsx";
+import { useEffect, useState } from "react";
+import { getItineraries, getJoinedItinerariesId } from "../api/userpage.jsx";
 import { useItineraries } from "../context/UserPageContext.jsx";
+import { getItinerary } from "../api/userpage.jsx";
 
 export default function UserPage() {
   return (
@@ -16,15 +17,36 @@ export default function UserPage() {
 }
 
 function UserPageContent() {
-  const {itineraries, setItineraries} = useItineraries()
+  const {itineraries, setItineraries, joinedItineraries, setJoinedItineraries} = useItineraries()
+  const [id, setId] = useState([])
 
+  // fetch total itineraries data when first render
   useEffect(()=>{
     getItineraries()
     .then(data => {
       setItineraries(data)
+    })
+  }, [])
+
+  // fetch total participated itineraries id when first render
+  useEffect(()=>{
+    getJoinedItinerariesId()
+    .then(data => {
+      setId(data)
       // console.log(data)
     })
   }, [])
+
+  // fetch all participated itineraries data
+  useEffect(() => {
+    const fetchItineraries = async () => {
+      const itinerariesData = await Promise.all(id.map(id => getItinerary(id)));
+      setJoinedItineraries(itinerariesData);
+      // console.log(joinedItineraries)
+    };
+
+    fetchItineraries();
+  }, [id]);
 
   return (
     <div>

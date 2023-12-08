@@ -11,12 +11,12 @@ export const ItineraryLogin = async ({ account, password }) => {
     .then((res) => {
       const token = res.data.data.token;
       const user = res.data.data.user;
-      const { id, name, avatar } = user;
+      const { id, name, avatar, email } = user;
 
       localStorage.setItem("token", token);
       localStorage.setItem(
         "user",
-        JSON.stringify({ id: id, name: name, avatar: avatar })
+        JSON.stringify({ id: id, name: name, avatar: avatar, email: email })
       );
 
       return true;
@@ -53,11 +53,11 @@ export const ItineraryRegister = async ({
     .then((res) => {
       const token = res.data.data.token;
       const user = res.data.data.user;
-      const { id, name, avatar } = user;
+      const { id, name, avatar, email } = user;
       localStorage.setItem("token", token);
       localStorage.setItem(
         "user",
-        JSON.stringify({ id: id, name: name, avatar: avatar })
+        JSON.stringify({ id: id, name: name, avatar: avatar, email: email })
       );
       return true;
     })

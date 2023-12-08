@@ -2,7 +2,7 @@ import * as React from 'react';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
 import { useState, useEffect } from 'react';
-import EditUserAccount from './EditUserAccount';
+import EditUserAccount from '../UserPage/EditUserAccount';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 

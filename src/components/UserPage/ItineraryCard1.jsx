@@ -13,7 +13,7 @@ import CardEditButtons from "./CardEditButton";
 import { Stack } from "@mui/material";
 import ParticipantsModal from "./ParticipantsModel";
 
-export default function ItineraryCard({item, image}) {
+export default function ItineraryCard1({item, image}) {
   // function for ISO date transformation
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "2-digit", day: "2-digit" };
