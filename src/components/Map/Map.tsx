@@ -98,10 +98,7 @@ const GoogleMap: React.FC = () => {
 
   return (
     <div style={{ display: "flex", height: "100%" }}>
-      <Wrapper
-        apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY!}
-        render={render}
-      >
+      <Wrapper apiKey={import.meta.env.VITE_MAP_TOKEN!} render={render}>
         <Map
           center={center}
           onClick={onClick}
