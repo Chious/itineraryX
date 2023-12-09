@@ -14,7 +14,6 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 import { getNotification } from '../../api/home';
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import NotificationButton from './NotificationButton';
 
 export default function Navbar() {
@@ -121,20 +120,17 @@ export default function Navbar() {
       open={isNotificationOpen}
       onClose={handleNotificationClose}
     >
-      <Stack spacing={1} direction='column' p={2} width='300px'>
+      <Stack spacing={1} direction='column' p={2} >
         {/* render notification */}
         {notification.map((item) => (
-          <Stack key={item.id} spacing={1} direction='row' justifyContent='flex-end'>
-            <Box display='flex' flexDirection='row' alignItems='center' justifyContent='center'>
-              {item.isRead === 0 && <FiberManualRecordIcon sx={{color: 'red', opacity:'0.6'}}/>}
-              {item.isRead === 0 ? (
-                <Link to={item.redirectUrl}>
-                  <NotificationButton item={item} buttonClicked={buttonClicked} setButtonClicked={setButtonClicked}/>
-                </Link>
-              ) : (
-                <NotificationButton item={item} buttonClicked={buttonClicked} setButtonClicked={setButtonClicked}/>
-              )}
-            </Box>
+          <Stack key={item.id} spacing={1} direction='row' justifyContent='flex-start'>
+            {item.isRead === 0 ? (
+              <Link to={item.redirectUrl}>
+                <NotificationButton sx={{color: 'red', opacity:'0.6'}} item={item} buttonClicked={buttonClicked} setButtonClicked={setButtonClicked}/>
+              </Link>
+            ) : (
+              <NotificationButton sx={{opacity:'0'}} item={item} buttonClicked={buttonClicked} setButtonClicked={setButtonClicked}/>
+            )}
           </Stack>
         ))}
       </Stack>
