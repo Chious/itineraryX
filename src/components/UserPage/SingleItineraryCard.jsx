@@ -2,18 +2,16 @@ import * as React from "react";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
-import CardActions from "@mui/material/CardActions";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import { red } from "@mui/material/colors";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import CardDeleteButtons from "./CardDeleteButton";
 import CardEditButtons from "./CardEditButton";
-import { Stack } from "@mui/material";
 import ParticipantsModal from "./ParticipantsModel";
+import { Box, Stack } from "@mui/material";
 
-export default function ItineraryCard({item, image}) {
+export default function SingleItineraryCard({item}) {
   // function for ISO date transformation
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "2-digit", day: "2-digit" };
@@ -23,8 +21,9 @@ export default function ItineraryCard({item, image}) {
     return `${year}/${month}/${day}`;
   };
 
+  // single itinerary card for both MY ITINERARIES & JOINED ITINERARIES tab
   return (
-    <Card key={item.id} sx={{ maxWidth: 345, boxShadow: 5, borderRadius: 3, height:'auto' }} >
+    <Card key={item.id} sx={{ maxWidth: 350, boxShadow: 5, borderRadius: 3, height:'auto', justifySelf:'start' }} style={{marginLeft:0}} >
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -41,16 +40,17 @@ export default function ItineraryCard({item, image}) {
       />
       <CardMedia
         component="img"
-        image={image}
+        image='../../../src/images/spot/California.jpeg'
         alt="Paella dish"
       />
-      <CardActions disableSpacing>
-        <CardDeleteButtons id={item.id} />
+      <Stack display="flex" flexDirection="row" spacing={2} useFlexGap p={2}>
         <CardEditButtons id={item.id} />
+        <CardDeleteButtons id={item.id} />
+        <Box sx={{ flexGrow: 1 }} bgcolor='white' />
         <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>
-      </CardActions>
+      </Stack>
     </Card>
   );
 }

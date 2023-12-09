@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Box, Button, TextField, Stack, Typography } from '@mui/material';
-import { editUser } from "../../api/userpage";
+import { editUser } from "../../api/userpage.jsx";
 
 const style = {
   // position: 'absolute',
@@ -43,8 +43,8 @@ export default function EditUserAccount({userName, userAvatar, setUserName, setU
 
   return (
     <Box sx={style}>
-      <Typography variant="h5" sx={{ mt: 2 }}>Edit your account</Typography>
-      <Box className="App">
+      <Typography variant="h4" sx={{ mt: 2 }}>Edit your account</Typography>
+      <Box marginTop={3}>
         <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form">
           <Stack spacing={2}>
             <TextField {...register("username")} type="text" label="Username" variant="outlined" value={tempName} onChange={(e) => setTempName(e.target.value)}/>
