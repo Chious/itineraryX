@@ -123,10 +123,10 @@ export default function Navbar() {
       <Stack spacing={1} direction='column' p={2} >
         {/* render notification */}
         {notification.map((item) => (
-          <Stack key={item.id} spacing={1} direction='row' justifyContent='flex-start'>
+          <Stack key={item.id} spacing={1} direction='row' justifyContent='flex-start' width={300}>
             {item.isRead === 0 ? (
               <Link to={item.redirectUrl}>
-                <NotificationButton sx={{color: 'red', opacity:'0.6'}} item={item} buttonClicked={buttonClicked} setButtonClicked={setButtonClicked}/>
+                <NotificationButton sx={{color: 'red', opacity:'0.7'}} item={item} buttonClicked={buttonClicked} setButtonClicked={setButtonClicked}/>
               </Link>
             ) : (
               <NotificationButton sx={{opacity:'0'}} item={item} buttonClicked={buttonClicked} setButtonClicked={setButtonClicked}/>
