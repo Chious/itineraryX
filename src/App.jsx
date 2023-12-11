@@ -29,6 +29,7 @@ function App() {
               <Route path="chat2" element={<ChatroomSocket />} />
               <Route path="map2" element={<MapPage />} />
               <Route path="reset-password/" element={<ReviseAccount />} />
+              <Route path="*" element={<Home1 />} />
             </Routes>
           </BrowserRouter>
         </MUIthemeProvider>
