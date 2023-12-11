@@ -38,6 +38,8 @@ export default function CreateTripModal({sx}) {
   const {itineraries, setItineraries} = useItineraries()
 
   const handleChange = (e) => setTitle(e.target.value)
+
+  // create itinerary API, and reset title, startDay, endDay after click confirm
   const handleClick = () => {
     const tripData = {
       title:title,
@@ -48,6 +50,9 @@ export default function CreateTripModal({sx}) {
     .then(data=>{
       setItineraries([...itineraries, data]);
       handleClose()
+      setStartValue(null)
+      setEndValue(null)
+      setTitle('')
     })
   }
 
@@ -92,7 +97,7 @@ export default function CreateTripModal({sx}) {
                   <Grid item xs={12}>
                     <DatePicker
                       label="Start day"
-                      value={startValue ? startValue.format('YYYY-MM-DD') : null}
+                      value={startValue}
                       defaultValue={today}
                       onChange={(newValue) => setStartValue(newValue)}
                       disablePast

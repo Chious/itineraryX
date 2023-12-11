@@ -13,16 +13,21 @@ export default function Home() {
   const [image, setImage] = useState(null);
   const [intro, setIntro] = useState(null);
 
+    // use token inside local storage to decide whether login or not
+  const [isTokenExist, setIsTokenExist] = React.useState(
+    localStorage.getItem('token') || false
+  );
+
   useEffect(() => {
-    if (localStorage.token !== undefined) {
+    // if (localStorage.token !== undefined) {
       destination().then(data => {
         setPlace(data.name);
         setImage(data.image);
         setIntro(data.intro);
       });
       return
-    }
-  }, []);
+    // }
+  }, [isTokenExist]);
 
   return (
     <>

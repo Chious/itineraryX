@@ -9,7 +9,7 @@ export const destination = async () => {
     const token = localStorage.getItem('token')
     const config = { headers: { Authorization: `Bearer ${token}` } }
     
-    const result = await axios.get(url, config)
+    const result = await axios.get(url)
 
     return result.data.data;
   } catch (error) {
