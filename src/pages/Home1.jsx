@@ -14,11 +14,14 @@ export default function Home() {
   const [intro, setIntro] = useState(null);
 
   useEffect(() => {
-    destination().then(data => {
-      setPlace(data.name);
-      setImage(data.image);
-      setIntro(data.intro);
-    });
+    if (localStorage.token !== undefined) {
+      destination().then(data => {
+        setPlace(data.name);
+        setImage(data.image);
+        setIntro(data.intro);
+      });
+      return
+    }
   }, []);
 
   return (
@@ -164,36 +167,35 @@ export default function Home() {
             </Box>
           </Grid>
         </Grid>
-        <Grid container spacing={0}>
-          <Grid item xs={7}>
-            <Box style={{position:'relative'}}>
-              <Card elevation={0}>
-                <CardMedia         
-                  image="/src/images/spot/California.jpeg"
-                  title="background"
-                  component="img"
-                  style={{width:'60vw', height:'60vw', objectFit:'cover', opacity:'0.1'}}
-                />
-                <Box style={{position:'absolute', top:'50%', left:'50%', transform: 'translate(-50%, -50%)', width:'40vw'}}>
-                  <Box>
-                    <DailyCard place={place} image={image} intro={intro}/>
+          <Grid container spacing={0}>
+            <Grid item xs={7}>
+              <Box style={{position:'relative'}}>
+                <Card elevation={0}>
+                  <CardMedia         
+                    image="/src/images/spot/California.jpeg"
+                    title="background"
+                    component="img"
+                    style={{width:'60vw', height:'60vw', objectFit:'cover', opacity:'0.1'}}
+                  />
+                  <Box style={{position:'absolute', top:'50%', left:'50%', transform: 'translate(-50%, -50%)', width:'40vw'}}>
+                    <Box>
+                      <DailyCard place={place} image={image} intro={intro}/>
+                    </Box>
                   </Box>
+                </Card>
                 </Box>
-              </Card>
-              </Box>
-          </Grid>
-          <Grid item xs={5}>
-            <Box style={{position:'relative'}}>
-              <Card elevation={0}>
-                <CardMedia          
-                  image="/src/images/spot/What to do in Lesotho_ Best Things to do in the Kingdom in the Sky.jpeg"
-                  title="background"
-                  component="img"
-                  style={{width:'60vw', height:'60vw', objectFit:'cover', opacity:'0.9', backgroundColor:'#B4C4D9'}}
-                />
-              </Card>
-              <Box style={{position:'absolute', top:'50%', left:'50%', transform: 'translate(-100%, -50%)', padding:'2vw', width:'60vw'}}>
-                <Box>
+            </Grid>
+            <Grid item xs={5}>
+              <Box style={{position:'relative'}}>
+                <Card elevation={0}>
+                  <CardMedia          
+                    image="/src/images/spot/What to do in Lesotho_ Best Things to do in the Kingdom in the Sky.jpeg"
+                    title="background"
+                    component="img"
+                    style={{width:'60vw', height:'60vw', objectFit:'cover', opacity:'0.9', backgroundColor:'#B4C4D9'}}
+                  />
+                </Card>
+                <Box style={{position:'absolute', top:'50%', left:'50%', transform: 'translate(-100%, -50%)', padding:'2vw', width:'60vw'}}>
                   <Stack 
                     direction='row' 
                     justifyContent="center" 
@@ -231,9 +233,8 @@ export default function Home() {
                   </Stack>
                 </Box>
               </Box>
-            </Box>
+            </Grid>
           </Grid>
-        </Grid>
         <Footer/>
       </Stack>
     </>

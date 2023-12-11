@@ -16,6 +16,6 @@ export default function CardDeleteButtons({id}) {
   }
 
   return (
-    <Button variant="contained" onClick={handleClick} size='medium' sx={{ height: 40 }}>Delete</Button>
+    <Button variant="text" onClick={handleClick} size='medium' sx={{ height: 40, padding: 0 }}>Delete</Button>
   );
 }

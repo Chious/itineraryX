@@ -5,11 +5,11 @@ import CardMedia from "@mui/material/CardMedia";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import { red } from "@mui/material/colors";
-import ShareIcon from "@mui/icons-material/Share";
 import CardDeleteButtons from "./CardDeleteButton";
 import CardEditButtons from "./CardEditButton";
 import ParticipantsModal from "./ParticipantsModel";
-import { Box, Stack } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
+import { Link } from "react-router-dom";
 
 export default function SingleItineraryCard({item}) {
   // function for ISO date transformation
@@ -21,6 +21,8 @@ export default function SingleItineraryCard({item}) {
     return `${year}/${month}/${day}`;
   };
 
+  const baseUrl = import.meta.env.VITE_BASE_URL
+
   // single itinerary card for both MY ITINERARIES & JOINED ITINERARIES tab
   return (
     <Card key={item.id} sx={{ maxWidth: 350, boxShadow: 5, borderRadius: 3, height:'auto', justifySelf:'start' }} style={{marginLeft:0}} >
@@ -31,25 +33,29 @@ export default function SingleItineraryCard({item}) {
           </Avatar>
         }
         action={
-          <IconButton aria-label="settings">
+          <IconButton aria-label="participants modal">
             <ParticipantsModal id={item.id} holderId={item.holderId}/>
           </IconButton>
         }
         title={item.title}
         subheader={`${formatDate(item.startTime)} to ${formatDate(item.endTime)}`}
       />
-      <CardMedia
-        component="img"
-        image='../../../src/images/spot/California.jpeg'
-        alt="Paella dish"
-      />
-      <Stack display="flex" flexDirection="row" spacing={2} useFlexGap p={2}>
+      
+      {/* use Link to achieve dynamic redirect URL function */}
+      <Link to={baseUrl+'/edit/'+item.id}>
+        <CardMedia
+          component="img"
+          image='../../../src/images/spot/California.jpeg'
+          alt="Paella dish"
+        />
+      </Link>
+      <Stack display="flex" flexDirection="row" spacing={1} useFlexGap p={1.5}>
         <CardEditButtons id={item.id} />
         <CardDeleteButtons id={item.id} />
         <Box sx={{ flexGrow: 1 }} bgcolor='white' />
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
+        <Link to={baseUrl+'/edit/'+item.id}>
+          <Button variant="contained">Go!</Button>
+        </Link>
       </Stack>
     </Card>
   );

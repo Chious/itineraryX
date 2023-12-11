@@ -26,24 +26,37 @@ export default function Navbar() {
   // state to store unread notification
   const [unReadNotification, setUnReadNotification] = React.useState([])
 
+  // use token inside local storage to decide whether login or not
+  const [isTokenExist, setIsTokenExist] = React.useState(
+    localStorage.getItem('token') || false
+  );
+
   // fetch notification data
   React.useEffect(() => {
-    const fetchNotification = async () => {
-      getNotification()
-      .then(data => {
-        setNotification(data)
-        // console.log(data)
-      })
-    };
+    if (isTokenExist) {
+      const fetchNotification = async () => {
+        getNotification()
+        .then(data => {
+          setNotification(data)
+          // console.log(data)
+        })
+      };
 
-    fetchNotification();
+      fetchNotification();
+      return
+    }
+
+    setNotification([])
   }, [buttonClicked]);
 
   // filter out unread notification
   React.useEffect(() => {
-    const unreadNum = [...notification].filter(item => item.isRead === 0) 
-    setUnReadNotification(unreadNum)
-    // console.log(unreadNum)
+    if (isTokenExist) {
+      const unreadNum = [...notification].filter(item => item.isRead === 0) 
+      setUnReadNotification(unreadNum)
+      return
+    }
+    setUnReadNotification([])
   }, [notification])
 
   // state and function for profile icon
@@ -90,6 +103,11 @@ export default function Navbar() {
     handleMobileNotificationClose();
   };
 
+  // log out event handle function
+  const handleLogOut = () => {
+    localStorage.clear()
+  }
+
   // modal pop up after click profile icon
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -104,6 +122,9 @@ export default function Navbar() {
     >
       <Link to='/account'>
         <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      </Link>
+      <Link to='/home1'>
+        <MenuItem onClick={handleLogOut}>Log out</MenuItem>
       </Link>
     </Menu>
   );
@@ -195,8 +216,9 @@ export default function Navbar() {
             </Link>
             <Box sx={{ flexGrow: 1 }} />
             <Stack direction="row" spacing={3}>
-              <Button component={Link} to="/user" sx={{color:'#38358C', fontFamily:'Poppins', fontWeight:500}}>Start!</Button>
-              <Button component={Link} to="/login" variant="contained" size='large' sx={{backgroundColor:'#38358C', fontFamily:'Poppins', fontWeight:500}}>Login</Button>
+              {/* use isTokenExist to determine whether button need to be rendered */}
+              {isTokenExist && <Button component={Link} to="/user" sx={{color:'#38358C', fontFamily:'Poppins', fontWeight:500}}>Start!</Button>}
+              {!isTokenExist && <Button component={Link} to="/login" variant="contained" size='medium' sx={{backgroundColor:'#38358C', fontFamily:'Poppins', fontWeight:500}}>Login</Button>}
               <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                 <IconButton
                   size="large"
@@ -206,6 +228,7 @@ export default function Navbar() {
                   aria-haspopup="true"
                   onClick={handleNotificationOpen}
                   color="inherit"
+                  disabled={!isTokenExist}
                 >
                   <Badge badgeContent={unReadNotification.length} color="error">
                     <NotificationsIcon />
@@ -219,6 +242,7 @@ export default function Navbar() {
                   aria-haspopup="true"
                   onClick={handleProfileMenuOpen}
                   color="inherit"
+                  disabled={!isTokenExist}
                 >
                   <AccountCircle />
                 </IconButton>
