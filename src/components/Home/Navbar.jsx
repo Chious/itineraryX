@@ -106,6 +106,8 @@ export default function Navbar() {
   // log out event handle function
   const handleLogOut = () => {
     localStorage.clear()
+    setIsTokenExist(false)
+    setNotification([])
   }
 
   // modal pop up after click profile icon
