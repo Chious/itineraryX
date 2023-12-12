@@ -9,7 +9,7 @@ import CardDeleteButtons from "./CardDeleteButton";
 import CardEditButtons from "./CardEditButton";
 import ParticipantsModal from "./ParticipantsModel";
 import { Box, Button, Stack } from "@mui/material";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function SingleItineraryCard({item}) {
   // function for ISO date transformation
@@ -21,7 +21,7 @@ export default function SingleItineraryCard({item}) {
     return `${year}/${month}/${day}`;
   };
 
-  const baseUrl = import.meta.env.VITE_BASE_URL
+  const navigate = useNavigate()
 
   // single itinerary card for both MY ITINERARIES & JOINED ITINERARIES tab
   return (
@@ -33,7 +33,7 @@ export default function SingleItineraryCard({item}) {
           </Avatar>
         }
         action={
-          <IconButton aria-label="participants modal">
+          <IconButton aria-label="participants modal" sx={{width:'45px', height:'45px'}}>
             <ParticipantsModal id={item.id} holderId={item.holderId}/>
           </IconButton>
         }
@@ -42,20 +42,23 @@ export default function SingleItineraryCard({item}) {
       />
       
       {/* use Link to achieve dynamic redirect URL function */}
-      <Link to={baseUrl+'/edit/'+item.id}>
-        <CardMedia
-          component="img"
-          image='../../../src/images/spot/California.jpeg'
-          alt="Paella dish"
-        />
-      </Link>
+      <CardMedia
+        component="img"
+        image='../../../src/images/spot/California.jpeg'
+        alt="Paella dish"
+        onClick={() => navigate('/edit/'+item.id)}
+        sx={{
+          cursor: 'pointer',
+          '&:hover': {
+            cursor: 'pointer',
+          },
+        }}
+      />
       <Stack display="flex" flexDirection="row" spacing={1} useFlexGap p={1.5}>
         <CardEditButtons id={item.id} />
         <CardDeleteButtons id={item.id} />
         <Box sx={{ flexGrow: 1 }} bgcolor='white' />
-        <Link to={baseUrl+'/edit/'+item.id}>
-          <Button variant="contained">Go!</Button>
-        </Link>
+        <Button variant="contained" onClick={() => navigate('/edit/'+item.id)}>Go!</Button>
       </Stack>
     </Card>
   );

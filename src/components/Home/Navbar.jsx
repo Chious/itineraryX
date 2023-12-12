@@ -12,7 +12,7 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import { Stack } from '@mui/material';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getNotification } from '../../api/home';
 import NotificationButton from './NotificationButton';
 
@@ -30,6 +30,8 @@ export default function Navbar() {
   const [isTokenExist, setIsTokenExist] = React.useState(
     localStorage.getItem('token') || false
   );
+
+  const navigate = useNavigate()
 
   // fetch notification data
   React.useEffect(() => {
@@ -108,6 +110,7 @@ export default function Navbar() {
     localStorage.clear()
     setIsTokenExist(false)
     setNotification([])
+    navigate('/home1')
   }
 
   // modal pop up after click profile icon
@@ -125,9 +128,7 @@ export default function Navbar() {
       <Link to='/account'>
         <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       </Link>
-      <Link to='/home1'>
         <MenuItem onClick={handleLogOut}>Log out</MenuItem>
-      </Link>
     </Menu>
   );
 
@@ -178,28 +179,33 @@ export default function Navbar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem onClick={handleNotificationOpen}>
-        <IconButton
-          size="large"
-          aria-label="show new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={unReadNotification.length} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-      </MenuItem>
+      <Box style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+        <Button component={Link} to="/user" sx={{height: '50px'}}>
+          Start!
+        </Button>
+        <MenuItem onClick={handleNotificationOpen}>
+          <IconButton
+            size="large"
+            aria-label="show new notifications"
+            color="inherit"
+          >
+            <Badge badgeContent={unReadNotification.length} color="error">
+              <NotificationsIcon />
+            </Badge>
+          </IconButton>
+        </MenuItem>
+        <MenuItem onClick={handleProfileMenuOpen}>
+          <IconButton
+            size="large"
+            aria-label="account of current user"
+            aria-controls="primary-search-account-menu"
+            aria-haspopup="true"
+            color="inherit"
+          >
+            <AccountCircle />
+          </IconButton>
+        </MenuItem>
+      </Box>
     </Menu>
   );
 
@@ -208,47 +214,58 @@ export default function Navbar() {
       <Box>
         <AppBar position="static" sx={{backgroundColor:'#B4C4D9'}} elevation={0}>
           <Toolbar>
-            <Link to="/home1">
-              <CardMedia
-                style={{width:'10vw', height:'1.2vw', objectFit:'cover'}}
-                image="/src/images/material/ItineraryX Logo.png"
-                title="background"
-                elevation={0}
-              />
-            </Link>
+            <CardMedia
+              style={{width:'10vw', height:'1.2vw', objectFit:'cover'}}
+              image="/src/images/material/ItineraryX Logo.png"
+              title="background"
+              elevation={0}
+              onClick={() => navigate('/home1')}
+              sx={{ 
+                cursor: 'pointer',
+                '&:hover': {
+                  cursor: 'pointer',
+                }
+              }}
+            />
             <Box sx={{ flexGrow: 1 }} />
             <Stack direction="row" spacing={3}>
               {/* use isTokenExist to determine whether button need to be rendered */}
-              {isTokenExist && <Button component={Link} to="/user" sx={{color:'#38358C', fontFamily:'Poppins', fontWeight:500}}>Start!</Button>}
-              {!isTokenExist && <Button component={Link} to="/login" variant="contained" size='medium' sx={{backgroundColor:'#38358C', fontFamily:'Poppins', fontWeight:500}}>Login</Button>}
-              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                <IconButton
-                  size="large"
-                  edge="end"
-                  aria-label="show new notifications"
-                  aria-controls={notificationId}
-                  aria-haspopup="true"
-                  onClick={handleNotificationOpen}
-                  color="inherit"
-                  disabled={!isTokenExist}
-                >
-                  <Badge badgeContent={unReadNotification.length} color="error">
-                    <NotificationsIcon />
-                  </Badge>
-                </IconButton>
-                <IconButton
-                  size="large"
-                  edge="end"
-                  aria-label="account of current user"
-                  aria-controls={menuId}
-                  aria-haspopup="true"
-                  onClick={handleProfileMenuOpen}
-                  color="inherit"
-                  disabled={!isTokenExist}
-                >
-                  <AccountCircle />
-                </IconButton>
-              </Box>
+              {isTokenExist && 
+                <div>
+                  <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                    <Button component={Link} to="/user" sx={{color:'#38358C', fontFamily:'Poppins', fontWeight:500}}>Start!</Button>
+                    <IconButton
+                      size="large"
+                      edge="end"
+                      aria-label="show new notifications"
+                      aria-controls={notificationId}
+                      aria-haspopup="true"
+                      onClick={handleNotificationOpen}
+                      color="inherit"
+                      disabled={!isTokenExist}
+                    >
+                      <Badge badgeContent={unReadNotification.length} color="error">
+                        <NotificationsIcon />
+                      </Badge>
+                    </IconButton>
+                    <IconButton
+                      size="large"
+                      edge="end"
+                      aria-label="account of current user"
+                      aria-controls={menuId}
+                      aria-haspopup="true"
+                      onClick={handleProfileMenuOpen}
+                      color="inherit"
+                      disabled={!isTokenExist}
+                    >
+                      <AccountCircle />
+                    </IconButton>
+                  </Box>
+                </div>
+              }
+              {!isTokenExist && 
+                <Button component={Link} to="/login" variant="contained" size='medium' sx={{backgroundColor:'#38358C', fontFamily:'Poppins', fontWeight:500}}>Login</Button>
+              }
               <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                 <IconButton
                   size="large"
