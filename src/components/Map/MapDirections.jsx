@@ -4,7 +4,6 @@ import { useCurrentTarget } from '@/contexts/CurrentTargetContext';
 
 // 計算路線
 async function calculateDirections(directionsService, route) {
-  console.log(route)
   if (route?.originLatLng && route?.destinationLatLng) {
     const direction = await directionsService.route({
       origin: route.originLatLng,
@@ -20,9 +19,7 @@ async function calculateDirections(directionsService, route) {
 export default function MapDirections({ routes, map, setCenter }) {
   const [directions, setDirections] = useState([]);
   const targetDay = useCurrentTarget().targetDay;
-  const directionsService = new window.google.maps.DirectionsService({
-    suppressBicyclingLayer: false, // remove bicycling layer
-  });
+  const directionsService = new window.google.maps.DirectionsService();
   const latLngBoundsRef = useRef(new window.google.maps.LatLngBounds());
 
   useEffect(() => {
@@ -93,7 +90,8 @@ export default function MapDirections({ routes, map, setCenter }) {
                 strokeOpacity: 0.7,
                 strokeWeight: 8,
               },
-              suppressMarkers: true,
+              suppressMarkers: true, // remove markers
+              suppressBicyclingLayer: true, // remove bike lanes
             }}
           />
         )
