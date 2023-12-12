@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import Grid from '@mui/material/Grid';
 import { editItinerary } from '../../api/userpage.jsx';
@@ -78,7 +78,7 @@ export default function EditTripModal({ id }) {
     setItineraries(itineraries)
   }, [itineraries]);
 
-  const today = dayjs();
+  // const today = dayjs();
 
   return (
     <div>
@@ -114,7 +114,7 @@ export default function EditTripModal({ id }) {
                       value={title}
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  {/* <Grid item xs={12}>
                     <DatePicker
                       label="Start day"
                       value={startValue}
@@ -131,7 +131,7 @@ export default function EditTripModal({ id }) {
                       onChange={(newValue) => setEndValue(newValue)}
                       disablePast
                     />
-                  </Grid>
+                  </Grid> */}
                 </Grid>
               </DemoContainer>
             </LocalizationProvider>
