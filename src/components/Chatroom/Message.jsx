@@ -4,7 +4,7 @@ import ChatRight from "./ChatRight";
 
 export default function Message({ data }) {
   const chats = data.map((chat, index) => {
-    const { userId, user, message, time, avatar } = chat;
+    const { userId, user, message, time, avatar, isImage } = chat;
     const storedData = localStorage.getItem("user");
     const userInfo = JSON.parse(storedData);
     const userID = userInfo.id;
@@ -17,7 +17,14 @@ export default function Message({ data }) {
     });
 
     if (userId === Number(userID)) {
-      return <ChatRight message={message} time={formattedDate} key={index} />;
+      return (
+        <ChatRight
+          message={message}
+          time={formattedDate}
+          key={index}
+          isImage={isImage}
+        />
+      );
     } else {
       return (
         <ChatLeft
@@ -26,13 +33,17 @@ export default function Message({ data }) {
           time={formattedDate}
           avatar={avatar}
           key={index}
+          isImage={isImage}
         />
       );
     }
   });
 
   return (
-    <Stack height="200px" sx={{ overflow: "scroll" }}>
+    <Stack
+      height="200px"
+      sx={{ overflow: "scroll", position: "relative", zIndex: 1 }}
+    >
       {chats}
     </Stack>
   );

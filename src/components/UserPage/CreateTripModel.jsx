@@ -12,7 +12,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import Grid from '@mui/material/Grid';
-import { useItineraries } from '../../context/UserPageContext.jsx';
+import { useItineraries } from '../../contexts/UserPageContext.jsx';
 import { IconButton } from '@mui/material';
 import plusImage from '../../images/material/add.png'
 

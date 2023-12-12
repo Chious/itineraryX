@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import LabTab from "../components/UserPage/LabTab";
 import CreateTripModal from "../components/UserPage/CreateTripModel.jsx";
 import Navbar from "../components/Home/Navbar.jsx";
-import { ItinerariesProvider, useItineraries } from "../context/UserPageContext.jsx";
+import { ItinerariesProvider, useItineraries } from "../contexts/UserPageContext.jsx";
 import { useEffect, useState } from "react";
 import { getItineraries, getJoinedItinerariesId, getItinerary } from "../api/userpage.jsx";
 

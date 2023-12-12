@@ -57,6 +57,49 @@ export const postChat = async (data) => {
   }
 };
 
+export const postChatFile = async ({ room, files }) => {
+  if (!files?.length) {
+    return "Length of file is 0";
+  } else if (files?.length) {
+    const formData = new FormData();
+
+    const url = baseUrl + "/chats/";
+
+    //Get Required Params
+    const storedData = localStorage.getItem("user");
+    const userInfo = JSON.parse(storedData);
+    const userId = userInfo.id;
+
+    formData.append("itineraryId", room);
+    formData.append("userId", Number(userId));
+    formData.append("isImage", true);
+    files.forEach((file) => {
+      formData.append("message", file);
+    });
+
+    const config = {
+      method: "post",
+      url: url,
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const response = await axios(config)
+      .then((data) => {
+        return data.data.data.message;
+      })
+      .catch((err) => {
+        console.log(err);
+        return err;
+      });
+
+    return response;
+  }
+};
+
 export const getChatId = async () => {
   const url = `${baseUrl}/users/itineraryId`;
 
@@ -77,7 +120,6 @@ export const getChatId = async () => {
 };
 
 export const getChatroomTitle = async (itineraryId) => {
-  console.log("getting");
   const url = `${baseUrl}/itineraries/${itineraryId}`;
   const config = { headers: { Authorization: `Bearer ${token}` } };
 
