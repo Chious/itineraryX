@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import PrimarySearchAppBar from "../components/PrimarySearchAppBar";
-import SocketChat from "../socket/chat";
+import SocketChat from "../components/Chatroom/SocketChat";
 import BasicSpeedDial from "../components/Chatroom/BasicSpeedDail";
 import { useState, useEffect } from "react";
 import { getChats } from "../api/chat";
@@ -16,6 +16,7 @@ export default function ChatroomSocket() {
     if (room !== "") {
       const response = await getChats(room);
       setChatroomMessage(response);
+      console.log("chatroom message: ", response);
       joinRoom({ room });
     }
   }, [room]);
