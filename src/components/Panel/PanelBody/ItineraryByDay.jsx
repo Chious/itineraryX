@@ -2,21 +2,21 @@ import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListSubheader from '@mui/material/ListSubheader';
-import Timeline from './Timeline';
-import DayNumber from './DayNumber';
-import DayItineraryContent from './DayItineraryContent';
-import AddBtn from '../AddBtn';
+import TimelineConnector from './ListCommons/TimelineConnector';
+import ListSubhead from './ListSubhead';
+import ListItems from './ListItems';
+import AddBtn from './ListCommons/AddBtn';
 import { useAuth } from '@/contexts/AuthContext';
 
-export default function DayItinerary({ day }) {
+export default function ItineraryByDay({ day, handleFormOpen }) {
   const canEdit = useAuth().canEdit;
   const rwdColumns = [3, 9]; // grid system by MUI
 
   return (
     <>
-      <Grid container className="day-itinerary-grid" width="100%" padding={0}>
+      <Grid container className="daily-itinerary-grid" width="100%" padding={0}>
         <List
-          className="day-itinerary"
+          className="daily-itinerary"
           subheader={<ListSubheader />}
           sx={{
             width: '100%',
@@ -24,13 +24,13 @@ export default function DayItinerary({ day }) {
           }}
         >
           {/* the timeline positioned on the left side of DayItinerary */}
-          <Timeline rwdColumn={rwdColumns[0]} />
+          <TimelineConnector rwdColumn={rwdColumns[0]} />
 
           {/* display day number with list subheader component */}
-          <DayNumber rwdColumn={rwdColumns[0]} day={day} />
+          <ListSubhead rwdColumn={rwdColumns[0]} day={day} />
 
           {/* display transportation & destination */}
-          <DayItineraryContent rwdColumns={rwdColumns} day={day} />
+          <ListItems rwdColumns={rwdColumns} day={day} />
 
           {/* display add button */}
           {canEdit && (
@@ -43,7 +43,7 @@ export default function DayItinerary({ day }) {
                   alignItems: 'center',
                 }}
               >
-                <AddBtn />
+                <AddBtn onClick={() => handleFormOpen(day)} />
               </ListItem>
             </Grid>
           )}
