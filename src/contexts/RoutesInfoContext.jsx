@@ -5,6 +5,7 @@ import { useContext, createContext, useReducer } from 'react';
 export const routesInfo_actions = {
   SET_IS_Loaded: 'SET_IS_Loaded', // 設置載入的狀態
   SET_ROUTES: 'SET_ROUTES', // 儲存交通路線資訊陣列
+  CHANGE_TRANSPORTATION_MODE: 'CHANGE_TRANSPORTATION_MODE', // 修改交通方式
 };
 
 //////////////////// reducer ////////////////////
@@ -20,6 +21,22 @@ function routesInfoReducer(routesInfo, action) {
     case routesInfo_actions.SET_ROUTES: {
       const newRoutesInfo = JSON.parse(JSON.stringify(routesInfo));
       const newRoutes = JSON.parse(JSON.stringify(action.payload));
+      newRoutesInfo.routes = newRoutes;
+      return newRoutesInfo;
+    }
+    case routesInfo_actions.CHANGE_TRANSPORTATION_MODE: {
+      const { routeId, transportationMode } = action.payload;
+      const newRoutes = routesInfo.routes.map((routesByDay) =>
+        routesByDay.map((route) => {
+          if (route.id === routeId)
+            return {
+              ...route,
+              transportationMode: transportationMode,
+            };
+          else return route;
+        })
+      );
+      const newRoutesInfo = JSON.parse(JSON.stringify(routesInfo));
       newRoutesInfo.routes = newRoutes;
       return newRoutesInfo;
     }
