@@ -75,6 +75,13 @@ export default function Map({ isLoaded }) {
       zoom={zoom}
       options={mapOptions}
       onLoad={(map) => setMap(map)}
+      onBoundsChanged={() => {
+        if (map) {
+          const currentZoom = map.getZoom();
+          if (currentZoom < 15) setZoom(currentZoom);
+          else setZoom(15);
+        }
+      }}
     >
       <Stack
         className="map-control"
