@@ -39,7 +39,7 @@ export default function DisplayFile({ file, setFile }) {
         background: isZero ? "transparent" : "gray",
         position: "absolute",
         width: 300,
-        bottom: 230,
+        bottom: 50,
         zIndex: 5,
       }}
     >

@@ -60,7 +60,7 @@ export default function Register() {
 
   //Show modal after submit
   const [open, setOpen] = useState(false);
-  const [message, setMessage] = useState({ status: "", text: "預設" });
+  const [message, setMessage] = useState({ status: "", text: "default" });
 
   const handleSubmit = async () => {
     const valid = checkValid();
@@ -81,11 +81,17 @@ export default function Register() {
       if (result !== undefined) {
         setOpen(true);
         if (result === true) {
-          setMessage({ status: true, text: "註冊成功！" });
+          setMessage({ status: true, text: "Success!" });
         } else if (result === "email") {
-          setMessage({ status: false, text: "這個帳號已被註冊過了！" });
+          setMessage({
+            status: false,
+            text: "This account has been registered!",
+          });
         } else if (result === "user") {
-          setMessage({ status: false, text: "這個名稱已經被註冊過了！" });
+          setMessage({
+            status: false,
+            text: "This account has been registered!",
+          });
         }
       }
       //Stop for a second to show result;
@@ -102,7 +108,7 @@ export default function Register() {
     else if (valid === false) {
       //Open Modal Show Result
 
-      setMessage({ status: false, text: "註冊失敗！" });
+      setMessage({ status: false, text: "Failed!" });
       setOpen(true);
 
       timeout = setTimeout(() => {
@@ -114,8 +120,11 @@ export default function Register() {
 
   return (
     <div>
-      <Navbar/>
-      <Box sx={{ display:'flex', flexDirection:'column' ,height:'100vh' }} bgcolor='white'>
+      <Navbar />
+      <Box
+        sx={{ display: "flex", flexDirection: "column", height: "100vh" }}
+        bgcolor="white"
+      >
         <Box
           sx={{
             background: "#F4F4F4",
@@ -136,7 +145,7 @@ export default function Register() {
             <Image src={logo} width="50%" fit="contain" />
             <TextField
               id="filled-basic"
-              label="使用者名稱"
+              label="User"
               variant="filled"
               placeholder="user123"
               type="text"
@@ -145,7 +154,7 @@ export default function Register() {
             />
             <TextField
               id="filled-basic"
-              label="帳號"
+              label="Account"
               variant="filled"
               placeholder="123@example.com"
               type="email"
@@ -154,7 +163,7 @@ export default function Register() {
             />
             <TextField
               id="filled-basic"
-              label="密碼"
+              label="Password"
               variant="filled"
               type="password"
               sx={{ width: "350px" }}
@@ -162,7 +171,7 @@ export default function Register() {
             />
             <TextField
               id="filled-basic"
-              label="再次確認密碼"
+              label="double-check"
               variant="filled"
               type="password"
               sx={{ width: "350px" }}
@@ -170,8 +179,8 @@ export default function Register() {
             />
             <LoginModal open={open} setOpen={setOpen} message={message} />
             <Stack direction="column" spacing={2}>
-              <Button onClick={handleSubmit}>確認</Button>
-              <Button onClick={handleBack}>返回</Button>
+              <Button onClick={handleSubmit}>Submit</Button>
+              <Button onClick={handleBack}>Return</Button>
             </Stack>
           </Stack>
         </Box>

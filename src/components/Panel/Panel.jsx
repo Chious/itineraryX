@@ -1,17 +1,17 @@
-import { useState } from 'react';
-import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
-import PanelControl from './PanelHead/PanelControl';
-import TabControl from './PanelHead/TabControl';
-import PanelBody from './PanelBody/PanelBody';
-import DestinationCreateForm from './PanelBody/Form/DestinationCreateForm';
-import { useTripInfo } from '@/contexts/TripInfoContext';
+import { useState } from "react";
+import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
+import PanelControl from "./PanelHead/PanelControl";
+import TabControl from "./PanelHead/TabControl";
+import PanelBody from "./PanelBody/PanelBody";
+import DestinationCreateForm from "./PanelBody/Form/DestinationCreateForm";
+import { useTripInfo } from "@/contexts/TripInfoContext";
 import {
   currentTarget_actions,
   useCurrentTargetDispatch,
-} from '@/contexts/CurrentTargetContext';
+} from "@/contexts/CurrentTargetContext";
 
-export default function Panel() {
+export default function Panel({ handleOpenChat }) {
   const tripInfo = useTripInfo();
   const currentTargetDispatch = useCurrentTargetDispatch();
   const [openForm, setOpenForm] = useState(false);
@@ -28,7 +28,7 @@ export default function Panel() {
   };
 
   // 若使用者尚未登入則顯示提示訊息
-  if (!localStorage.getItem('token')) {
+  if (!localStorage.getItem("token")) {
     return <Grid>Please log in</Grid>;
   }
 
@@ -44,12 +44,12 @@ export default function Panel() {
       width="100%"
       height="100%"
       sx={{
-        position: 'relative',
+        position: "relative",
         zIndex: 1,
         boxShadow: 2,
       }}
     >
-      <PanelControl />
+      <PanelControl handleOpenChat={handleOpenChat} />
       <TabControl />
       <PanelBody handleFormOpen={handleFormOpen} />
 
