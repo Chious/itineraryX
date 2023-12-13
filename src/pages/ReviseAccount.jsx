@@ -10,6 +10,7 @@ import {
 } from "../api/auth";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import LoginModal from "../components/Login/LoginModal";
+import Navbar from "../components/Home/Navbar";
 
 export default function ReviseAccount() {
   const [searchParams] = useSearchParams();
@@ -24,7 +25,8 @@ export default function ReviseAccount() {
     );
 
   return (
-    <PrimarySearchAppBar>
+    <div>
+      <Navbar/>
       <Box
         sx={{
           background: "#F4F4F4",
@@ -37,7 +39,7 @@ export default function ReviseAccount() {
       >
         {isReset}
       </Box>
-    </PrimarySearchAppBar>
+    </div>
   );
 }
 

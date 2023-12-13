@@ -1,10 +1,10 @@
 import { Box } from "@mui/material";
-import PrimarySearchAppBar from "../components/PrimarySearchAppBar";
 import SocketChat from "../components/Chatroom/SocketChat";
 import BasicSpeedDial from "../components/Chatroom/BasicSpeedDail";
 import { useState, useEffect } from "react";
 import { getChats } from "../api/chat";
 import { joinRoom } from "../socket/socketManager";
+import Navbar from "../components/Home/Navbar";
 
 export default function ChatroomSocket() {
   // open or close chatroom
@@ -22,7 +22,8 @@ export default function ChatroomSocket() {
   }, [room]);
 
   return (
-    <PrimarySearchAppBar>
+    <div>
+      <Navbar/>
       <Box
         sx={{
           background: "#F4F4F4",
@@ -42,6 +43,6 @@ export default function ChatroomSocket() {
         />
         <BasicSpeedDial setOpenChat={setOpenChat} setRoom={setRoom} />
       </Box>
-    </PrimarySearchAppBar>
+    </div>
   );
 }

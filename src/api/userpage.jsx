@@ -131,3 +131,17 @@ export const addParticipant = async (payload) => {
     console.error('[Add Participant failed]: ', error);
   }
 }
+
+// Fetch total joined itineraries id
+export const getJoinedItinerariesId = async () => {
+  try {
+    const url = baseUrl + '/users/itineraryId'
+    const token = localStorage.getItem('token')
+    const config = { headers: { Authorization: `Bearer ${token}` } }
+
+    const result = await axios.get(url, config)
+    return result.data.data.itineraryId
+  } catch (error) {
+    console.error('[Get total joined itineraries id failed]: ', error)
+  }
+}

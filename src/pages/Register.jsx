@@ -1,11 +1,11 @@
 import { Box, Stack, TextField, Button } from "@mui/material";
-import PrimarySearchAppBar from "../components/PrimarySearchAppBar";
 import Image from "mui-image";
 import logo from "../assets/itineraryX_logo.png";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LoginModal from "../components/Login/LoginModal";
 import { ItineraryRegister } from "../api/auth";
+import Navbar from "../components/Home/Navbar";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -113,66 +113,69 @@ export default function Register() {
   };
 
   return (
-    <PrimarySearchAppBar>
-      <Box
-        sx={{
-          background: "#F4F4F4",
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Stack
-          sx={{ width: "400px", height: "450px", background: "white", p: 2 }}
-          spacing={1}
-          justifyContent="center"
-          alignItems="center"
+    <div>
+      <Navbar/>
+      <Box sx={{ display:'flex', flexDirection:'column' ,height:'100vh' }} bgcolor='white'>
+        <Box
+          sx={{
+            background: "#F4F4F4",
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
         >
-          <h1>註冊</h1>
-          <Image src={logo} width="50%" fit="contain" />
-          <TextField
-            id="filled-basic"
-            label="使用者名稱"
-            variant="filled"
-            placeholder="user123"
-            type="text"
-            sx={{ width: "350px" }}
-            onChange={(e) => handleName(e)}
-          />
-          <TextField
-            id="filled-basic"
-            label="帳號"
-            variant="filled"
-            placeholder="123@example.com"
-            type="email"
-            sx={{ width: "350px" }}
-            onChange={(e) => handleAccount(e)}
-          />
-          <TextField
-            id="filled-basic"
-            label="密碼"
-            variant="filled"
-            type="password"
-            sx={{ width: "350px" }}
-            onChange={(e) => handlePassword(e)}
-          />
-          <TextField
-            id="filled-basic"
-            label="再次確認密碼"
-            variant="filled"
-            type="password"
-            sx={{ width: "350px" }}
-            onChange={(e) => handlepasswordCheck(e)}
-          />
-          <LoginModal open={open} setOpen={setOpen} message={message} />
-          <Stack direction="column" spacing={2}>
-            <Button onClick={handleSubmit}>確認</Button>
-            <Button onClick={handleBack}>返回</Button>
+          <Stack
+            sx={{ width: "400px", height: "auto", background: "white", p: 2 }}
+            spacing={1}
+            justifyContent="center"
+            alignItems="center"
+          >
+            <h1>註冊</h1>
+            <Image src={logo} width="50%" fit="contain" />
+            <TextField
+              id="filled-basic"
+              label="使用者名稱"
+              variant="filled"
+              placeholder="user123"
+              type="text"
+              sx={{ width: "350px" }}
+              onChange={(e) => handleName(e)}
+            />
+            <TextField
+              id="filled-basic"
+              label="帳號"
+              variant="filled"
+              placeholder="123@example.com"
+              type="email"
+              sx={{ width: "350px" }}
+              onChange={(e) => handleAccount(e)}
+            />
+            <TextField
+              id="filled-basic"
+              label="密碼"
+              variant="filled"
+              type="password"
+              sx={{ width: "350px" }}
+              onChange={(e) => handlePassword(e)}
+            />
+            <TextField
+              id="filled-basic"
+              label="再次確認密碼"
+              variant="filled"
+              type="password"
+              sx={{ width: "350px" }}
+              onChange={(e) => handlepasswordCheck(e)}
+            />
+            <LoginModal open={open} setOpen={setOpen} message={message} />
+            <Stack direction="column" spacing={2}>
+              <Button onClick={handleSubmit}>確認</Button>
+              <Button onClick={handleBack}>返回</Button>
+            </Stack>
           </Stack>
-        </Stack>
+        </Box>
       </Box>
-    </PrimarySearchAppBar>
+    </div>
   );
 }

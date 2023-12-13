@@ -1,37 +1,39 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Tab from "@mui/material/Tab";
-import TabContext from "@mui/lab/TabContext";
-import TabList from "@mui/lab/TabList";
-import TabPanel from "@mui/lab/TabPanel";
-import ItineraryCard from "./ItineraryCard";
-import UserAccount from "./UserAccount";
+import * as React from 'react';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+import ItineraryCards from './ItineraryCards';
+import { useItineraries } from '../../contexts/UserPageContext';
 
-export default function LabTabs({image}) {
-  const [value, setValue] = React.useState("1");
+export default function LabTab() {
+  // get MY ITINERARIES & JOINED ITINERARIES data
+  const { itineraries, joinedItineraries } = useItineraries()
+  const [ value, setValue ] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   return (
-    <Box sx={{ width: "100%", typography: "body1" }}>
-      <TabContext value={value}>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <TabList onChange={handleChange} aria-label="lab API tabs example">
-            <Tab label="Edit account" value="1" style={{color:'#38358C', fontFamily:'Poppins', fontWeight:600, opacity:0.7 }} />
-            <Tab label="My trip" value="2" style={{color:'#38358C', fontFamily:'Poppins', fontWeight:600, opacity:0.7 }} />
-            <Tab label="Scheduled trip" value="3" style={{color:'#38358C', fontFamily:'Poppins', fontWeight:600, opacity:0.7 }}/>
-          </TabList>
-        </Box>
-        <TabPanel value="1">
-          <UserAccount/>
-        </TabPanel>
-        <TabPanel value="2">
-          <ItineraryCard image={image}/>
-        </TabPanel>
-        <TabPanel value="3">待定</TabPanel>
-      </TabContext>
+    <Box sx={{ width: '100%' }}>
+      <Tabs
+        value={value}
+        onChange={handleChange}
+        aria-label="wrapped label tabs example"
+      >
+        <Tab value={0} label="My itineraries" />
+        <Tab value={1} label="Joined itineraries" />
+      </Tabs>
+
+      {/* use conditional render to pass corresponded data to ItineraryCards */}
+      {value === 0 ? 
+        <ItineraryCards 
+          itineraries={itineraries} 
+        /> : 
+        <ItineraryCards 
+          itineraries={joinedItineraries} 
+        />
+      }
     </Box>
   );
 }
