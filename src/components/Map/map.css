@@ -1,0 +1,7 @@
+/* 
+  當 map options 的 fullScreenControl: false 失效時
+  強制移除 full-screen control
+ */
+.gm-fullscreen-control {
+  display: none;
+}

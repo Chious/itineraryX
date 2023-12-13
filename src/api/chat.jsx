@@ -111,7 +111,7 @@ export const getChatId = async () => {
       return data.data.data.itineraryId;
     })
     .catch((err) => {
-      return err;
+      return [];
     });
 
   if (response !== undefined) {

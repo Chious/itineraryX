@@ -118,7 +118,19 @@ export default function SocketChat({
   };
 
   return (
-    <Box boxShadow={2} width="300px" height="303px" style={showCard}>
+    <Box
+      boxShadow={2}
+      width="300px"
+      height="303px"
+      style={showCard}
+      sx={{
+        position: "absolute",
+        zIndex: 10,
+        background: "white",
+        right: 20,
+        bottom: 20,
+      }}
+    >
       <Stack
         direction="row"
         alignItems="center"
@@ -141,7 +153,7 @@ export default function SocketChat({
       <Stack direction="row">
         <TextField
           id="standard-basic"
-          label="Standard"
+          label=""
           variant="filled"
           fullWidth
           onChange={handleInput}

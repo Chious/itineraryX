@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import CardBtnPopper from '../CRUD/CardBtnPopper';
+import CardBtnPopper from '../Form/CardBtnPopper';
 import { useAuth } from '@/contexts/AuthContext';
 
 export default function DestinationCard({ day, destination }) {
@@ -33,7 +33,7 @@ export default function DestinationCard({ day, destination }) {
         style={{
           flexShrink: '0',
           width: '100px',
-          backgroundImage: `url(${destination.image})`,
+          backgroundImage: `url(${destination.placeImage})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
@@ -53,7 +53,7 @@ export default function DestinationCard({ day, destination }) {
       >
         <Stack spacing={0.5}>
           <Typography sx={{ fontSize: '0.9rem', fontWeight: 'bold' }}>
-            {destination.name}
+            {destination.placeName}
           </Typography>
           <Stack direction="row" gap="2px">
             <LocationOnIcon sx={{ fontSize: '0.9rem' }} />
@@ -65,7 +65,7 @@ export default function DestinationCard({ day, destination }) {
                 wordWrap: 'break-word',
               }}
             >
-              {destination.address}
+              {destination.placeAddress}
             </Typography>
           </Stack>
         </Stack>

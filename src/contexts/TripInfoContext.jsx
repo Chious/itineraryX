@@ -34,12 +34,13 @@ function tripInfoReducer(tripInfo, action) {
       return newTripInfo;
     }
     case tripInfo_actions.ADD_DESTINATION: {
-      const { day, date, id, Place } = action.payload;
+      const newDestination = action.payload;
+      const { day, date } = newDestination;
       const newDate = moment(date);
       const newTripInfo = JSON.parse(JSON.stringify(tripInfo));
-      const destinationsByDay = newTripInfo.destinations[day];
+      const destinationsByDay = newTripInfo.destinations[day - 1];
       // 尋找新景點的插入位置
-      let insertId = undefined;
+      let insertId = destinationsByDay.length;
       destinationsByDay.forEach((_, index) => {
         const beforeDate = moment(destinationsByDay[index].date);
         const afterDate = moment(destinationsByDay[index + 1]?.date);
@@ -47,14 +48,8 @@ function tripInfoReducer(tripInfo, action) {
         if (beforeDate.isBefore(newDate) && afterDate.isAfter(newDate))
           insertId = index + 1;
       });
-      if (insertId === undefined) insertId = destinationsByDay.length;
       // 將新景點插入景點陣列
-      const newDestination = {
-        ...Place, // 此處的id為placeId
-        destinationId: id, // 此處的id為destinationId
-        date: date,
-      };
-      newTripInfo.destinations[day].splice(insertId, 0, newDestination);
+      newTripInfo.destinations[day - 1].splice(insertId, 0, newDestination);
       return newTripInfo;
     }
     case tripInfo_actions.CHANGE_DESTINATION_TIME: {

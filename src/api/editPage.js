@@ -46,14 +46,9 @@ export const postMaps = async (placeId) => {
 };
 
 // 新增Destination資料
-export const postDestinations = async (itineraryId, datetime, placeId) => {
+export const postDestinations = async (reqBody) => {
   try {
     const url = baseUrl + `/destinations`;
-    const reqBody = {
-      itineraryId: itineraryId,
-      date: datetime,
-      placeId: placeId,
-    };
     const res = await axios.post(url, reqBody, config);
     return res.data.data;
   } catch (error) {

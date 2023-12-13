@@ -2,6 +2,12 @@ import { styled } from '@mui/system';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { useTripInfo } from '@/contexts/TripInfoContext';
+import { useCurrentTarget } from '@/contexts/CurrentTargetContext';
+import { useEffect, useState } from 'react';
+import {
+  currentTarget_actions,
+  useCurrentTargetDispatch,
+} from '../../../contexts/CurrentTargetContext';
 
 const StyledTabs = styled(Tabs)`
   min-height: 40px;
@@ -14,9 +20,23 @@ const StyledTab = styled(Tab)`
   min-height: 30px;
 `;
 
-export default function TabControl({ activeTab, handleTabChange }) {
+export default function TabControl() {
+  const [activeTab, setActiveTab] = useState('0');
   const tripInfo = useTripInfo();
-  const numOfTabs = tripInfo.itinerary.days;
+  const numOfTabs = tripInfo.itinerary.totalDays;
+  const targetDay = useCurrentTarget().targetDay;
+  const currentTargetDispatch = useCurrentTargetDispatch();
+
+  useEffect(() => {
+    if (targetDay !== 0) setActiveTab(`${targetDay - 1}`);
+  }, [targetDay]);
+
+  const handleTabChange = (_event, newTabValue) => {
+    currentTargetDispatch({
+      type: currentTarget_actions.SET_TARGET_DAY,
+      payload: Number(newTabValue) + 1,
+    });
+  };
 
   return (
     <StyledTabs
