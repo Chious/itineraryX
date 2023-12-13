@@ -1,18 +1,18 @@
-import { useNavigate } from 'react-router-dom';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ForumIcon from '@mui/icons-material/Forum';
-import { useAuth } from '@/contexts/AuthContext';
-import { useTripInfo } from '@/contexts/TripInfoContext';
+import { useNavigate } from "react-router-dom";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ForumIcon from "@mui/icons-material/Forum";
+import { useAuth } from "@/contexts/AuthContext";
+import { useTripInfo } from "@/contexts/TripInfoContext";
 
-export default function PanelControl() {
+export default function PanelControl({ handleOpenChat }) {
   const canEdit = useAuth().canEdit;
   const itinerary = useTripInfo().itinerary;
   const navigate = useNavigate();
 
   function handleArrowIconClick() {
-    navigate('/user');
+    navigate("/user");
   }
 
   return (
@@ -24,10 +24,10 @@ export default function PanelControl() {
       sx={{
         px: 2,
         py: 1,
-        height: '40px',
-        background: 'white',
+        height: "40px",
+        background: "white",
         boxShadow: 1,
-        position: 'relative',
+        position: "relative",
         zIndex: 5,
       }}
     >
@@ -35,14 +35,19 @@ export default function PanelControl() {
       <Stack className="trip-title" direction="row" gap="1rem">
         <ArrowBackIcon
           onClick={handleArrowIconClick}
-          sx={{ color: 'black', cursor: 'pointer' }}
+          sx={{ color: "black", cursor: "pointer" }}
         />
-        <Typography sx={{ fontWeight: 'bold' }}>{itinerary.title}</Typography>
+        <Typography sx={{ fontWeight: "bold" }}>{itinerary.title}</Typography>
       </Stack>
 
       {/* chatroom icon */}
       <Stack className="icon-container" direction="row">
-        {canEdit && <ForumIcon sx={{ color: 'black', cursor: 'pointer' }} />}
+        {canEdit && (
+          <ForumIcon
+            sx={{ color: "black", cursor: "pointer" }}
+            onClick={handleOpenChat}
+          />
+        )}
       </Stack>
     </Stack>
   );

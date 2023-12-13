@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Chen Yu-Hao",
+    "work": "Back-end Developer | PM",
+    "avatar": "https://drive.google.com/uc?id=16HF4ABWQJfQzNIP7Kdk2GQejORg_3mwq",
+    "description": "As a junior back-end developer and former facade consultant, my passion lies in tackling challenges to elevate user experiences.",
+    "link": [
+      "https://github.com/xrchitron",
+      "https://www.linkedin.com/in/yu-hao-chen-0b1b4129b/"
+    ]
+  },
+  {
+    "name": "Chiou Jia-Sheng",
+    "work": "Front-end Developer",
+    "avatar": "",
+    "description": "I'm a front-end developer passionate about building human-centered web pages that provide solutions to users' problems.",
+    "link": [
+      "https://github.com/Chious",
+      "https://www.linkedin.com/in/sam-chiou-51b201238/",
+      "https://notion-profolio.vercel.app"
+    ]
+  },
+  {
+    "name": "Jessie",
+    "work": "",
+    "avatar": "",
+    "description": "200 character",
+    "link": ["123", "234"]
+  },
+  {
+    "name": "Ching",
+    "work": "",
+    "avatar": "",
+    "description": "200 character",
+    "link": ["123", "234"]
+  }
+]

@@ -22,7 +22,7 @@ export default function Login() {
   // Login
   //// Control Modal
   const [open, setOpen] = useState(false);
-  const [message, setMessage] = useState({ status: "", text: "預設" });
+  const [message, setMessage] = useState({ status: "", text: "Default" });
 
   const handleLogin = async () => {
     const { account, password } = form;
@@ -32,9 +32,9 @@ export default function Login() {
     if (result !== undefined) {
       setOpen(true);
       if (result === true) {
-        setMessage({ status: true, text: "登入成功！" });
+        setMessage({ status: true, text: "Success!" });
       } else {
-        setMessage({ status: false, text: "登入失敗！" });
+        setMessage({ status: false, text: "Failed!" });
       }
     }
 
@@ -60,9 +60,12 @@ export default function Login() {
   };
 
   return (
-    <div >
-      <Navbar/>
-      <Box sx={{ display:'flex', flexDirection:'column' ,height:'100vh' }} bgcolor='white'>
+    <div>
+      <Navbar />
+      <Box
+        sx={{ display: "flex", flexDirection: "column", height: "100vh" }}
+        bgcolor="white"
+      >
         <Box
           sx={{
             background: "#F4F4F4",
@@ -79,11 +82,11 @@ export default function Login() {
             justifyContent="center"
             alignItems="center"
           >
-            <h1>登入</h1>
+            <h2 style={{ fontWeight: "500" }}>Login</h2>
             <Image src={logo} width="50%" fit="contain" />
             <TextField
               id="filled-basic"
-              label="帳號"
+              label="Account"
               variant="filled"
               placeholder="123@example.com"
               type="email"
@@ -92,15 +95,15 @@ export default function Login() {
             />
             <TextField
               id="filled-basic"
-              label="密碼"
+              label="Password"
               variant="filled"
               type="password"
               sx={{ width: "350px" }}
               onChange={(e) => handlePassword(e)}
             />
             <Stack direction="column" spacing={2}>
-              <Button onClick={handleLogin}>登入</Button>
-              <Button onClick={handleRegister}>註冊</Button>
+              <Button onClick={handleLogin}>Login</Button>
+              <Button onClick={handleRegister}>Register</Button>
               <LoginModal open={open} setOpen={setOpen} message={message} />
             </Stack>
           </Stack>

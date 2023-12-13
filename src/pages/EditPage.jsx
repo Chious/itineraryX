@@ -1,37 +1,62 @@
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
-import PrimarySearchAppBar from '../components/PrimarySearchAppBar';
-import Panel from '../components/Panel/Panel';
-import { useFetchDataAndCheckAuth } from './EditPage.hook.jsx';
-import { useJsApiLoader } from '@react-google-maps/api';
-import Map from '../components/Map/Map';
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+import PrimarySearchAppBar from "../components/PrimarySearchAppBar";
+import Panel from "../components/Panel/Panel";
+import { useFetchDataAndCheckAuth } from "./EditPage.hook.jsx";
+import { useJsApiLoader } from "@react-google-maps/api";
+import Map from "../components/Map/Map";
+import ChatroomSocket from "../components/Chatroom/ChatroomMain.jsx";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { getChatId } from "../api/chat.jsx";
 
-const libraries = ['places'];
+const libraries = ["places"];
 
 export default function EditPage() {
+  const navigate = useNavigate();
   useFetchDataAndCheckAuth();
 
   // 載入 Google Map API 的 script
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: import.meta.env.VITE_MAP_TOKEN,
-    id: 'google-map-script',
-    version: 'weekly',
+    id: "google-map-script",
+    version: "weekly",
     libraries: libraries,
   });
 
+  //Open the Chatroom
+  const { itineraryId } = useParams();
+  const [openChat, setOpenChat] = useState(false);
+  const handleOpenChat = () => {
+    setOpenChat(true);
+  };
+
+  useEffect(async () => {
+    const ids = await getChatId();
+    const isValidId = ids.includes(Number(itineraryId));
+    if (isValidId === false) {
+      navigate("/home1");
+    }
+  }, []);
+
   return (
-    <Box className="container" sx={{ height: '100vh', overflow: 'hidden' }}>
+    <Box className="container" sx={{ height: "100vh", overflow: "hidden" }}>
       <PrimarySearchAppBar>
+        <ChatroomSocket
+          openChat={openChat}
+          setOpenChat={setOpenChat}
+          room={itineraryId}
+        />
         <Stack className="content" direction="row" height="100%">
           {/* Panel component */}
           <Box className="edit-panel" width="400px" height="100%">
-            <Panel />
+            <Panel handleOpenChat={handleOpenChat} />
           </Box>
 
           {/* Map component */}
           <Box
             className="edit-map"
-            sx={{ width: 'calc(100vw - 400px)', height: '100%' }}
+            sx={{ width: "calc(100vw - 400px)", height: "100%" }}
           >
             <Map isLoaded={isLoaded} />
           </Box>
