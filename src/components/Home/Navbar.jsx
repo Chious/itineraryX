@@ -1,64 +1,67 @@
 import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Stack } from '@mui/material';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
-import { Link } from 'react-router-dom';
-
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-    width: 'auto',
-  },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '8ch',
-    },
-  },
-}));
+import { Link, useNavigate } from 'react-router-dom';
+import { getNotification } from '../../api/home';
+import NotificationButton from './NotificationButton';
 
 export default function Navbar() {
+  // state to store notification fetch data
+  const [notification, setNotification] = React.useState([])
+
+  // state as dependency to trigger rerender after notification clicked
+  const [buttonClicked, setButtonClicked] = React.useState(false);
+
+  // state to store unread notification
+  const [unReadNotification, setUnReadNotification] = React.useState([])
+
+  // use token inside local storage to decide whether login or not
+  const [isTokenExist, setIsTokenExist] = React.useState(
+    localStorage.getItem('token') || false
+  );
+
+  const navigate = useNavigate()
+
+  // fetch notification data
+  React.useEffect(() => {
+    if (isTokenExist) {
+      const fetchNotification = async () => {
+        getNotification()
+        .then(data => {
+          setNotification(data)
+          // console.log(data)
+        })
+      };
+
+      fetchNotification();
+      return
+    }
+
+    setNotification([])
+  }, [buttonClicked]);
+
+  // filter out unread notification
+  React.useEffect(() => {
+    if (isTokenExist) {
+      const unreadNum = [...notification].filter(item => item.isRead === 0) 
+      setUnReadNotification(unreadNum)
+      return
+    }
+    setUnReadNotification([])
+  }, [notification])
+
+  // state and function for profile icon
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -82,77 +85,127 @@ export default function Navbar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  // state and function for notification icon
+  const [anchorEl2, setAnchorEl2] = React.useState(null);
+  const [mobileNotificationAnchorEl, setMobileNotificationAnchorEl] = React.useState(null);
+
+  const isNotificationOpen = Boolean(anchorEl2);
+  const isMobileNotificationOpen = Boolean(mobileNotificationAnchorEl);
+
+  const handleNotificationOpen = (event) => {
+    setAnchorEl2(event.currentTarget);
+  };
+
+  const handleMobileNotificationClose = () => {
+    setMobileNotificationAnchorEl(null);
+  };
+
+  const handleNotificationClose = () => {
+    setAnchorEl2(null);
+    handleMobileNotificationClose();
+  };
+
+  // log out event handle function
+  const handleLogOut = () => {
+    localStorage.clear()
+    setIsTokenExist(false)
+    setNotification([])
+    navigate('/home1')
+  }
+
+  // modal pop up after click profile icon
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
+      anchorReference="anchorPosition"
+      anchorPosition={{ top: 80, left: window.innerWidth}}
       id={menuId}
       keepMounted
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <Link to='/account'>
+        <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      </Link>
+        <MenuItem onClick={handleLogOut}>Log out</MenuItem>
     </Menu>
   );
 
+  // modal pop up after click notification icon
+  const notificationId = 'primary-notification-menu';
+  const renderNotification = (
+    <Menu
+      anchorEl={anchorEl2}
+      anchorReference="anchorPosition"
+      anchorPosition={{ top: 80, left: window.innerWidth}}
+      id={notificationId}
+      keepMounted
+      open={isNotificationOpen}
+      onClose={handleNotificationClose}
+    >
+      <Stack spacing={1} direction='column' p={2} >
+        {/* render notification */}
+        {notification.map((item) => (
+          <Stack key={item.id} spacing={1} direction='row' justifyContent='flex-start' width={300}>
+            {item.isRead === 0 ? (
+              <Link to={item.redirectUrl}>
+                <NotificationButton sx={{color: 'red', opacity:'0.7'}} item={item} buttonClicked={buttonClicked} setButtonClicked={setButtonClicked}/>
+              </Link>
+            ) : (
+              <NotificationButton sx={{opacity:'0'}} item={item} buttonClicked={buttonClicked} setButtonClicked={setButtonClicked}/>
+            )}
+          </Stack>
+        ))}
+      </Stack>
+    </Menu>
+  );
+
+  // modal after click more icon under mobile mode
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
       anchorOrigin={{
-        vertical: 'top',
+        vertical: 70,
         horizontal: 'right',
       }}
       id={mobileMenuId}
       keepMounted
       transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
+        vertical: 0,
+        horizontal: 0,
       }}
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
+      <Box style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+        <Button component={Link} to="/user" sx={{height: '50px'}}>
+          Start!
+        </Button>
+        <MenuItem onClick={handleNotificationOpen}>
+          <IconButton
+            size="large"
+            aria-label="show new notifications"
+            color="inherit"
+          >
+            <Badge badgeContent={unReadNotification.length} color="error">
+              <NotificationsIcon />
+            </Badge>
+          </IconButton>
+        </MenuItem>
+        <MenuItem onClick={handleProfileMenuOpen}>
+          <IconButton
+            size="large"
+            aria-label="account of current user"
+            aria-controls="primary-search-account-menu"
+            aria-haspopup="true"
+            color="inherit"
+          >
+            <AccountCircle />
+          </IconButton>
+        </MenuItem>
+      </Box>
     </Menu>
   );
 
@@ -161,54 +214,58 @@ export default function Navbar() {
       <Box>
         <AppBar position="static" sx={{backgroundColor:'#B4C4D9'}} elevation={0}>
           <Toolbar>
-            <Link to="/home1">
-              <CardMedia
-                style={{width:'10vw', height:'1.2vw', objectFit:'cover'}}
-                image="/src/images/material/ItineraryX Logo.png"
-                title="background"
-                elevation={0}
-              />
-            </Link>
+            <CardMedia
+              style={{width:'10vw', height:'1.2vw', objectFit:'cover'}}
+              image="/src/images/material/ItineraryX Logo.png"
+              title="background"
+              elevation={0}
+              onClick={() => navigate('/home1')}
+              sx={{ 
+                cursor: 'pointer',
+                '&:hover': {
+                  cursor: 'pointer',
+                }
+              }}
+            />
             <Box sx={{ flexGrow: 1 }} />
             <Stack direction="row" spacing={3}>
-              <Search>
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase
-                  placeholder="Search…"
-                  inputProps={{ 'aria-label': 'search' }}
-                />
-              </Search>
-              <Button component={Link} to="/user" sx={{color:'#38358C', fontFamily:'Poppins', fontWeight:500}}>Start!</Button>
-              <Button component={Link} to="/login" variant="contained" size='large' sx={{backgroundColor:'#38358C', fontFamily:'Poppins', fontWeight:500}}>Login</Button>
-              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                  <Badge badgeContent={4} color="error">
-                    <MailIcon />
-                  </Badge>
-                </IconButton>
-                <IconButton
-                  size="large"
-                  aria-label="show 17 new notifications"
-                  color="inherit"
-                >
-                  <Badge badgeContent={17} color="error">
-                    <NotificationsIcon />
-                  </Badge>
-                </IconButton>
-                <IconButton
-                  size="large"
-                  edge="end"
-                  aria-label="account of current user"
-                  aria-controls={menuId}
-                  aria-haspopup="true"
-                  onClick={handleProfileMenuOpen}
-                  color="inherit"
-                >
-                  <AccountCircle />
-                </IconButton>
-              </Box>
+              {/* use isTokenExist to determine whether button need to be rendered */}
+              {isTokenExist && 
+                <div>
+                  <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                    <Button component={Link} to="/user" sx={{color:'#38358C', fontFamily:'Poppins', fontWeight:500}}>Start!</Button>
+                    <IconButton
+                      size="large"
+                      edge="end"
+                      aria-label="show new notifications"
+                      aria-controls={notificationId}
+                      aria-haspopup="true"
+                      onClick={handleNotificationOpen}
+                      color="inherit"
+                      disabled={!isTokenExist}
+                    >
+                      <Badge badgeContent={unReadNotification.length} color="error">
+                        <NotificationsIcon />
+                      </Badge>
+                    </IconButton>
+                    <IconButton
+                      size="large"
+                      edge="end"
+                      aria-label="account of current user"
+                      aria-controls={menuId}
+                      aria-haspopup="true"
+                      onClick={handleProfileMenuOpen}
+                      color="inherit"
+                      disabled={!isTokenExist}
+                    >
+                      <AccountCircle />
+                    </IconButton>
+                  </Box>
+                </div>
+              }
+              {!isTokenExist && 
+                <Button component={Link} to="/login" variant="contained" size='medium' sx={{backgroundColor:'#38358C', fontFamily:'Poppins', fontWeight:500}}>Login</Button>
+              }
               <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                 <IconButton
                   size="large"
@@ -226,6 +283,7 @@ export default function Navbar() {
         </AppBar>
         {renderMobileMenu}
         {renderMenu}
+        {renderNotification}
       </Box>
     </Stack>
   );

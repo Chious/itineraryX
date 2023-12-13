@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { createItinerary } from '../../api/userpage.jsx';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -23,7 +23,8 @@ const style = {
   transform: 'translate(-50%, -50%)',
   width: 400,
   bgcolor: 'background.paper',
-  border: '2px solid #000',
+  border: '2px solid transparent',
+  borderRadius:'10px',
   boxShadow: 24,
   p: 4,
 };
@@ -38,6 +39,8 @@ export default function CreateTripModal({sx}) {
   const {itineraries, setItineraries} = useItineraries()
 
   const handleChange = (e) => setTitle(e.target.value)
+
+  // create itinerary API, and reset title, startDay, endDay after click confirm
   const handleClick = () => {
     const tripData = {
       title:title,
@@ -48,6 +51,9 @@ export default function CreateTripModal({sx}) {
     .then(data=>{
       setItineraries([...itineraries, data]);
       handleClose()
+      setStartValue(null)
+      setEndValue(null)
+      setTitle('')
     })
   }
 
@@ -92,7 +98,7 @@ export default function CreateTripModal({sx}) {
                   <Grid item xs={12}>
                     <DatePicker
                       label="Start day"
-                      value={startValue ? startValue.format('YYYY-MM-DD') : null}
+                      value={startValue}
                       defaultValue={today}
                       onChange={(newValue) => setStartValue(newValue)}
                       disablePast

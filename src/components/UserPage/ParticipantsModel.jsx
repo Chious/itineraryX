@@ -18,7 +18,8 @@ const style = {
   transform: 'translate(-50%, -50%)',
   width: 400,
   bgcolor: 'background.paper',
-  border: '2px solid #000',
+  border: '2px solid transparent',
+  borderRadius:'10px',
   boxShadow: 24,
   p: 4,
 };
@@ -64,25 +65,26 @@ export default function ParticipantsModal({id, holderId}) {
           <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
             <nav aria-label="secondary mailbox folders">
               <Typography variant='h5'>Participants list</Typography>
-              <List>
+              <List sx={{mb:'20px'}}>
                 {Array.isArray(participants) && participants.map(item => (
                   <ListItem key={item.id} disablePadding>
                     <ListItemButton>
                       <Typography>{item.name}</Typography>
                     </ListItemButton>
-                    <IconButton 
-                      aria-label="delete" 
-                      disabled={item.id === holderId} 
-                      onClick={() => {
-                        handleDelete({itineraryId: itineraryId, participantId: item.id})
-                      }}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
+                    {item.id !== holderId && 
+                      <IconButton 
+                        aria-label="delete" 
+                        onClick={() => {
+                          handleDelete({itineraryId: itineraryId, participantId: item.id})
+                        }}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    }
                   </ListItem>
                 ))}
               </List>
-              <AddParticipantInput itineraryId={itineraryId} setParticipants={setParticipants}/>
+              <AddParticipantInput itineraryId={itineraryId} setParticipants={setParticipants} />
             </nav>
           </Box>
         </Box>
