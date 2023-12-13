@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -8,6 +9,11 @@ import { useTripInfo } from '@/contexts/TripInfoContext';
 export default function PanelControl() {
   const canEdit = useAuth().canEdit;
   const itinerary = useTripInfo().itinerary;
+  const navigate = useNavigate();
+
+  function handleArrowIconClick() {
+    navigate('/user');
+  }
 
   return (
     <Stack
@@ -27,7 +33,10 @@ export default function PanelControl() {
     >
       {/* arrow back icon & itinerary title */}
       <Stack className="trip-title" direction="row" gap="1rem">
-        <ArrowBackIcon sx={{ color: 'black', cursor: 'pointer' }} />
+        <ArrowBackIcon
+          onClick={handleArrowIconClick}
+          sx={{ color: 'black', cursor: 'pointer' }}
+        />
         <Typography sx={{ fontWeight: 'bold' }}>{itinerary.title}</Typography>
       </Stack>
 

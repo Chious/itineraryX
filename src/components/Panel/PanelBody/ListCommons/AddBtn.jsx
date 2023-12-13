@@ -1,10 +1,10 @@
 import Button from '@mui/material/Button';
 
-export default function AddBtn({ handleFormOpen }) {
+export default function AddBtn({ onClick }) {
   return (
     <Button
       variant="contained"
-      onClick={handleFormOpen}
+      onClick={onClick}
       sx={{
         minWidth: '30px',
         minHeight: '30px',

@@ -15,38 +15,37 @@ import { patchRoutes } from '@/api/editPage.js';
 import { useAuth } from '@/contexts/AuthContext';
 
 const icons = {
-  driving: <DirectionsCarIcon color="black" />,
-  walking: <DirectionsWalkIcon color="black" />,
-  bicycling: <PedalBikeIcon color="black" />,
+  driving: { text: 'Car', icon: <DirectionsCarIcon color="black" /> },
+  walking: { text: 'Walk', icon: <DirectionsWalkIcon color="black" /> },
+  bicycling: { text: 'Bike', icon: <PedalBikeIcon color="black" /> },
 };
 
 const BtnPopperStyle = {
-  width: 'max-content',
+  // width: 'max-content',
   position: 'absolute',
-  top: '80%',
-  left: '50%',
-  transform: 'translate(-50%, 0)',
+  top: '105%',
+  left: 0,
   zIndex: 1,
-  p: 1,
+  p: 0,
   boxShadow: 3,
   borderRadius: 1,
   bgcolor: 'white',
 };
 
-export default function TransportationItem({ rwdColumn, route }) {
-  const [routeState, setRouteState] = useState(route);
+export default function TransportationItem({ route, rwdColumns }) {
+  const [routeInfo, setRouteInfoState] = useState(route);
   const [openBtnPopper, setOpenBtnPopper] = useState(false);
   const canEdit = useAuth().canEdit;
 
   const handlePopperClickAway = () => setOpenBtnPopper(false);
-  const handleRouteBtnClick = () => setOpenBtnPopper((prev) => !prev);
+  const handleRouteInfoBtnClick = () => setOpenBtnPopper((prev) => !prev);
   const handleTransModeEdit = async (mode) => {
-    const routeId = routeState.id;
     // 更新後端
+    const routeId = route.id;
     const res = await patchRoutes(routeId, mode);
     // 更新前端
-    setRouteState((prevRoute) => ({
-      ...prevRoute,
+    setRouteInfoState((prev) => ({
+      ...prev,
       durationText: res.durationText,
       transportationMode: res.transportationMode,
     }));
@@ -54,36 +53,46 @@ export default function TransportationItem({ rwdColumn, route }) {
 
   let TransInfo = canEdit ? (
     <ClickAwayListener onClickAway={handlePopperClickAway}>
-      <Button type="button" onClick={handleRouteBtnClick}>
+      <Button type="button" onClick={handleRouteInfoBtnClick}>
         <Stack direction="row" spacing={1}>
-          {icons[routeState.transportationMode]}
-          <Typography>about {routeState.durationText}</Typography>
+          {icons[routeInfo?.transportationMode ?? 'driving'].icon}
+          <Typography>about {routeInfo?.durationText}</Typography>
         </Stack>
       </Button>
     </ClickAwayListener>
   ) : (
     <Stack direction="row" spacing={1}>
-      {icons[routeState.transportationMode]}
-      <Typography>about {routeState.durationText}</Typography>
+      {icons[routeInfo.transportationMode].icon}
+      <Typography>about {routeInfo.durationText}</Typography>
     </Stack>
   );
 
   return (
     <Grid container justifyContent="flex-end">
-      <Grid item xs={rwdColumn}>
+      <Grid item xs={rwdColumns[1]} position="relative">
         {TransInfo}
 
         {openBtnPopper && (
           <Box sx={BtnPopperStyle}>
-            <List sx={{ p: 0 }}>
-              <ListItem sx={{ p: 0 }} alignItems="flex-start">
+            <List sx={{ p: 1 }}>
+              <ListItem
+                sx={{ px: 2, display: 'flex', justifyContent: 'center' }}
+              >
+                <Typography>Transportation Mode</Typography>
+              </ListItem>
+              <ListItem
+                justifyContent="center"
+                alignItems="center"
+                sx={{ p: 0 }}
+              >
                 {Object.entries(icons).map((entry) => (
                   <ListItemButton
                     key={`mode-${entry[0]}`}
                     onClick={() => handleTransModeEdit(entry[0])}
-                    sx={{ padding: '5px' }}
+                    sx={{ p: 1, display: 'flex', flexDirection: 'column' }}
                   >
-                    {entry[1]}
+                    {entry[1].icon}
+                    <Typography fontSize="0.8rem">{entry[1].text}</Typography>
                   </ListItemButton>
                 ))}
               </ListItem>
