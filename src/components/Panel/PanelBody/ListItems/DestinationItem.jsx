@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import DestinationCard from './DestinationCard';
 
-export default function DestinationItem({ day, destination }) {
+export default function DestinationItem({ day, destination, rwdColumns }) {
   const theme = useTheme();
   const primaryColor = theme.palette.primary.main;
 
@@ -19,7 +19,7 @@ export default function DestinationItem({ day, destination }) {
       {/* display the time */}
       <Grid
         item
-        xs={3}
+        xs={rwdColumns[0]}
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -34,7 +34,7 @@ export default function DestinationItem({ day, destination }) {
       </Grid>
 
       {/* display the destination */}
-      <Grid item xs={9}>
+      <Grid item xs={rwdColumns[1]}>
         <DestinationCard day={day} destination={destination} />
       </Grid>
     </Grid>

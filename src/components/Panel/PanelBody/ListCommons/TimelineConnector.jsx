@@ -1,6 +1,6 @@
 import Grid from '@mui/material/Grid';
 
-export default function Timeline({ rwdColumn }) {
+export default function TimelineConnector({ rwdColumn }) {
   return (
     <Grid
       item

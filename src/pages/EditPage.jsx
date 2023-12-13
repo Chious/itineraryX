@@ -1,50 +1,42 @@
-import { Box, Stack } from '@mui/material';
-import Panel from '@/components/Panel/Panel';
-import { AuthProvider } from '@/contexts/AuthContext';
-import { TripInfoProvider } from '@/contexts/TripInfoContext';
-import { RoutesProvider } from '@/contexts/RoutesContext';
-import { PlaceInfoProvider } from '@/contexts/PlaceInfoContext';
-import Navbar from '../components/Home/Navbar';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import PrimarySearchAppBar from '../components/PrimarySearchAppBar';
+import Panel from '../components/Panel/Panel';
+import { useFetchDataAndCheckAuth } from './EditPage.hook.jsx';
+import { useJsApiLoader } from '@react-google-maps/api';
+import Map from '../components/Map/Map';
+
+const libraries = ['places'];
 
 export default function EditPage() {
-  return (
-    <AuthProvider>
-      <TripInfoProvider>
-        <RoutesProvider>
-          <PlaceInfoProvider>
-            <Box
-              className="edit-page"
-              sx={{ height: '100vh', overflow: 'hidden' }}
-            >
-              <Navbar/>
-              <Stack className="container" direction="row" height="100%">
-                {/* Panel component */}
-                <Box className="edit-panel" width="400px" height="100%">
-                  <Panel />
-                </Box>
+  useFetchDataAndCheckAuth();
 
-                {/* Map component */}
-                <Box
-                  className="edit-map"
-                  sx={{ width: 'calc(100vw - 400px)', height: '100%' }}
-                >
-                  <iframe
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    allowFullScreen
-                    src={`https://www.google.com/maps/embed/v1/place?key=${
-                      import.meta.env.VITE_MAP_TOKEN
-                    }&q=Space+Needle,Seattle+WA`}
-                  ></iframe>
-                </Box>
-              </Stack>
-            </Box>
-          </PlaceInfoProvider>
-        </RoutesProvider>
-      </TripInfoProvider>
-    </AuthProvider>
+  // 載入 Google Map API 的 script
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: import.meta.env.VITE_MAP_TOKEN,
+    id: 'google-map-script',
+    version: 'weekly',
+    libraries: libraries,
+  });
+
+  return (
+    <Box className="container" sx={{ height: '100vh', overflow: 'hidden' }}>
+      <PrimarySearchAppBar>
+        <Stack className="content" direction="row" height="100%">
+          {/* Panel component */}
+          <Box className="edit-panel" width="400px" height="100%">
+            <Panel />
+          </Box>
+
+          {/* Map component */}
+          <Box
+            className="edit-map"
+            sx={{ width: 'calc(100vw - 400px)', height: '100%' }}
+          >
+            <Map isLoaded={isLoaded} />
+          </Box>
+        </Stack>
+      </PrimarySearchAppBar>
+    </Box>
   );
 }
