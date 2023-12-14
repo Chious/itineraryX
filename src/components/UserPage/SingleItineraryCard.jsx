@@ -10,6 +10,7 @@ import CardEditButtons from "./CardEditButton";
 import ParticipantsModal from "./ParticipantsModel";
 import { Box, Button, Stack } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import defaultImage from '../../../src/images/spot/California.jpeg'
 
 export default function SingleItineraryCard({item}) {
   // function for ISO date transformation
@@ -44,7 +45,7 @@ export default function SingleItineraryCard({item}) {
       {/* use Link to achieve dynamic redirect URL function */}
       <CardMedia
         component="img"
-        image='../../../src/images/spot/California.jpeg'
+        image={defaultImage}
         alt="Paella dish"
         onClick={() => navigate('/edit/'+item.id)}
         sx={{
