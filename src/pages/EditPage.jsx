@@ -44,7 +44,10 @@ export default function EditPage() {
   }, []);
 
   return (
-    <Box className="container" sx={{ height: "100vh", overflow: "hidden" }}>
+    <Box 
+      className="container"
+      sx={{ height: "100vh", overflow: "hidden", backgroundColor: 'white' }}
+    >
       <PrimarySearchAppBar>
         <ChatroomSocket
           openChat={openChat}

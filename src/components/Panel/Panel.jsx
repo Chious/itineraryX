@@ -47,6 +47,7 @@ export default function Panel({ handleOpenChat }) {
         position: "relative",
         zIndex: 1,
         boxShadow: 2,
+        backgroundColor: 'white',
       }}
     >
       <PanelControl handleOpenChat={handleOpenChat} />
