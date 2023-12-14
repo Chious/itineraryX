@@ -9,6 +9,7 @@ import UserPage from './pages/UserPage';
 import Register from './pages/Register';
 import Home1 from './pages/Home1';
 import ReviseAccount from './pages/ReviseAccount';
+import Account from "./pages/Account";
 import { EditPageProvider } from './contexts/EditPageContext';
 
 function App() {
@@ -26,7 +27,8 @@ function App() {
                 <Route path="register" element={<Register />} />
                 <Route path="edit/:itineraryId" element={<EditPage />} />
                 <Route path="user" element={<UserPage />} />
-                <Route path="reset-password/" element={<ReviseAccount />} />
+                <Route path="account" element={<Account />} />
+              <Route path="reset-password/" element={<ReviseAccount />} />
                 <Route path="*" element={<Home1 />} />
               </Routes>
             </BrowserRouter>

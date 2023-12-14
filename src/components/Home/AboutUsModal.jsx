@@ -30,9 +30,10 @@ export default function AboutUsModal({ open, setOpen }) {
   const handleClose = () => setOpen(false);
 
   const cards = data.map((item) => {
-    const { name, work, avatar, description, link } = item;
+    const { name, work, avatar, description, link, id } = item;
     return (
       <Card
+        key={id}
         name={name}
         work={work}
         avatar={avatar}

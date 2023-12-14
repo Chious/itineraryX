@@ -82,7 +82,14 @@ export default function EditTripModal({ id }) {
 
   return (
     <div>
-      <Button onClick={handleOpen} variant='text' size='medium' sx={{ height: 40, padding: 0 }} >Edit</Button>
+      <Button 
+        onClick={handleOpen} 
+        variant='text' 
+        size='medium' 
+        sx={{ height: 40, padding: 0, fontFamily: 'Poppins', fontSize: '16px', fontWeight: '600', color:'#325269' }} 
+      >
+        Edit
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
