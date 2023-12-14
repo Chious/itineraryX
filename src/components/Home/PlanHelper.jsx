@@ -11,10 +11,10 @@ import Typography from '@mui/material/Typography';
 // this is icons in home page 'Your trip helper' section
 const IconText = ({ IconComponent, text }) => (
   <Stack direction="column" alignItems="center">
-    <IconButton aria-label={text}>
-      <IconComponent fontSize='large'/>
+    <IconButton aria-label={text} >
+      <IconComponent fontSize='large' sx={{color:'#647680'}}/>
     </IconButton>
-    <Typography variant="caption" style={{fontSize:'1.3vw', color:'gray', fontFamily:'Poppins', fontWeight:600}}>{text}</Typography>
+    <Typography variant="caption" style={{fontSize:'1.3vw', color:'#647680', fontFamily:'Poppins', fontWeight:600}}>{text}</Typography>
   </Stack>
   );
 

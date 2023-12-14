@@ -3,21 +3,24 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
+import kyoto from '../../images/spot/Kyoto.jpeg'
+import bangkok from '../../images/spot/Bangkok.webp'
+import california from '../../images/spot/California.jpeg'
 
 // itineraries in home page 'Featured Destinations' section
 const images = [
   {
-    url: '/src/images/spot/Kyoto.jpeg',
+    image: kyoto,
     title: 'Kyoto',
     width: '30%',
   },
   {
-    url: '/src/images/spot/Bangkok.webp',
+    image: bangkok,
     title: 'Bangkok',
     width: '30%',
   },
   {
-    url: '/src/images/spot/California.jpeg',
+    image: california,
     title: 'California',
     width: '30%',
   },
@@ -103,7 +106,7 @@ export default function DestinationList() {
             borderRadius:'16px'
           }}
         >
-          <ImageSrc style={{ backgroundImage: `url(${image.url})` }} />
+          <ImageSrc sx={{backgroundImage:`url(${image.image})`}} />
           <ImageBackdrop className="MuiImageBackdrop-root" />
           <Image>
             <Typography

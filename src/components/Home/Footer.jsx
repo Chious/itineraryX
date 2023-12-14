@@ -11,7 +11,7 @@ import AboutUsModal from "./AboutUsModal";
 // social media icon template
 const FooterIcon = ({ IconComponent, color }) => (
   <IconButton aria-label={IconComponent.displayName} color={color}>
-    <IconComponent fontSize="small" sx={{ color: "#38358C" }} />
+    <IconComponent fontSize="small" sx={{ color: "white" }} />
   </IconButton>
 );
 
@@ -19,7 +19,7 @@ const FooterIcon = ({ IconComponent, color }) => (
 const FooterLink = ({ text, onClick }) => (
   <Typography
     textAlign={"center"}
-    color={"#38358C"}
+    color={"white"}
     fontSize={10}
     fontWeight={"bold"}
     sx={{ fontFamily: "Poppins", fontWeight: 600 }}
@@ -36,8 +36,6 @@ export default function Footer() {
     { IconComponent: TwitterIcon, color: "secondary" },
     { IconComponent: YouTubeIcon, color: "primary" },
   ];
-
-  const links = ["About", "Our team", "Contact"];
 
   //Open Modal
   const [open, setOpen] = React.useState(false);
@@ -56,7 +54,7 @@ export default function Footer() {
         display={"flex"}
         alignItems={"center"}
         justifyContent={"center"}
-        bgcolor={"#B4C4D9"}
+        bgcolor={"#325269"}
       >
         <Stack
           width="100vw"
@@ -68,12 +66,12 @@ export default function Footer() {
           justifyContent={"center"}
           marginTop={4}
           marginBottom={1}
-          bgcolor={"#B4C4D9"}
+          bgcolor={"#325269"}
         >
           <Stack direction="row" spacing={4} alignItems={"center"}>
             <Typography
               textAlign={"center"}
-              color={"#38358C"}
+              color={"white"}
               fontSize={20}
               sx={{ letterSpacing: 3, fontFamily: "Poppins", fontWeight: 600 }}
             >
@@ -106,7 +104,7 @@ export default function Footer() {
           alignItems={"center"}
           justifyContent={"center"}
           marginBottom={4}
-          bgcolor={"#B4C4D9"}
+          bgcolor={"#325269"}
         >
           <Box
             component="form"
@@ -143,9 +141,10 @@ export default function Footer() {
               <Button
                 variant="contained"
                 sx={{
-                  backgroundColor: "#38358C",
+                  backgroundColor: "white",
                   fontFamily: "Poppins",
                   fontWeight: 600,
+                  color: '#325269'
                 }}
               >
                 Subscribe

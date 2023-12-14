@@ -24,7 +24,7 @@ export default function NotificationButton ({sx, item, buttonClicked, setButtonC
           src={item['Sender.avatar']}
           sx={{ width: 35, height: 35, marginRight: 2 }}
         />
-        <Typography variant='body1' align='left'>
+        <Typography variant='body1' align='left' color='#325269' fontFamily='Poppins' fontWeight='600'>
           {item.message}
         </Typography>
       </Button>

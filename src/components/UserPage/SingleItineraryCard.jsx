@@ -11,6 +11,7 @@ import ParticipantsModal from "./ParticipantsModel";
 import { Box, Button, Stack } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import defaultImage from '../../../src/images/spot/California.jpeg'
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 export default function SingleItineraryCard({item}) {
   // function for ISO date transformation
@@ -40,6 +41,21 @@ export default function SingleItineraryCard({item}) {
         }
         title={item.title}
         subheader={`${formatDate(item.startTime)} to ${formatDate(item.endTime)}`}
+        titleTypographyProps={{
+          fontFamily:'Poppins',
+          fontSize: 15, 
+          fontWeight: '600',
+          color: '#325269'
+        }}
+        subheaderTypographyProps={{
+          fontFamily:'Poppins',
+          fontSize: 13, 
+          fontWeight: '400', 
+          color: '#647680'
+        }}
+        sx={{
+          fontFamily:'Poppins',
+        }}
       />
       
       {/* use Link to achieve dynamic redirect URL function */}
@@ -59,7 +75,19 @@ export default function SingleItineraryCard({item}) {
         <CardEditButtons id={item.id} />
         <CardDeleteButtons id={item.id} />
         <Box sx={{ flexGrow: 1 }} bgcolor='white' />
-        <Button variant="contained" onClick={() => navigate('/edit/'+item.id)}>Go!</Button>
+<Button 
+  variant="contained" 
+  onClick={() => navigate('/edit/'+item.id)}
+  sx={{ 
+    fontFamily: 'Poppins', 
+    fontSize: '16px', 
+    fontWeight: '600', 
+    color: 'white', 
+    backgroundColor:'#FE7A00' 
+  }}
+>
+Go!
+</Button>
       </Stack>
     </Card>
   );
