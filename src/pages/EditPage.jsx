@@ -49,12 +49,18 @@ export default function EditPage() {
       sx={{ height: '100vh', overflow: 'hidden', backgroundColor: 'white' }}
     >
       <Navbar />
+
       <ChatroomSocket
         openChat={openChat}
         setOpenChat={setOpenChat}
         room={itineraryId}
       />
-      <Stack className="content" direction="row" height="100%">
+
+      <Stack
+        className="content"
+        direction="row"
+        sx={{ height: 'calc(100vh - 64px)' }}
+      >
         {/* Panel component */}
         <Box className="edit-panel" width="400px" height="100%">
           <Panel handleOpenChat={handleOpenChat} />
