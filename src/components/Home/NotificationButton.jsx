@@ -9,7 +9,6 @@ import Box from '@mui/material/Box';
 export default function NotificationButton ({sx, item, buttonClicked, setButtonClicked}) {
   return (
     <Box display='flex' flexDirection='row' alignItems='center' >
-      <FiberManualRecordIcon sx={sx}/>
       <Button 
         style={{textTransform: 'none', margin:0}} 
         onClick={() => {
@@ -19,6 +18,7 @@ export default function NotificationButton ({sx, item, buttonClicked, setButtonC
           })
         }}
       >
+        <FiberManualRecordIcon sx={sx}/>
         <Avatar
           alt="avatar" 
           src={item['Sender.avatar']}

@@ -16,6 +16,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { getNotification } from '../../api/home';
 import NotificationButton from './NotificationButton';
 import logo from '../../images/material/ItineraryX Logo.png'
+import NavbarMobileMoreModal from './NavbarMobileMoreModal';
 
 export default function Navbar() {
   // state to store notification fetch data
@@ -208,6 +209,7 @@ export default function Navbar() {
         </MenuItem>
       </Box>
     </Menu>
+    // <NavbarMobileMoreModal notification={notification} unReadNotification={unReadNotification}/>
   );
 
   return (
@@ -284,7 +286,21 @@ export default function Navbar() {
                 </div>
               }
               {!isTokenExist && 
-                <Button component={Link} to="/login" variant="contained" size='medium' sx={{backgroundColor:'#38358C', fontFamily:'Poppins', fontWeight:600, backgroundColor:'#FE7A00'}}>Login</Button>
+                <Button 
+                  component={Link} 
+                  to="/login" 
+                  variant="contained" 
+                  size='medium' 
+                  sx={{ 
+                    fontFamily:'Poppins', 
+                    fontWeight:600, 
+                    fontSize: '16px',
+                    backgroundColor:'#FE7A00',
+                    color: 'white',
+                  }}
+                >
+                  Login
+                </Button>
               }
               <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                 <IconButton
