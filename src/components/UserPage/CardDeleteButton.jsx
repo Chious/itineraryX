@@ -23,7 +23,14 @@ export default function CardDeleteButtons({id}) {
 
   return (
     <div>
-      <Button variant="text" onClick={handleOpen} size='medium' sx={{ height: 40, padding: 0 }}>Delete</Button>
+      <Button 
+        variant="text" 
+        onClick={handleOpen} 
+        size='medium' 
+        sx={{ height: 40, padding: 0, fontFamily: 'Poppins', fontSize: '16px', fontWeight: '600', color:'#325269' }} 
+      >
+        Delete
+      </Button>
       <DeleteConfirmationModal 
         open={open} 
         handleClose={handleClose} 

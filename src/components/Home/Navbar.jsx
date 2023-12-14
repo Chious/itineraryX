@@ -15,6 +15,8 @@ import Button from '@mui/material/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import { getNotification } from '../../api/home';
 import NotificationButton from './NotificationButton';
+import logo from '../../images/material/ItineraryX Logo.png'
+import NavbarMobileMoreModal from './NavbarMobileMoreModal';
 
 export default function Navbar() {
   // state to store notification fetch data
@@ -126,9 +128,9 @@ export default function Navbar() {
       onClose={handleMenuClose}
     >
       <Link to='/account'>
-        <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+        <MenuItem onClick={handleMenuClose} sx={{color:'#325269', fontFamily:'Poppins', fontWeight:'600'}}>Profile</MenuItem>
       </Link>
-        <MenuItem onClick={handleLogOut}>Log out</MenuItem>
+        <MenuItem onClick={handleLogOut} sx={{color:'#325269', fontFamily:'Poppins', fontWeight:'600'}}>Log out</MenuItem>
     </Menu>
   );
 
@@ -180,7 +182,7 @@ export default function Navbar() {
       onClose={handleMobileMenuClose}
     >
       <Box style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-        <Button component={Link} to="/user" sx={{height: '50px'}}>
+        <Button component={Link} to="/user" sx={{height: '50px', fontFamily: 'Poppins', fontWeight: '700'}}>
           Start!
         </Button>
         <MenuItem onClick={handleNotificationOpen}>
@@ -207,20 +209,22 @@ export default function Navbar() {
         </MenuItem>
       </Box>
     </Menu>
+    // <NavbarMobileMoreModal notification={notification} unReadNotification={unReadNotification}/>
   );
 
   return (
-    <Stack width='100vw' height='auto' direction='column'>
+    <Stack width='100vw' height='64px' direction='column'>
       <Box>
-        <AppBar position="static" sx={{backgroundColor:'#B4C4D9'}} elevation={0}>
+        <AppBar position="static" sx={{backgroundColor:'#325269'}} elevation={0}>
           <Toolbar>
             <CardMedia
-              style={{width:'10vw', height:'1.2vw', objectFit:'cover'}}
-              image="/src/images/material/ItineraryX Logo.png"
+              style={{width:'150px', height:'30px', objectFit:'cover', filter: 'invert(1)', WebkitFilter: 'invert(1)'}}
+              component="img"
+              src={logo}
               title="background"
               elevation={0}
               onClick={() => navigate('/home1')}
-              sx={{ 
+              sx={{
                 cursor: 'pointer',
                 '&:hover': {
                   cursor: 'pointer',
@@ -233,7 +237,7 @@ export default function Navbar() {
               {isTokenExist && 
                 <div>
                   <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                    <Button component={Link} to="/user" sx={{color:'#38358C', fontFamily:'Poppins', fontWeight:500}}>Start!</Button>
+                    <Button component={Link} to="/user" sx={{color:'white', fontFamily:'Poppins', fontWeight:700}}>Start!</Button>
                     <IconButton
                       size="large"
                       edge="end"
@@ -241,11 +245,20 @@ export default function Navbar() {
                       aria-controls={notificationId}
                       aria-haspopup="true"
                       onClick={handleNotificationOpen}
-                      color="inherit"
+                      sx={{
+                        margin:'0',
+                        '&:hover': {
+                          backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                        },
+                      }}
                       disabled={!isTokenExist}
                     >
                       <Badge badgeContent={unReadNotification.length} color="error">
-                        <NotificationsIcon />
+                        <NotificationsIcon 
+                          sx={{
+                            color:'white'
+                          }}
+                        />
                       </Badge>
                     </IconButton>
                     <IconButton
@@ -255,16 +268,39 @@ export default function Navbar() {
                       aria-controls={menuId}
                       aria-haspopup="true"
                       onClick={handleProfileMenuOpen}
-                      color="inherit"
+                      sx={{
+                        margin:'0',
+                        '&:hover': {
+                          backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                        },
+                      }}
                       disabled={!isTokenExist}
                     >
-                      <AccountCircle />
+                      <AccountCircle 
+                        sx={{
+                          color:'white'
+                        }}
+                      />
                     </IconButton>
                   </Box>
                 </div>
               }
               {!isTokenExist && 
-                <Button component={Link} to="/login" variant="contained" size='medium' sx={{backgroundColor:'#38358C', fontFamily:'Poppins', fontWeight:500}}>Login</Button>
+                <Button 
+                  component={Link} 
+                  to="/login" 
+                  variant="contained" 
+                  size='medium' 
+                  sx={{ 
+                    fontFamily:'Poppins', 
+                    fontWeight:600, 
+                    fontSize: '16px',
+                    backgroundColor:'#FE7A00',
+                    color: 'white',
+                  }}
+                >
+                  Login
+                </Button>
               }
               <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                 <IconButton

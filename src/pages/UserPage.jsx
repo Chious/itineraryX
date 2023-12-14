@@ -54,7 +54,7 @@ function UserPageContent() {
       <Box display="flex" flexDirection="column" minHeight="100vh">
           <Box sx={{ flexGrow: 1 }} bgcolor='white' >
             <Box width="100%" height="100%" sx={{ background: "white", p: 2 }}>
-              <h1 style={{color:'#38358C', marginTop:'0.5vw',marginBottom:'1.5vw', fontFamily:'Poppins', fontWeight:600, fontSize:40 }}>My Account</h1>
+              <h1 style={{color:'#325269', marginTop:'0.5vw',marginBottom:'1.5vw', fontFamily:'Poppins', fontWeight:600, fontSize:40 }}>My Account</h1>
               <LabTab />
               <CreateTripModal sx={{ position:'fixed', bottom:30, right:30 }} />
             </Box>
