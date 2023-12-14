@@ -78,8 +78,8 @@ export default function Map({ isLoaded }) {
       onBoundsChanged={() => {
         if (map) {
           const currentZoom = map.getZoom();
-          if (currentZoom < 15) setZoom(currentZoom);
-          else setZoom(15);
+          if (currentZoom < 14) setZoom(currentZoom);
+          else setZoom(14);
         }
       }}
     >
@@ -104,6 +104,7 @@ export default function Map({ isLoaded }) {
           place={targetPlace}
           label={'+'}
           color={primaryColor}
+          map={map}
         />
       )}
     </GoogleMap>
