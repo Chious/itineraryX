@@ -18,9 +18,11 @@ export default function Itinerary({ handleFormOpen }) {
   useEffect(() => {
     const target = tabRefs.current[targetDay - 1];
     if (target) {
-      target.current.scrollIntoView({
-        behavior: 'smooth',
-      });
+      setTimeout(() => {
+        target.current.scrollIntoView({
+          behavior: 'smooth',
+        });
+      }, 400);
     }
   }, [targetDay]);
 
