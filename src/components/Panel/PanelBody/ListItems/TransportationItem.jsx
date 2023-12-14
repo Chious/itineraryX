@@ -1,3 +1,4 @@
+import { useParams } from 'react-router-dom';
 import { useMemo, useState } from 'react';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -16,7 +17,8 @@ import { useAuth } from '@/contexts/AuthContext';
 import {
   routesInfo_actions,
   useRoutesInfoDispatch,
-} from '../../../../contexts/RoutesInfoContext';
+} from '@/contexts/RoutesInfoContext';
+import { sendRoutes } from '@/socket/socketManager';
 
 const icons = {
   driving: { text: 'Car', icon: <DirectionsCarIcon color="black" /> },
@@ -38,6 +40,7 @@ const BtnPopperStyle = {
 
 export default function TransportationItem({ route, rwdColumns }) {
   const [openBtnPopper, setOpenBtnPopper] = useState(false);
+  const { itineraryId } = useParams();
   const canEdit = useAuth().canEdit;
   const routesInfoDispatch = useRoutesInfoDispatch();
 
@@ -45,12 +48,17 @@ export default function TransportationItem({ route, rwdColumns }) {
   const handleRouteInfoBtnClick = () => setOpenBtnPopper((prev) => !prev);
   const handleTransModeEdit = async (mode) => {
     // 更新後端
-    const routeId = route.id;
-    const res = await patchRoutes(routeId, mode);
+    const route_data = await patchRoutes(route.id, mode);
     // 更新前端
     routesInfoDispatch({
       type: routesInfo_actions.CHANGE_TRANSPORTATION_MODE,
-      payload: { routeId: routeId, transportationMode: mode },
+      payload: route_data,
+    });
+    // socket
+    sendRoutes({
+      room: itineraryId,
+      actionType: routesInfo_actions.CHANGE_TRANSPORTATION_MODE,
+      routeData: route_data,
     });
   };
 

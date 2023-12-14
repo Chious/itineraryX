@@ -1,3 +1,4 @@
+import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { Autocomplete } from '@react-google-maps/api';
 import { useForm } from 'react-hook-form';
@@ -26,6 +27,7 @@ import {
   tripInfo_actions,
   useTripInfoDispatch,
 } from '@/contexts/TripInfoContext';
+import { sendDestinations } from '@/socket/socketManager';
 
 const headerStyle = {
   width: '100%',
@@ -65,6 +67,7 @@ const center = {
 export default function DestinationCreateForm({ dayOfForm, handleFormClose }) {
   const [inputValue, setInputValue] = useState('');
   const [autocomplete, setAutocomplete] = useState(null);
+  const { itineraryId } = useParams();
   const placeId = useCurrentTarget().targetPlace.placeId;
   const currentTargetDispatch = useCurrentTargetDispatch();
   const routesInfoDispatch = useRoutesInfoDispatch();
@@ -129,9 +132,9 @@ export default function DestinationCreateForm({ dayOfForm, handleFormClose }) {
       date: datetime,
       placeId: placeId,
     };
-    // 更新後端資料庫
+    // 更新後端
     const resData = await postDestinations(reqBody);
-    // 更新前端（更新destinations、更新routesInfo）
+    // 更新前端
     const destination_data = {
       day: data.day,
       date: resData.date,
@@ -151,6 +154,13 @@ export default function DestinationCreateForm({ dayOfForm, handleFormClose }) {
       type: tripInfo_actions.ADD_DESTINATION,
       payload: destination_data,
     });
+    // socket
+    sendDestinations({
+      room: itineraryId,
+      actionType: tripInfo_actions.ADD_DESTINATION,
+      destinationData: destination_data,
+    });
+    // 關閉表單
     handleFormClose();
   }
 

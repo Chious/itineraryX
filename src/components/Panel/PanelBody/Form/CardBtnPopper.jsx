@@ -1,3 +1,4 @@
+import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -23,6 +24,7 @@ import {
   useTripInfo,
   useTripInfoDispatch,
 } from '@/contexts/TripInfoContext';
+import { sendDestinations } from '@/socket/socketManager';
 
 const btnStyle = {
   position: 'absolute',
@@ -60,8 +62,8 @@ export default function CardBtnPopper({ day, destinationId }) {
   const tripInfo = useTripInfo();
   const tripInfoDispatch = useTripInfoDispatch();
   const itinerary = tripInfo.itinerary;
-  const destinations = tripInfo.destinations;
   const routesInfoDispatch = useRoutesInfoDispatch();
+  const { itineraryId } = useParams();
 
   const handlePopperClickAway = () => setOpenBtnPopper(false);
   const handleMoreBtnClick = () => setOpenBtnPopper((prev) => !prev);
@@ -104,6 +106,12 @@ export default function CardBtnPopper({ day, destinationId }) {
       type: tripInfo_actions.CHANGE_DESTINATION_TIME,
       payload: destination_data,
     });
+    // socket
+    sendDestinations({
+      room: itineraryId,
+      actionType: tripInfo_actions.CHANGE_DESTINATION_TIME,
+      destinationData: destination_data,
+    });
     // 更新後端
     patchDestinations(destinationId, datetime);
     // 關閉popper與modal表單
@@ -111,10 +119,7 @@ export default function CardBtnPopper({ day, destinationId }) {
     handleEditModalClose();
   }
 
-  function handleDeleteBtnClick(e) {
-    const order = destinations[day - 1].findIndex(
-      (item) => item.destinationId === destinationId
-    );
+  function handleDeleteBtnClick(_e) {
     // 更新前端
     routesInfoDispatch({
       type: routesInfo_actions.SET_IS_Loaded,
@@ -122,10 +127,13 @@ export default function CardBtnPopper({ day, destinationId }) {
     });
     tripInfoDispatch({
       type: tripInfo_actions.DELETE_DESTINATION,
-      payload: {
-        dayIndex: day - 1,
-        order: order,
-      },
+      payload: destinationId,
+    });
+    // socket
+    sendDestinations({
+      room: itineraryId,
+      actionType: tripInfo_actions.DELETE_DESTINATION,
+      destinationData: destinationId,
     });
     // 更新後端
     deleteDestinations(destinationId);

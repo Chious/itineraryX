@@ -2,7 +2,10 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import PrimarySearchAppBar from "../components/PrimarySearchAppBar";
 import Panel from "../components/Panel/Panel";
-import { useFetchDataAndCheckAuth } from "./EditPage.hook.jsx";
+import {
+  useFetchDataAndCheckAuth,
+  useEditPageSocket,
+} from './EditPage.hook.jsx';
 import { useJsApiLoader } from "@react-google-maps/api";
 import Map from "../components/Map/Map";
 import ChatroomSocket from "../components/Chatroom/ChatroomMain.jsx";
@@ -15,6 +18,7 @@ const libraries = ["places"];
 export default function EditPage() {
   const navigate = useNavigate();
   useFetchDataAndCheckAuth();
+  useEditPageSocket();
 
   // 載入 Google Map API 的 script
   const { isLoaded } = useJsApiLoader({
