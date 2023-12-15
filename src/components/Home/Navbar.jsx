@@ -213,114 +213,112 @@ export default function Navbar() {
   );
 
   return (
-    <Stack width='100vw' height='64px' direction='column'>
-      <Box>
-        <AppBar position="static" sx={{backgroundColor:'#325269'}} elevation={0}>
-          <Toolbar>
-            <CardMedia
-              style={{width:'150px', height:'30px', objectFit:'cover', filter: 'invert(1)', WebkitFilter: 'invert(1)'}}
-              component="img"
-              src={logo}
-              title="background"
-              elevation={0}
-              onClick={() => navigate('/home1')}
-              sx={{
+    <Stack width='100vw' height='64px' flexGrow={1} boxSizing='border-box'>
+      <AppBar position="static" sx={{backgroundColor:'#325269'}} elevation={0}>
+        <Toolbar>
+          <CardMedia
+            style={{width:'150px', height:'30px', objectFit:'cover', filter: 'invert(1)', WebkitFilter: 'invert(1)'}}
+            component="img"
+            src={logo}
+            title="background"
+            elevation={0}
+            onClick={() => navigate('/home1')}
+            sx={{
+              cursor: 'pointer',
+              '&:hover': {
                 cursor: 'pointer',
-                '&:hover': {
-                  cursor: 'pointer',
-                }
-              }}
-            />
-            <Box sx={{ flexGrow: 1 }} />
-            <Stack direction="row" spacing={3}>
-              {/* use isTokenExist to determine whether button need to be rendered */}
-              {isTokenExist && 
-                <div>
-                  <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                    <Button component={Link} to="/user" sx={{color:'white', fontFamily:'Poppins', fontWeight:700}}>Start!</Button>
-                    <IconButton
-                      size="large"
-                      edge="end"
-                      aria-label="show new notifications"
-                      aria-controls={notificationId}
-                      aria-haspopup="true"
-                      onClick={handleNotificationOpen}
-                      sx={{
-                        margin:'0',
-                        '&:hover': {
-                          backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                        },
-                      }}
-                      disabled={!isTokenExist}
-                    >
-                      <Badge badgeContent={unReadNotification.length} color="error">
-                        <NotificationsIcon 
-                          sx={{
-                            color:'white'
-                          }}
-                        />
-                      </Badge>
-                    </IconButton>
-                    <IconButton
-                      size="large"
-                      edge="end"
-                      aria-label="account of current user"
-                      aria-controls={menuId}
-                      aria-haspopup="true"
-                      onClick={handleProfileMenuOpen}
-                      sx={{
-                        margin:'0',
-                        '&:hover': {
-                          backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                        },
-                      }}
-                      disabled={!isTokenExist}
-                    >
-                      <AccountCircle 
+              }
+            }}
+          />
+          <Box sx={{ flexGrow: 1 }} />
+          <Stack direction="row" spacing={3}>
+            {/* use isTokenExist to determine whether button need to be rendered */}
+            {isTokenExist && 
+              <div>
+                <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                  <Button component={Link} to="/user" sx={{color:'white', fontFamily:'Poppins', fontWeight:700}}>Start!</Button>
+                  <IconButton
+                    size="large"
+                    edge="end"
+                    aria-label="show new notifications"
+                    aria-controls={notificationId}
+                    aria-haspopup="true"
+                    onClick={handleNotificationOpen}
+                    sx={{
+                      margin:'0',
+                      '&:hover': {
+                        backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                      },
+                    }}
+                    disabled={!isTokenExist}
+                  >
+                    <Badge badgeContent={unReadNotification.length} color="error">
+                      <NotificationsIcon 
                         sx={{
                           color:'white'
                         }}
                       />
-                    </IconButton>
-                  </Box>
-                </div>
-              }
-              {!isTokenExist && 
-                <Button 
-                  component={Link} 
-                  to="/login" 
-                  variant="contained" 
-                  size='medium' 
-                  sx={{ 
-                    fontFamily:'Poppins', 
-                    fontWeight:600, 
-                    fontSize: '16px',
-                    backgroundColor:'#FE7A00',
-                    color: 'white',
-                  }}
-                >
-                  Login
-                </Button>
-              }
-              <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-                <IconButton
-                  size="large"
-                  aria-label="show more"
-                  aria-controls={mobileMenuId}
-                  aria-haspopup="true"
-                  onClick={handleMobileMenuOpen}
-                  color="inherit"
-                >
-                  <MoreIcon />
-                </IconButton>
-              </Box>
-            </Stack>
-          </Toolbar>
-        </AppBar>
-        {renderMobileMenu}
-        {renderMenu}
-        {renderNotification}
-      </Box>
+                    </Badge>
+                  </IconButton>
+                  <IconButton
+                    size="large"
+                    edge="end"
+                    aria-label="account of current user"
+                    aria-controls={menuId}
+                    aria-haspopup="true"
+                    onClick={handleProfileMenuOpen}
+                    sx={{
+                      margin:'0',
+                      '&:hover': {
+                        backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                      },
+                    }}
+                    disabled={!isTokenExist}
+                  >
+                    <AccountCircle 
+                      sx={{
+                        color:'white'
+                      }}
+                    />
+                  </IconButton>
+                </Box>
+              </div>
+            }
+            {!isTokenExist && 
+              <Button 
+                component={Link} 
+                to="/login" 
+                variant="contained" 
+                size='medium' 
+                sx={{ 
+                  fontFamily:'Poppins', 
+                  fontWeight:600, 
+                  fontSize: '16px',
+                  backgroundColor:'#FE7A00',
+                  color: 'white',
+                }}
+              >
+                Login
+              </Button>
+            }
+            <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+              <IconButton
+                size="large"
+                aria-label="show more"
+                aria-controls={mobileMenuId}
+                aria-haspopup="true"
+                onClick={handleMobileMenuOpen}
+                color="inherit"
+              >
+                <MoreIcon />
+              </IconButton>
+            </Box>
+          </Stack>
+        </Toolbar>
+      </AppBar>
+      {renderMobileMenu}
+      {renderMenu}
+      {renderNotification}
     </Stack>
   );
 }
