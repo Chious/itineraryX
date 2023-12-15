@@ -1,8 +1,18 @@
+import { useEffect } from "react";
 import Navbar from "../components/Home/Navbar";
 import UserAccount from "../components/Home/UserAccount";
 import { Box } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export default function Account () {
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!localStorage.getItem('token')){
+      navigate('/home1')
+    }
+  }, [])
+
   return (
     <div>
       <Navbar/>

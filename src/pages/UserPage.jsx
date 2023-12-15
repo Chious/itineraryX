@@ -1,10 +1,11 @@
-import { Box } from "@mui/material";
+import { Box,Stack } from "@mui/material";
 import LabTab from "../components/UserPage/LabTab";
 import CreateTripModal from "../components/UserPage/CreateTripModel.jsx";
 import Navbar from "../components/Home/Navbar.jsx";
 import { ItinerariesProvider, useItineraries } from "../contexts/UserPageContext.jsx";
 import { useEffect, useState } from "react";
 import { getItineraries, getJoinedItinerariesId, getItinerary } from "../api/userpage.jsx";
+import { useNavigate } from "react-router-dom";
 
 export default function UserPage() {
   return (
@@ -17,13 +18,18 @@ export default function UserPage() {
 function UserPageContent() {
   const {itineraries, setItineraries, joinedItineraries, setJoinedItineraries} = useItineraries()
   const [id, setId] = useState([])
+  const navigate = useNavigate()
 
   // fetch total itineraries data when first render
   useEffect(()=>{
-    getItineraries()
-    .then(data => {
-      setItineraries(data)
-    })
+    if (localStorage.getItem('token')) {
+      getItineraries()
+      .then(data => {
+        setItineraries(data)
+      })
+    } else {
+      navigate('/home1')
+    }
   }, [])
 
   // fetch total participated itineraries id when first render
@@ -50,8 +56,9 @@ function UserPageContent() {
 
   return (
     <div>
-      <Navbar/>
-      <Box display="flex" flexDirection="column" minHeight="100vh">
+      <Stack height="auto" direction="column" width="100vw">
+        <Navbar/>
+        <Box display="flex" flexDirection="column" minHeight="100vh">
           <Box sx={{ flexGrow: 1 }} bgcolor='white' >
             <Box width="100%" height="100%" sx={{ background: "white", p: 2 }}>
               <h1 style={{color:'#325269', marginTop:'0.5vw',marginBottom:'1.5vw', fontFamily:'Poppins', fontWeight:600, fontSize:40 }}>My Account</h1>
@@ -59,7 +66,8 @@ function UserPageContent() {
               <CreateTripModal sx={{ position:'fixed', bottom:30, right:30 }} />
             </Box>
           </Box>
-      </Box>
+        </Box>
+      </Stack>
     </div>
   );
 }
