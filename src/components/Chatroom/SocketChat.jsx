@@ -20,8 +20,10 @@ export default function SocketChat({
   const [roomTitle, setRoomTitle] = useState("Default");
 
   useEffect(async () => {
-    const response = await getChatroomTitle(room);
-    setRoomTitle(response);
+    if (room) {
+      const response = await getChatroomTitle(room);
+      setRoomTitle(response);
+    }
   }, [room]);
   // Messages States
   const updateMessageReceived = (data) => {
