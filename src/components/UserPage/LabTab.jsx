@@ -12,7 +12,6 @@ let theme = createTheme({
       styleOverrides: {
         root: {
           color: '#647680',
-          opacity:0.3,
           fontFamily: 'Poppins',
           fontWeight: '600',
           borderRadius:'10px',
