@@ -1,20 +1,24 @@
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
-import PrimarySearchAppBar from "../components/PrimarySearchAppBar";
 import Panel from "../components/Panel/Panel";
-import { useFetchDataAndCheckAuth } from "./EditPage.hook.jsx";
+import {
+  useFetchDataAndCheckAuth,
+  useEditPageSocket,
+} from './EditPage.hook.jsx';
 import { useJsApiLoader } from "@react-google-maps/api";
 import Map from "../components/Map/Map";
 import ChatroomSocket from "../components/Chatroom/ChatroomMain.jsx";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getChatId } from "../api/chat.jsx";
+import Navbar from "../components/Home/Navbar.jsx";
 
 const libraries = ["places"];
 
 export default function EditPage() {
   const navigate = useNavigate();
   useFetchDataAndCheckAuth();
+  useEditPageSocket();
 
   // 載入 Google Map API 的 script
   const { isLoaded } = useJsApiLoader({
@@ -40,28 +44,36 @@ export default function EditPage() {
   }, []);
 
   return (
-    <Box className="container" sx={{ height: "100vh", overflow: "hidden" }}>
-      <PrimarySearchAppBar>
-        <ChatroomSocket
-          openChat={openChat}
-          setOpenChat={setOpenChat}
-          room={itineraryId}
-        />
-        <Stack className="content" direction="row" height="100%">
-          {/* Panel component */}
-          <Box className="edit-panel" width="400px" height="100%">
-            <Panel handleOpenChat={handleOpenChat} />
-          </Box>
+    <Box
+      className="container"
+      sx={{ height: '100vh', overflow: 'hidden', backgroundColor: 'white' }}
+    >
+      <Navbar />
 
-          {/* Map component */}
-          <Box
-            className="edit-map"
-            sx={{ width: "calc(100vw - 400px)", height: "100%" }}
-          >
-            <Map isLoaded={isLoaded} />
-          </Box>
-        </Stack>
-      </PrimarySearchAppBar>
+      <ChatroomSocket
+        openChat={openChat}
+        setOpenChat={setOpenChat}
+        room={itineraryId}
+      />
+
+      <Stack
+        className="content"
+        direction="row"
+        sx={{ height: 'calc(100vh - 64px)' }}
+      >
+        {/* Panel component */}
+        <Box className="edit-panel" width="400px" height="100%">
+          <Panel handleOpenChat={handleOpenChat} />
+        </Box>
+
+        {/* Map component */}
+        <Box
+          className="edit-map"
+          sx={{ width: "calc(100vw - 400px)", height: "100%" }}
+        >
+          <Map isLoaded={isLoaded} />
+        </Box>
+      </Stack>
     </Box>
   );
 }

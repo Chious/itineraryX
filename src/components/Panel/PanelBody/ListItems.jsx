@@ -1,4 +1,5 @@
 import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 import ListItem from '@mui/material/ListItem';
 import Typography from '@mui/material/Typography';
 import DestinationItem from './ListItems/DestinationItem';
@@ -24,8 +25,8 @@ export default function ListItems({ rwdColumns, day }) {
   }
 
   return destinationsByDay.map((_, order) => (
-    <>
-      <ListItem key={`route-${day}-${order}`} sx={{ padding: '1rem' }}>
+    <Box key={`destination-${destinationsByDay[order].destinationId}`}>
+      <ListItem sx={{ padding: '1rem' }}>
         {order > 0 && routesIsLoaded && (
           <TransportationItem
             route={routes[day - 1][order - 1]}
@@ -33,13 +34,13 @@ export default function ListItems({ rwdColumns, day }) {
           />
         )}
       </ListItem>
-      <ListItem key={`destination-${day}-${order}`} sx={{ padding: 0 }}>
+      <ListItem sx={{ padding: 0 }}>
         <DestinationItem
           day={day}
           destination={destinationsByDay[order]}
           rwdColumns={rwdColumns}
         />
       </ListItem>
-    </>
+    </Box>
   ));
 }

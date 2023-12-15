@@ -30,9 +30,10 @@ export default function AboutUsModal({ open, setOpen }) {
   const handleClose = () => setOpen(false);
 
   const cards = data.map((item) => {
-    const { name, work, avatar, description, link } = item;
+    const { name, work, avatar, description, link, id } = item;
     return (
       <Card
+        key={id}
         name={name}
         work={work}
         avatar={avatar}
@@ -45,7 +46,7 @@ export default function AboutUsModal({ open, setOpen }) {
   return (
     <div>
       <Modal open={open} onClose={handleClose}>
-        <Stack sx={style} alignItems="start" justifyContent="start">
+        <Stack sx={style} alignItems="start" justifyContent="start" spacing={1}>
           <h5>About us</h5>
           <Typography variant="h6" component="h2" color="gray">
             This app is a team work from Alpha Camp.

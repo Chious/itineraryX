@@ -48,9 +48,14 @@ function PlaceInfo({ place }) {
   );
 }
 
-export default function PlaceMarker({ place, label, color }) {
+export default function PlaceMarker({ place, label, color, map }) {
   const [openInfoWindow, setOpenInfoWindow] = useState(true);
-  useEffect(() => setOpenInfoWindow(true), [place]);
+
+  useEffect(() => {
+    setOpenInfoWindow(true);
+    map.panTo(place.placeLatLng);
+    map.setZoom(14);
+  }, [place]);
 
   // map marker icon
   const svg = `

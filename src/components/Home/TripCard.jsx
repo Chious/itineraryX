@@ -14,7 +14,7 @@ export default function TripCard({image, name, info}) {
           <CardMedia
             component="img"
             height="200vw"
-            image={image}
+            src={image}
             style={{opacity:'0.9'}}
             alt="green iguana"
           />

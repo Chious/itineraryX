@@ -1,5 +1,6 @@
 [
   {
+    "id":1,
     "name": "Chen Yu-Hao",
     "work": "Back-end Developer | PM",
     "avatar": "https://drive.google.com/uc?id=16HF4ABWQJfQzNIP7Kdk2GQejORg_3mwq",
@@ -10,6 +11,7 @@
     ]
   },
   {
+    "id": 2,
     "name": "Chiou Jia-Sheng",
     "work": "Front-end Developer",
     "avatar": "",
@@ -21,6 +23,7 @@
     ]
   },
   {
+    "id": 3,
     "name": "Jessie",
     "work": "",
     "avatar": "",
@@ -28,6 +31,7 @@
     "link": ["123", "234"]
   },
   {
+    "id": 4,
     "name": "Ching",
     "work": "",
     "avatar": "",

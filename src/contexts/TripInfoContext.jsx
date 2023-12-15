@@ -73,9 +73,14 @@ function tripInfoReducer(tripInfo, action) {
       return newTripInfo;
     }
     case tripInfo_actions.DELETE_DESTINATION: {
-      const { dayIndex, order } = action.payload;
+      const destinationId = action.payload;
+      const newDestinations = tripInfo.destinations.map((destinationsByDay) =>
+        destinationsByDay.filter(
+          (destination) => destination.destinationId !== destinationId
+        )
+      );
       const newTripInfo = JSON.parse(JSON.stringify(tripInfo));
-      newTripInfo.destinations[dayIndex].splice(order, 1);
+      newTripInfo.destinations = newDestinations;
       return newTripInfo;
     }
     default: {

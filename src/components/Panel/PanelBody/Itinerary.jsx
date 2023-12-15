@@ -1,5 +1,6 @@
 import { createRef, useEffect, useRef } from 'react';
 import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
 import ItineraryByDay from './ItineraryByDay';
 import ListDivider from './ListCommons/ListDivider';
 import { useTripInfo } from '@/contexts/TripInfoContext';
@@ -17,9 +18,11 @@ export default function Itinerary({ handleFormOpen }) {
   useEffect(() => {
     const target = tabRefs.current[targetDay - 1];
     if (target) {
-      target.current.scrollIntoView({
-        behavior: 'smooth',
-      });
+      setTimeout(() => {
+        target.current.scrollIntoView({
+          behavior: 'smooth',
+        });
+      }, 400);
     }
   }, [targetDay]);
 
@@ -35,22 +38,17 @@ export default function Itinerary({ handleFormOpen }) {
       {Array(numOfDays)
         .fill()
         .map((_, index) => (
-          <>
-            {index > 0 && <ListDivider index={`divider-${index}`} />}
+          <Box key={`day-${index}`}>
+            {index > 0 && <ListDivider />}
 
             <Stack
-              key={`itinerary-container-${index}`}
               className="day-itinerary-container"
               padding={0}
               ref={tabRefs.current[index]}
             >
-              <ItineraryByDay
-                key={`day-${index}`}
-                day={index + 1}
-                handleFormOpen={handleFormOpen}
-              />
+              <ItineraryByDay day={index + 1} handleFormOpen={handleFormOpen} />
             </Stack>
-          </>
+          </Box>
         ))}
     </Stack>
   );
