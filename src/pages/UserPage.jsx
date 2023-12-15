@@ -5,6 +5,7 @@ import Navbar from "../components/Home/Navbar.jsx";
 import { ItinerariesProvider, useItineraries } from "../contexts/UserPageContext.jsx";
 import { useEffect, useState } from "react";
 import { getItineraries, getJoinedItinerariesId, getItinerary } from "../api/userpage.jsx";
+import { useNavigate } from "react-router-dom";
 
 export default function UserPage() {
   return (
@@ -17,13 +18,18 @@ export default function UserPage() {
 function UserPageContent() {
   const {itineraries, setItineraries, joinedItineraries, setJoinedItineraries} = useItineraries()
   const [id, setId] = useState([])
+  const navigate = useNavigate()
 
   // fetch total itineraries data when first render
   useEffect(()=>{
-    getItineraries()
-    .then(data => {
-      setItineraries(data)
-    })
+    if (localStorage.getItem('token')) {
+      getItineraries()
+      .then(data => {
+        setItineraries(data)
+      })
+    } else {
+      navigate('/home1')
+    }
   }, [])
 
   // fetch total participated itineraries id when first render
