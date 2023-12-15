@@ -25,7 +25,7 @@ export default function PanelControl({ handleOpenChat }) {
         px: 2,
         py: 1,
         height: "40px",
-        background: "white",
+        backgroundColor: "white",
         boxShadow: 1,
         position: "relative",
         zIndex: 5,

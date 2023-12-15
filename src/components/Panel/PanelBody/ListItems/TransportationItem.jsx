@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useMemo, useState } from 'react';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
@@ -13,6 +14,11 @@ import PedalBikeIcon from '@mui/icons-material/PedalBike';
 import { ClickAwayListener } from '@mui/base/ClickAwayListener';
 import { patchRoutes } from '@/api/editPage.js';
 import { useAuth } from '@/contexts/AuthContext';
+import {
+  routesInfo_actions,
+  useRoutesInfoDispatch,
+} from '@/contexts/RoutesInfoContext';
+import { sendRoutes } from '@/socket/socketManager';
 
 const icons = {
   driving: { text: 'Car', icon: <DirectionsCarIcon color="black" /> },
@@ -33,44 +39,53 @@ const BtnPopperStyle = {
 };
 
 export default function TransportationItem({ route, rwdColumns }) {
-  const [routeInfo, setRouteInfoState] = useState(route);
   const [openBtnPopper, setOpenBtnPopper] = useState(false);
+  const { itineraryId } = useParams();
   const canEdit = useAuth().canEdit;
+  const routesInfoDispatch = useRoutesInfoDispatch();
 
   const handlePopperClickAway = () => setOpenBtnPopper(false);
   const handleRouteInfoBtnClick = () => setOpenBtnPopper((prev) => !prev);
   const handleTransModeEdit = async (mode) => {
     // 更新後端
-    const routeId = route.id;
-    const res = await patchRoutes(routeId, mode);
+    const route_data = await patchRoutes(route.id, mode);
     // 更新前端
-    setRouteInfoState((prev) => ({
-      ...prev,
-      durationText: res.durationText,
-      transportationMode: res.transportationMode,
-    }));
+    routesInfoDispatch({
+      type: routesInfo_actions.CHANGE_TRANSPORTATION_MODE,
+      payload: route_data,
+    });
+    // socket
+    sendRoutes({
+      room: itineraryId,
+      actionType: routesInfo_actions.CHANGE_TRANSPORTATION_MODE,
+      routeData: route_data,
+    });
   };
 
-  let TransInfo = canEdit ? (
-    <ClickAwayListener onClickAway={handlePopperClickAway}>
-      <Button type="button" onClick={handleRouteInfoBtnClick}>
+  const transportationInfo = useMemo(
+    () =>
+      canEdit ? (
+        <ClickAwayListener onClickAway={handlePopperClickAway}>
+          <Button type="button" onClick={handleRouteInfoBtnClick}>
+            <Stack direction="row" spacing={1}>
+              {icons[route?.transportationMode ?? 'driving'].icon}
+              <Typography>about {route?.durationText}</Typography>
+            </Stack>
+          </Button>
+        </ClickAwayListener>
+      ) : (
         <Stack direction="row" spacing={1}>
-          {icons[routeInfo?.transportationMode ?? 'driving'].icon}
-          <Typography>about {routeInfo?.durationText}</Typography>
+          {icons[route?.transportationMode].icon}
+          <Typography>about {route?.durationText}</Typography>
         </Stack>
-      </Button>
-    </ClickAwayListener>
-  ) : (
-    <Stack direction="row" spacing={1}>
-      {icons[routeInfo.transportationMode].icon}
-      <Typography>about {routeInfo.durationText}</Typography>
-    </Stack>
+      ),
+    [route?.transportationMode]
   );
 
   return (
     <Grid container justifyContent="flex-end">
       <Grid item xs={rwdColumns[1]} position="relative">
-        {TransInfo}
+        {transportationInfo}
 
         {openBtnPopper && (
           <Box sx={BtnPopperStyle}>

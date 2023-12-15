@@ -13,6 +13,8 @@ import {
   routesInfo_actions,
   useRoutesInfoDispatch,
 } from '../contexts/RoutesInfoContext';
+import { joinRoom } from '../socket/socketManager.jsx';
+import { socket } from '../socket/socket.jsx';
 
 export function useFetchDataAndCheckAuth() {
   const { itineraryId } = useParams();
@@ -152,4 +154,39 @@ export function useFetchDataAndCheckAuth() {
 
     fetchRoutes(destinations);
   }, [destinations]);
+}
+
+export function useEditPageSocket() {
+  const { itineraryId } = useParams();
+  const tripInfoDispatch = useTripInfoDispatch();
+  const routesInfoDispatch = useRoutesInfoDispatch();
+
+  useEffect(() => {
+    function handleReceiveDestinations(data) {
+      routesInfoDispatch({
+        type: routesInfo_actions.SET_IS_Loaded,
+        payload: false,
+      });
+      tripInfoDispatch({
+        type: data.actionType,
+        payload: data.destinationData,
+      });
+    }
+
+    function handleReceiveRoutes(data) {
+      routesInfoDispatch({
+        type: data.actionType,
+        payload: data.routeData,
+      });
+    }
+
+    joinRoom({ room: itineraryId });
+    socket.on('receive_destinations', handleReceiveDestinations);
+    socket.on('receive_routes', handleReceiveRoutes);
+
+    return () => {
+      socket.off('receive_destinations', handleReceiveDestinations);
+      socket.off('receive_routes', handleReceiveRoutes);
+    };
+  }, [itineraryId]);
 }

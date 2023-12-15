@@ -8,7 +8,6 @@ import EditPage from './pages/EditPage';
 import UserPage from './pages/UserPage';
 import Register from './pages/Register';
 import Home1 from './pages/Home1';
-// import MapPage from './pages/MapPage';
 import ReviseAccount from './pages/ReviseAccount';
 import Account from "./pages/Account";
 import { EditPageProvider } from './contexts/EditPageContext';

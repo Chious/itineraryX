@@ -1,7 +1,10 @@
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Panel from "../components/Panel/Panel";
-import { useFetchDataAndCheckAuth } from "./EditPage.hook.jsx";
+import {
+  useFetchDataAndCheckAuth,
+  useEditPageSocket,
+} from './EditPage.hook.jsx';
 import { useJsApiLoader } from "@react-google-maps/api";
 import Map from "../components/Map/Map";
 import ChatroomSocket from "../components/Chatroom/ChatroomMain.jsx";
@@ -15,6 +18,7 @@ const libraries = ["places"];
 export default function EditPage() {
   const navigate = useNavigate();
   useFetchDataAndCheckAuth();
+  useEditPageSocket();
 
   // 載入 Google Map API 的 script
   const { isLoaded } = useJsApiLoader({
@@ -40,14 +44,23 @@ export default function EditPage() {
   }, []);
 
   return (
-    <Box className="container" sx={{ height: "100vh", overflow: "hidden" }}>
-      <Navbar/>
+    <Box
+      className="container"
+      sx={{ height: '100vh', overflow: 'hidden', backgroundColor: 'white' }}
+    >
+      <Navbar />
+
       <ChatroomSocket
         openChat={openChat}
         setOpenChat={setOpenChat}
         room={itineraryId}
       />
-      <Stack className="content" direction="row" height="100%">
+
+      <Stack
+        className="content"
+        direction="row"
+        sx={{ height: 'calc(100vh - 64px)' }}
+      >
         {/* Panel component */}
         <Box className="edit-panel" width="400px" height="100%">
           <Panel handleOpenChat={handleOpenChat} />
