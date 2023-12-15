@@ -77,13 +77,13 @@ export default function Login() {
           }}
         >
           <Stack
-            sx={{ width: "400px", height: "400px", background: "white", p: 2 }}
+            sx={{ width: "400px", height: "450px", background: "white", p: 2 }}
             spacing={1}
             justifyContent="center"
             alignItems="center"
           >
             <h2 style={{ fontWeight: "500" }}>Login</h2>
-            <Image src={logo} width="50%" fit="contain" />
+            <Image src={logo} width="20%" fit="contain" />
             <TextField
               id="filled-basic"
               label="Account"
@@ -101,7 +101,16 @@ export default function Login() {
               sx={{ width: "350px" }}
               onChange={(e) => handlePassword(e)}
             />
-            <Stack direction="column" spacing={2}>
+            <p style={{ color: "gray" }}>
+              Forget password?{" "}
+              <span
+                style={{ textDecoration: "underline", color: "gray" }}
+                onClick={handleForget}
+              >
+                Click here
+              </span>
+            </p>
+            <Stack direction="row" spacing={2}>
               <Button onClick={handleLogin}>Login</Button>
               <Button onClick={handleRegister}>Register</Button>
               <LoginModal open={open} setOpen={setOpen} message={message} />

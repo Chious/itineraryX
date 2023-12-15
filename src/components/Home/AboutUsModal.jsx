@@ -46,7 +46,7 @@ export default function AboutUsModal({ open, setOpen }) {
   return (
     <div>
       <Modal open={open} onClose={handleClose}>
-        <Stack sx={style} alignItems="start" justifyContent="start">
+        <Stack sx={style} alignItems="start" justifyContent="start" spacing={1}>
           <h5>About us</h5>
           <Typography variant="h6" component="h2" color="gray">
             This app is a team work from Alpha Camp.

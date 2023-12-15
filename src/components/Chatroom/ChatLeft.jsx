@@ -1,7 +1,7 @@
 import { Box, Stack, Avatar } from "@mui/material";
 import Image from "mui-image";
 
-export default function ChatLeft({ user, message, time, avatar }) {
+export default function ChatLeft({ user, message, time, avatar, isImage }) {
   const firstName = user[0];
   const avatarIcon =
     avatar === null ? (

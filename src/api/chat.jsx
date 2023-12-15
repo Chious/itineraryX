@@ -4,7 +4,7 @@ const token = localStorage.getItem("token");
 const baseUrl = import.meta.env.VITE_BASE_URL;
 
 export const getChats = async (chatroomID) => {
-  const url = baseUrl + `/chats/${chatroomID}`;
+  const url = `${baseUrl}/chats/${chatroomID}`;
 
   const config = { headers: { Authorization: `Bearer ${token}` } };
 
@@ -24,7 +24,7 @@ export const getChats = async (chatroomID) => {
 };
 
 export const postChat = async (data) => {
-  const url = baseUrl + "/chats/";
+  const url = `${baseUrl}/chats/`;
 
   //Get Required Params
   const storedData = localStorage.getItem("user");
@@ -63,7 +63,7 @@ export const postChatFile = async ({ room, files }) => {
   } else if (files?.length) {
     const formData = new FormData();
 
-    const url = baseUrl + "/chats/";
+    const url = `${baseUrl}/chats/`;
 
     //Get Required Params
     const storedData = localStorage.getItem("user");
