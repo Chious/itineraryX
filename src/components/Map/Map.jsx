@@ -75,6 +75,13 @@ export default function Map({ isLoaded }) {
       zoom={zoom}
       options={mapOptions}
       onLoad={(map) => setMap(map)}
+      onBoundsChanged={() => {
+        if (map) {
+          const currentZoom = map.getZoom();
+          if (currentZoom < 14) setZoom(currentZoom);
+          else setZoom(14);
+        }
+      }}
     >
       <Stack
         className="map-control"
@@ -97,6 +104,7 @@ export default function Map({ isLoaded }) {
           place={targetPlace}
           label={'+'}
           color={primaryColor}
+          map={map}
         />
       )}
     </GoogleMap>

@@ -47,7 +47,12 @@ export default function TabControl() {
       scrollButtons="auto"
       allowScrollButtonsMobile
       aria-label="scrollable auto tabs"
-      sx={{ position: 'relative', zIndex: 3, boxShadow: 1 }}
+      sx={{
+        position: 'relative',
+        zIndex: 3,
+        boxShadow: 1,
+        backgroundColor: 'white',
+      }}
     >
       {Array(numOfTabs)
         .fill()

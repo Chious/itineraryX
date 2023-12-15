@@ -13,7 +13,7 @@ export default function PanelBody({ handleFormOpen }) {
       width="100%"
       height="100%"
       minHeight="0" // 解決flexbox容器中flex item外溢的問題
-      sx={{ position: 'relative' }}
+      sx={{ position: 'relative', backgroundColor: 'white' }}
     >
       <Itinerary handleFormOpen={handleFormOpen} />
 

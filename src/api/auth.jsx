@@ -3,7 +3,7 @@ import axios from "axios";
 const base_url = import.meta.env.VITE_BASE_URL;
 
 export const ItineraryLogin = async ({ account, password }) => {
-  const url = base_url + "/users/login";
+  const url = `${base_url}/users/login`;
   const bodyParam = {
     email: account,
     password: password,
@@ -43,7 +43,7 @@ export const ItineraryRegister = async ({
   password,
   passwordCheck,
 }) => {
-  const url = base_url + "/users/signup";
+  const url = `${base_url}/users/signup`;
   const bodyParam = {
     name: name,
     email: account,
@@ -81,7 +81,7 @@ export const ItineraryRegister = async ({
 };
 
 export const getUser = async () => {
-  const url = base_url + "/users/";
+  const url = `${base_url}/users/`;
   const token = localStorage.getItem("token");
 
   const config = { headers: { Authorization: `Bearer ${token}` } };
@@ -97,7 +97,7 @@ export const getUser = async () => {
 };
 
 export const getForgetToken = async ({ email }) => {
-  const url = base_url + "/users/forgetPassword";
+  const url = `${base_url}/users/forgetPassword`;
   const bodyParams = { email: email };
 
   const response = axios
@@ -114,7 +114,7 @@ export const getForgetToken = async ({ email }) => {
 };
 
 export const patchResetAccount = async ({ token, password, passwordCheck }) => {
-  const url = base_url + "/users/forgetPassword";
+  const url = `${base_url}/users/forgetPassword`;
   const bodyParams = {
     token: token,
     password: password,
@@ -134,7 +134,7 @@ export const patchResetAccount = async ({ token, password, passwordCheck }) => {
 };
 
 export const checkTokenValid = async ({ token }) => {
-  const url = base_url + "/users/token";
+  const url = `${base_url}/users/token`;
   const bodyParams = {
     token: token,
   };

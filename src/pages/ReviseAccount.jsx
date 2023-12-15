@@ -26,18 +26,23 @@ export default function ReviseAccount() {
 
   return (
     <div>
-      <Navbar/>
+      <Navbar />
       <Box
-        sx={{
-          background: "#F4F4F4",
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
+        sx={{ display: "flex", flexDirection: "column", height: "100vh" }}
+        bgcolor="white"
       >
-        {isReset}
+        <Box
+          sx={{
+            background: "#F4F4F4",
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {isReset}
+        </Box>
       </Box>
     </div>
   );
@@ -47,7 +52,7 @@ const ReviseForm = () => {
   //Control Modal
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const [message, setMessage] = useState({ status: "", text: "預設" });
+  const [message, setMessage] = useState({ status: "", text: "Default" });
 
   //onhold input
   const [account, setAccount] = useState("");
@@ -69,9 +74,9 @@ const ReviseForm = () => {
         if (response !== undefined) {
           setOpen(true);
           if (response === "success") {
-            setMessage({ status: true, text: "寄出預設郵件！" });
+            setMessage({ status: true, text: "Sent reset email!" });
           } else {
-            setMessage({ status: false, text: "無此使用者！" });
+            setMessage({ status: false, text: "Can't find user" });
           }
         }
 
@@ -94,11 +99,11 @@ const ReviseForm = () => {
       justifyContent="center"
       alignItems="center"
     >
-      <h1>忘記密碼</h1>
+      <h5>Forget Password</h5>
       <Image src={logo} width="50%" height="20%" fit="contain" />
       <TextField
         id="filled-basic"
-        label="帳號"
+        label="Account"
         variant="filled"
         placeholder="123@example.com"
         type="email"
@@ -106,13 +111,13 @@ const ReviseForm = () => {
         onChange={(e) => handleAccount(e)}
       />
       <Stack direction="row" spacing={2}>
-        <Button onClick={handleBack}>返回</Button>
+        <Button onClick={handleBack}>Return</Button>
         <Button
           onClick={async () => {
             handleSubmit();
           }}
         >
-          確認
+          Confirm
         </Button>
       </Stack>
       <LoginModal open={open} setOpen={setOpen} message={message} />
@@ -154,7 +159,7 @@ const ConfirmForm = () => {
   // Confirm
   //// Control Modal
   const [open, setOpen] = useState(false);
-  const [message, setMessage] = useState({ status: "", text: "預設" });
+  const [message, setMessage] = useState({ status: "", text: "Default" });
 
   const handleConfirm = async () => {
     let timeout;
@@ -175,9 +180,9 @@ const ConfirmForm = () => {
       if (result !== undefined) {
         setOpen(true);
         if (result === "success") {
-          setMessage({ status: true, text: "重設成功！" });
+          setMessage({ status: true, text: "Success" });
         } else {
-          setMessage({ status: false, text: "重設失敗！" });
+          setMessage({ status: false, text: "Failed" });
         }
 
         //Stop for a second to show result;
@@ -207,12 +212,12 @@ const ConfirmForm = () => {
       justifyContent="center"
       alignItems="center"
     >
-      <h1>重設密碼</h1>
-      <Image src={logo} width="50%" fit="contain" />
+      <h5>Reset Password</h5>
+      <Image src={logo} width="20%" fit="contain" />
       <TextField
         value={form.password}
         id="filled-basic"
-        label="密碼"
+        label="password"
         variant="filled"
         type="password"
         sx={{ width: "350px" }}
@@ -221,13 +226,13 @@ const ConfirmForm = () => {
       <TextField
         value={form.passwordCheck}
         id="filled-basic"
-        label="密碼確認"
+        label="double-check"
         variant="filled"
         type="password"
         sx={{ width: "350px" }}
         onChange={(e) => handlePasswordCheck(e)}
       />
-      <Button onClick={handleConfirm}>確認</Button>
+      <Button onClick={handleConfirm}>Confirm</Button>
       <LoginModal open={open} setOpen={setOpen} message={message} />
     </Stack>
   );

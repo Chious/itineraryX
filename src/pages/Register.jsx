@@ -141,8 +141,8 @@ export default function Register() {
             justifyContent="center"
             alignItems="center"
           >
-            <h1>註冊</h1>
-            <Image src={logo} width="50%" fit="contain" />
+            <h2 style={{ fontWeight: "500" }}>Register</h2>
+            <Image src={logo} width="20%" fit="contain" />
             <TextField
               id="filled-basic"
               label="User"
