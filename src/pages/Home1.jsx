@@ -10,6 +10,7 @@ import HomeFeaturedDestinationsSection from "../components/Home/HomeFeaturedDest
 import HomeExclusiveTripSection from "../components/Home/HomeExclusiveTripSection";
 import HomeRecommendedSection from "../components/Home/HomeRecommendedSection";
 
+
 export default function Home() {
   const [place, setPlace] = useState(null);
   const [image, setImage] = useState(null);

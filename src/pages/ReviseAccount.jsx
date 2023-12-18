@@ -255,7 +255,7 @@ const ConfirmForm = () => {
       <label for="double-check">Double Check Password</label>
       <input
         value={form.passwordCheck}
-        label="double-check"
+        name="double-check"
         type="password"
         style={{
             width: "350px",
