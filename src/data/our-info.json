@@ -32,10 +32,13 @@
   },
   {
     "id": 4,
-    "name": "Ching",
-    "work": "",
-    "avatar": "",
-    "description": "200 character",
-    "link": ["123", "234"]
+    "name": "Nien Ching",
+    "work": "Front-end Developer",
+    "avatar": "../../src/images/material/ChingAvatar.jpeg",
+    "description": "As a junior front-end developer with strong creation and communication skills, I am eager to seize any opportunity to contribute value",
+    "link": [
+      "https://github.com/Ching0810", 
+      "https://www.linkedin.com/in/ching-nien-894777170/"
+    ]
   }
 ]
