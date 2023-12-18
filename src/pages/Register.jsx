@@ -1,4 +1,4 @@
-import { Box, Stack, TextField, Button } from "@mui/material";
+import { Box, Stack, Button } from "@mui/material";
 import Image from "mui-image";
 import logo from "../assets/itineraryX_logo.png";
 import { useState } from "react";
@@ -143,44 +143,86 @@ export default function Register() {
           >
             <h2 style={{ fontWeight: "500" }}>Register</h2>
             <Image src={logo} width="20%" fit="contain" />
-            <TextField
-              id="filled-basic"
-              label="User"
-              variant="filled"
-              placeholder="user123"
-              type="text"
-              sx={{ width: "350px" }}
-              onChange={(e) => handleName(e)}
-            />
-            <TextField
-              id="filled-basic"
-              label="Account"
-              variant="filled"
-              placeholder="123@example.com"
-              type="email"
-              sx={{ width: "350px" }}
-              onChange={(e) => handleAccount(e)}
-            />
-            <TextField
-              id="filled-basic"
-              label="Password"
-              variant="filled"
-              type="password"
-              sx={{ width: "350px" }}
-              onChange={(e) => handlePassword(e)}
-            />
-            <TextField
-              id="filled-basic"
-              label="double-check"
-              variant="filled"
-              type="password"
-              sx={{ width: "350px" }}
-              onChange={(e) => handlepasswordCheck(e)}
-            />
+            <Stack direction="column" spacing={1}>
+              <label for="user">User Name</label>
+              <input
+                name="user"
+                placeholder="user123"
+                type="text"
+                style={{
+                  width: "350px",
+                  height: "50px",
+                  padding: "5px",
+                  color: "black",
+                  background: "white",
+                }}
+                onChange={(e) => handleName(e)}
+              />
+              <label for="account">Account</label>
+              <input
+                name="account"
+                placeholder="123@example.com"
+                type="email"
+                style={{
+                  width: "350px",
+                  height: "50px",
+                  padding: "5px",
+                  color: "black",
+                  background: "white",
+                }}
+                onChange={(e) => handleAccount(e)}
+              />
+              <label for="password">Password</label>
+              <input
+                name="password"
+                type="password"
+                style={{
+                  width: "350px",
+                  height: "50px",
+                  padding: "5px",
+                  color: "black",
+                  background: "white",
+                }}
+                onChange={(e) => handlePassword(e)}
+              />
+              <label for="double-check">Password Double Check</label>
+              <input
+                name="double-check"
+                type="password"
+                style={{
+                  width: "350px",
+                  height: "50px",
+                  padding: "5px",
+                  color: "black",
+                  background: "white",
+                }}
+                onChange={(e) => handlepasswordCheck(e)}
+              />
+            </Stack>
             <LoginModal open={open} setOpen={setOpen} message={message} />
-            <Stack direction="column" spacing={2}>
-              <Button onClick={handleSubmit}>Submit</Button>
-              <Button onClick={handleBack}>Return</Button>
+            <Stack direction="row" spacing={2}>
+              <Button
+                sx={{
+                  background: "white",
+                  color: "#325269",
+                  border: "2px solid #325269",
+                  "&:hover": { color: "#325269" },
+                }}
+                onClick={handleBack}
+              >
+                Return
+              </Button>
+              <Button
+                sx={{
+                  background: "#325269",
+                  color: "white",
+                  border: "2px solid transparent",
+                  "&:hover": { color: "#325269", border: "2px solid #325269" },
+                }}
+                onClick={handleSubmit}
+              >
+                Submit
+              </Button>
             </Stack>
           </Stack>
         </Box>
