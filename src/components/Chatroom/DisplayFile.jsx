@@ -24,7 +24,7 @@ export default function DisplayFile({ file, setFile }) {
               top: 15,
               right: 10,
               zIndex: 10,
-              color: "#FE7A00",
+              color: "rgb(211,47,47)",
             }}
           />
           <Image src={item.preview} duration={0} height="50px" width="50px" />
@@ -39,7 +39,7 @@ export default function DisplayFile({ file, setFile }) {
         background: isZero ? "transparent" : "gray",
         position: "absolute",
         width: 300,
-        bottom: 50,
+        bottom: 46,
         zIndex: 5,
       }}
     >

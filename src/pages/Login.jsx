@@ -1,4 +1,4 @@
-import { Box, Stack, TextField, Button } from "@mui/material";
+import { Box, Stack, Button } from "@mui/material";
 import Image from "mui-image";
 import logo from "../assets/itineraryX_logo.png";
 import { useState } from "react";
@@ -84,23 +84,35 @@ export default function Login() {
           >
             <h2 style={{ fontWeight: "500" }}>Login</h2>
             <Image src={logo} width="20%" fit="contain" />
-            <TextField
-              id="filled-basic"
-              label="Account"
-              variant="filled"
-              placeholder="123@example.com"
-              type="email"
-              sx={{ width: "350px" }}
-              onChange={(e) => handleAccount(e)}
-            />
-            <TextField
-              id="filled-basic"
-              label="Password"
-              variant="filled"
-              type="password"
-              sx={{ width: "350px" }}
-              onChange={(e) => handlePassword(e)}
-            />
+            <Stack spacing={1}>
+              <label for="account">Account</label>
+              <input
+                name="account"
+                placeholder="123@example.com"
+                type="email"
+                style={{
+                  width: "350px",
+                  height: "50px",
+                  padding: "5px",
+                  color: "black",
+                  background: "white",
+                }}
+                onChange={(e) => handleAccount(e)}
+              />
+              <label for="password">Password</label>
+              <input
+                name="password"
+                type="password"
+                style={{
+                  width: "350px",
+                  height: "50px",
+                  padding: "5px",
+                  color: "black",
+                  background: "white",
+                }}
+                onChange={(e) => handlePassword(e)}
+              />
+            </Stack>
             <p style={{ color: "gray" }}>
               Forget password?{" "}
               <span
@@ -111,8 +123,28 @@ export default function Login() {
               </span>
             </p>
             <Stack direction="row" spacing={2}>
-              <Button onClick={handleLogin}>Login</Button>
-              <Button onClick={handleRegister}>Register</Button>
+              <Button
+                sx={{
+                  background: "white",
+                  color: "#325269",
+                  border: "2px solid #325269",
+                  "&:hover": { color: "#325269" },
+                }}
+                onClick={handleRegister}
+              >
+                Register
+              </Button>
+              <Button
+                sx={{
+                  background: "#325269",
+                  color: "white",
+                  border: "2px solid transparent",
+                  "&:hover": { color: "#325269", border: "2px solid #325269" },
+                }}
+                onClick={handleLogin}
+              >
+                Login
+              </Button>
               <LoginModal open={open} setOpen={setOpen} message={message} />
             </Stack>
           </Stack>

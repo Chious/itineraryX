@@ -1,4 +1,4 @@
-import { Box, Stack, TextField, Button } from "@mui/material";
+import { Box, Stack, Button } from "@mui/material";
 import PrimarySearchAppBar from "../components/PrimarySearchAppBar";
 import Image from "mui-image";
 import logo from "../assets/itineraryX_logo.png";
@@ -101,18 +101,41 @@ const ReviseForm = () => {
     >
       <h5>Forget Password</h5>
       <Image src={logo} width="50%" height="20%" fit="contain" />
-      <TextField
-        id="filled-basic"
-        label="Account"
-        variant="filled"
-        placeholder="123@example.com"
-        type="email"
-        sx={{ width: "350px" }}
-        onChange={(e) => handleAccount(e)}
-      />
+      <Stack direction="column" spacing={1}>
+        <label for="account">Account</label>
+        <input
+          name="account"
+          placeholder="123@example.com"
+          type="email"
+          style={{
+            width: "350px",
+            height: "50px",
+            padding: "5px",
+            color: "black",
+            background: "white",
+          }}
+          onChange={(e) => handleAccount(e)}
+        />
+      </Stack>
       <Stack direction="row" spacing={2}>
-        <Button onClick={handleBack}>Return</Button>
         <Button
+          sx={{
+            background: "white",
+            color: "#325269",
+            border: "2px solid #325269",
+            "&:hover": { color: "#325269" },
+          }}
+          onClick={handleBack}
+        >
+          Return
+        </Button>
+        <Button
+          sx={{
+            background: "#325269",
+            color: "white",
+            border: "2px solid transparent",
+            "&:hover": { color: "#325269", border: "2px solid #325269" },
+          }}
           onClick={async () => {
             handleSubmit();
           }}
@@ -214,25 +237,44 @@ const ConfirmForm = () => {
     >
       <h5>Reset Password</h5>
       <Image src={logo} width="20%" fit="contain" />
-      <TextField
+      <Stack direction="column" spacing={1}>
+      <label for="password">New Password</label>
+      <input
         value={form.password}
-        id="filled-basic"
-        label="password"
-        variant="filled"
+        name="password"
         type="password"
-        sx={{ width: "350px" }}
+        style={{
+            width: "350px",
+            height: "50px",
+            padding: "5px",
+            color: "black",
+            background: "white",
+          }}
         onChange={(e) => handlePassword(e)}
       />
-      <TextField
+      <label for="double-check">Double Check Password</label>
+      <input
         value={form.passwordCheck}
-        id="filled-basic"
-        label="double-check"
-        variant="filled"
+        name="double-check"
         type="password"
-        sx={{ width: "350px" }}
+        style={{
+            width: "350px",
+            height: "50px",
+            padding: "5px",
+            color: "black",
+            background: "white",
+          }}
         onChange={(e) => handlePasswordCheck(e)}
       />
-      <Button onClick={handleConfirm}>Confirm</Button>
+      </Stack>
+      <Button
+         sx={{
+            background: "#325269",
+            color: "white",
+            border: "2px solid transparent",
+            "&:hover": { color: "#325269", border: "2px solid #325269" },
+          }}
+          onClick={handleConfirm}>Confirm</Button>
       <LoginModal open={open} setOpen={setOpen} message={message} />
     </Stack>
   );
