@@ -4,7 +4,7 @@ import Panel from "../components/Panel/Panel";
 import {
   useFetchDataAndCheckAuth,
   useEditPageSocket,
-} from "./EditPage.hook.jsx";
+} from './EditPage.hook.jsx';
 import { useJsApiLoader } from "@react-google-maps/api";
 import Map from "../components/Map/Map";
 import ChatroomSocket from "../components/Chatroom/ChatroomMain.jsx";
@@ -48,7 +48,7 @@ export default function EditPage() {
   return (
     <Box
       className="container"
-      sx={{ height: "100vh", overflow: "hidden", backgroundColor: "white" }}
+      sx={{ height: '100vh', overflow: 'hidden', backgroundColor: 'white' }}
     >
       <Navbar />
 
@@ -62,7 +62,7 @@ export default function EditPage() {
       <Stack
         className="content"
         direction="row"
-        sx={{ height: "calc(100vh - 64px)" }}
+        sx={{ height: 'calc(100vh - 64px)' }}
       >
         {/* Panel component */}
         <Box className="edit-panel" width="400px" height="100%">
