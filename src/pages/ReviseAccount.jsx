@@ -101,18 +101,41 @@ const ReviseForm = () => {
     >
       <h5>Forget Password</h5>
       <Image src={logo} width="50%" height="20%" fit="contain" />
-      <TextField
-        id="filled-basic"
-        label="Account"
-        variant="filled"
-        placeholder="123@example.com"
-        type="email"
-        sx={{ width: "350px" }}
-        onChange={(e) => handleAccount(e)}
-      />
+      <Stack direction="column" spacing={1}>
+        <label for="account">Account</label>
+        <input
+          name="account"
+          placeholder="123@example.com"
+          type="email"
+          style={{
+            width: "350px",
+            height: "50px",
+            padding: "5px",
+            color: "black",
+            background: "white",
+          }}
+          onChange={(e) => handleAccount(e)}
+        />
+      </Stack>
       <Stack direction="row" spacing={2}>
-        <Button onClick={handleBack}>Return</Button>
         <Button
+          sx={{
+            background: "white",
+            color: "#325269",
+            border: "2px solid #325269",
+            "&:hover": { color: "#325269" },
+          }}
+          onClick={handleBack}
+        >
+          Return
+        </Button>
+        <Button
+          sx={{
+            background: "#325269",
+            color: "white",
+            border: "2px solid transparent",
+            "&:hover": { color: "#325269", border: "2px solid #325269" },
+          }}
           onClick={async () => {
             handleSubmit();
           }}

@@ -1,8 +1,9 @@
 import { Stack } from "@mui/material";
 import ChatLeft from "./ChatLeft";
 import ChatRight from "./ChatRight";
+import { useEffect, useRef } from "react";
 
-export default function Message({ data }) {
+export default function Message({ data, openChat }) {
   const chats = data.map((chat, index) => {
     const { userId, user, message, time, avatar, isImage } = chat;
     const storedData = localStorage.getItem("user");
@@ -39,8 +40,18 @@ export default function Message({ data }) {
     }
   });
 
+  //scroll view to bottom of chatroom, after setup
+  const ref = useRef();
+
+  useEffect(() => {
+    if (openChat === true) {
+      ref.current.scrollTop = ref.current.scrollHeight;
+    }
+  }, [openChat]);
+
   return (
     <Stack
+      ref={ref}
       height="200px"
       sx={{ overflow: "scroll", position: "relative", zIndex: 1 }}
     >

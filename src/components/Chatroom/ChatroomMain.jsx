@@ -3,18 +3,22 @@ import { useState, useEffect } from "react";
 import { getChats } from "../../api/chat";
 import { joinRoom } from "../../socket/socketManager";
 
-export default function ChatroomSocket({ room, openChat, setOpenChat }) {
+export default function ChatroomSocket({
+  room,
+  openChat,
+  setOpenChat,
+  isValid,
+}) {
   // open or close chatroom
   const [chatroomMessage, setChatroomMessage] = useState([]);
 
   useEffect(async () => {
-    if (room !== "") {
+    if (room !== "" && isValid) {
       const response = await getChats(room);
       setChatroomMessage(response);
-      console.log("chatroom message: ", response);
       joinRoom({ room });
     }
-  }, [room]);
+  }, [room, isValid]);
 
   return (
     <div>
