@@ -1,11 +1,11 @@
-import { Box, Stack, TextField, Button } from "@mui/material";
-import PrimarySearchAppBar from "../components/PrimarySearchAppBar";
+import { Box, Stack, Button } from "@mui/material";
 import Image from "mui-image";
 import logo from "../assets/itineraryX_logo.png";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LoginModal from "../components/Login/LoginModal";
 import { ItineraryRegister } from "../api/auth";
+import Navbar from "../components/Home/Navbar";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -60,7 +60,7 @@ export default function Register() {
 
   //Show modal after submit
   const [open, setOpen] = useState(false);
-  const [message, setMessage] = useState({ status: "", text: "預設" });
+  const [message, setMessage] = useState({ status: "", text: "default" });
 
   const handleSubmit = async () => {
     const valid = checkValid();
@@ -81,11 +81,17 @@ export default function Register() {
       if (result !== undefined) {
         setOpen(true);
         if (result === true) {
-          setMessage({ status: true, text: "註冊成功！" });
+          setMessage({ status: true, text: "Success!" });
         } else if (result === "email") {
-          setMessage({ status: false, text: "這個帳號已被註冊過了！" });
+          setMessage({
+            status: false,
+            text: "This account has been registered!",
+          });
         } else if (result === "user") {
-          setMessage({ status: false, text: "這個名稱已經被註冊過了！" });
+          setMessage({
+            status: false,
+            text: "This account has been registered!",
+          });
         }
       }
       //Stop for a second to show result;
@@ -102,7 +108,7 @@ export default function Register() {
     else if (valid === false) {
       //Open Modal Show Result
 
-      setMessage({ status: false, text: "註冊失敗！" });
+      setMessage({ status: false, text: "Failed!" });
       setOpen(true);
 
       timeout = setTimeout(() => {
@@ -113,66 +119,114 @@ export default function Register() {
   };
 
   return (
-    <PrimarySearchAppBar>
+    <div>
+      <Navbar />
       <Box
-        sx={{
-          background: "#F4F4F4",
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
+        sx={{ display: "flex", flexDirection: "column", height: "100vh" }}
+        bgcolor="white"
       >
-        <Stack
-          sx={{ width: "400px", height: "450px", background: "white", p: 2 }}
-          spacing={1}
-          justifyContent="center"
-          alignItems="center"
+        <Box
+          sx={{
+            background: "#F4F4F4",
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
         >
-          <h1>註冊</h1>
-          <Image src={logo} width="50%" fit="contain" />
-          <TextField
-            id="filled-basic"
-            label="使用者名稱"
-            variant="filled"
-            placeholder="user123"
-            type="text"
-            sx={{ width: "350px" }}
-            onChange={(e) => handleName(e)}
-          />
-          <TextField
-            id="filled-basic"
-            label="帳號"
-            variant="filled"
-            placeholder="123@example.com"
-            type="email"
-            sx={{ width: "350px" }}
-            onChange={(e) => handleAccount(e)}
-          />
-          <TextField
-            id="filled-basic"
-            label="密碼"
-            variant="filled"
-            type="password"
-            sx={{ width: "350px" }}
-            onChange={(e) => handlePassword(e)}
-          />
-          <TextField
-            id="filled-basic"
-            label="再次確認密碼"
-            variant="filled"
-            type="password"
-            sx={{ width: "350px" }}
-            onChange={(e) => handlepasswordCheck(e)}
-          />
-          <LoginModal open={open} setOpen={setOpen} message={message} />
-          <Stack direction="column" spacing={2}>
-            <Button onClick={handleSubmit}>確認</Button>
-            <Button onClick={handleBack}>返回</Button>
+          <Stack
+            sx={{ width: "400px", height: "auto", background: "white", p: 2 }}
+            spacing={1}
+            justifyContent="center"
+            alignItems="center"
+          >
+            <h2 style={{ fontWeight: "500" }}>Register</h2>
+            <Image src={logo} width="20%" fit="contain" />
+            <Stack direction="column" spacing={1}>
+              <label for="user">User Name</label>
+              <input
+                name="user"
+                placeholder="user123"
+                type="text"
+                style={{
+                  width: "350px",
+                  height: "50px",
+                  padding: "5px",
+                  color: "black",
+                  background: "white",
+                }}
+                onChange={(e) => handleName(e)}
+              />
+              <label for="account">Account</label>
+              <input
+                name="account"
+                placeholder="123@example.com"
+                type="email"
+                style={{
+                  width: "350px",
+                  height: "50px",
+                  padding: "5px",
+                  color: "black",
+                  background: "white",
+                }}
+                onChange={(e) => handleAccount(e)}
+              />
+              <label for="password">Password</label>
+              <input
+                name="password"
+                type="password"
+                style={{
+                  width: "350px",
+                  height: "50px",
+                  padding: "5px",
+                  color: "black",
+                  background: "white",
+                }}
+                onChange={(e) => handlePassword(e)}
+              />
+              <label for="double-check">Password Double Check</label>
+              <input
+                name="double-check"
+                type="password"
+                style={{
+                  width: "350px",
+                  height: "50px",
+                  padding: "5px",
+                  color: "black",
+                  background: "white",
+                }}
+                onChange={(e) => handlepasswordCheck(e)}
+              />
+            </Stack>
+            <LoginModal open={open} setOpen={setOpen} message={message} />
+            <Stack direction="row" spacing={2}>
+              <Button
+                sx={{
+                  background: "white",
+                  color: "#325269",
+                  border: "2px solid #325269",
+                  "&:hover": { color: "#325269" },
+                }}
+                onClick={handleBack}
+              >
+                Return
+              </Button>
+              <Button
+                sx={{
+                  background: "#325269",
+                  color: "white",
+                  border: "2px solid transparent",
+                  "&:hover": { color: "#325269", border: "2px solid #325269" },
+                }}
+                onClick={handleSubmit}
+              >
+                Submit
+              </Button>
+            </Stack>
           </Stack>
-        </Stack>
+        </Box>
       </Box>
-    </PrimarySearchAppBar>
+    </div>
   );
 }

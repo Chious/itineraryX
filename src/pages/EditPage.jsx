@@ -16,6 +16,7 @@ import {
 const libraries = ['places'];
 
 export default function EditPage() {
+  const [isValid, setIsValid] = useState(false); // check if user own the route
   const navigate = useNavigate();
   useFetchDataAndCheckAuth();
   useEditPageSocket();
@@ -38,6 +39,7 @@ export default function EditPage() {
   useEffect(async () => {
     const ids = await getChatId();
     const isValidId = ids.includes(Number(itineraryId));
+    setIsValid(isValidId);
     if (isValidId === false) {
       navigate('/home1');
     }
@@ -59,6 +61,7 @@ export default function EditPage() {
         openChat={openChat}
         setOpenChat={setOpenChat}
         room={itineraryId}
+        isValid={isValid}
       />
 
       <Grid

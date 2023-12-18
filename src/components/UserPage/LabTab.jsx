@@ -1,32 +1,70 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
+import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import TabContext from "@mui/lab/TabContext";
-import TabList from "@mui/lab/TabList";
-import TabPanel from "@mui/lab/TabPanel";
-import RecipeReviewCard from "./RecipeReviewCard";
+import Box from "@mui/material/Box";
+import ItineraryCards from "./ItineraryCards";
+import { useItineraries } from "../../contexts/UserPageContext";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-export default function LabTabs() {
-  const [value, setValue] = React.useState("1");
+let theme = createTheme({
+  components: {
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          color: "#647680",
+          fontFamily: "Poppins",
+          fontWeight: "600",
+          borderRadius: "10px",
+          opacity: 0.5,
+          "&.Mui-selected": {
+            opacity: 1,
+            color: "#325269",
+            borderRadius: "10px",
+          },
+        },
+      },
+    },
+  },
+});
+
+export default function LabTab() {
+  // get MY ITINERARIES & JOINED ITINERARIES data
+  const { itineraries, joinedItineraries } = useItineraries();
+  const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   return (
-    <Box sx={{ width: "100%", typography: "body1" }}>
-      <TabContext value={value}>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <TabList onChange={handleChange} aria-label="lab API tabs example">
-            <Tab label="我的行程" value="1" />
-            <Tab label="待定" value="2" />
-          </TabList>
-        </Box>
-        <TabPanel value="1">
-          <RecipeReviewCard />
-        </TabPanel>
-        <TabPanel value="2">待定</TabPanel>
-      </TabContext>
+    <Box sx={{ width: "100%" }}>
+      <ThemeProvider theme={theme}>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="wrapped label tabs example"
+          indicatorColor="#325269"
+          textcolor="#325269"
+        >
+          <Tab
+            value={0}
+            sx={{ "&:hover": { opacity: 0.8, color: "#325269" } }}
+            label="My itineraries"
+          />
+          <Tab
+            value={1}
+            sx={{ "&:hover": { opacity: 0.8, color: "#325269" } }}
+            label="Joined itineraries"
+          />
+        </Tabs>
+      </ThemeProvider>
+
+      {/* use conditional render to pass corresponded data to ItineraryCards */}
+      {value === 0 ? (
+        <ItineraryCards itineraries={itineraries} />
+      ) : (
+        <ItineraryCards itineraries={joinedItineraries} />
+      )}
     </Box>
   );
 }

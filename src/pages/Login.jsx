@@ -1,11 +1,11 @@
-import { Box, Stack, TextField, Button } from "@mui/material";
-import PrimarySearchAppBar from "../components/PrimarySearchAppBar";
+import { Box, Stack, Button } from "@mui/material";
 import Image from "mui-image";
 import logo from "../assets/itineraryX_logo.png";
 import { useState } from "react";
 import { ItineraryLogin } from "../api/auth";
 import { useNavigate } from "react-router-dom";
 import LoginModal from "../components/Login/LoginModal";
+import Navbar from "../components/Home/Navbar";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ export default function Login() {
   // Login
   //// Control Modal
   const [open, setOpen] = useState(false);
-  const [message, setMessage] = useState({ status: "", text: "預設" });
+  const [message, setMessage] = useState({ status: "", text: "Default" });
 
   const handleLogin = async () => {
     const { account, password } = form;
@@ -32,9 +32,9 @@ export default function Login() {
     if (result !== undefined) {
       setOpen(true);
       if (result === true) {
-        setMessage({ status: true, text: "登入成功！" });
+        setMessage({ status: true, text: "Success!" });
       } else {
-        setMessage({ status: false, text: "登入失敗！" });
+        setMessage({ status: false, text: "Failed!" });
       }
     }
 
@@ -53,50 +53,103 @@ export default function Login() {
     navigate("/register");
   };
 
+  // Forget password
+
+  const handleForget = () => {
+    navigate("/reset-password/?reset=true");
+  };
+
   return (
-    <PrimarySearchAppBar>
+    <div>
+      <Navbar />
       <Box
-        sx={{
-          background: "#F4F4F4",
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
+        sx={{ display: "flex", flexDirection: "column", height: "100vh" }}
+        bgcolor="white"
       >
-        <Stack
-          sx={{ width: "400px", height: "400px", background: "white", p: 2 }}
-          spacing={1}
-          justifyContent="center"
-          alignItems="center"
+        <Box
+          sx={{
+            background: "#F4F4F4",
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
         >
-          <h1>登入</h1>
-          <Image src={logo} width="50%" fit="contain" />
-          <TextField
-            id="filled-basic"
-            label="帳號"
-            variant="filled"
-            placeholder="123@example.com"
-            type="email"
-            sx={{ width: "350px" }}
-            onChange={(e) => handleAccount(e)}
-          />
-          <TextField
-            id="filled-basic"
-            label="密碼"
-            variant="filled"
-            type="password"
-            sx={{ width: "350px" }}
-            onChange={(e) => handlePassword(e)}
-          />
-          <Stack direction="column" spacing={2}>
-            <Button onClick={handleLogin}>登入</Button>
-            <Button onClick={handleRegister}>註冊</Button>
-            <LoginModal open={open} setOpen={setOpen} message={message} />
+          <Stack
+            sx={{ width: "400px", height: "450px", background: "white", p: 2 }}
+            spacing={1}
+            justifyContent="center"
+            alignItems="center"
+          >
+            <h2 style={{ fontWeight: "500" }}>Login</h2>
+            <Image src={logo} width="20%" fit="contain" />
+            <Stack spacing={1}>
+              <label for="account">Account</label>
+              <input
+                name="account"
+                placeholder="123@example.com"
+                type="email"
+                style={{
+                  width: "350px",
+                  height: "50px",
+                  padding: "5px",
+                  color: "black",
+                  background: "white",
+                }}
+                onChange={(e) => handleAccount(e)}
+              />
+              <label for="password">Password</label>
+              <input
+                name="password"
+                type="password"
+                style={{
+                  width: "350px",
+                  height: "50px",
+                  padding: "5px",
+                  color: "black",
+                  background: "white",
+                }}
+                onChange={(e) => handlePassword(e)}
+              />
+            </Stack>
+            <p style={{ color: "gray" }}>
+              Forget password?{" "}
+              <span
+                style={{ textDecoration: "underline", color: "gray" }}
+                onClick={handleForget}
+              >
+                Click here
+              </span>
+            </p>
+            <Stack direction="row" spacing={2}>
+              <Button
+                sx={{
+                  background: "white",
+                  color: "#325269",
+                  border: "2px solid #325269",
+                  "&:hover": { color: "#325269" },
+                }}
+                onClick={handleRegister}
+              >
+                Register
+              </Button>
+              <Button
+                sx={{
+                  background: "#325269",
+                  color: "white",
+                  border: "2px solid transparent",
+                  "&:hover": { color: "#325269", border: "2px solid #325269" },
+                }}
+                onClick={handleLogin}
+              >
+                Login
+              </Button>
+              <LoginModal open={open} setOpen={setOpen} message={message} />
+            </Stack>
           </Stack>
-        </Stack>
+        </Box>
       </Box>
-    </PrimarySearchAppBar>
+    </div>
   );
 }
