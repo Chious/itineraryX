@@ -4,6 +4,7 @@ import { Autocomplete } from '@react-google-maps/api';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { useTheme } from '@emotion/react';
 import moment from 'moment';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -38,6 +39,15 @@ const headerStyle = {
   alignItems: 'center',
 };
 
+const gridItemStyle = {
+  minWidth: '70px',
+  minHeight: '70px',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'start',
+  position: 'relative',
+};
+
 const formStyle = {
   boxSizing: 'border-box',
   backgroundColor: 'white',
@@ -49,14 +59,12 @@ const formStyle = {
   zIndex: '10',
 };
 
-const gridItemStyle = {
-  width: '70px',
-  height: '70px',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'start',
-  position: 'relative',
+const fieldNameStyle = {
+  marginTop: 1,
+  color: 'primary',
+  fontSize: '1.2rem',
+  fontWeight: '500',
+  letterSpacing: 1.1,
 };
 
 const center = {
@@ -74,6 +82,10 @@ export default function DestinationCreateForm({ dayOfForm, handleFormClose }) {
   const tripInfoDispatch = useTripInfoDispatch();
   const tripInfo = useTripInfo();
   const itinerary = tripInfo.itinerary;
+  const theme = useTheme();
+  const primaryLightColor = theme.palette.primary.light;
+  const errorColor = theme.palette.error.main;
+  const fontFamily = theme.typography.fontFamily;
   const rwdColumns = [3, 9];
 
   const schema = z.object({
@@ -173,8 +185,16 @@ export default function DestinationCreateForm({ dayOfForm, handleFormClose }) {
     >
       {/* header */}
       <Box className="header" sx={headerStyle}>
-        <Typography sx={{ fontSize: '1.2rem', fontWeight: 'bold' }}>
-          Add New Destination
+        <Typography
+          color="primary"
+          sx={{
+            fontSize: '1.5rem',
+            fontWeight: '700',
+            letterSpacing: 1.5,
+            textShadow: `1px 1px 2px ${primaryLightColor}`,
+          }}
+        >
+          Add New Location
         </Typography>
       </Box>
 
@@ -182,12 +202,12 @@ export default function DestinationCreateForm({ dayOfForm, handleFormClose }) {
       <Grid
         container
         rowSpacing={4}
-        columnSpacing={2}
+        columnSpacing={3}
         sx={{ padding: 4, paddingTop: 6 }}
       >
         {/* location */}
         <Grid item xs={rwdColumns[0]} sx={gridItemStyle}>
-          <Typography>Location</Typography>
+          <Typography sx={fieldNameStyle}>Location</Typography>
         </Grid>
         <Grid item xs={rwdColumns[1]} sx={gridItemStyle}>
           <Autocomplete
@@ -215,7 +235,7 @@ export default function DestinationCreateForm({ dayOfForm, handleFormClose }) {
 
         {/* day */}
         <Grid item xs={rwdColumns[0]} sx={gridItemStyle}>
-          <Typography>Day</Typography>
+          <Typography sx={fieldNameStyle}>Day</Typography>
         </Grid>
         <Grid item xs={rwdColumns[1]} sx={gridItemStyle}>
           <Select
@@ -241,7 +261,7 @@ export default function DestinationCreateForm({ dayOfForm, handleFormClose }) {
 
         {/* time */}
         <Grid item xs={rwdColumns[0]} sx={gridItemStyle}>
-          <Typography>Time</Typography>
+          <Typography sx={fieldNameStyle}>Time</Typography>
         </Grid>
         <Grid item xs={rwdColumns[1]} sx={gridItemStyle}>
           <input
@@ -253,18 +273,19 @@ export default function DestinationCreateForm({ dayOfForm, handleFormClose }) {
               height: '100%',
               padding: 8,
               borderRadius: 3,
-              borderWidth: errors.time ? 1.5 : 1,
-              borderColor: errors.time ? '#d32f2f' : 'rgba(0, 0, 0, 0.3)',
+              borderWidth: errors.time ? 2 : 1,
+              borderColor: errors.time ? errorColor : 'rgba(0, 0, 0, 0.3)',
             }}
           />
           <Box
             style={{
               position: 'absolute',
               top: '105%',
-              left: '1.9rem',
-              color: '#d32f2f',
+              left: '2.3rem',
+              color: errorColor,
               fontSize: '0.7rem',
-              fontWeight: 'bold',
+              fontWeight: '400',
+              fontFamily: fontFamily,
             }}
           >
             {errors.time && errors.time.message}
@@ -272,7 +293,7 @@ export default function DestinationCreateForm({ dayOfForm, handleFormClose }) {
         </Grid>
 
         {/* submit button */}
-        <Grid container justifyContent="flex-end" paddingTop={6} gap={3}>
+        <Grid container justifyContent="flex-end" paddingTop={6} gap={3.5}>
           <Button type="button" variant="text" onClick={handleFormClose}>
             CANCEL
           </Button>
