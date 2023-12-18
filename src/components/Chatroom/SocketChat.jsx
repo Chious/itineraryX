@@ -37,7 +37,6 @@ export default function SocketChat({
       isImage: isImage,
     };
     setChatroomMessage((previous) => [...previous, newObj]);
-    console.log("new:", [...chatroomMessage]);
   };
 
   useEffect(() => {
@@ -123,9 +122,11 @@ export default function SocketChat({
     <Box
       boxShadow={2}
       width="300px"
-      height="303px"
+      height="298px"
       style={showCard}
       sx={{
+        border: "1px solid transparent",
+        borderRadius: "5px",
         position: "absolute",
         zIndex: 10,
         background: "white",
@@ -137,11 +138,29 @@ export default function SocketChat({
         direction="row"
         alignItems="center"
         justifyContent="space-between"
-        sx={{ p: 0.5, background: "#F4F4F4" }}
+        sx={{
+          p: 0.5,
+          background: "#325269",
+          border: "1px solid transparent",
+          borderRadius: "5px 5px 0px 0px",
+        }}
       >
-        <p>{roomTitle}</p>
+        <h2
+          style={{
+            width: "280px",
+            color: "white",
+            fontWeight: 300,
+            fontSize: "15px",
+            padding: "5px",
+            textOverflow: "ellipsis",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {roomTitle}
+        </h2>
         <IconButton onClick={handleCloseChat}>
-          <CloseIcon />
+          <CloseIcon sx={{ color: "white" }} />
         </IconButton>
       </Stack>
       <DisplayFile file={file} setFile={setFile} />
@@ -151,16 +170,25 @@ export default function SocketChat({
         updateIcon={updateIcon}
         setUpdateIcon={setUpdateIcon}
       />
-      <Message data={chatroomMessage} />
+      <Message data={chatroomMessage} openChat={openChat} />
       <Stack direction="row">
-        <TextField
+        <input
+          style={{
+            width: "100%",
+            height: "44px",
+            padding: "10px",
+            background: "white",
+            color: "black",
+            border: "1px solid transparent",
+            outline: "none",
+          }}
+          value={messageInput}
           id="standard-basic"
           label=""
-          variant="filled"
-          fullWidth
           onChange={handleInput}
         />
         <ToggleButton
+          sx={{ border: "1px solid transparent" }}
           value="check"
           onClick={async () => {
             await handleSubmit(messageInput);
@@ -168,9 +196,12 @@ export default function SocketChat({
         >
           <SendIcon />
         </ToggleButton>
-        <IconButton onClick={() => setUpdateIcon(true)}>
+        <ToggleButton
+          sx={{ border: "1px solid transparent" }}
+          onClick={() => setUpdateIcon(true)}
+        >
           <AddAPhotoIcon />
-        </IconButton>
+        </ToggleButton>
       </Stack>
     </Box>
   );
