@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const token = localStorage.getItem("token");
 const baseUrl = import.meta.env.VITE_BASE_URL;
 
 export const getChats = async (chatroomID) => {
+  const token = localStorage.getItem("token");
   const url = `${baseUrl}/chats/${chatroomID}`;
 
   const config = { headers: { Authorization: `Bearer ${token}` } };
@@ -24,6 +24,7 @@ export const getChats = async (chatroomID) => {
 };
 
 export const postChat = async (data) => {
+  const token = localStorage.getItem("token");
   const url = `${baseUrl}/chats/`;
 
   //Get Required Params
@@ -58,6 +59,7 @@ export const postChat = async (data) => {
 };
 
 export const postChatFile = async ({ room, files }) => {
+  const token = localStorage.getItem("token");
   if (!files?.length) {
     return "Length of file is 0";
   } else if (files?.length) {
@@ -101,6 +103,7 @@ export const postChatFile = async ({ room, files }) => {
 };
 
 export const getChatId = async () => {
+  const token = localStorage.getItem("token");
   const url = `${baseUrl}/users/itineraryId`;
 
   const config = { headers: { Authorization: `Bearer ${token}` } };
@@ -120,6 +123,7 @@ export const getChatId = async () => {
 };
 
 export const getChatroomTitle = async (itineraryId) => {
+  const token = localStorage.getItem("token");
   const url = `${baseUrl}/itineraries/${itineraryId}`;
   const config = { headers: { Authorization: `Bearer ${token}` } };
 
