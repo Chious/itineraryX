@@ -1,6 +1,7 @@
 /*
 
   map可調參數：
+
   const mapOptions = {
     zoomControl: false,
     streetViewControl: false,
@@ -86,7 +87,7 @@ export default function Map({ isLoaded }) {
       <Stack
         className="map-control"
         direction="row"
-        spacing={1}
+        spacing={2}
         sx={{ position: 'absolute', top: '1rem', right: '1rem' }}
       >
         <TargetDaySelector />

@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import Stack from "@mui/material/Stack";
+import { useTheme } from "@emotion/react";
+import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ForumIcon from "@mui/icons-material/Forum";
 import { useAuth } from "@/contexts/AuthContext";
 import { useTripInfo } from "@/contexts/TripInfoContext";
@@ -10,45 +11,89 @@ export default function PanelControl({ handleOpenChat }) {
   const canEdit = useAuth().canEdit;
   const itinerary = useTripInfo().itinerary;
   const navigate = useNavigate();
+  const theme = useTheme();
+  const primaryColor = theme.palette.primary.main;
+  const primaryLightColor = theme.palette.primary.light;
 
-  function handleArrowIconClick() {
+  function returnToUserPage() {
     navigate("/user");
   }
 
   return (
-    <Stack
-      className="panel-control"
+    <Grid
+      container
       direction="row"
       justifyContent="space-between"
       alignItems="center"
-      sx={{
-        px: 2,
-        py: 1,
-        height: "40px",
-        backgroundColor: "white",
-        boxShadow: 1,
-        position: "relative",
-        zIndex: 5,
-      }}
+      position="relative"
+      px={3}
+      py={1.5}
     >
-      {/* arrow back icon & itinerary title */}
-      <Stack className="trip-title" direction="row" gap="1rem">
-        <ArrowBackIcon
-          onClick={handleArrowIconClick}
-          sx={{ color: "black", cursor: "pointer" }}
+      {/* return-to-user-page icon */}
+      <Grid item xs={1} flexShrink={0}>
+        <ArrowBackIosIcon
+          onClick={returnToUserPage}
+          fontSize="medium"
+          sx={{
+            cursor: "pointer",
+            p: 1,
+            width: "2.5rem",
+            height: "2.5rem",
+            color: primaryLightColor,
+            "&:hover": {
+              backgroundColor: "#eee",
+              color: primaryColor,
+            },
+          }}
         />
-        <Typography sx={{ fontWeight: "bold" }}>{itinerary.title}</Typography>
-      </Stack>
+      </Grid>
+
+      {/* itinerary title */}
+      <Grid
+        item
+        xs={9}
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      >
+        <Typography
+          color={primaryColor}
+          fontFamily="Roboto"
+          fontSize="1.5rem"
+          fontWeight="800"
+          letterSpacing={1.5}
+          textAlign="center"
+          sx={{
+            textOverflow: "ellipsis",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            wordBreak: "break-all",
+            overflowWrap: "break-word",
+            textShadow: `1px 1px 2px ${primaryLightColor}`,
+          }}
+        >
+          {itinerary.title.toUpperCase()}
+        </Typography>
+      </Grid>
 
       {/* chatroom icon */}
-      <Stack className="icon-container" direction="row">
+      <Grid item xs={1} flexShrink={0}>
         {canEdit && (
           <ForumIcon
-            sx={{ color: "black", cursor: "pointer" }}
             onClick={handleOpenChat}
+            fontSize="medium"
+            sx={{
+              cursor: "pointer",
+              p: 1,
+              width: "2.5rem",
+              height: "2.5rem",
+              color: primaryLightColor,
+              "&:hover": {
+                backgroundColor: "#eee",
+                color: primaryColor,
+              },
+            }}
           />
         )}
-      </Stack>
-    </Stack>
+      </Grid>
+    </Grid>
   );
 }

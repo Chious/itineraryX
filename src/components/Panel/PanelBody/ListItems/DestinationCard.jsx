@@ -5,20 +5,23 @@ import CardContent from '@mui/material/CardContent';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CardBtnPopper from '../Form/CardBtnPopper';
 import { useAuth } from '@/contexts/AuthContext';
+import { useTheme } from '@emotion/react';
 
 export default function DestinationCard({ day, destination }) {
   const canEdit = useAuth().canEdit;
+  const theme = useTheme();
+  const infoColor = theme.palette.info.main;
 
   return (
     <Card
       className="destination-card"
       sx={{
-        marginRight: '10px',
-        height: 'fit-content',
+        height: 'fit-content', // 自動根據內容調整卡片高度
         minHeight: '100px',
         borderRadius: '10px',
+        boxShadow:
+          '0px 1px 1px -1px rgba(0,0,0,0.2), 1px 1px 1px 0px rgba(0,0,0,0.14), 1px 1px 3px 1px rgba(0,0,0,0.12)',
         display: 'flex',
-        gap: '5px',
         position: 'relative',
       }}
     >
@@ -45,23 +48,30 @@ export default function DestinationCard({ day, destination }) {
           flexGrow: '1',
           display: 'flex',
           alignItems: 'center',
-          padding: '10px',
+          // 調整MUI卡片元件內距需使用 last-child
           '&:last-child': {
-            padding: '10px',
+            py: '1.5rem',
+            px: '1.2rem',
           },
         }}
       >
-        <Stack spacing={0.5}>
-          <Typography sx={{ fontSize: '0.9rem', fontWeight: 'bold' }}>
+        <Stack spacing={1}>
+          {/* location name */}
+          <Typography
+            color="primary"
+            sx={{ fontSize: '1.1rem', fontWeight: '700' }}
+          >
             {destination.placeName}
           </Typography>
-          <Stack direction="row" gap="2px">
-            <LocationOnIcon sx={{ fontSize: '0.9rem' }} />
+
+          {/* location address */}
+          <Stack direction="row" gap="0.5rem">
+            <LocationOnIcon sx={{ color: infoColor, fontSize: '1.1rem' }} />
             <Typography
               sx={{
-                color: 'text.secondary',
-                fontSize: '0.7rem',
-                lineHeight: '1.1',
+                color: infoColor,
+                fontSize: '0.8rem',
+                lineHeight: '1.2',
                 wordWrap: 'break-word',
               }}
             >

@@ -1,9 +1,10 @@
+import { useEffect } from 'react';
+import { useTheme } from '@emotion/react';
 import { styled } from '@mui/system';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { useTripInfo } from '@/contexts/TripInfoContext';
 import { useCurrentTarget } from '@/contexts/CurrentTargetContext';
-import { useEffect, useState } from 'react';
 import {
   currentTarget_actions,
   useCurrentTargetDispatch,
@@ -17,24 +18,34 @@ const StyledTabs = styled(Tabs)`
 `;
 
 const StyledTab = styled(Tab)`
+  min-width: 50px;
   min-height: 30px;
+  padding: 0 1.1rem;
+  letter-spacing: 1.5px;
+  &:hover {
+    background-color: #eee;
+  }
 `;
 
-export default function TabControl() {
-  const [activeTab, setActiveTab] = useState('0');
+export default function TabControl({ activeTab, setActiveTab }) {
   const tripInfo = useTripInfo();
   const numOfTabs = tripInfo.itinerary.totalDays;
   const targetDay = useCurrentTarget().targetDay;
   const currentTargetDispatch = useCurrentTargetDispatch();
+  const theme = useTheme();
+  const primaryLightColor = theme.palette.primary.light;
 
+  // 響應 TargetDaySelector 的天數變化
   useEffect(() => {
-    if (targetDay !== 0) setActiveTab(`${targetDay - 1}`);
+    if (targetDay !== 0) setActiveTab(() => `${targetDay - 1}`);
   }, [targetDay]);
 
-  const handleTabChange = (_event, newTabValue) => {
+  // 點擊切換tab
+  const handleTabChange = (_event, newValue) => {
+    setActiveTab(() => newValue);
     currentTargetDispatch({
       type: currentTarget_actions.SET_TARGET_DAY,
-      payload: Number(newTabValue) + 1,
+      payload: Number(newValue) + 1,
     });
   };
 
@@ -44,13 +55,11 @@ export default function TabControl() {
       value={activeTab}
       onChange={handleTabChange}
       variant="scrollable"
-      scrollButtons="auto"
-      allowScrollButtonsMobile
+      scrollButtons={false}
       aria-label="scrollable auto tabs"
       sx={{
-        position: 'relative',
-        zIndex: 3,
-        boxShadow: 1,
+        px: 7,
+        paddingBottom: 1,
         backgroundColor: 'white',
       }}
     >
@@ -61,7 +70,11 @@ export default function TabControl() {
             key={`tab-${index}`}
             className="tab-item"
             label={`Day ${index + 1}`}
-            value={`${index}`}
+            value={`${index}`} // value的值需為字串
+            sx={{
+              color: primaryLightColor,
+              textShadow: `0.5px 0.5px 1px ${primaryLightColor}`,
+            }}
           />
         ))}
     </StyledTabs>

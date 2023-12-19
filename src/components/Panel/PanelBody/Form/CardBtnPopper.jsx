@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { useTheme } from '@emotion/react';
 import moment from 'moment';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -49,21 +50,32 @@ const EditModalStyle = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 300,
+  width: 330,
   bgcolor: 'white',
   borderRadius: 3,
   boxShadow: 10,
   p: 4,
 };
 
+const fieldNameStyle = {
+  color: 'primary',
+  fontSize: '1.2rem',
+  fontWeight: '500',
+  letterSpacing: 1.1,
+};
+
 export default function CardBtnPopper({ day, destinationId }) {
+  const { itineraryId } = useParams();
   const [openBtnPopper, setOpenBtnPopper] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
   const tripInfo = useTripInfo();
   const tripInfoDispatch = useTripInfoDispatch();
   const itinerary = tripInfo.itinerary;
   const routesInfoDispatch = useRoutesInfoDispatch();
-  const { itineraryId } = useParams();
+  const theme = useTheme();
+  const primaryLightColor = theme.palette.primary.light;
+  const errorColor = theme.palette.error.main;
+  const fontFamily = theme.typography.fontFamily;
 
   const handlePopperClickAway = () => setOpenBtnPopper(false);
   const handleMoreBtnClick = () => setOpenBtnPopper((prev) => !prev);
@@ -145,19 +157,22 @@ export default function CardBtnPopper({ day, destinationId }) {
     <ClickAwayListener onClickAway={handlePopperClickAway}>
       <Box sx={btnStyle}>
         <Button type="button" onClick={handleMoreBtnClick}>
-          <MoreHorizIcon sx={{ fontSize: '1.2rem' }} />
+          <MoreHorizIcon sx={{ fontSize: '1.4rem' }} />
         </Button>
 
         {openBtnPopper && (
           <Box sx={BtnPopperStyle}>
             <List sx={{ p: 0 }}>
               <ListItem sx={{ p: 0 }}>
+                {/* option: edit destination time */}
                 <ListItemButton
-                  sx={{ padding: '5px' }}
+                  sx={{ padding: '5px', marginTop: '5px' }}
                   onClick={handleEditModalOpen}
                 >
-                  edit
+                  <Typography color="primary">edit</Typography>
                 </ListItemButton>
+
+                {/* edit time form */}
                 <Modal open={openEditModal} onClose={handleEditModalClose}>
                   <Box sx={EditModalStyle}>
                     <form
@@ -166,23 +181,38 @@ export default function CardBtnPopper({ day, destinationId }) {
                       className="edit-form"
                     >
                       <Grid container spacing={2}>
+                        {/* form title */}
                         <Grid item sx={12}>
                           <Typography
-                            sx={{ fontSize: '1.5rem', fontWeight: 'bold' }}
+                            color="primary"
+                            sx={{
+                              fontSize: '1.7rem',
+                              fontWeight: '700',
+                              letterSpacing: 1.2,
+                              textShadow: `1px 1px 1px ${primaryLightColor}`,
+                            }}
                           >
                             Edit Time
                           </Typography>
                         </Grid>
 
+                        {/* form body */}
                         <Grid item xs={12} sx={{ display: 'flex' }}>
                           <Grid
                             item
                             xs={3}
                             sx={{ display: 'flex', alignItems: 'center' }}
                           >
-                            <Typography>Time</Typography>
+                            <Typography color="primary" sx={fieldNameStyle}>
+                              Time
+                            </Typography>
                           </Grid>
-                          <Grid item xs={7} sx={{ position: 'relative' }}>
+
+                          <Grid
+                            item
+                            xs={7}
+                            sx={{ marginLeft: 1, position: 'relative' }}
+                          >
                             <input
                               {...register('time')}
                               onFocus={(e) => e.target.showPicker()}
@@ -193,9 +223,9 @@ export default function CardBtnPopper({ day, destinationId }) {
                                 height: '100%',
                                 padding: 5,
                                 borderRadius: 3,
-                                borderWidth: errors.time ? 1.5 : 1,
+                                borderWidth: errors.time ? 2 : 1,
                                 borderColor: errors.time
-                                  ? '#d32f2f'
+                                  ? errorColor
                                   : 'rgba(0, 0, 0, 0.3)',
                               }}
                             />
@@ -203,10 +233,11 @@ export default function CardBtnPopper({ day, destinationId }) {
                               style={{
                                 position: 'absolute',
                                 top: '105%',
-                                left: '0',
-                                color: '#d32f2f',
+                                left: '5px',
+                                color: errorColor,
                                 fontSize: '0.7rem',
-                                fontWeight: 'bold',
+                                fontWeight: '400',
+                                fontFamily: fontFamily,
                               }}
                             >
                               {errors.time && errors.time.message}
@@ -214,6 +245,7 @@ export default function CardBtnPopper({ day, destinationId }) {
                           </Grid>
                         </Grid>
 
+                        {/* form buttons */}
                         <Grid
                           item
                           xs={12}
@@ -221,7 +253,7 @@ export default function CardBtnPopper({ day, destinationId }) {
                             marginTop: '1rem',
                             display: 'flex',
                             justifyContent: 'end',
-                            gap: 1,
+                            gap: 2,
                           }}
                         >
                           <Button
@@ -240,12 +272,14 @@ export default function CardBtnPopper({ day, destinationId }) {
                   </Box>
                 </Modal>
               </ListItem>
+
+              {/* option: delete destination */}
               <ListItem sx={{ p: 0 }}>
                 <ListItemButton
                   sx={{ padding: '5px' }}
                   onClick={handleDeleteBtnClick}
                 >
-                  delete
+                  <Typography color="primary">delete</Typography>
                 </ListItemButton>
               </ListItem>
             </List>

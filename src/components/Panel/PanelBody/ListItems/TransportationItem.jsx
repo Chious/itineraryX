@@ -1,8 +1,8 @@
+import { useTheme } from '@emotion/react';
 import { useParams } from 'react-router-dom';
 import { useMemo, useState } from 'react';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
@@ -20,17 +20,9 @@ import {
 } from '@/contexts/RoutesInfoContext';
 import { sendRoutes } from '@/socket/socketManager';
 
-const icons = {
-  driving: { text: 'Car', icon: <DirectionsCarIcon color="black" /> },
-  walking: { text: 'Walk', icon: <DirectionsWalkIcon color="black" /> },
-  bicycling: { text: 'Bike', icon: <PedalBikeIcon color="black" /> },
-};
-
 const BtnPopperStyle = {
-  // width: 'max-content',
   position: 'absolute',
-  top: '105%',
-  left: 0,
+  top: '110%',
   zIndex: 1,
   p: 0,
   boxShadow: 3,
@@ -43,6 +35,8 @@ export default function TransportationItem({ route, rwdColumns }) {
   const { itineraryId } = useParams();
   const canEdit = useAuth().canEdit;
   const routesInfoDispatch = useRoutesInfoDispatch();
+  const theme = useTheme();
+  const primaryColor = theme.palette.primary.main;
 
   const handlePopperClickAway = () => setOpenBtnPopper(false);
   const handleRouteInfoBtnClick = () => setOpenBtnPopper((prev) => !prev);
@@ -62,59 +56,85 @@ export default function TransportationItem({ route, rwdColumns }) {
     });
   };
 
+  const icons = useMemo(() => ({
+    driving: {
+      text: 'Car',
+      icon: <DirectionsCarIcon sx={{ color: primaryColor }} />,
+    },
+    walking: {
+      text: 'Walk',
+      icon: <DirectionsWalkIcon sx={{ color: primaryColor }} />,
+    },
+    bicycling: {
+      text: 'Bike',
+      icon: <PedalBikeIcon sx={{ color: primaryColor }} />,
+    },
+  }));
+
+  const transportationContent = useMemo(
+    () => (
+      <Stack direction="row" spacing={1.3}>
+        {icons[route?.transportationMode ?? 'driving'].icon}
+        <Typography color="primary" fontWeight="600" textTransform="none">
+          about {route?.durationText}
+        </Typography>
+      </Stack>
+    ),
+    [route?.transportationMode]
+  );
+
   const transportationInfo = useMemo(
     () =>
       canEdit ? (
         <ClickAwayListener onClickAway={handlePopperClickAway}>
           <Button type="button" onClick={handleRouteInfoBtnClick}>
-            <Stack direction="row" spacing={1}>
-              {icons[route?.transportationMode ?? 'driving'].icon}
-              <Typography>about {route?.durationText}</Typography>
-            </Stack>
+            {transportationContent}
           </Button>
         </ClickAwayListener>
       ) : (
-        <Stack direction="row" spacing={1}>
-          {icons[route?.transportationMode].icon}
-          <Typography>about {route?.durationText}</Typography>
-        </Stack>
+        <>{transportationContent}</>
       ),
     [route?.transportationMode]
   );
 
   return (
-    <Grid container justifyContent="flex-end">
-      <Grid item xs={rwdColumns[1]} position="relative">
-        {transportationInfo}
+    <Box minWidth="max-content" position="relative">
+      {/* display transportation info */}
+      {transportationInfo}
 
-        {openBtnPopper && (
-          <Box sx={BtnPopperStyle}>
-            <List sx={{ p: 1 }}>
-              <ListItem
-                sx={{ px: 2, display: 'flex', justifyContent: 'center' }}
-              >
-                <Typography>Transportation Mode</Typography>
-              </ListItem>
-              <ListItem
-                justifyContent="center"
-                alignItems="center"
-                sx={{ p: 0 }}
-              >
-                {Object.entries(icons).map((entry) => (
-                  <ListItemButton
-                    key={`mode-${entry[0]}`}
-                    onClick={() => handleTransModeEdit(entry[0])}
-                    sx={{ p: 1, display: 'flex', flexDirection: 'column' }}
+      {/* display transportation mode edit form */}
+      {openBtnPopper && (
+        <Box sx={BtnPopperStyle}>
+          <List sx={{ p: 1 }}>
+            {/* form title */}
+            <ListItem sx={{ px: 2, display: 'flex', justifyContent: 'center' }}>
+              <Typography color="primary" fontWeight="600">
+                Transportation Mode
+              </Typography>
+            </ListItem>
+
+            {/* form options */}
+            <ListItem justifyContent="center" alignItems="center" sx={{ p: 0 }}>
+              {Object.entries(icons).map((entry) => (
+                <ListItemButton
+                  key={`mode-${entry[0]}`}
+                  onClick={() => handleTransModeEdit(entry[0])}
+                  sx={{ p: 1, display: 'flex', flexDirection: 'column' }}
+                >
+                  {entry[1].icon}
+                  <Typography
+                    color="primary"
+                    fontWeight="500"
+                    fontSize="0.85rem"
                   >
-                    {entry[1].icon}
-                    <Typography fontSize="0.8rem">{entry[1].text}</Typography>
-                  </ListItemButton>
-                ))}
-              </ListItem>
-            </List>
-          </Box>
-        )}
-      </Grid>
-    </Grid>
+                    {entry[1].text}
+                  </Typography>
+                </ListItemButton>
+              ))}
+            </ListItem>
+          </List>
+        </Box>
+      )}
+    </Box>
   );
 }

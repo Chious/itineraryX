@@ -1,52 +1,6 @@
 import { InfoWindowF, MarkerF } from '@react-google-maps/api';
 import { useEffect, useState } from 'react';
-
-function PlaceInfo({ place }) {
-  return (
-    <div style={{ display: 'flex', gap: '1rem' }}>
-      {/* place image */}
-      <div
-        className="img"
-        style={{
-          flexShrink: '0',
-          width: '100px',
-          backgroundImage: `url(${place.placeImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      ></div>
-
-      {/* place info */}
-      <div
-        style={{
-          width: '180px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '0.5rem',
-        }}
-      >
-        {place.placeName && (
-          <p style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>
-            {place.placeName}
-          </p>
-        )}
-        {place.placeIntro && (
-          <div style={{ fontSize: '0.7rem' }}>{place.placeIntro}</div>
-        )}
-        {place.placeAddress && (
-          <div
-            style={{
-              color: 'gray',
-              fontSize: '0.6rem',
-            }}
-          >
-            {place.placeAddress}
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
+import { PlaceInfo } from './PlaceInfo';
 
 export default function PlaceMarker({ place, label, color, map }) {
   const [openInfoWindow, setOpenInfoWindow] = useState(true);
