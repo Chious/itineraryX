@@ -1,0 +1,25 @@
+/* 滾動條 寬度+背景色 */
+.itinerary::-webkit-scrollbar {
+  width: 3px;
+  background-color: transparent;
+}
+
+/* 滾動條軌道 內陰影+圓角 */
+.itinerary::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.12);
+  border-radius: 20px;
+  background-color: #fff;
+}
+
+/* 滑塊 內陰影+圓角 */
+.itinerary::-webkit-scrollbar-thumb {
+  -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.12);
+  border-radius: 20px;
+  background-color: #ccc;
+}
+
+/* firefox 瀏覽器 */
+.itinerary {
+  scrollbar-color: rgba(0, 0, 0, 0.12) rgba(0, 0, 0, 0.12);
+  scrollbar-width: thin;
+}

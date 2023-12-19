@@ -108,3 +108,10 @@ button:focus-visible {
     background-color: #f9f9f9;
   } */
 }
+
+/* 輸入框 focus 效果 */
+
+input:focus {
+  outline-color: #325269;
+  border-color: #325269;
+}

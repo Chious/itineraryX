@@ -3,7 +3,7 @@ import AddBtn from './ListCommons/AddBtn';
 import Itinerary from './Itinerary';
 import { useAuth } from '@/contexts/AuthContext';
 
-export default function PanelBody({ handleFormOpen }) {
+export default function PanelBody({ handleFormOpen, activeTab, setActiveTab }) {
   const auth = useAuth();
   const canEdit = auth.canEdit;
 
@@ -13,17 +13,27 @@ export default function PanelBody({ handleFormOpen }) {
       width="100%"
       height="100%"
       minHeight="0" // 解決flexbox容器中flex item外溢的問題
-      sx={{ position: 'relative', backgroundColor: 'white' }}
+      sx={{
+        backgroundColor: 'white',
+        overflow: 'hidden',
+        position: 'relative',
+      }}
     >
-      <Itinerary handleFormOpen={handleFormOpen} />
+      <Itinerary
+        handleFormOpen={handleFormOpen}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+      />
 
       {/* the add button on the bottom-right of the panel */}
       {canEdit && (
         <Box
           style={{
             position: 'absolute',
+            width: '48px',
+            height: '48px',
             bottom: '2rem',
-            right: '2.5rem',
+            right: '2rem',
             zIndex: '3',
           }}
         >
