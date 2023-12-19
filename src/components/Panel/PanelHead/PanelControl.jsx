@@ -1,11 +1,11 @@
-import { useNavigate } from 'react-router-dom';
-import { useTheme } from '@emotion/react';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ForumIcon from '@mui/icons-material/Forum';
-import { useAuth } from '@/contexts/AuthContext';
-import { useTripInfo } from '@/contexts/TripInfoContext';
+import { useNavigate } from "react-router-dom";
+import { useTheme } from "@emotion/react";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ForumIcon from "@mui/icons-material/Forum";
+import { useAuth } from "@/contexts/AuthContext";
+import { useTripInfo } from "@/contexts/TripInfoContext";
 
 export default function PanelControl({ handleOpenChat }) {
   const canEdit = useAuth().canEdit;
@@ -16,7 +16,7 @@ export default function PanelControl({ handleOpenChat }) {
   const primaryLightColor = theme.palette.primary.light;
 
   function returnToUserPage() {
-    navigate('/user');
+    navigate("/user");
   }
 
   return (
@@ -35,13 +35,13 @@ export default function PanelControl({ handleOpenChat }) {
           onClick={returnToUserPage}
           fontSize="medium"
           sx={{
-            cursor: 'pointer',
+            cursor: "pointer",
             p: 1,
-            width: '2.5rem',
-            height: '2.5rem',
+            width: "2.5rem",
+            height: "2.5rem",
             color: primaryLightColor,
-            '&:hover': {
-              backgroundColor: '#eee',
+            "&:hover": {
+              backgroundColor: "#eee",
               color: primaryColor,
             },
           }}
@@ -52,7 +52,7 @@ export default function PanelControl({ handleOpenChat }) {
       <Grid
         item
         xs={9}
-        sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
         <Typography
           color={primaryColor}
@@ -62,8 +62,11 @@ export default function PanelControl({ handleOpenChat }) {
           letterSpacing={1.5}
           textAlign="center"
           sx={{
-            wordBreak: 'break-all',
-            overflowWrap: 'break-word',
+            textOverflow: "ellipsis",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            wordBreak: "break-all",
+            overflowWrap: "break-word",
             textShadow: `1px 1px 2px ${primaryLightColor}`,
           }}
         >
@@ -78,13 +81,13 @@ export default function PanelControl({ handleOpenChat }) {
             onClick={handleOpenChat}
             fontSize="medium"
             sx={{
-              cursor: 'pointer',
+              cursor: "pointer",
               p: 1,
-              width: '2.5rem',
-              height: '2.5rem',
+              width: "2.5rem",
+              height: "2.5rem",
               color: primaryLightColor,
-              '&:hover': {
-                backgroundColor: '#eee',
+              "&:hover": {
+                backgroundColor: "#eee",
                 color: primaryColor,
               },
             }}
