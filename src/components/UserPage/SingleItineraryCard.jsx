@@ -63,7 +63,7 @@ export default function SingleItineraryCard({item}) {
         component="img"
         image={defaultImage}
         alt="Paella dish"
-        onClick={() => navigate('/edit/'+item.id)}
+        onClick={() => navigate('/itinerary/'+item.id)}
         sx={{
           cursor: 'pointer',
           '&:hover': {
@@ -77,7 +77,7 @@ export default function SingleItineraryCard({item}) {
         <Box sx={{ flexGrow: 1 }} bgcolor='white' />
 <Button 
   variant="contained" 
-  onClick={() => navigate('/edit/'+item.id)}
+  onClick={() => navigate('/itinerary/'+item.id)}
   sx={{ 
     fontFamily: 'Poppins', 
     fontSize: '16px', 
