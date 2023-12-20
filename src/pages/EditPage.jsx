@@ -8,6 +8,7 @@ import ChatroomSocket from "../components/Chatroom/ChatroomMain.jsx";
 import Panel from "../components/Panel/Panel";
 import { useJsApiLoader } from "@react-google-maps/api";
 import Map from "../components/Map/Map";
+import { useTripInfo } from "../contexts/TripInfoContext.jsx";
 import {
   useFetchDataAndCheckAuth,
   useEditPageSocket,
@@ -16,9 +17,22 @@ import {
 const libraries = ["places"];
 
 export default function EditPage() {
-  const [isValid, setIsValid] = useState(false); // check if user own the route
   const navigate = useNavigate();
+  const { itineraryId } = useParams();
+  const [isValid, setIsValid] = useState(false); // check if user own the route
+  const [openChat, setOpenChat] = useState(false); // open the Chatroom
+  const handleOpenChat = () => setOpenChat(true);
+  const tripInfoFetchFailed = useTripInfo().isFailed;
   useFetchDataAndCheckAuth();
+
+  useEffect(()=>{
+    if (tripInfoFetchFailed) {
+      alert(`Itinerary doesn't exist!\nRedirect to home page.`);
+      navigate('/home1');
+    }
+  }, [tripInfoFetchFailed])
+
+  // websocket
   useEditPageSocket();
 
   // 載入 Google Map API 的 script
@@ -29,13 +43,7 @@ export default function EditPage() {
     libraries: libraries,
   });
 
-  //Open the Chatroom
-  const { itineraryId } = useParams();
-  const [openChat, setOpenChat] = useState(false);
-  const handleOpenChat = () => {
-    setOpenChat(true);
-  };
-
+  // 判斷是否要渲染聊天室
   useEffect(async () => {
     const ids = await getChatId();
     const isValidId = ids.includes(parseInt(itineraryId));
