@@ -1,4 +1,4 @@
-import { Box, Stack, Button } from "@mui/material";
+import { Box, Stack, Button, Typography } from "@mui/material";
 import Image from "mui-image";
 import logo from "../assets/itineraryX_logo.png";
 import { useState } from "react";
@@ -140,8 +140,18 @@ export default function Register() {
             spacing={1}
             justifyContent="center"
             alignItems="center"
+            borderRadius={5}
           >
-            <h2 style={{ fontWeight: "500" }}>Register</h2>
+            <Typography 
+              variant="h2" 
+              style={{ 
+                fontWeight: "600", 
+                fontFamily:"Poppins", 
+                color:"#325269" 
+              }}
+            >
+              Register
+            </Typography>
             <Image src={logo} width="20%" fit="contain" />
             <Stack direction="column" spacing={1}>
               <label for="user">User Name</label>

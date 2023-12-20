@@ -17,3 +17,13 @@ export const sendDestinations = (sendDestinations) => {
 export const sendRoutes = (sendRoutes) => {
   socket.emit('send_routes', sendRoutes);
 }
+
+export const joinNotificationRoom = ({room}) => {
+  if (room !== "") {
+    socket.emit("join_notificationRoom", room)
+  }
+}
+
+export const sendNotification = (sendNotification) => {
+  socket.emit('send_notification', sendNotification)
+}

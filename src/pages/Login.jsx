@@ -1,4 +1,4 @@
-import { Box, Stack, Button } from "@mui/material";
+import { Box, Stack, Button, Typography } from "@mui/material";
 import Image from "mui-image";
 import logo from "../assets/itineraryX_logo.png";
 import { useState } from "react";
@@ -81,8 +81,18 @@ export default function Login() {
             spacing={1}
             justifyContent="center"
             alignItems="center"
+            borderRadius={5}
           >
-            <h2 style={{ fontWeight: "500" }}>Login</h2>
+            <Typography 
+              variant="h2" 
+              style={{ 
+                fontWeight: "600", 
+                fontFamily:"Poppins", 
+                color:"#325269" 
+              }}
+            >
+              Login
+            </Typography>
             <Image src={logo} width="20%" fit="contain" />
             <Stack spacing={1}>
               <label for="account">Account</label>

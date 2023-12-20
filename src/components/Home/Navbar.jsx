@@ -17,6 +17,9 @@ import { getNotification } from '../../api/home';
 import NotificationButton from './NotificationButton';
 import logo from '../../images/material/ItineraryX Logo.png'
 import NavbarMobileMoreModal from './NavbarMobileMoreModal';
+import { joinNotificationRoom } from '../../socket/socketManager';
+import { Socket } from 'socket.io-client';
+import { socket } from '../../socket/socket';
 
 export default function Navbar() {
   // state to store notification fetch data
@@ -37,6 +40,7 @@ export default function Navbar() {
 
   // fetch notification data
   React.useEffect(() => {
+    // page validation & fetch notification data
     if (isTokenExist) {
       const fetchNotification = async () => {
         getNotification()
@@ -52,6 +56,22 @@ export default function Navbar() {
 
     setNotification([])
   }, [buttonClicked]);
+
+  // join individual notification room based on userId
+  React.useEffect(() => {
+    if (localStorage.getItem('token')) {
+      const userId = JSON.parse(localStorage.getItem('user')).id
+      const roomData = {room: userId}
+      joinNotificationRoom(roomData)
+    }
+    
+  }, [])
+
+  React.useEffect(() => {
+    socket.on('join_notificationRoom', () => {
+      console.log('successfully join!')
+    })
+  }, [socket])
 
   // filter out unread notification
   React.useEffect(() => {
@@ -111,6 +131,7 @@ export default function Navbar() {
   const handleLogOut = () => {
     localStorage.clear()
     setIsTokenExist(false)
+    setAnchorEl(false)
     setNotification([])
     navigate('/home1')
   }

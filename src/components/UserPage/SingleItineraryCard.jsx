@@ -2,16 +2,13 @@ import * as React from "react";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
-import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
-import { red } from "@mui/material/colors";
 import CardDeleteButtons from "./CardDeleteButton";
 import CardEditButtons from "./CardEditButton";
 import ParticipantsModal from "./ParticipantsModel";
 import { Box, Button, Stack } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import defaultImage from '../../../src/images/spot/California.jpeg'
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 export default function SingleItineraryCard({item}) {
   // function for ISO date transformation
@@ -29,11 +26,6 @@ export default function SingleItineraryCard({item}) {
   return (
     <Card key={item.id} sx={{ maxWidth: 350, boxShadow: 5, borderRadius: 3, height:'auto', justifySelf:'start' }} style={{marginLeft:0}} >
       <CardHeader
-        avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
-          </Avatar>
-        }
         action={
           <IconButton aria-label="participants modal" sx={{width:'45px', height:'45px'}}>
             <ParticipantsModal id={item.id} holderId={item.holderId}/>
@@ -43,13 +35,14 @@ export default function SingleItineraryCard({item}) {
         subheader={`${formatDate(item.startTime)} to ${formatDate(item.endTime)}`}
         titleTypographyProps={{
           fontFamily:'Poppins',
-          fontSize: 15, 
+          fontSize: 20, 
           fontWeight: '600',
-          color: '#325269'
+          color: '#325269',
+          gutterBottom: '10px'
         }}
         subheaderTypographyProps={{
           fontFamily:'Poppins',
-          fontSize: 13, 
+          fontSize: 15, 
           fontWeight: '400', 
           color: '#647680'
         }}
@@ -75,19 +68,19 @@ export default function SingleItineraryCard({item}) {
         <CardEditButtons id={item.id} />
         <CardDeleteButtons id={item.id} />
         <Box sx={{ flexGrow: 1 }} bgcolor='white' />
-<Button 
-  variant="contained" 
-  onClick={() => navigate('/edit/'+item.id)}
-  sx={{ 
-    fontFamily: 'Poppins', 
-    fontSize: '16px', 
-    fontWeight: '600', 
-    color: 'white', 
-    backgroundColor:'#FE7A00' 
-  }}
->
-Go!
-</Button>
+        <Button 
+          variant="contained" 
+          onClick={() => navigate('/edit/'+item.id)}
+          sx={{ 
+            fontFamily: 'Poppins', 
+            fontSize: '16px', 
+            fontWeight: '600', 
+            color: 'white', 
+            backgroundColor:'#FE7A00' 
+          }}
+        >
+        Go!
+        </Button>
       </Stack>
     </Card>
   );

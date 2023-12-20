@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 const Types = ({content, sx}) => {
   return (
     <Box sx={{ width: '100%', maxWidth: 500 }}>
-      <Typography variant="body1" gutterBottom marginBottom={0} sx={sx}>
+      <Typography gutterBottom marginBottom={0} sx={sx} fontFamily="Poppins">
         {content}
       </Typography>
     </Box>
@@ -46,8 +46,8 @@ export default function UserAccount() {
       <Stack direction="row" spacing={2}>
         <ImageAvatars avatar={userInfo.avatar} />
         <Stack direction='column' spacing={2} alignItems='center' justifyContent='center'>
-          <Types content={userName} sx={{fontSize:'30px'}}/>
-          <Types content={userInfo.email} />
+          <Types content={userName} sx={{fontSize:"40px", fontWeight:700, color:"#325269"}}/>
+          <Types content={userInfo.email} sx={{fontSize:"15px", fontWeight:500, color:"#647680"}}/>
         </Stack>        
       </Stack>
       <Stack direction='row' spacing={2} marginTop={4}>
