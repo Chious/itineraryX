@@ -6,6 +6,7 @@ import { ItineraryLogin } from "../api/auth";
 import { useNavigate } from "react-router-dom";
 import LoginModal from "../components/Login/LoginModal";
 import Navbar from "../components/Home/Navbar";
+import styles from "../styles/Form.module.scss";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -100,26 +101,14 @@ export default function Login() {
                 name="account"
                 placeholder="123@example.com"
                 type="email"
-                style={{
-                  width: "350px",
-                  height: "50px",
-                  padding: "5px",
-                  color: "black",
-                  background: "white",
-                }}
+                className={styles.formInput}
                 onChange={(e) => handleAccount(e)}
               />
               <label for="password">Password</label>
               <input
                 name="password"
                 type="password"
-                style={{
-                  width: "350px",
-                  height: "50px",
-                  padding: "5px",
-                  color: "black",
-                  background: "white",
-                }}
+                className={styles.formInput}
                 onChange={(e) => handlePassword(e)}
               />
             </Stack>

@@ -14,6 +14,7 @@ import {
 export default function Panel({ handleOpenChat }) {
   const tripInfo = useTripInfo();
   const currentTargetDispatch = useCurrentTargetDispatch();
+  const [activeTab, setActiveTab] = useState('0');
   const [openForm, setOpenForm] = useState(false);
   const [dayOfForm, setDayOfForm] = useState(1);
   const handleFormOpen = (day) => {
@@ -46,13 +47,17 @@ export default function Panel({ handleOpenChat }) {
       sx={{
         position: "relative",
         zIndex: 1,
-        boxShadow: 2,
+        boxShadow: 5,
         backgroundColor: 'white',
       }}
     >
       <PanelControl handleOpenChat={handleOpenChat} />
-      <TabControl />
-      <PanelBody handleFormOpen={handleFormOpen} />
+      <TabControl activeTab={activeTab} setActiveTab={setActiveTab} />
+      <PanelBody
+        handleFormOpen={handleFormOpen}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+      />
 
       {openForm && (
         <DestinationCreateForm

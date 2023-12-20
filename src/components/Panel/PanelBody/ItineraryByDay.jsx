@@ -1,6 +1,6 @@
 import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 import ListSubheader from '@mui/material/ListSubheader';
 import TimelineConnector from './ListCommons/TimelineConnector';
 import ListSubhead from './ListSubhead';
@@ -10,12 +10,12 @@ import { useAuth } from '@/contexts/AuthContext';
 
 export default function ItineraryByDay({ day, handleFormOpen }) {
   const canEdit = useAuth().canEdit;
-  const rwdColumns = [3, 9]; // grid system by MUI
+  const rwdColumns = [4, 8]; // grid system by MUI
 
   return (
-    <Grid container className="daily-itinerary-grid" width="100%" padding={0}>
+    <Grid container width="100%" marginBottom={5} padding={0}>
       <List
-        className="daily-itinerary"
+        className="itinerary-by-day-list"
         subheader={<ListSubheader />}
         sx={{
           width: '100%',
@@ -34,16 +34,17 @@ export default function ItineraryByDay({ day, handleFormOpen }) {
         {/* display add button */}
         {canEdit && (
           <Grid item xs={rwdColumns[0]}>
-            <ListItem
-              sx={{
-                paddingTop: '2rem',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <AddBtn onClick={() => handleFormOpen(day)} />
-            </ListItem>
+            <Grid container justifyContent="center" alignItems="center">
+              <Box
+                sx={{
+                  width: '45px',
+                  height: '45px',
+                  marginTop: '2.5rem',
+                }}
+              >
+                <AddBtn onClick={() => handleFormOpen(day)} />
+              </Box>
+            </Grid>
           </Grid>
         )}
       </List>

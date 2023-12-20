@@ -6,6 +6,8 @@ export default function AddBtn({ onClick }) {
       variant="contained"
       onClick={onClick}
       sx={{
+        width: '100%',
+        height: '100%',
         minWidth: '30px',
         minHeight: '30px',
         borderRadius: '50%',

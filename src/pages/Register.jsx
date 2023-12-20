@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import LoginModal from "../components/Login/LoginModal";
 import { ItineraryRegister } from "../api/auth";
 import Navbar from "../components/Home/Navbar";
+import styles from "../styles/Form.module.scss";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -159,13 +160,7 @@ export default function Register() {
                 name="user"
                 placeholder="user123"
                 type="text"
-                style={{
-                  width: "350px",
-                  height: "50px",
-                  padding: "5px",
-                  color: "black",
-                  background: "white",
-                }}
+                className={styles.formInput}
                 onChange={(e) => handleName(e)}
               />
               <label for="account">Account</label>
@@ -173,39 +168,21 @@ export default function Register() {
                 name="account"
                 placeholder="123@example.com"
                 type="email"
-                style={{
-                  width: "350px",
-                  height: "50px",
-                  padding: "5px",
-                  color: "black",
-                  background: "white",
-                }}
+                className={styles.formInput}
                 onChange={(e) => handleAccount(e)}
               />
               <label for="password">Password</label>
               <input
                 name="password"
                 type="password"
-                style={{
-                  width: "350px",
-                  height: "50px",
-                  padding: "5px",
-                  color: "black",
-                  background: "white",
-                }}
+                className={styles.formInput}
                 onChange={(e) => handlePassword(e)}
               />
               <label for="double-check">Password Double Check</label>
               <input
                 name="double-check"
                 type="password"
-                style={{
-                  width: "350px",
-                  height: "50px",
-                  padding: "5px",
-                  color: "black",
-                  background: "white",
-                }}
+                className={styles.formInput}
                 onChange={(e) => handlepasswordCheck(e)}
               />
             </Stack>

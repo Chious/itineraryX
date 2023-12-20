@@ -238,43 +238,46 @@ const ConfirmForm = () => {
       <h5>Reset Password</h5>
       <Image src={logo} width="20%" fit="contain" />
       <Stack direction="column" spacing={1}>
-      <label for="password">New Password</label>
-      <input
-        value={form.password}
-        name="password"
-        type="password"
-        style={{
+        <label for="password">New Password</label>
+        <input
+          value={form.password}
+          name="password"
+          type="password"
+          style={{
             width: "350px",
             height: "50px",
             padding: "5px",
             color: "black",
             background: "white",
           }}
-        onChange={(e) => handlePassword(e)}
-      />
-      <label for="double-check">Double Check Password</label>
-      <input
-        value={form.passwordCheck}
-        name="double-check"
-        type="password"
-        style={{
+          onChange={(e) => handlePassword(e)}
+        />
+        <label for="double-check">Confirm</label>
+        <input
+          value={form.passwordCheck}
+          name="double-check"
+          type="password"
+          style={{
             width: "350px",
             height: "50px",
             padding: "5px",
             color: "black",
             background: "white",
           }}
-        onChange={(e) => handlePasswordCheck(e)}
-      />
+          onChange={(e) => handlePasswordCheck(e)}
+        />
       </Stack>
       <Button
-         sx={{
-            background: "#325269",
-            color: "white",
-            border: "2px solid transparent",
-            "&:hover": { color: "#325269", border: "2px solid #325269" },
-          }}
-          onClick={handleConfirm}>Confirm</Button>
+        sx={{
+          background: "#325269",
+          color: "white",
+          border: "2px solid transparent",
+          "&:hover": { color: "#325269", border: "2px solid #325269" },
+        }}
+        onClick={handleConfirm}
+      >
+        Confirm
+      </Button>
       <LoginModal open={open} setOpen={setOpen} message={message} />
     </Stack>
   );
