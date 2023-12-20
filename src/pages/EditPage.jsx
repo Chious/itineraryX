@@ -40,9 +40,6 @@ export default function EditPage() {
     const ids = await getChatId();
     const isValidId = ids.includes(parseInt(itineraryId));
     setIsValid(isValidId);
-    if (isValidId === false) {
-      navigate("/home1");
-    }
   }, []);
 
   return (

@@ -30,7 +30,7 @@ const BtnPopperStyle = {
   bgcolor: 'white',
 };
 
-export default function TransportationItem({ route, rwdColumns }) {
+export default function TransportationItem({ route }) {
   const [openBtnPopper, setOpenBtnPopper] = useState(false);
   const { itineraryId } = useParams();
   const canEdit = useAuth().canEdit;
@@ -40,6 +40,7 @@ export default function TransportationItem({ route, rwdColumns }) {
 
   const handlePopperClickAway = () => setOpenBtnPopper(false);
   const handleRouteInfoBtnClick = () => setOpenBtnPopper((prev) => !prev);
+
   const handleTransModeEdit = async (mode) => {
     // 更新後端
     const route_data = await patchRoutes(route.id, mode);
@@ -73,7 +74,7 @@ export default function TransportationItem({ route, rwdColumns }) {
 
   const transportationContent = useMemo(
     () => (
-      <Stack direction="row" spacing={1.3}>
+      <Stack height="100%" direction="row" spacing={1.3}>
         {icons[route?.transportationMode ?? 'driving'].icon}
         <Typography color="primary" fontWeight="600" textTransform="none">
           about {route?.durationText}
@@ -87,7 +88,7 @@ export default function TransportationItem({ route, rwdColumns }) {
     () =>
       canEdit ? (
         <ClickAwayListener onClickAway={handlePopperClickAway}>
-          <Button type="button" onClick={handleRouteInfoBtnClick}>
+          <Button type="button" onClick={handleRouteInfoBtnClick} p={0}>
             {transportationContent}
           </Button>
         </ClickAwayListener>
@@ -98,7 +99,7 @@ export default function TransportationItem({ route, rwdColumns }) {
   );
 
   return (
-    <Box minWidth="max-content" position="relative">
+    <Box minWidth="max-content" position="relative" p={0}>
       {/* display transportation info */}
       {transportationInfo}
 

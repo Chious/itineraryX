@@ -28,11 +28,6 @@ export default function Panel({ handleOpenChat }) {
     });
   };
 
-  // 若使用者尚未登入則顯示提示訊息
-  if (!localStorage.getItem("token")) {
-    return <Grid>Please log in</Grid>;
-  }
-
   // 若資料尚未載入完畢將顯示Loading提示字樣
   if (!tripInfo.isLoaded) {
     // 優化：skeleton loading / skeleton preview
