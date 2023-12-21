@@ -74,6 +74,22 @@ export default function Navbar() {
     }
   }, [socket, needRerender])
 
+  // join individual notification room based on userId
+  React.useEffect(() => {
+    if (localStorage.getItem('token')) {
+      const userId = JSON.parse(localStorage.getItem('user')).id
+      const roomData = {room: userId}
+      joinNotificationRoom(roomData)
+    }
+    
+  }, [])
+
+  React.useEffect(() => {
+    socket.on('join_notificationRoom', () => {
+      console.log('successfully join!')
+    })
+  }, [socket])
+
   // filter out unread notification
   React.useEffect(() => {
     if (isTokenExist) {
