@@ -17,8 +17,7 @@ import { getNotification } from '../../api/home';
 import NotificationButton from './NotificationButton';
 import logo from '../../images/material/ItineraryX Logo.png'
 import NavbarMobileMoreModal from './NavbarMobileMoreModal';
-import { joinNotificationRoom } from '../../socket/socketManager';
-import { Socket } from 'socket.io-client';
+import { joinRoom } from '../../socket/socketManager';
 import { socket } from '../../socket/socket';
 
 export default function Navbar() {
@@ -36,9 +35,12 @@ export default function Navbar() {
     localStorage.getItem('token') || false
   );
 
+  // state for if socket receive notification and need rerender or not
+  const [needRerender, setNeedRerender] = React.useState(false)
+
   const navigate = useNavigate()
 
-  // fetch notification data
+  // fetch notification data, rerender when socket receive notification
   React.useEffect(() => {
     // page validation & fetch notification data
     if (isTokenExist) {
@@ -46,7 +48,6 @@ export default function Navbar() {
         getNotification()
         .then(data => {
           setNotification(data)
-          // console.log(data)
         })
       };
 
@@ -55,23 +56,23 @@ export default function Navbar() {
     }
 
     setNotification([])
-  }, [buttonClicked]);
+  }, [buttonClicked, needRerender]);
 
   // join individual notification room based on userId
   React.useEffect(() => {
     if (localStorage.getItem('token')) {
       const userId = JSON.parse(localStorage.getItem('user')).id
-      const roomData = {room: userId}
-      joinNotificationRoom(roomData)
-    }
-    
-  }, [])
 
-  React.useEffect(() => {
-    socket.on('join_notificationRoom', () => {
-      console.log('successfully join!')
-    })
-  }, [socket])
+      // socket detect whether receive new notification
+      joinRoom({ room: `userId-${userId}` })
+      socket.on('receive_notification', () => {
+        setNeedRerender(!needRerender)
+      })
+      return () => {
+        socket.off('receive_notification', () => { console.log('123') })
+      }
+    }
+  }, [socket, needRerender])
 
   // filter out unread notification
   React.useEffect(() => {
