@@ -1,6 +1,6 @@
-import { useState } from "react";
-import Grid from "@mui/material/Grid";
+import { useEffect, useState } from "react";
 import Stack from "@mui/material/Stack";
+import PanelLoading from './PanelLoading';
 import PanelControl from "./PanelHead/PanelControl";
 import TabControl from "./PanelHead/TabControl";
 import PanelBody from "./PanelBody/PanelBody";
@@ -14,6 +14,7 @@ import {
 export default function Panel({ handleOpenChat }) {
   const tripInfo = useTripInfo();
   const currentTargetDispatch = useCurrentTargetDispatch();
+  const [displayLoading, setDisplayLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('0');
   const [openForm, setOpenForm] = useState(false);
   const [dayOfForm, setDayOfForm] = useState(1);
@@ -28,10 +29,21 @@ export default function Panel({ handleOpenChat }) {
     });
   };
 
-  // 若資料尚未載入完畢將顯示Loading提示字樣
-  if (!tripInfo.isLoaded) {
-    // 優化：skeleton loading / skeleton preview
-    return <Grid>Loading...</Grid>;
+  // 若資料尚未載入完畢將顯示Loading畫面
+  useEffect(() => {
+    setTimeout(() => {
+      if (tripInfo.isLoaded) {
+        setDisplayLoading(false);
+      }
+    }, 3000);
+  }, [tripInfo.isLoaded]);
+
+  if (displayLoading) {
+    return (
+      <Stack width="480px" height="100%">
+        <PanelLoading />
+      </Stack>
+    );
   }
 
   return (
