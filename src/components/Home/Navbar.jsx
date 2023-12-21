@@ -79,7 +79,7 @@ export default function Navbar() {
     if (localStorage.getItem('token')) {
       const userId = JSON.parse(localStorage.getItem('user')).id
       const roomData = {room: userId}
-      joinNotificationRoom(roomData)
+      joinRoom(roomData)
     }
     
   }, [])
