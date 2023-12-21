@@ -14,6 +14,8 @@ export default function AddParticipantInput({itineraryId, setParticipants, handl
     addParticipant(payload)
     .then(data => {
       setNotificationId(data.data.participantId)
+      // socket send notification to new participant
+      sendNotification({ room: `userId-${data.data.participantId}` })
       getItinerary(itineraryId)
       .then(data => {
         setParticipants(data.ParticipantsUser)

@@ -38,7 +38,7 @@ export default function SingleItineraryCard({item}) {
           fontSize: 20, 
           fontWeight: '600',
           color: '#325269',
-          gutterBottom: '10px'
+          // gutterBottom: '10px'
         }}
         subheaderTypographyProps={{
           fontFamily:'Poppins',

@@ -46,7 +46,7 @@ export default function DeveloperCard() {
         <Typography 
           textTransform="uppercase" 
           fontFamily="Poppins" 
-          fontWeight={600} 
+          fontWeight={500} 
           fontSize={50}
           color="#647680"
           letterSpacing={4}

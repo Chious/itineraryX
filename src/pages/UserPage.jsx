@@ -6,6 +6,7 @@ import { ItinerariesProvider, useItineraries } from "../contexts/UserPageContext
 import { useEffect, useState } from "react";
 import { getItineraries, getJoinedItinerariesId, getItinerary } from "../api/userpage.jsx";
 import { useNavigate } from "react-router-dom";
+import { socket } from '../socket/socket';
 
 export default function UserPage() {
   return (
@@ -18,6 +19,9 @@ export default function UserPage() {
 function UserPageContent() {
   const {itineraries, setItineraries, joinedItineraries, setJoinedItineraries} = useItineraries()
   const [id, setId] = useState([])
+
+  // if socket receive notification, change needRerender state to trigger rerender
+  const [needRerender, setNeedRerender] = useState(false)
   const navigate = useNavigate()
 
   // fetch total itineraries data when first render
@@ -26,11 +30,19 @@ function UserPageContent() {
       getItineraries()
       .then(data => {
         setItineraries(data)
+        socket.on('receive_notification', () => {
+          setNeedRerender(!needRerender)
+        })
+        return () => {
+          socket.off('receive_notification', () => {
+            setNeedRerender(!needRerender)
+          })
+        }
       })
     } else {
       navigate('/home1')
     }
-  }, [])
+  }, [needRerender])
 
   // fetch total participated itineraries id when first render
   // use itineraries as dependency in order to rerender page whenever add or delete itinerary
