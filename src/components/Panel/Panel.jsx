@@ -1,6 +1,6 @@
-import { useState } from "react";
-import Grid from "@mui/material/Grid";
+import { useEffect, useState } from "react";
 import Stack from "@mui/material/Stack";
+import PanelLoading from './PanelLoading';
 import PanelControl from "./PanelHead/PanelControl";
 import TabControl from "./PanelHead/TabControl";
 import PanelBody from "./PanelBody/PanelBody";
@@ -14,6 +14,7 @@ import {
 export default function Panel({ handleOpenChat }) {
   const tripInfo = useTripInfo();
   const currentTargetDispatch = useCurrentTargetDispatch();
+  const [displayLoading, setDisplayLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('0');
   const [openForm, setOpenForm] = useState(false);
   const [dayOfForm, setDayOfForm] = useState(1);
@@ -28,15 +29,29 @@ export default function Panel({ handleOpenChat }) {
     });
   };
 
-  // 若使用者尚未登入則顯示提示訊息
-  if (!localStorage.getItem("token")) {
-    return <Grid>Please log in</Grid>;
-  }
+  // 若資料尚未載入完畢將顯示Loading畫面
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (tripInfo.isLoaded) {
+        setDisplayLoading(false);
+        clearTimeout(timer);
+      }
+    }, 2000);
+  }, [tripInfo.isLoaded]);
 
-  // 若資料尚未載入完畢將顯示Loading提示字樣
-  if (!tripInfo.isLoaded) {
-    // 優化：skeleton loading / skeleton preview
-    return <Grid>Loading...</Grid>;
+  if (displayLoading) {
+    return (
+      <Stack
+        width="100%"
+        height="100%"
+        sx={{
+          boxShadow: 5,
+          backgroundColor: 'white',
+        }}
+      >
+        <PanelLoading />
+      </Stack>
+    );
   }
 
   return (

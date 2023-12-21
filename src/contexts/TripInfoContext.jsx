@@ -4,6 +4,7 @@ import moment from 'moment';
 //////////////////// actions ////////////////////
 
 export const tripInfo_actions = {
+  SET_IS_FAILED: 'SET_IS_FAILED', // 設置資料拉取的狀態
   SET_IS_Loaded: 'SET_IS_Loaded', // 設置載入的狀態
   SET_ITINERARY: 'SET_ITINERARY', // 儲存行程的資訊
   SET_DESTINATIONS: 'SET_DESTINATIONS', // 儲存行程中的所有景點
@@ -16,6 +17,11 @@ export const tripInfo_actions = {
 
 function tripInfoReducer(tripInfo, action) {
   switch (action.type) {
+    case tripInfo_actions.SET_IS_FAILED: {
+      const newTripInfo = JSON.parse(JSON.stringify(tripInfo));
+      newTripInfo.isFailed = action.payload;
+      return newTripInfo;
+    }
     case tripInfo_actions.SET_IS_Loaded: {
       const newTripInfo = JSON.parse(JSON.stringify(tripInfo));
       newTripInfo.isLoaded = action.payload;
@@ -97,6 +103,7 @@ const TripInfoDispatchContext = createContext();
 
 export function TripInfoProvider({ children }) {
   const [tripInfo, tripInfoDispatch] = useReducer(tripInfoReducer, {
+    isFailed: false,
     isLoaded: false,
     itinerary: {},
     destinations: [],

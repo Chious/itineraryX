@@ -8,9 +8,9 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useTripInfo } from "@/contexts/TripInfoContext";
 
 export default function PanelControl({ handleOpenChat }) {
+  const navigate = useNavigate();
   const canEdit = useAuth().canEdit;
   const itinerary = useTripInfo().itinerary;
-  const navigate = useNavigate();
   const theme = useTheme();
   const primaryColor = theme.palette.primary.main;
   const primaryLightColor = theme.palette.primary.light;

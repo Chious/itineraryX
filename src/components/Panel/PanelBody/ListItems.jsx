@@ -66,17 +66,21 @@ export default function ListItems({ rwdColumns, day }) {
   return destinationsByDay.map((_, order) => (
     <Box key={`destination-${destinationsByDay[order].destinationId}`}>
       {/* transportation */}
-      <ListItem sx={{ p: '0.9rem' }}>
-        <Grid container justifyContent="flex-end">
-          <Grid item xs={rwdColumns[1]}>
+      <ListItem sx={{ p: '0.7rem' }}>
+        <Grid container justifyContent="flex-end" p={0} height={35}>
+          <Grid
+            item
+            xs={rwdColumns[1]}
+            p={0}
+            height="100%"
+            display="flex"
+            alignItems="center"
+          >
             {order > 0 && routesIsLoaded ? (
-              <TransportationItem
-                route={routes[day - 1][order - 1]}
-                rwdColumns={rwdColumns}
-              />
+              <TransportationItem route={routes[day - 1][order - 1]} />
             ) : (
               order > 0 && (
-                <Skeleton variant="rounded" width={200} height={36} />
+                <Skeleton variant="rounded" width={200} height="100%" />
               )
             )}
           </Grid>
