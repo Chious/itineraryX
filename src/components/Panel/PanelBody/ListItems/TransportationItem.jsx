@@ -21,6 +21,7 @@ import {
 import { sendRoutes } from '@/socket/socketManager';
 
 const BtnPopperStyle = {
+  width: '230px',
   position: 'absolute',
   top: '110%',
   zIndex: 1,

@@ -27,7 +27,7 @@ export default function EditPage() {
 
   useEffect(()=>{
     if (tripInfoFetchFailed) {
-      alert(`Itinerary doesn't exist!\nRedirect to home page.`);
+      alert(`This itinerary doesn't exist; redirecting to the home page.`);
       navigate('/home1');
     }
   }, [tripInfoFetchFailed])
