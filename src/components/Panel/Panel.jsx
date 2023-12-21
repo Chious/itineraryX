@@ -31,16 +31,24 @@ export default function Panel({ handleOpenChat }) {
 
   // 若資料尚未載入完畢將顯示Loading畫面
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       if (tripInfo.isLoaded) {
         setDisplayLoading(false);
+        clearTimeout(timer);
       }
     }, 2000);
   }, [tripInfo.isLoaded]);
 
   if (displayLoading) {
     return (
-      <Stack width="100%" height="100%">
+      <Stack
+        width="100%"
+        height="100%"
+        sx={{
+          boxShadow: 5,
+          backgroundColor: 'white',
+        }}
+      >
         <PanelLoading />
       </Stack>
     );
