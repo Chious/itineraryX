@@ -35,12 +35,12 @@ export default function Panel({ handleOpenChat }) {
       if (tripInfo.isLoaded) {
         setDisplayLoading(false);
       }
-    }, 3000);
+    }, 2000);
   }, [tripInfo.isLoaded]);
 
   if (displayLoading) {
     return (
-      <Stack width="480px" height="100%">
+      <Stack width="100%" height="100%">
         <PanelLoading />
       </Stack>
     );

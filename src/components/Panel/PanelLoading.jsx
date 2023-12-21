@@ -11,8 +11,8 @@ export default function PanelLoading() {
       <Grid item xs={12} px={3} py={1.5}>
         <Skeleton animation="wave" variant="rectangular" height={40} />
       </Grid>
-      <Grid item xs={12} px={7} paddingBottom={1}>
-        <Skeleton animation="wave" variant="rectangular" height={30} />
+      <Grid item xs={12} px={7} paddingBottom={0.5}>
+        <Skeleton animation="wave" variant="rectangular" height={35} />
       </Grid>
 
       {/* panel body */}
@@ -34,7 +34,7 @@ export default function PanelLoading() {
             style={{
               width: '3.5px',
               position: 'absolute',
-              top: '60px',
+              top: '57px',
               bottom: '20px',
               left: '50%',
               transform: 'translate(-50%, 0)',
@@ -63,8 +63,8 @@ export default function PanelLoading() {
                 <Grid
                   item
                   xs={rwdColumns[1]}
-                  p={3}
-                  height={65}
+                  py={3}
+                  height={60}
                   sx={{
                     display: 'flex',
                     justifyContent: 'start',
@@ -89,13 +89,36 @@ export default function PanelLoading() {
                 xs={rwdColumns[0]}
                 sx={{
                   p: 1,
-                  backgroundColor: 'white',
+                  backgroundColor: 'transparent',
                   display: 'flex',
-                  flexDirection: 'column',
+                  flexDirection: 'row',
                   justifyContent: 'center',
                   alignItems: 'center',
+                  position: 'relative',
                 }}
               >
+                {/* time */}
+                <Grid
+                  container
+                  flexDirection="column"
+                  alignItems="end"
+                  gap={1.5}
+                  sx={{ position: 'absolute', right: '67%' }}
+                >
+                  <Skeleton
+                    animation="wave"
+                    variant="rectangular"
+                    width={40}
+                    height={15}
+                  />
+                  <Skeleton
+                    animation="wave"
+                    variant="rectangular"
+                    width={25}
+                    height={15}
+                  />
+                </Grid>
+                {/* order */}
                 <Skeleton
                   animation="wave"
                   variant="circular"
@@ -121,7 +144,11 @@ export default function PanelLoading() {
                   <Skeleton
                     animation="wave"
                     variant="rounded"
-                    sx={{ width: '100px', height: '130px' }}
+                    sx={{
+                      width: '100px',
+                      height: '130px',
+                      borderRadius: '10px 0 0 10px',
+                    }}
                   />
                 </Grid>
 
@@ -131,7 +158,8 @@ export default function PanelLoading() {
                   justifyContent="center"
                   alignItems="start"
                   spacing={1}
-                  p={3}
+                  px={2.5}
+                  py={3}
                 >
                   {/* location name */}
                   <Grid item xs={12} flexShrink={0}>
@@ -147,7 +175,7 @@ export default function PanelLoading() {
                   <Grid item xs={12} flexShrink={0}>
                     <Stack direction="row" gap="0.5rem">
                       <LocationOnIcon
-                        sx={{ color: 'gray', fontSize: '1.1rem' }}
+                        sx={{ color: '#999', fontSize: '1.1rem' }}
                       />
                       <Stack gap="0.5rem">
                         <Skeleton
