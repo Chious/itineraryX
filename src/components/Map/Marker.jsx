@@ -1,7 +1,7 @@
 import { InfoWindowF, MarkerF } from '@react-google-maps/api';
 import { PlaceInfo } from './PlaceInfo';
 
-export default function Marker({ activeId, setActiveId, place, label, color }) {
+export default function Marker({ activeId, setActiveId, place, label, color, day }) {
   // map marker icon
   const svg = `
     <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
@@ -24,7 +24,7 @@ export default function Marker({ activeId, setActiveId, place, label, color }) {
     >
       {activeId === place.placeId && place.placeLatLng && (
         <InfoWindowF position={place.placeLatLng}>
-          <PlaceInfo place={place} />
+          <PlaceInfo place={place} day={day} />
         </InfoWindowF>
       )}
     </MarkerF>

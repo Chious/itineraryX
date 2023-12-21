@@ -62,7 +62,7 @@ export default function MapDirections({ routes, map, setCenter }) {
             directions={direction}
             options={{
               polylineOptions: {
-                strokeColor: `hsl(${(day * 30) % 360}deg, 90%, 50%)`,
+                strokeColor: `hsl(${(day * 50) % 360 + (day * 60) / 360 * 25}deg, 90%, 50%)`,
                 strokeOpacity: 0.7,
                 strokeWeight: 8,
               },

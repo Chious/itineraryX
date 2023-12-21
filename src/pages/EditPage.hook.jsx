@@ -135,7 +135,6 @@ export function useFetchDataAndCheckAuth() {
       for (let day = 0; day < placePairs.length; day++) {
         newRoutes.push([]);
         for (let order = 0; order < placePairs[day].length; order++) {
-          // const itineraryId = itinerary.itineraryId;
           const originId = placePairs[day][order].originId;
           const destinationId = placePairs[day][order].destinationId;
           let route = await getRoutes(itineraryId, originId, destinationId);

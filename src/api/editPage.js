@@ -31,7 +31,8 @@ export const getDestinations = async (id, date) => {
     const res = await axios.get(url, config);
     return res.data.data;
   } catch (error) {
-    console.log(error);
+    if (error.response.status !== 404)
+      console.log('[GET destinations failed]: ', error);
   }
 };
 
@@ -103,7 +104,8 @@ export const getRoutes = async (itId, oId, dId) => {
     const res = await axios.get(url, config);
     return res.data.data;
   } catch (error) {
-    console.log(error);
+    if (error.response.status !== 404)
+      console.log('[GET routes failed]: ', error);
   }
 };
 
