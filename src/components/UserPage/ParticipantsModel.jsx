@@ -10,6 +10,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import AddParticipantInput from './AddParticipantInput';
+import { sendNotification } from '../../socket/socketManager';
 
 const style = {
   position: 'absolute',
@@ -38,6 +39,7 @@ export default function ParticipantsModal({id, holderId}) {
       const updatedParticipants = participants.filter(participant => participant.id !== payload.participantId);
       setParticipants(updatedParticipants);
       setRefresh(!refresh)
+      sendNotification({ room: `userId-${payload.participantId}` })
     })
   }
 

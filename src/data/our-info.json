@@ -1,6 +1,6 @@
 [
   {
-    "id":1,
+    "id": 1,
     "name": "Chen Yu-Hao",
     "work": "Back-end Developer | PM",
     "avatar": "https://drive.google.com/uc?id=16HF4ABWQJfQzNIP7Kdk2GQejORg_3mwq",
@@ -24,11 +24,14 @@
   },
   {
     "id": 3,
-    "name": "Jessie",
-    "work": "",
-    "avatar": "",
-    "description": "200 character",
-    "link": ["123", "234"]
+    "name": "Jessie Liu",
+    "work": "Front-end Developer",
+    "avatar": "../../src/images/material/Jessie.jpg",
+    "description": "Enthusiastic front-end developer with a focus on creating high-quality web applications, and experiences of project management in software industry.",
+    "link": [
+      "https://github.com/jessie963",
+      "https://www.linkedin.com/in/liu-jessie-369a602a5/"
+    ]
   },
   {
     "id": 4,
