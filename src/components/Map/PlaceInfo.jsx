@@ -1,5 +1,7 @@
 import { useTheme } from '@emotion/react';
-import { Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import MapIcon from '@mui/icons-material/Map';
 
 export function PlaceInfo({ place }) {
   const theme = useTheme();
@@ -51,6 +53,15 @@ export function PlaceInfo({ place }) {
           >
             {place.placeAddress}
           </Typography>
+        )}
+
+        {place.placeUrl && (
+          <Button sx={{ width: 'fit-content', p: 0, gap: 0.8, fontSize: '0.8rem' }}>
+            <MapIcon fontSize="small" sx={{color: infoColor}} />
+            <a href={place.placeUrl} target='blank' style={{ color: infoColor }}>
+              View details
+            </a>
+          </Button>
         )}
       </div>
     </div>

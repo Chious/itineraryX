@@ -87,6 +87,7 @@ export function useFetchDataAndCheckAuth() {
             placeAddress: item.Place.address,
             placeIntro: item.Place.intro,
             placeImage: item.Place.image,
+            placeUrl: item.Place.url,
             placeLatLng: { lat: item.Place.lat, lng: item.Place.lng },
           })
         );
