@@ -1,9 +1,9 @@
 [
   {
-    "id":1,
+    "id": 1,
     "name": "Chen Yu-Hao",
     "work": "Back-end Developer | PM",
-    "avatar": "https://drive.google.com/uc?id=16L6m0-Sule7SquH4BG1dl-x0OoazdCfT",
+    "avatar": "https://drive.google.com/uc?id=16HF4ABWQJfQzNIP7Kdk2GQejORg_3mwq",
     "description": "As a junior back-end developer and former facade consultant, my passion lies in tackling challenges to elevate user experiences.",
     "link": [
       "https://github.com/xrchitron",
@@ -14,7 +14,7 @@
     "id": 2,
     "name": "Chiou Jia-Sheng",
     "work": "Front-end Developer",
-    "avatar": "https://drive.google.com/uc?id=16HmKEXAz_62FVwTxUZk4ONLdJOog5BJ7",
+    "avatar": "",
     "description": "I'm a front-end developer passionate about building human-centered web pages that provide solutions to users' problems.",
     "link": [
       "https://github.com/Chious",
@@ -35,13 +35,10 @@
   },
   {
     "id": 4,
-    "name": "Nien Ching",
-    "work": "Front-end Developer",
-    "avatar": "../../src/images/material/ChingAvatar.jpeg",
-    "description": "As a junior front-end developer with strong creation and communication skills, I am eager to seize any opportunity to contribute value.",
-    "link": [
-      "https://github.com/Ching0810", 
-      "https://www.linkedin.com/in/ching-nien-894777170/"
-    ]
+    "name": "Ching",
+    "work": "",
+    "avatar": "",
+    "description": "200 character",
+    "link": ["123", "234"]
   }
 ]

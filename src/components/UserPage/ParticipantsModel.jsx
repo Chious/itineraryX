@@ -66,19 +66,12 @@ export default function ParticipantsModal({id, holderId}) {
         <Box sx={style}>
           <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
             <nav aria-label="secondary mailbox folders">
-              <Typography 
-                variant='h5' 
-                fontFamily="Poppins" 
-                fontWeight={600} 
-                color="#325269"
-              >
-                Participants list
-              </Typography>
-              <List sx={{mb:'30px'}}>
+              <Typography variant='h5'>Participants list</Typography>
+              <List sx={{mb:'20px'}}>
                 {Array.isArray(participants) && participants.map(item => (
                   <ListItem key={item.id} disablePadding>
                     <ListItemButton>
-                      <Typography fontFamily="Poppins" fontWeight={500} color="#647680" variant="body1">{item.name}</Typography>
+                      <Typography>{item.name}</Typography>
                     </ListItemButton>
                     {item.id !== holderId && 
                       <IconButton 
@@ -87,13 +80,13 @@ export default function ParticipantsModal({id, holderId}) {
                           handleDelete({itineraryId: itineraryId, participantId: item.id})
                         }}
                       >
-                        <DeleteIcon color="red" sx={{color:"#647680"}} />
+                        <DeleteIcon />
                       </IconButton>
                     }
                   </ListItem>
                 ))}
               </List>
-              <AddParticipantInput itineraryId={itineraryId} setParticipants={setParticipants} handleClose={handleClose}/>
+              <AddParticipantInput itineraryId={itineraryId} setParticipants={setParticipants} />
             </nav>
           </Box>
         </Box>

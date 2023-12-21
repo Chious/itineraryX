@@ -1,67 +1,33 @@
-import { Button, TextField, Stack, Box, Typography } from '@mui/material';
-import { useState } from 'react';
-import { addParticipant, getItinerary } from '../../api/userpage';
-import { sendNotification } from '../../socket/socketManager';
+import { Button, TextField, Stack } from "@mui/material";
+import { useState } from "react";
+import { addParticipant, getItinerary } from "../../api/userpage";
 
-export default function AddParticipantInput({itineraryId, setParticipants, handleClose}) {
-  const [email, setEmail] = useState('')
-  const [notificationId, setNotificationId] = useState(null)
+export default function AddParticipantInput({ itineraryId, setParticipants }) {
+  const [email, setEmail] = useState("");
   const handleAdd = () => {
     const payload = {
-      itineraryId: itineraryId, 
-      email: email
-    }
-    addParticipant(payload)
-    .then(data => {
-      setNotificationId(data.data.participantId)
-      // socket send notification to new participant
-      sendNotification({ room: `userId-${data.data.participantId}` })
-      getItinerary(itineraryId)
-      .then(data => {
-        setParticipants(data.ParticipantsUser)
-        sendNotification(notificationId)
-      })
-    })
-  }
+      itineraryId: itineraryId,
+      email: email,
+    };
+    addParticipant(payload).then((data) => {
+      getItinerary(itineraryId).then((data) => {
+        setParticipants(data.ParticipantsUser);
+      });
+    });
+  };
 
   return (
     <div>
-      <Stack direction='column' spacing={2}>
-        <TextField 
+      <Stack direction="row" spacing={2}>
+        <TextField
           required
-          defaultValue='@example.com'
-          onChange={(e)=>setEmail(e.target.value)}
+          defaultValue="@example.com"
+          onChange={(e) => setEmail(e.target.value)}
           id="outlined-required"
-          label={<Typography fontFamily="Poppins" fontWeight={500} color="#647680">New participant email</Typography>}
-          inputProps={{ style: { fontFamily: 'Poppins', fontWeight:500, color:"#647680", fontSize:"15px" } }}
-          fullWidth
+          label="Add account"
         />
-        <Box display="flex">
-          <Button 
-            variant="text" 
-            onClick={handleClose}
-            sx={{ height: 40, padding: "0 10px", fontFamily: 'Poppins', fontSize: '20px', fontWeight: '600', color:'#647680' }} 
-          >
-            Cancel
-          </Button>
-          <Box sx={{ flexGrow: 1 }}/>
-          <Button 
-            variant="contained" 
-            onClick={handleAdd} 
-            sx={{ 
-              height: 40, 
-              padding: "0 15px", 
-              fontFamily: 'Poppins', 
-              fontSize: '20px', 
-              fontWeight: '600', 
-              color:'white', 
-              backgroundColor:'#FE7A00',
-            }}
-          >
-            Add
-          </Button>
-        </Box>
+        <Button onClick={handleAdd}>Add</Button>
       </Stack>
     </div>
-  )
+  );
 }

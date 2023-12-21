@@ -2,9 +2,10 @@ import * as React from 'react';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
 import { useState, useEffect } from 'react';
-import EditUserAccount from '../UserPage/EditUserAccount';
+import EditUserAccount from './EditUserAccount';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { useNavigate } from 'react-router-dom';
 
 const Types = ({content, sx}) => {
   return (
@@ -34,12 +35,18 @@ export default function UserAccount() {
   const [userName, setUserName] = useState('')
   const [userAvatar, setUserAvatar] = useState('')
   const data = JSON.parse(localStorage.getItem('user'))
+  const navigate = useNavigate()
 
   useEffect(()=>{
-    setUserInfo(data)
-    setUserName(data.name)
-    setUserAvatar(data.avatar)
-  }, [localStorage.getItem('user')])
+    if (localStorage.getItem('token')) {
+      setUserInfo(data)
+      setUserName(data.name)
+      setUserAvatar(data.avatar)
+    } else {
+      navigate('/home1')
+    }
+  }, [localStorage.getItem('token')])
+
   
   return (
     <div>

@@ -4,11 +4,11 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import Grid from '@mui/material/Grid';
 import { editItinerary } from '../../api/userpage.jsx';
@@ -21,13 +21,12 @@ const style = {
   transform: 'translate(-50%, -50%)',
   width: 400,
   bgcolor: 'background.paper',
-  border: '2px solid transparent',
-  borderRadius:'10px',
+  border: '2px solid #000',
   boxShadow: 24,
   p: 4,
 };
 
-export default function EditTripModal({ id }) {
+export default function EditTripModal({sx, id, text}) {
   const [title, setTitle] = useState('')
   const [open, setOpen] = React.useState(false);
   const {itineraries, setItineraries} = useItineraries()
@@ -78,18 +77,11 @@ export default function EditTripModal({ id }) {
     setItineraries(itineraries)
   }, [itineraries]);
 
-  // const today = dayjs();
+  const today = dayjs();
 
   return (
     <div>
-      <Button 
-        onClick={handleOpen} 
-        variant='text' 
-        size='medium' 
-        sx={{ height: 40, padding: 0, fontFamily: 'Poppins', fontSize: '16px', fontWeight: '600', color:'#325269' }} 
-      >
-        Edit
-      </Button>
+      <Button onClick={handleOpen} variant='contained' sx={sx}>{text}</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -121,7 +113,7 @@ export default function EditTripModal({ id }) {
                       value={title}
                     />
                   </Grid>
-                  {/* <Grid item xs={12}>
+                  <Grid item xs={12}>
                     <DatePicker
                       label="Start day"
                       value={startValue}
@@ -138,7 +130,7 @@ export default function EditTripModal({ id }) {
                       onChange={(newValue) => setEndValue(newValue)}
                       disablePast
                     />
-                  </Grid> */}
+                  </Grid>
                 </Grid>
               </DemoContainer>
             </LocalizationProvider>
