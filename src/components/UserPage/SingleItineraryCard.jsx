@@ -57,10 +57,10 @@ export default function SingleItineraryCard({ item }) {
           item.endTime
         )}`}
         titleTypographyProps={{
-          fontFamily: "Poppins",
-          fontSize: 15,
-          fontWeight: "600",
-          color: "#325269",
+          fontFamily:'Poppins',
+          fontSize: 20, 
+          fontWeight: '600',
+          color: '#325269',
           // gutterBottom: '10px'
         }}
         subheaderTypographyProps={{

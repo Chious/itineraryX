@@ -2,7 +2,7 @@ import { Avatar, Stack, Typography, IconButton, Grid } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import HomeIcon from "@mui/icons-material/Home";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import data from "../../data/our-info.json";
+import { data } from "../../data/our-info";
 import Image from "mui-image";
 
 export default function DeveloperCard() {
@@ -46,7 +46,7 @@ export default function DeveloperCard() {
         <Typography
           textTransform="uppercase"
           fontFamily="Poppins"
-          fontWeight={500}
+          fontWeight={600}
           fontSize={50}
           color="#647680"
           letterSpacing={4}

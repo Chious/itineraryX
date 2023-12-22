@@ -6,15 +6,21 @@ export default function AddParticipantInput({ itineraryId, setParticipants }) {
   const [email, setEmail] = useState("");
   const handleAdd = () => {
     const payload = {
-      itineraryId: itineraryId,
-      email: email,
-    };
-    addParticipant(payload).then((data) => {
-      getItinerary(itineraryId).then((data) => {
-        setParticipants(data.ParticipantsUser);
-      });
-    });
-  };
+      itineraryId: itineraryId, 
+      email: email
+    }
+    addParticipant(payload)
+    .then(data => {
+      setNotificationId(data.data.participantId)
+      // socket send notification to new participant
+      sendNotification({ room: `userId-${data.data.participantId}` })
+      getItinerary(itineraryId)
+      .then(data => {
+        setParticipants(data.ParticipantsUser)
+        sendNotification(notificationId)
+      })
+    })
+  }
 
   return (
     <div>
