@@ -3,8 +3,8 @@ import { useContext, createContext, useReducer } from 'react';
 //////////////////// actions ////////////////////
 
 export const placeInfo_actions = {
-  SET_PLACE_INFO: 'SET_PLACE_INFO', // 暫存景點搜尋結果 (from Google Map Autocomplete)
-  DELETE_PLACE_INFO: 'DELETE_PLACE_INFO', // 刪除景點搜尋結果
+  SET_PLACE_INFO: 'SET_PLACE_INFO', // store the info of a location
+  DELETE_PLACE_INFO: 'DELETE_PLACE_INFO', // delete the info stored
 };
 
 //////////////////// reducer ////////////////////

@@ -16,7 +16,7 @@ export default function DestinationCard({ day, destination }) {
     <Card
       className="destination-card"
       sx={{
-        height: 'fit-content', // 自動根據內容調整卡片高度
+        height: 'fit-content', // adjust the height of the card according to the content
         minHeight: '100px',
         borderRadius: '10px',
         boxShadow:
@@ -48,7 +48,7 @@ export default function DestinationCard({ day, destination }) {
           flexGrow: '1',
           display: 'flex',
           alignItems: 'center',
-          // 調整MUI卡片元件內距需使用 last-child
+          // use ':last-child' when adjusting the padding of the MUI card component
           '&:last-child': {
             py: '1.5rem',
             px: '1.2rem',

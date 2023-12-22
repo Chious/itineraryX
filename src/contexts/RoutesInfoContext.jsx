@@ -3,9 +3,9 @@ import { useContext, createContext, useReducer } from 'react';
 //////////////////// actions ////////////////////
 
 export const routesInfo_actions = {
-  SET_IS_Loaded: 'SET_IS_Loaded', // 設置載入的狀態
-  SET_ROUTES: 'SET_ROUTES', // 儲存交通路線資訊陣列
-  CHANGE_TRANSPORTATION_MODE: 'CHANGE_TRANSPORTATION_MODE', // 修改交通方式
+  SET_IS_Loaded: 'SET_IS_Loaded', // set true if data-fetching completed
+  SET_ROUTES: 'SET_ROUTES', // store the routes
+  CHANGE_TRANSPORTATION_MODE: 'CHANGE_TRANSPORTATION_MODE', // change the trans mode of a route
 };
 
 //////////////////// reducer ////////////////////

@@ -1,8 +1,7 @@
-/**
- * 使用 moment.js 操作日期時，
- * 最好搭配 clone()，
- * 避免日期物件互相影響。
- */
+/*
+  Attention:
+    when using 'moment.js' to manipulate date & time, it's important to do it with 'clone()' method, in order to avoid the situation that date objects may affect one another during the manipulation.
+*/
 
 import moment from 'moment';
 import { createRef, useEffect, useRef } from 'react';
@@ -35,7 +34,7 @@ export default function TabControl({ activeTab, setActiveTab }) {
     .fill()
     .map(() => createRef());
 
-  // 點擊切換tab
+  // switch the active tab when clicking the TabControl
   const handleTabClick = (newActiveTab) => {
     setActiveTab(() => newActiveTab);
     currentTargetDispatch({
@@ -44,7 +43,7 @@ export default function TabControl({ activeTab, setActiveTab }) {
     });
   };
 
-  // 響應 TargetDaySelector 的天數變化
+  // response to the change of TargetDaySelector
   useEffect(() => {
     if (targetDay !== 0) setActiveTab(() => targetDay - 1);
   }, [targetDay]);
@@ -76,6 +75,7 @@ export default function TabControl({ activeTab, setActiveTab }) {
     >
       <Grid
         container
+        className='tab-control-container'
         flexWrap="nowrap"
         ref={TabContainerRef}
         style={{
@@ -87,6 +87,7 @@ export default function TabControl({ activeTab, setActiveTab }) {
           .map((_, index) => (
             <Button
               key={index}
+              className='tab'
               onClick={() => handleTabClick(index)}
               ref={TabRefs.current[index]}
               sx={{

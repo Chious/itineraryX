@@ -13,18 +13,18 @@ export default function Itinerary({ handleFormOpen, activeTab, setActiveTab }) {
   const listContainerRef = useRef(null);
   const listRefs = useRef(null);
   const observerRef = useRef(null);
-  const timerIdRef = useRef(null); // 記錄目前是否有scrollIntoView事件
+  const timerIdRef = useRef(null); // to store scrollIntoView events
 
-  // itinerary-by-day 的 useRef (用來偵測 PanelBody onScroll 事件)
+  // useRef of itinerary-by-day (for detecting PanelBody onScroll events)
   listRefs.current = Array(numOfDays)
     .fill()
     .map(() => createRef());
 
-  // 創建 Intersection Observer (用來偵測 PanelBody onScroll 事件)
+  // create Intersection Observer (for detecting PanelBody onScroll event)
   useEffect(() => {
     observerRef.current = new IntersectionObserver(
       (entries) => {
-        // PanelBody onScroll 事件 (使用者scroll滑鼠)
+        // PanelBody onScroll event (when a user scroll on the Panel)
         if (entries[0].isIntersecting && timerIdRef.current === null) {
           setActiveTab(Number(entries[0].target.dataset.listId));
         }
@@ -49,18 +49,17 @@ export default function Itinerary({ handleFormOpen, activeTab, setActiveTab }) {
 
   // scrollIntoView
   useEffect(() => {
-    // 使用 if 判斷式
-    // 避免「TabControl 點擊、TargetDaySelector 選擇、PanelBody 滾動」三種事件
-    // 以及「瀏覽器scrollIntoView、Panel滾動」互相衝突
+    // use conditional statement
+    // to avoid the conflict between browser scrollIntoView events & Panel onScroll events
     if (targetDay !== 0 && targetDay === activeTab + 1) {
-      // TabControl onClick 或 TargetDaySelector onChange 事件 (瀏覽器scrollIntoView)
+      // TabControl onClick or TargetDaySelector onChange (browser scrollIntoView event)
       const target = listRefs.current[targetDay - 1];
       if (target) {
         timerIdRef.current = setTimeout(() => {
           target.current.scrollIntoView({
             behavior: 'smooth',
           });
-          // 等待 scrollIntoView 執行完畢再清除 timerId
+          // wait for a scrollIntoView event to complete and clear the timeout
           timerIdRef.current = setTimeout(() => {
             clearTimeout(timerIdRef.current);
             timerIdRef.current = null;

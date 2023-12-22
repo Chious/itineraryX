@@ -21,7 +21,7 @@ export default function ListItems({ rwdColumns, day }) {
   const theme = useTheme();
   const primaryColor = theme.palette.primary.main;
 
-  // 若有某天尚未添加任何景點則顯示提示訊息
+  // display the hint message if there's no location on the certain day
   if (!destinationsByDay || destinationsByDay.length === 0) {
     return (
       <Grid key={`empty-${day}`} container justifyContent="flex-end">

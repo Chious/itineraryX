@@ -24,7 +24,7 @@ export function useFetchDataAndCheckAuth() {
   const destinations = useTripInfo().destinations;
 
   useEffect(() => {
-    // 取得指定行程的資料
+    // fetch the data of a certain itinerary
     const fetchItinerary = async () => {
       const data = await getItinerary(itineraryId);
       if (data.statusCode && data.statusCode === 404) {
@@ -52,7 +52,7 @@ export function useFetchDataAndCheckAuth() {
       return itinerary_data;
     };
 
-    // 檢查使用者是否有編輯權限
+    // check if a user has edit-permission
     const auth = (itinerary_data) => {
       const userInfo = JSON.parse(localStorage.getItem('user'));
       if (!userInfo) return; // 若使用者未登入則阻擋後續授權程序
@@ -67,13 +67,13 @@ export function useFetchDataAndCheckAuth() {
       });
     };
 
-    // 取得指定行程中的所有景點
+    // fetch the destinations of a certain itinerary
     const fetchDestinations = async (itinerary_data) => {
       const itineraryId = itinerary_data.itineraryId;
       const totalDays = itinerary_data.totalDays;
       const startDate = moment(itinerary_data.startTime.split('T')[0]);
       const destinations_data = [];
-      // 取得所有天數的景點
+      // fetch the destinations by days
       for (let i = 0; i < totalDays; i++) {
         const date = startDate.clone().add(i, 'days').format('YYYY-MM-DD');
         const data = await getDestinations(itineraryId, date);
@@ -110,7 +110,7 @@ export function useFetchDataAndCheckAuth() {
   }, []);
 
   useEffect(() => {
-    // 產生placePairs起終點陣列
+    // generate PlacePairs (origin & destination pairs) array
     const genPlacePairs = (destinations) => {
       const placePairs = [];
       destinations.forEach((_, day) => {
@@ -127,7 +127,7 @@ export function useFetchDataAndCheckAuth() {
       return placePairs;
     };
 
-    // 產生routes交通路線資訊陣列
+    // fetch the data of routes
     const fetchRoutes = async (destinations) => {
       if (destinations.length === 0) return;
       const placePairs = genPlacePairs(destinations);
@@ -164,6 +164,7 @@ export function useFetchDataAndCheckAuth() {
   }, [destinations]);
 }
 
+// Websocket for co-editing function on EditPage
 export function useEditPageSocket() {
   const { itineraryId } = useParams();
   const tripInfoDispatch = useTripInfoDispatch();
