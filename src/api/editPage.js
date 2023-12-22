@@ -16,7 +16,7 @@ export const getItinerary = async (id) => {
     const res = await axios.get(url, config);
     return res.data.data;
   } catch (error) {
-    console.log(error);
+    return { statusCode: error.response.status };
   }
 };
 
