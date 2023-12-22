@@ -70,7 +70,7 @@ export default function SingleItineraryCard({item}) {
         <Box sx={{ flexGrow: 1 }} bgcolor='white' />
         <Button 
           variant="contained" 
-          onClick={() => navigate('/edit/'+item.id)}
+          onClick={() => navigate('/itinerary/'+item.id)}
           sx={{ 
             fontFamily: 'Poppins', 
             fontSize: '16px', 
