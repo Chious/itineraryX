@@ -56,7 +56,7 @@ export default function SingleItineraryCard({item}) {
         component="img"
         image={defaultImage}
         alt="Paella dish"
-        onClick={() => navigate('/edit/'+item.id)}
+        onClick={() => navigate('/itinerary/'+item.id)}
         sx={{
           cursor: 'pointer',
           '&:hover': {
