@@ -71,13 +71,13 @@ export default function CreateTripModal({sx}) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h5" fontFamily="Poppins" fontWeight={600} color="#325269">
+          <Typography id="modal-modal-title" variant="h6" component="h2">
             Your new itinerary
           </Typography>
           <Box
             component="form"
             sx={{
-              '& .MuiTextField-root': { m: "10px 0", width: '100%' },
+              '& .MuiTextField-root': { m: 1, width: '25ch' },
             }}
             noValidate
             autoComplete="off"
@@ -89,63 +89,34 @@ export default function CreateTripModal({sx}) {
                     <TextField
                       required
                       id="outlined-required"
-                      label={<Typography fontFamily="Poppins" fontWeight={500} color="#647680">Trip title</Typography>}
+                      label="Trip title"
                       placeholder="Trip title"
                       onChange={handleChange}
                       value={title}
-                      InputLabelProps={{ required: false }}
-                      inputProps={{ style: { fontFamily: 'Poppins', fontWeight:500, color:"#647680", fontSize:"20px" } }}
-                      fullWidth
                     />
                   </Grid>
                   <Grid item xs={12}>
                     <DatePicker
-                      label={<Typography fontFamily="Poppins" fontWeight={500} color="#647680">Start day</Typography>}
+                      label="Start day"
                       value={startValue}
                       defaultValue={today}
                       onChange={(newValue) => setStartValue(newValue)}
                       disablePast
-                      fullWidth
                     />
                   </Grid>
                   <Grid item xs={12}>
                     <DatePicker
-                      label={<Typography fontFamily="Poppins" fontWeight={500} color="#647680">End day</Typography>}
+                      label="End day"
                       value={endValue}
                       defaultValue={today}
                       onChange={(newValue) => setEndValue(newValue)}
                       disablePast
-                      fullWidth
                     />
                   </Grid>
                 </Grid>
               </DemoContainer>
             </LocalizationProvider>
-            <Box display="flex" marginTop={2}>
-              <Button 
-                variant="text" 
-                onClick={handleClose}
-                sx={{ height: 40, padding: "0 10px", fontFamily: 'Poppins', fontSize: '20px', fontWeight: '600', color:'#647680' }} 
-              >
-                Cancel
-              </Button>
-              <Box sx={{ flexGrow: 1 }}/>
-              <Button 
-                variant="contained" 
-                onClick={handleClick} 
-                sx={{ 
-                  height: 40, 
-                  padding: "0 15px", 
-                  fontFamily: 'Poppins', 
-                  fontSize: '20px', 
-                  fontWeight: '600', 
-                  color:'white', 
-                  backgroundColor:'#FE7A00',
-                }}
-              >
-                Confirm
-              </Button>
-            </Box>
+            <Button onClick={handleClick}>Confirm</Button>
           </Box>
         </Box>
       </Modal>

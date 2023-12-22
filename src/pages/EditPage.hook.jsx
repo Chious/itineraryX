@@ -27,6 +27,13 @@ export function useFetchDataAndCheckAuth() {
     // 取得指定行程的資料
     const fetchItinerary = async () => {
       const data = await getItinerary(itineraryId);
+      if (data.statusCode && data.statusCode === 404) {
+        tripInfoDispatch({
+          type: tripInfo_actions.SET_IS_FAILED,
+          payload: true,
+        });
+        return false;
+      }
       const startTime = moment(data.startTime);
       const endTime = moment(data.endTime);
       const itinerary_data = {
@@ -95,6 +102,7 @@ export function useFetchDataAndCheckAuth() {
     };
 
     fetchItinerary().then((itinerary_data) => {
+      if (!itinerary_data) return;
       auth(itinerary_data);
       fetchDestinations(itinerary_data);
     });

@@ -25,9 +25,11 @@
 */
 
 import { GoogleMap } from '@react-google-maps/api';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTheme } from '@emotion/react';
+import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
+import MapLoading from './MapLoading';
 import TargetDaySelector from './MapControl/TargetDaySelector';
 import ResetCenterBtn from './MapControl/ResetCenterBtn';
 import MapDirections from './MapDirections';
@@ -52,17 +54,40 @@ const mapOptions = {
 ////////// Map元件 //////////
 
 export default function Map({ isLoaded }) {
+  const [displayLoading, setDisplayLoading] = useState(true);
   const [map, setMap] = useState(null);
   const [center, setCenter] = useState(mapCenter);
   const [zoom, setZoom] = useState(7);
   const routes = useRoutesInfo().routes;
   const places = useTripInfo().destinations;
   const targetPlace = useCurrentTarget().targetPlace;
-  const primaryColor = useTheme().palette.primary.main;
+  const theme = useTheme();
+  const primaryColor = theme.palette.primary.main;
 
-  if (!isLoaded) {
-    // 優化：google map icon
-    return <div>Map is loading...</div>;
+  // 若資料尚未載入完畢將顯示Loading畫面
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (isLoaded) {
+        setDisplayLoading(false);
+        clearTimeout(timer);
+      }
+    }, 2500);
+  }, [isLoaded]);
+
+  if (displayLoading) {
+    return (
+      <Grid
+        container
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+        width="100%"
+        height="100%"
+        gap={2}
+      >
+        <MapLoading />
+      </Grid>
+    );
   }
 
   return (

@@ -31,7 +31,7 @@ export default function Itinerary({ handleFormOpen, activeTab, setActiveTab }) {
       },
       {
         root: listContainerRef.current,
-        rootMargin: '70% 0% -80% 0%',
+        rootMargin: '-15% 0% -60% 0%',
         threshold: [0, 0.2, 0.4, 0.6, 0.8, 1],
       }
     );
@@ -90,10 +90,9 @@ export default function Itinerary({ handleFormOpen, activeTab, setActiveTab }) {
               className="intersection-observer-ref"
               data-list-id={`${index}`}
               ref={listRefs.current[index]}
-              style={{ visibility: 'hidden' }}
-            ></div>
-
-            <ItineraryByDay day={index + 1} handleFormOpen={handleFormOpen} />
+            >
+              <ItineraryByDay day={index + 1} handleFormOpen={handleFormOpen} />
+            </div>
           </div>
         ))}
     </div>

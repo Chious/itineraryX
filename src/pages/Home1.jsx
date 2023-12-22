@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Home/Navbar";
-import { Stack } from "@mui/material";
+import { Card, CardMedia, Typography, Box, Stack, Grid } from "@mui/material";
 import Footer from "../components/Home/Footer";
+import DailyCard from "../components/Home/DailyCard";
 import { destination } from "../api/home";
+import fall from "../images/spot/What to do in Lesotho_ Best Things to do in the Kingdom in the Sky.jpeg";
 import HomeIntroSection from "../components/Home/HomeIntroSection";
 import HomeFeaturedDestinationsSection from "../components/Home/HomeFeaturedDestinationsSection";
 import HomeExclusiveTripSection from "../components/Home/HomeExclusiveTripSection";
 import HomeRecommendedSection from "../components/Home/HomeRecommendedSection";
-import OurTeamSection from "../components/Home/OurTeamSection";
+
 
 export default function Home() {
   const [place, setPlace] = useState(null);
@@ -38,7 +40,6 @@ export default function Home() {
         <HomeFeaturedDestinationsSection/>
         <HomeExclusiveTripSection/>
         <HomeRecommendedSection/>
-        <OurTeamSection/>
         <Footer />
       </Stack>
     </>

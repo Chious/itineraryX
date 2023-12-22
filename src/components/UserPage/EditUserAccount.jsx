@@ -10,9 +10,8 @@ const style = {
   // transform: 'translate(-50%, -50%)',
   width: 600,
   bgcolor: 'background.paper',
-  border: '2px solid transparent',
-  borderRadius: "10px",
-  boxShadow: 10,
+  border: '2px solid #000',
+  boxShadow: 5,
   p: 4,
   marginTop: 5
 };
@@ -44,38 +43,14 @@ export default function EditUserAccount({userName, userAvatar, setUserName, setU
 
   return (
     <Box sx={style}>
-      <Typography 
-        // sx={{ mt: 1 }}
-        fontFamily="Poppins"
-        fontSize={30}
-        fontWeight={600}
-        color="#325269"
-      >
-        Edit your account
-      </Typography>
+      <Typography variant="h4" sx={{ mt: 2 }}>Edit your account</Typography>
       <Box marginTop={3}>
         <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form">
-          <Stack spacing={4}>
-            <TextField {...register("username")} 
-              type="text" 
-              label={<Typography fontFamily="Poppins" fontWeight={500} color="#647680">Update your username</Typography>}
-              variant="outlined" 
-              value={tempName} 
-              onChange={(e) => setTempName(e.target.value)}
-              InputLabelProps={{ shrink: true }}
-              inputProps={{ style: { fontFamily: 'Poppins', fontWeight:500, color:"#647680", fontSize:"20px" } }}
-            />
-            <TextField {...register("file")} 
-              type="file"  
-              variant="outlined" 
-              label={<Typography fontFamily="Poppins" fontWeight={500} color="#647680">Select your new avatar</Typography>}
-              InputLabelProps={{ shrink: true }}
-              inputProps={{ style: { fontFamily: 'Poppins', fontWeight:500, color:"#647680", fontSize:"20px" } }}
-            />
+          <Stack spacing={2}>
+            <TextField {...register("username")} type="text" label="Username" variant="outlined" value={tempName} onChange={(e) => setTempName(e.target.value)}/>
+            <TextField {...register("file")} type="file"  variant="outlined" />
           </Stack>
-          <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <Button type="submit" sx={{fontSize:20, marginTop:3, fontFamily:"Poppins", fontWeight:"700"}} >Confirm</Button>
-          </Box>
+          <Button type="submit" sx={{fontSize:20, marginTop:2}}>Confirm</Button>
         </form>
       </Box>
     </Box>

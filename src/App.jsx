@@ -25,10 +25,10 @@ function App() {
                 <Route path="pending" element={<Pending />} />
                 <Route path="login" element={<Login />} />
                 <Route path="register" element={<Register />} />
-                <Route path="edit/:itineraryId" element={<EditPage />} />
+                <Route path="itinerary/:itineraryId" element={<EditPage />} />
                 <Route path="user" element={<UserPage />} />
                 <Route path="account" element={<Account />} />
-              <Route path="reset-password/" element={<ReviseAccount />} />
+                <Route path="reset-password/" element={<ReviseAccount />} />
                 <Route path="*" element={<Home1 />} />
               </Routes>
             </BrowserRouter>
