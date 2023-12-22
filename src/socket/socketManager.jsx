@@ -15,9 +15,9 @@ export const sendDestinations = (sendDestinations) => {
 };
 
 export const sendRoutes = (sendRoutes) => {
-  socket.emit("send_routes", sendRoutes);
-};
+  socket.emit('send_routes', sendRoutes);
+}
 
 export const sendNotification = (data) => {
-  socket.emit("send_notification", data);
-};
+  socket.emit('send_notification', data)
+}

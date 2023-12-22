@@ -43,10 +43,10 @@ export default function DeveloperCard() {
       bgcolor="white"
     >
       <Stack direction="row" spacing={2}>
-        <Typography
-          textTransform="uppercase"
-          fontFamily="Poppins"
-          fontWeight={500}
+        <Typography 
+          textTransform="uppercase" 
+          fontFamily="Poppins" 
+          fontWeight={500} 
           fontSize={50}
           color="#647680"
           letterSpacing={4}
