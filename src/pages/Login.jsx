@@ -82,6 +82,7 @@ export default function Login() {
             spacing={1}
             justifyContent="center"
             alignItems="center"
+            borderRadius="15px"
           >
             <h2 style={{ fontWeight: "500" }}>Login</h2>
             <Image src={logo} width="20%" fit="contain" />

@@ -27,7 +27,7 @@ const style = {
   p: 4,
 };
 
-export default function EditTripModal({ id }) {
+export default function CardEditButton({ id }) {
   const [title, setTitle] = useState('')
   const [open, setOpen] = React.useState(false);
   const {itineraries, setItineraries} = useItineraries()
@@ -45,6 +45,8 @@ export default function EditTripModal({ id }) {
   const [endValue, setEndValue] = React.useState(null);
 
   const handleChange = (e) => setTitle(e.target.value)
+
+  // handle edit itinerary api
   const handleClick = () => {
     const tripData = {
       itineraryId: id,
@@ -97,16 +99,17 @@ export default function EditTripModal({ id }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+          <Typography id="modal-modal-title" variant="h5" fontFamily="Poppins" fontWeight={600} color="#325269">
             Edit your itinerary
           </Typography>
           <Box
             component="form"
             sx={{
-              '& .MuiTextField-root': { m: 1, width: '25ch' },
+              '& .MuiTextField-root': { m: "10px 0", width: '100%' },
             }}
             noValidate
             autoComplete="off"
+            marginTop={3}
           >
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DemoContainer components={['DatePicker', 'DatePicker']}>
@@ -115,10 +118,14 @@ export default function EditTripModal({ id }) {
                     <TextField
                       required
                       id="outlined-required"
-                      label="Trip title"
+                      label={<Typography fontFamily="Poppins" fontWeight={500} color="#647680">Trip title</Typography>}
                       placeholder="Trip title"
                       onChange={handleChange}
                       value={title}
+                      InputLabelProps={{ required: false }}
+                      inputProps={{ style: { fontFamily: 'Poppins', fontWeight:500, color:"#647680", fontSize:"20px" } }}
+                      fullWidth
+                      sx={{margin:0, padding:0}}
                     />
                   </Grid>
                   {/* <Grid item xs={12}>
@@ -142,7 +149,31 @@ export default function EditTripModal({ id }) {
                 </Grid>
               </DemoContainer>
             </LocalizationProvider>
-            <Button onClick={handleClick}  >Confirm</Button>
+            <Box display="flex" marginTop={2}>
+              <Button 
+                variant="text" 
+                onClick={handleClose}
+                sx={{ height: 40, padding: "0 10px", fontFamily: 'Poppins', fontSize: '20px', fontWeight: '600', color:'#647680' }} 
+              >
+                Cancel
+              </Button>
+              <Box sx={{ flexGrow: 1 }}/>
+              <Button 
+                variant="contained" 
+                onClick={handleClick} 
+                sx={{ 
+                  height: 40, 
+                  padding: "0 15px", 
+                  fontFamily: 'Poppins', 
+                  fontSize: '20px', 
+                  fontWeight: '600', 
+                  color:'white', 
+                  backgroundColor:'#FE7A00',
+                }}
+              >
+                Confirm
+              </Button>
+            </Box>
           </Box>
         </Box>
       </Modal>

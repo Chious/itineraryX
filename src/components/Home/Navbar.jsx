@@ -22,17 +22,17 @@ import { socket } from '../../socket/socket';
 
 export default function Navbar() {
   // state to store notification fetch data
-  const [notification, setNotification] = React.useState([]);
+  const [notification, setNotification] = React.useState([])
 
   // state as dependency to trigger rerender after notification clicked
   const [buttonClicked, setButtonClicked] = React.useState(false);
 
   // state to store unread notification
-  const [unReadNotification, setUnReadNotification] = React.useState([]);
+  const [unReadNotification, setUnReadNotification] = React.useState([])
 
   // use token inside local storage to decide whether login or not
   const [isTokenExist, setIsTokenExist] = React.useState(
-    localStorage.getItem("token") || false
+    localStorage.getItem('token') || false
   );
 
   // state for if socket receive notification and need rerender or not
@@ -42,6 +42,7 @@ export default function Navbar() {
 
   // fetch notification data, rerender when socket receive notification
   React.useEffect(() => {
+    // page validation & fetch notification data
     if (isTokenExist) {
       const fetchNotification = async () => {
         getNotification()
@@ -51,7 +52,7 @@ export default function Navbar() {
       };
 
       fetchNotification();
-      return;
+      return
     }
 
     setNotification([])
@@ -73,31 +74,15 @@ export default function Navbar() {
     }
   }, [socket, needRerender])
 
-  // join individual notification room based on userId
-  React.useEffect(() => {
-    if (localStorage.getItem('token')) {
-      const userId = JSON.parse(localStorage.getItem('user')).id
-      const roomData = {room: userId}
-      joinRoom(roomData)
-    }
-    
-  }, [])
-
-  React.useEffect(() => {
-    socket.on('join_notificationRoom', () => {
-      console.log('successfully join!')
-    })
-  }, [socket])
-
   // filter out unread notification
   React.useEffect(() => {
     if (isTokenExist) {
-      const unreadNum = [...notification].filter((item) => item.isRead === 0);
-      setUnReadNotification(unreadNum);
-      return;
+      const unreadNum = [...notification].filter(item => item.isRead === 0) 
+      setUnReadNotification(unreadNum)
+      return
     }
-    setUnReadNotification([]);
-  }, [notification]);
+    setUnReadNotification([])
+  }, [notification])
 
   // state and function for profile icon
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -125,8 +110,7 @@ export default function Navbar() {
 
   // state and function for notification icon
   const [anchorEl2, setAnchorEl2] = React.useState(null);
-  const [mobileNotificationAnchorEl, setMobileNotificationAnchorEl] =
-    React.useState(null);
+  const [mobileNotificationAnchorEl, setMobileNotificationAnchorEl] = React.useState(null);
 
   const isNotificationOpen = Boolean(anchorEl2);
   const isMobileNotificationOpen = Boolean(mobileNotificationAnchorEl);
@@ -146,79 +130,54 @@ export default function Navbar() {
 
   // log out event handle function
   const handleLogOut = () => {
-    localStorage.clear();
-    setIsTokenExist(false);
-    setNotification([]);
-    navigate("/home1");
-  };
+    localStorage.clear()
+    setIsTokenExist(false)
+    setAnchorEl(false)
+    setNotification([])
+    navigate('/home1')
+  }
 
   // modal pop up after click profile icon
-  const menuId = "primary-search-account-menu";
+  const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
       anchorReference="anchorPosition"
-      anchorPosition={{ top: 80, left: window.innerWidth }}
+      anchorPosition={{ top: 80, left: window.innerWidth}}
       id={menuId}
       keepMounted
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <Link to="/account">
-        <MenuItem
-          onClick={handleMenuClose}
-          sx={{ color: "#325269", fontFamily: "Poppins", fontWeight: "600" }}
-        >
-          Profile
-        </MenuItem>
+      <Link to='/account'>
+        <MenuItem onClick={handleMenuClose} sx={{color:'#325269', fontFamily:'Poppins', fontWeight:'600'}}>Profile</MenuItem>
       </Link>
-      <MenuItem
-        onClick={handleLogOut}
-        sx={{ color: "#325269", fontFamily: "Poppins", fontWeight: "600" }}
-      >
-        Log out
-      </MenuItem>
+        <MenuItem onClick={handleLogOut} sx={{color:'#325269', fontFamily:'Poppins', fontWeight:'600'}}>Log out</MenuItem>
     </Menu>
   );
 
   // modal pop up after click notification icon
-  const notificationId = "primary-notification-menu";
+  const notificationId = 'primary-notification-menu';
   const renderNotification = (
     <Menu
       anchorEl={anchorEl2}
       anchorReference="anchorPosition"
-      anchorPosition={{ top: 80, left: window.innerWidth }}
+      anchorPosition={{ top: 80, left: window.innerWidth}}
       id={notificationId}
       keepMounted
       open={isNotificationOpen}
       onClose={handleNotificationClose}
     >
-      <Stack spacing={1} direction="column" p={2}>
+      <Stack spacing={1} direction='column' p={2} >
         {/* render notification */}
         {notification.map((item) => (
-          <Stack
-            key={item.id}
-            spacing={1}
-            direction="row"
-            justifyContent="flex-start"
-            width={300}
-          >
+          <Stack key={item.id} spacing={1} direction='row' justifyContent='flex-start' width={300}>
             {item.isRead === 0 ? (
               <Link to={item.redirectUrl}>
-                <NotificationButton
-                  sx={{ color: "red", opacity: "0.7" }}
-                  item={item}
-                  buttonClicked={buttonClicked}
-                  setButtonClicked={setButtonClicked}
-                />
+                <NotificationButton sx={{color: 'red', opacity:'0.7'}} item={item} buttonClicked={buttonClicked} setButtonClicked={setButtonClicked}/>
               </Link>
             ) : (
-              <NotificationButton
-                sx={{ opacity: "0" }}
-                item={item}
-                buttonClicked={buttonClicked}
-                setButtonClicked={setButtonClicked}
-              />
+              <NotificationButton sx={{opacity:'0'}} item={item} buttonClicked={buttonClicked} setButtonClicked={setButtonClicked}/>
             )}
           </Stack>
         ))}
@@ -227,13 +186,13 @@ export default function Navbar() {
   );
 
   // modal after click more icon under mobile mode
-  const mobileMenuId = "primary-search-account-menu-mobile";
+  const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
       anchorOrigin={{
         vertical: 70,
-        horizontal: "right",
+        horizontal: 'right',
       }}
       id={mobileMenuId}
       keepMounted
@@ -244,18 +203,8 @@ export default function Navbar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <Box
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-        }}
-      >
-        <Button
-          component={Link}
-          to="/user"
-          sx={{ height: "50px", fontFamily: "Poppins", fontWeight: "700" }}
-        >
+      <Box style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+        <Button component={Link} to="/user" sx={{height: '50px', fontFamily: 'Poppins', fontWeight: '700'}}>
           Start!
         </Button>
         <MenuItem onClick={handleNotificationOpen}>
@@ -286,50 +235,30 @@ export default function Navbar() {
   );
 
   return (
-    <Stack width="100vw" height="64px" flexGrow={1} boxSizing="border-box">
-      <AppBar
-        position="static"
-        sx={{ backgroundColor: "#325269" }}
-        elevation={0}
-      >
+    <Stack width='100vw' height='64px' flexGrow={1} boxSizing='border-box'>
+      <AppBar position="static" sx={{backgroundColor:'#325269'}} elevation={0}>
         <Toolbar>
           <CardMedia
-            style={{
-              width: "150px",
-              height: "30px",
-              objectFit: "cover",
-              filter: "invert(1)",
-              WebkitFilter: "invert(1)",
-            }}
+            style={{width:'150px', height:'30px', objectFit:'cover', filter: 'invert(1)', WebkitFilter: 'invert(1)'}}
             component="img"
             src={logo}
             title="background"
             elevation={0}
-            onClick={() => navigate("/home1")}
+            onClick={() => navigate('/home1')}
             sx={{
-              cursor: "pointer",
-              "&:hover": {
-                cursor: "pointer",
-              },
+              cursor: 'pointer',
+              '&:hover': {
+                cursor: 'pointer',
+              }
             }}
           />
           <Box sx={{ flexGrow: 1 }} />
           <Stack direction="row" spacing={3}>
             {/* use isTokenExist to determine whether button need to be rendered */}
-            {isTokenExist && (
+            {isTokenExist && 
               <div>
-                <Box sx={{ display: { xs: "none", md: "flex" } }}>
-                  <Button
-                    component={Link}
-                    to="/user"
-                    sx={{
-                      color: "white",
-                      fontFamily: "Poppins",
-                      fontWeight: 700,
-                    }}
-                  >
-                    Start!
-                  </Button>
+                <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                  <Button component={Link} to="/user" sx={{color:'white', fontFamily:'Poppins', fontWeight:700}}>Start!</Button>
                   <IconButton
                     size="large"
                     edge="end"
@@ -338,20 +267,17 @@ export default function Navbar() {
                     aria-haspopup="true"
                     onClick={handleNotificationOpen}
                     sx={{
-                      margin: "0",
-                      "&:hover": {
-                        backgroundColor: "rgba(255, 255, 255, 0.08)",
+                      margin:'0',
+                      '&:hover': {
+                        backgroundColor: 'rgba(255, 255, 255, 0.08)',
                       },
                     }}
                     disabled={!isTokenExist}
                   >
-                    <Badge
-                      badgeContent={unReadNotification.length}
-                      color="error"
-                    >
-                      <NotificationsIcon
+                    <Badge badgeContent={unReadNotification.length} color="error">
+                      <NotificationsIcon 
                         sx={{
-                          color: "white",
+                          color:'white'
                         }}
                       />
                     </Badge>
@@ -364,40 +290,40 @@ export default function Navbar() {
                     aria-haspopup="true"
                     onClick={handleProfileMenuOpen}
                     sx={{
-                      margin: "0",
-                      "&:hover": {
-                        backgroundColor: "rgba(255, 255, 255, 0.08)",
+                      margin:'0',
+                      '&:hover': {
+                        backgroundColor: 'rgba(255, 255, 255, 0.08)',
                       },
                     }}
                     disabled={!isTokenExist}
                   >
-                    <AccountCircle
+                    <AccountCircle 
                       sx={{
-                        color: "white",
+                        color:'white'
                       }}
                     />
                   </IconButton>
                 </Box>
               </div>
-            )}
-            {!isTokenExist && (
-              <Button
-                component={Link}
-                to="/login"
-                variant="contained"
-                size="medium"
-                sx={{
-                  fontFamily: "Poppins",
-                  fontWeight: 600,
-                  fontSize: "16px",
-                  backgroundColor: "#FE7A00",
-                  color: "white",
+            }
+            {!isTokenExist && 
+              <Button 
+                component={Link} 
+                to="/login" 
+                variant="contained" 
+                size='medium' 
+                sx={{ 
+                  fontFamily:'Poppins', 
+                  fontWeight:600, 
+                  fontSize: '16px',
+                  backgroundColor:'#FE7A00',
+                  color: 'white',
                 }}
               >
                 Login
               </Button>
-            )}
-            <Box sx={{ display: { xs: "flex", md: "none" } }}>
+            }
+            <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
               <IconButton
                 size="large"
                 aria-label="show more"

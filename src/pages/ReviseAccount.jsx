@@ -98,6 +98,7 @@ const ReviseForm = () => {
       spacing={1}
       justifyContent="center"
       alignItems="center"
+      borderRadius="15px"
     >
       <h5>Forget Password</h5>
       <Image src={logo} width="50%" height="20%" fit="contain" />
