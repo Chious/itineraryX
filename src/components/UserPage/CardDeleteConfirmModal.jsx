@@ -36,7 +36,7 @@ export default function DeleteConfirmationModal({ open, handleClose, handleConfi
           <Button 
             variant="text" 
             onClick={handleClose} 
-            sx={{ height: 40, padding: 0, fontFamily: 'Poppins', fontSize: '20px', fontWeight: '600', color:'#647680' }} 
+            sx={{ height: 40, padding: "0 10px", fontFamily: 'Poppins', fontSize: '20px', fontWeight: '600', color:'#647680' }} 
           >
             Cancel
           </Button>
@@ -46,8 +46,7 @@ export default function DeleteConfirmationModal({ open, handleClose, handleConfi
             onClick={handleConfirm} 
             sx={{ 
               height: 40, 
-              width: 140,
-              padding: 0, 
+              padding: "0 10px", 
               fontFamily: 'Poppins', 
               fontSize: '20px', 
               fontWeight: '600', 

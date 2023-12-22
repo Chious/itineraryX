@@ -9,7 +9,7 @@ import {
 import GitHubIcon from "@mui/icons-material/GitHub";
 import HomeIcon from "@mui/icons-material/Home";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import { data } from "../../data/our-info";
+import {data} from "../../data/our-info"
 import Image from "mui-image";
 
 export default function AboutUsModal({ open, setOpen }) {
@@ -52,13 +52,8 @@ export default function AboutUsModal({ open, setOpen }) {
             This app is a team work from Alpha Camp.
             <br />
             If there is any question regarding the app, please contact us at:
-            <a
-              href="https://github.com/Chious"
-              target="_blank"
-              rel="noreferrer noopener"
-              style={{ color: "gray", textDecoration: "underline" }}
-            >
-              https://github.com/Chious
+            <a style={{ color: "gray", textDecoration: "underline" }}>
+              example.com
             </a>
           </Typography>
           <Grid
