@@ -26,7 +26,7 @@ export default function Itinerary({ handleFormOpen, activeTab, setActiveTab }) {
       (entries) => {
         // PanelBody onScroll 事件 (使用者scroll滑鼠)
         if (entries[0].isIntersecting && timerIdRef.current === null) {
-          setActiveTab(`${entries[0].target.dataset.listId}`);
+          setActiveTab(Number(entries[0].target.dataset.listId));
         }
       },
       {
@@ -52,7 +52,7 @@ export default function Itinerary({ handleFormOpen, activeTab, setActiveTab }) {
     // 使用 if 判斷式
     // 避免「TabControl 點擊、TargetDaySelector 選擇、PanelBody 滾動」三種事件
     // 以及「瀏覽器scrollIntoView、Panel滾動」互相衝突
-    if (targetDay !== 0 && targetDay === Number(activeTab) + 1) {
+    if (targetDay !== 0 && targetDay === activeTab + 1) {
       // TabControl onClick 或 TargetDaySelector onChange 事件 (瀏覽器scrollIntoView)
       const target = listRefs.current[targetDay - 1];
       if (target) {
