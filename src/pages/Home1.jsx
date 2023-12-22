@@ -9,7 +9,7 @@ import HomeIntroSection from "../components/Home/HomeIntroSection";
 import HomeFeaturedDestinationsSection from "../components/Home/HomeFeaturedDestinationsSection";
 import HomeExclusiveTripSection from "../components/Home/HomeExclusiveTripSection";
 import HomeRecommendedSection from "../components/Home/HomeRecommendedSection";
-
+import OurTeamSection from "../components/Home/OurTeamSection";
 
 export default function Home() {
   const [place, setPlace] = useState(null);
@@ -35,11 +35,12 @@ export default function Home() {
   return (
     <>
       <Stack height="auto" direction="column" width="100vw">
-        <Navbar/>
-        <HomeIntroSection/>
-        <HomeFeaturedDestinationsSection/>
-        <HomeExclusiveTripSection/>
-        <HomeRecommendedSection/>
+        <Navbar />
+        <HomeIntroSection />
+        <HomeFeaturedDestinationsSection />
+        <HomeExclusiveTripSection />
+        <HomeRecommendedSection />
+        <OurTeamSection />
         <Footer />
       </Stack>
     </>
