@@ -93,6 +93,14 @@ export default function ListItems({ rwdColumns, day }) {
           day={day}
           order={order}
           destination={destinationsByDay[order]}
+          nextDestination={
+            order < destinationsByDay.length - 1 && destinationsByDay[order + 1]
+          }
+          route={
+            routes[day - 1]?.length > 0 && order < destinationsByDay.length - 1
+              ? routes[day - 1][order]
+              : {}
+          }
           rwdColumns={rwdColumns}
         />
       </ListItem>

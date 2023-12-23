@@ -1,13 +1,36 @@
+import moment from 'moment';
 import { useTheme } from '@emotion/react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import DestinationCard from './DestinationCard';
 
+function calcStayingTime(destination, nextDestination, route) {
+  if (!route || !Object.keys(route).length > 0)
+    return { stayingTime: null, formattedStayingTime: null };
+
+  const stayingTime =
+    moment(nextDestination.date).unix() -
+    moment(destination.date).unix() -
+    route.durationValue;
+
+  const duration = moment.duration(stayingTime, 'seconds');
+  const hour = duration.hours();
+  const min = duration.minutes();
+
+  const formattedStayingTime = `${hour} ${
+    hour > 1 || hour < -1 ? 'hours' : ' hour'
+  } ${min} ${min > 1 || min < -1 ? 'mins' : ' min'}`;
+
+  return { stayingTime, formattedStayingTime };
+}
+
 export default function DestinationItem({
   order,
   day,
   destination,
+  nextDestination,
+  route,
   rwdColumns,
 }) {
   const theme = useTheme();
@@ -20,6 +43,12 @@ export default function DestinationItem({
   const min = `${datetime.getUTCMinutes()}`;
   const time = `${hour_12hr.padStart(2, 0)}:${min.padStart(2, 0)}`;
   const am_pm = `${hour_24hr / 12 < 1 ? 'am' : 'pm'}`;
+
+  const { stayingTime, formattedStayingTime } = calcStayingTime(
+    destination,
+    nextDestination,
+    route
+  );
 
   return (
     <Grid container direction="row" justifyContent="center" alignItems="center">
@@ -75,7 +104,12 @@ export default function DestinationItem({
 
       {/* display the destination */}
       <Grid item xs={rwdColumns[1]}>
-        <DestinationCard day={day} destination={destination} />
+        <DestinationCard
+          day={day}
+          destination={destination}
+          stayingTime={stayingTime}
+          formattedStayingTime={formattedStayingTime}
+        />
       </Grid>
     </Grid>
   );

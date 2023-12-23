@@ -3,11 +3,17 @@ import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import CardBtnPopper from '../Form/CardBtnPopper';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTheme } from '@emotion/react';
 
-export default function DestinationCard({ day, destination }) {
+export default function DestinationCard({
+  day,
+  destination,
+  stayingTime,
+  formattedStayingTime,
+}) {
   const canEdit = useAuth().canEdit;
   const theme = useTheme();
   const infoColor = theme.palette.info.main;
@@ -66,7 +72,7 @@ export default function DestinationCard({ day, destination }) {
 
           {/* location address */}
           <Stack direction="row" gap="0.5rem">
-            <LocationOnIcon sx={{ color: infoColor, fontSize: '1.1rem' }} />
+            <LocationOnIcon sx={{ color: infoColor, fontSize: '1rem' }} />
             <Typography
               sx={{
                 color: infoColor,
@@ -78,6 +84,28 @@ export default function DestinationCard({ day, destination }) {
               {destination.placeAddress}
             </Typography>
           </Stack>
+
+          {/* staying time */}
+          {formattedStayingTime && (
+            <Stack direction="row" gap="0.5rem">
+              <AccessTimeIcon
+                sx={{
+                  color: stayingTime < 0 ? 'red' : infoColor,
+                  fontSize: '1rem',
+                }}
+              />
+              <Typography
+                sx={{
+                  color: stayingTime < 0 ? 'red' : infoColor,
+                  fontSize: '0.8rem',
+                  lineHeight: '1.2',
+                  wordWrap: 'break-word',
+                }}
+              >
+                {formattedStayingTime}
+              </Typography>
+            </Stack>
+          )}
         </Stack>
       </CardContent>
     </Card>

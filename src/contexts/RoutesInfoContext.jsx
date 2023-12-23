@@ -25,7 +25,7 @@ function routesInfoReducer(routesInfo, action) {
       return newRoutesInfo;
     }
     case routesInfo_actions.CHANGE_TRANSPORTATION_MODE: {
-      const { id, transportationMode, durationText } = action.payload;
+      const { id, transportationMode, durationText, durationValue } = action.payload;
       const newRoutes = routesInfo.routes.map((routesByDay) =>
         routesByDay.map((route) => {
           if (route.id === id)
@@ -33,6 +33,7 @@ function routesInfoReducer(routesInfo, action) {
               ...route,
               transportationMode: transportationMode,
               durationText: durationText,
+              durationValue: durationValue,
             };
           else return route;
         })
