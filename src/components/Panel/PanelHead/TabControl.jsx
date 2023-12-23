@@ -97,7 +97,7 @@ export default function TabControl({ activeTab, setActiveTab }) {
                 width: 'fit-content',
                 borderRadius: 0,
                 borderBottom:
-                  index === activeTab ? `3px solid ${primaryColor}` : 0,
+                  index === activeTab ? `3.5px solid ${primaryColor}` : 0,
               }}
             >
               <Grid

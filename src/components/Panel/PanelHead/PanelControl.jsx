@@ -59,7 +59,7 @@ export default function PanelControl({ handleOpenChat }) {
           fontFamily="Roboto"
           fontSize="1.5rem"
           fontWeight="800"
-          letterSpacing={1.5}
+          letterSpacing={2.5}
           textAlign="center"
           sx={{
             textOverflow: "ellipsis",
