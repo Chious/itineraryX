@@ -1,0 +1,4 @@
+/* For Chrome, Safari, and Opera */
+.scrollbar ::-webkit-scrollbar {
+  display: none;
+}

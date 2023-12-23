@@ -12,7 +12,7 @@ export default function PanelBody({ handleFormOpen, activeTab, setActiveTab }) {
       className="panel-body"
       width="100%"
       height="100%"
-      minHeight="0" // 解決flexbox容器中flex item外溢的問題
+      minHeight="0" // solve the overflow problem of flex items in a flexbox container
       sx={{
         backgroundColor: 'white',
         overflow: 'hidden',

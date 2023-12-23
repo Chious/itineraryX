@@ -29,7 +29,7 @@ export default function Panel({ handleOpenChat }) {
     });
   };
 
-  // 若資料尚未載入完畢將顯示Loading畫面
+  // display loading animation before data-fetching completed
   useEffect(() => {
     const timer = setTimeout(() => {
       if (tripInfo.isLoaded) {

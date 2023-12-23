@@ -3,7 +3,7 @@ import { createContext, useContext, useReducer } from 'react';
 //////////////////// reducer ////////////////////
 
 export const auth_actions = {
-  SET_CAN_EDIT: 'SET_CAN_EDIT', // 設置編輯權限
+  SET_CAN_EDIT: 'SET_CAN_EDIT', // set edit-permission
 };
 
 function authReducer(auth, action) {
