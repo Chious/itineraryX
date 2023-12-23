@@ -46,7 +46,13 @@ export default function DestinationCard({
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
-      ></div>
+      >
+        <a
+          href={destination.placeUrl}
+          target="_blank"
+          style={{ display: 'block', width: '100%', height: '100%' }}
+        ></a>
+      </div>
 
       {/* display the information of the destination */}
       <CardContent
@@ -63,12 +69,18 @@ export default function DestinationCard({
       >
         <Stack spacing={1}>
           {/* location name */}
-          <Typography
-            color="primary"
-            sx={{ fontSize: '1.1rem', fontWeight: '700' }}
+          <a
+            href={destination.placeUrl}
+            target="_blank"
+            style={{ display: 'block', width: '100%', height: '100%' }}
           >
-            {destination.placeName}
-          </Typography>
+            <Typography
+              color="primary"
+              sx={{ fontSize: '1.1rem', fontWeight: '700' }}
+            >
+              {destination.placeName}
+            </Typography>
+          </a>
 
           {/* location address */}
           <Stack direction="row" gap="0.5rem">
@@ -102,7 +114,7 @@ export default function DestinationCard({
                   wordWrap: 'break-word',
                 }}
               >
-                {formattedStayingTime}
+                Stay for {formattedStayingTime}
               </Typography>
             </Stack>
           )}

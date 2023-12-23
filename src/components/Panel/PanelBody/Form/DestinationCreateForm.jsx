@@ -156,6 +156,7 @@ export default function DestinationCreateForm({ dayOfForm, handleFormClose }) {
       placeAddress: resData.Place.address,
       placeIntro: resData.Place.intro,
       placeImage: resData.Place.image,
+      placeUrl: resData.Place.url,
       placeLatLng: { lat: resData.Place.lat, lng: resData.Place.lng },
     };
     routesInfoDispatch({
