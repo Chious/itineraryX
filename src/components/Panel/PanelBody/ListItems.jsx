@@ -88,7 +88,12 @@ export default function ListItems({ rwdColumns, day }) {
       </ListItem>
 
       {/* destination */}
-      <ListItem sx={{ p: 0 }}>
+      <ListItem
+        sx={{
+          p: 0,
+          marginBottom: order === destinationsByDay.length - 1 ? '5rem' : 0,
+        }}
+      >
         <DestinationItem
           day={day}
           order={order}
