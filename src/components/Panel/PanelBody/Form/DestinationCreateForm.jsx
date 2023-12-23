@@ -112,9 +112,9 @@ export default function DestinationCreateForm({ dayOfForm, handleFormClose }) {
     if (autocomplete !== null) {
       const place = autocomplete.getPlace();
       setInputValue(place.name);
-      // 更新後端
+      // update backend
       const placeData = await postMaps(place.place_id);
-      // 更新前端
+      // update frontend
       const targetPlace = {
         placeId: placeData.id,
         placeName: placeData.name,
@@ -144,9 +144,9 @@ export default function DestinationCreateForm({ dayOfForm, handleFormClose }) {
       date: datetime,
       placeId: placeId,
     };
-    // 更新後端
+    // update backend
     const resData = await postDestinations(reqBody);
-    // 更新前端
+    // update frontend
     const destination_data = {
       day: data.day,
       date: resData.date,
@@ -172,7 +172,7 @@ export default function DestinationCreateForm({ dayOfForm, handleFormClose }) {
       actionType: tripInfo_actions.ADD_DESTINATION,
       destinationData: destination_data,
     });
-    // 關閉表單
+    // close the form
     handleFormClose();
   }
 

@@ -25,25 +25,25 @@ export default function EditPage() {
   const tripInfoFetchFailed = useTripInfo().isFailed;
   useFetchDataAndCheckAuth();
 
-  useEffect(()=>{
+  useEffect(() => {
     if (tripInfoFetchFailed) {
       alert(`This itinerary doesn't exist; redirecting to the home page.`);
       navigate('/home1');
     }
-  }, [tripInfoFetchFailed])
+  }, [tripInfoFetchFailed]);
 
   // websocket
   useEditPageSocket();
 
-  // 載入 Google Map API 的 script
+  // Load the Maps JavaScript API
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: import.meta.env.VITE_MAP_TOKEN,
-    id: "google-map-script",
-    version: "weekly",
+    id: 'google-map-script',
+    version: 'weekly',
     libraries: libraries,
   });
 
-  // 判斷是否要渲染聊天室
+  // render chatroom or not
   useEffect(async () => {
     const ids = await getChatId();
     const isValidId = ids.includes(parseInt(itineraryId));
@@ -54,10 +54,10 @@ export default function EditPage() {
     <Box
       className="container"
       sx={{
-        width: "100vw",
-        height: "100vh",
-        overflow: "hidden",
-        backgroundColor: "white",
+        width: '100vw',
+        height: '100vh',
+        overflow: 'hidden',
+        backgroundColor: 'white',
       }}
     >
       <Navbar />
@@ -74,7 +74,7 @@ export default function EditPage() {
         className="content"
         direction="row"
         flexWrap="nowrap"
-        sx={{ height: "calc(100vh - 64px)" }}
+        sx={{ height: 'calc(100vh - 64px)' }}
       >
         {/* Panel component */}
         <Grid item md={4} minWidth="480px" height="100%">
@@ -85,8 +85,8 @@ export default function EditPage() {
         <Grid
           item
           md={8}
-          flex={`1 1 ${"calc(100vw - 480px)"}`}
-          sx={{ width: "100%", height: "100%" }}
+          flex={`1 1 ${'calc(100vw - 480px)'}`}
+          sx={{ width: '100%', height: '100%' }}
         >
           <Map isLoaded={isLoaded} />
         </Grid>

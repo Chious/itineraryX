@@ -4,8 +4,8 @@ import moment from 'moment';
 //////////////////// actions ////////////////////
 
 export const tripInfo_actions = {
-  SET_IS_FAILED: 'SET_IS_FAILED', // 設置資料拉取的狀態
-  SET_IS_Loaded: 'SET_IS_Loaded', // 設置載入的狀態
+  SET_IS_FAILED: 'SET_IS_FAILED', // set true if data-fetching failed
+  SET_IS_Loaded: 'SET_IS_Loaded', // set true if data-fetching completed
   SET_ITINERARY: 'SET_ITINERARY', // 儲存行程的資訊
   SET_DESTINATIONS: 'SET_DESTINATIONS', // 儲存行程中的所有景點
   ADD_DESTINATION: 'ADD_DESTINATION', // 將景點加入行程

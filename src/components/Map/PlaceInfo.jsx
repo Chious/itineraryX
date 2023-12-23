@@ -1,7 +1,11 @@
 import { useTheme } from '@emotion/react';
-import { Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import MapIcon from '@mui/icons-material/Map';
+import { useCurrentTarget } from '@/contexts/CurrentTargetContext';
 
-export function PlaceInfo({ place }) {
+export function PlaceInfo({ place, day }) {
+  const targetDay = useCurrentTarget().targetDay;
   const theme = useTheme();
   const infoColor = theme.palette.info.main;
 
@@ -24,12 +28,19 @@ export function PlaceInfo({ place }) {
       {/* place info */}
       <div
         style={{
-          width: '280px',
+          width: '300px',
           display: 'flex',
           flexDirection: 'column',
           gap: '0.5rem',
         }}
       >
+        {/* day & order */}
+        {targetDay === 0 && day >= 0 && (
+          <Typography color="primary" fontSize="0.9rem" fontWeight="600">
+            Day {day + 1}
+          </Typography>
+        )}
+
         {place.placeName && (
           <Typography color="primary" fontSize="1.3rem" fontWeight="700">
             {place.placeName}
@@ -51,6 +62,21 @@ export function PlaceInfo({ place }) {
           >
             {place.placeAddress}
           </Typography>
+        )}
+
+        {place.placeUrl && (
+          <Button
+            sx={{ width: 'fit-content', p: 0, gap: 0.8, fontSize: '0.8rem' }}
+          >
+            <MapIcon fontSize="small" sx={{ color: infoColor }} />
+            <a
+              href={place.placeUrl}
+              target="blank"
+              style={{ color: infoColor }}
+            >
+              View details
+            </a>
+          </Button>
         )}
       </div>
     </div>

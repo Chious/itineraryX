@@ -1,6 +1,6 @@
 /*
 
-  map可調參數：
+  Map Options:
 
   const mapOptions = {
     zoomControl: false,
@@ -40,7 +40,7 @@ import { useRoutesInfo } from '@/contexts/RoutesInfoContext';
 import { useTripInfo } from '@/contexts/TripInfoContext';
 import './map.css';
 
-////////// Map設定 //////////
+////////// Map Settings //////////
 
 const mapCenter = { lat: 23.553118, lng: 121.0211024 }; // 台灣
 
@@ -51,7 +51,7 @@ const mapOptions = {
   fullScreenControl: false,
 };
 
-////////// Map元件 //////////
+////////// Map Component //////////
 
 export default function Map({ isLoaded }) {
   const [displayLoading, setDisplayLoading] = useState(true);
@@ -64,7 +64,7 @@ export default function Map({ isLoaded }) {
   const theme = useTheme();
   const primaryColor = theme.palette.primary.main;
 
-  // 若資料尚未載入完畢將顯示Loading畫面
+  // display loading animation before data-fetching completed
   useEffect(() => {
     const timer = setTimeout(() => {
       if (isLoaded) {

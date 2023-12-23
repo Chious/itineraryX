@@ -8,7 +8,7 @@ export default function MapDirections({ routes, map, setCenter }) {
   const directionsService = new window.google.maps.DirectionsService();
   const latLngBoundsRef = useRef(new window.google.maps.LatLngBounds());
 
-  // 計算路線
+  // calculate the directions by DirectionsService
   async function calculateDirections(route) {
     if (route?.originLatLng && route?.destinationLatLng) {
       const direction = await directionsService.route({
@@ -32,7 +32,7 @@ export default function MapDirections({ routes, map, setCenter }) {
   }
 
   useEffect(() => {
-    // 產生路線物件陣列（呼叫calculateDirections）
+    // generate the route objects array
     const genDirections = async () => {
       const routesToRender = targetDay === 0 ? routes : [routes[targetDay - 1]];
 
@@ -62,7 +62,7 @@ export default function MapDirections({ routes, map, setCenter }) {
             directions={direction}
             options={{
               polylineOptions: {
-                strokeColor: `hsl(${(day * 30) % 360}deg, 90%, 50%)`,
+                strokeColor: `hsl(${(day * 50) % 360 + (day * 60) / 360 * 25}deg, 90%, 50%)`,
                 strokeOpacity: 0.7,
                 strokeWeight: 8,
               },

@@ -3,9 +3,9 @@ import { useContext, createContext, useReducer } from 'react';
 //////////////////// actions ////////////////////
 
 export const currentTarget_actions = {
-  SET_TARGET_DAY: 'SET_TARGET_DAY', // 儲存使用者指定瀏覽的天數
-  SET_TARGET_PLACE: 'SET_TARGET_PLACE', // 暫存景點搜尋結果 (from Google Map Autocomplete)
-  DELETE_TARGET_PLACE: 'DELETE_TARGET_PLACE', // 刪除景點搜尋結果
+  SET_TARGET_DAY: 'SET_TARGET_DAY', // set the target day the user select
+  SET_TARGET_PLACE: 'SET_TARGET_PLACE', // store the search result from Google Map Autocomplete
+  DELETE_TARGET_PLACE: 'DELETE_TARGET_PLACE', // delete the search result
 };
 
 //////////////////// reducer ////////////////////

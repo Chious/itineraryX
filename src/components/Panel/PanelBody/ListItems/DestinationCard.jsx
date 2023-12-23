@@ -3,11 +3,17 @@ import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import CardBtnPopper from '../Form/CardBtnPopper';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTheme } from '@emotion/react';
 
-export default function DestinationCard({ day, destination }) {
+export default function DestinationCard({
+  day,
+  destination,
+  stayingTime,
+  formattedStayingTime,
+}) {
   const canEdit = useAuth().canEdit;
   const theme = useTheme();
   const infoColor = theme.palette.info.main;
@@ -16,7 +22,7 @@ export default function DestinationCard({ day, destination }) {
     <Card
       className="destination-card"
       sx={{
-        height: 'fit-content', // 自動根據內容調整卡片高度
+        height: 'fit-content', // adjust the height of the card according to the content
         minHeight: '100px',
         borderRadius: '10px',
         boxShadow:
@@ -48,7 +54,7 @@ export default function DestinationCard({ day, destination }) {
           flexGrow: '1',
           display: 'flex',
           alignItems: 'center',
-          // 調整MUI卡片元件內距需使用 last-child
+          // use ':last-child' when adjusting the padding of the MUI card component
           '&:last-child': {
             py: '1.5rem',
             px: '1.2rem',
@@ -66,7 +72,7 @@ export default function DestinationCard({ day, destination }) {
 
           {/* location address */}
           <Stack direction="row" gap="0.5rem">
-            <LocationOnIcon sx={{ color: infoColor, fontSize: '1.1rem' }} />
+            <LocationOnIcon sx={{ color: infoColor, fontSize: '1rem' }} />
             <Typography
               sx={{
                 color: infoColor,
@@ -78,6 +84,28 @@ export default function DestinationCard({ day, destination }) {
               {destination.placeAddress}
             </Typography>
           </Stack>
+
+          {/* staying time */}
+          {formattedStayingTime && (
+            <Stack direction="row" gap="0.5rem">
+              <AccessTimeIcon
+                sx={{
+                  color: stayingTime < 0 ? 'red' : infoColor,
+                  fontSize: '1rem',
+                }}
+              />
+              <Typography
+                sx={{
+                  color: stayingTime < 0 ? 'red' : infoColor,
+                  fontSize: '0.8rem',
+                  lineHeight: '1.2',
+                  wordWrap: 'break-word',
+                }}
+              >
+                {formattedStayingTime}
+              </Typography>
+            </Stack>
+          )}
         </Stack>
       </CardContent>
     </Card>

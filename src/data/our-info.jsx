@@ -35,7 +35,7 @@ export const data = [
     work: "Front-end Developer",
     avatar: image3,
     description:
-      "Enthusiastic front-end developer with a focus on creating high-quality web applications, and experiences of project management in software industry.",
+      "I'm a front-end developer enthusiastic about creating high-quality web apps with well-designed user interfaces and user experiences.",
     link: [
       "https://github.com/jessie963",
       "https://www.linkedin.com/in/liu-jessie-369a602a5/",

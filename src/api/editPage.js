@@ -6,12 +6,11 @@ const baseUrl = import.meta.env.VITE_BASE_URL;
 
 //////////////////// itinerary API ////////////////////
 
-//  透過 id 取得指定行程的資訊
+// fetch the data of a certain itinerary by id
 export const getItinerary = async (id) => {
   const token = localStorage.getItem("token");
   const config = { headers: { Authorization: `Bearer ${token}` } };
   const url = baseUrl + `/itineraries/${id}`;
-
   try {
     const res = await axios.get(url, config);
     return res.data.data;
@@ -22,7 +21,7 @@ export const getItinerary = async (id) => {
 
 //////////////////// destinations API ////////////////////
 
-// 透過行程的 id & 日期 來取得該行程的景點資料
+// fetch the destinations of a certain itinerary by id & date
 export const getDestinations = async (id, date) => {
   const token = localStorage.getItem("token");
   const config = { headers: { Authorization: `Bearer ${token}` } };
@@ -31,11 +30,12 @@ export const getDestinations = async (id, date) => {
     const res = await axios.get(url, config);
     return res.data.data;
   } catch (error) {
-    console.log(error);
+    if (error.response.status !== 404)
+      console.log('[GET destinations failed]: ', error);
   }
 };
 
-// 新增Place資料
+// create Place data
 export const postMaps = async (placeId) => {
   const token = localStorage.getItem("token");
   const config = { headers: { Authorization: `Bearer ${token}` } };
@@ -49,7 +49,7 @@ export const postMaps = async (placeId) => {
   }
 };
 
-// 新增Destination資料
+// create Destination data
 export const postDestinations = async (reqBody) => {
   const token = localStorage.getItem("token");
   const config = { headers: { Authorization: `Bearer ${token}` } };
@@ -62,7 +62,7 @@ export const postDestinations = async (reqBody) => {
   }
 };
 
-// 修改Destination資料
+// modify Destination data
 export const patchDestinations = async (destinationId, date) => {
   const token = localStorage.getItem("token");
   const config = { headers: { Authorization: `Bearer ${token}` } };
@@ -78,7 +78,7 @@ export const patchDestinations = async (destinationId, date) => {
   }
 };
 
-// 刪除Destination資料
+// delete Destination data
 export const deleteDestinations = async (destinationId) => {
   const token = localStorage.getItem("token");
   const config = { headers: { Authorization: `Bearer ${token}` } };
@@ -92,7 +92,7 @@ export const deleteDestinations = async (destinationId) => {
 
 //////////////////// routes API ////////////////////
 
-// 取得兩個景點之間的交通路線資訊
+// get the route between the two locations
 export const getRoutes = async (itId, oId, dId) => {
   const token = localStorage.getItem("token");
   const config = { headers: { Authorization: `Bearer ${token}` } };
@@ -103,11 +103,12 @@ export const getRoutes = async (itId, oId, dId) => {
     const res = await axios.get(url, config);
     return res.data.data;
   } catch (error) {
-    console.log(error);
+    if (error.response.status !== 404)
+      console.log('[GET routes failed]: ', error);
   }
 };
 
-// 新增兩個景點之間的交通路線資訊
+// create the route data between the two locations
 export const postRoutes = async (reqBody) => {
   const token = localStorage.getItem("token");
   const config = { headers: { Authorization: `Bearer ${token}` } };
@@ -120,7 +121,7 @@ export const postRoutes = async (reqBody) => {
   }
 };
 
-// 修改兩個景點之間的交通方式
+// modify the route data between the two locations
 export const patchRoutes = async (routeId, mode) => {
   const token = localStorage.getItem("token");
   const config = { headers: { Authorization: `Bearer ${token}` } };

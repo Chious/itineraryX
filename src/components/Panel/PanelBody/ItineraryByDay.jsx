@@ -39,7 +39,6 @@ export default function ItineraryByDay({ day, handleFormOpen }) {
                 sx={{
                   width: '45px',
                   height: '45px',
-                  marginTop: '2.5rem',
                 }}
               >
                 <AddBtn onClick={() => handleFormOpen(day)} />
