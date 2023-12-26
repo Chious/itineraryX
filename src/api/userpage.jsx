@@ -145,3 +145,17 @@ export const getJoinedItinerariesId = async () => {
     console.error('[Get total joined itineraries id failed]: ', error)
   }
 }
+
+// get user info
+export const getUserInfo = async (userId) => {
+  try {
+    const url = baseUrl + `/users/${userId}`
+    const token = localStorage.getItem('token')
+    const config = { headers: { Authorization: `Bearer ${token}` } }
+
+    const result = await axios.get(url, config)
+    return result.data.data
+  } catch (error) {
+    console.error('[Get user info failed]: ', error)
+  }
+}
