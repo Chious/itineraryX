@@ -15,7 +15,7 @@ export default function SingleItineraryCard({item}) {
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "2-digit", day: "2-digit" };
     const [month, day, year] = new Date(dateString)
-      .toLocaleDateString(undefined, options)
+      .toLocaleDateString('en-US', options)
       .split('/');
     return `${year}/${month}/${day}`;
   };

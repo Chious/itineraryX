@@ -97,7 +97,7 @@ export const editUser = async (username, file) => {
 
     return response.data;
   } catch (error) {
-    console.error('[Edit User Account failed]: ', error)
+    return error
   }
 };
 
