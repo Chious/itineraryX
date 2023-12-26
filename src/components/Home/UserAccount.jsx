@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import EditUserAccount from '../UserPage/EditUserAccount';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { getUserInfo } from '../../api/userpage';
 
 const Types = ({content, sx}) => {
   return (
@@ -35,11 +36,19 @@ export default function UserAccount() {
   const [userName, setUserName] = useState(data.name)
   const [userAvatar, setUserAvatar] = useState(data.avatar)
 
-  // set user name & avatar up-to-date based on localstorage data
+  // fetch up-to-date user info and render page & update user info data inside local storage
   useEffect(()=>{
-    setUserInfo(data)
-    setUserName(data.name)
-    setUserAvatar(data.avatar)
+    getUserInfo(data.id)
+    .then(newData => {
+      const {name, avatar} = newData.user
+      setUserName(name)
+      setUserAvatar(avatar)
+      // update user info inside local storage
+      localStorage.removeItem('user');
+      localStorage.setItem('user', JSON.stringify({...data, name: name, avatar: avatar}));
+      const newUserInfo = localStorage.getItem('user');
+      setUserInfo(JSON.parse(newUserInfo))
+    })
   }, [localStorage.getItem('user')])
   
   return (
