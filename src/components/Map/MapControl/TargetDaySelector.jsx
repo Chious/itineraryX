@@ -25,7 +25,7 @@ export default function TargetDaySelector() {
       value={targetDay}
       onChange={handleDayChange}
       size="small"
-      sx={{ backgroundColor: 'white', boxShadow: 2 }}
+      sx={{ width: '120px', backgroundColor: 'white', boxShadow: 2 }}
     >
       <MenuItem value={''} disabled>
         select day...

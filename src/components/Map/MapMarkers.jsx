@@ -9,7 +9,9 @@ export default function MapMarkers({ places }) {
 
   return placesToRender.map((placesByDay, day) =>
     placesByDay.map((place, order) => {
-      const color = `hsl(${(day * 30) % 360}deg, 90%, 50%)`;
+      const color = `hsl(${
+        ((day * 50) % 360) + ((day * 60) / 360) * 25
+      }deg, 90%, 50%)`;
 
       return (
         <Marker
@@ -19,6 +21,7 @@ export default function MapMarkers({ places }) {
           place={place}
           label={order + 1}
           color={color}
+          day={day}
         />
       );
     })

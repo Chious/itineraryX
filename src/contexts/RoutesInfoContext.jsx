@@ -3,9 +3,9 @@ import { useContext, createContext, useReducer } from 'react';
 //////////////////// actions ////////////////////
 
 export const routesInfo_actions = {
-  SET_IS_Loaded: 'SET_IS_Loaded', // 設置載入的狀態
-  SET_ROUTES: 'SET_ROUTES', // 儲存交通路線資訊陣列
-  CHANGE_TRANSPORTATION_MODE: 'CHANGE_TRANSPORTATION_MODE', // 修改交通方式
+  SET_IS_Loaded: 'SET_IS_Loaded', // set true if data-fetching completed
+  SET_ROUTES: 'SET_ROUTES', // store the routes
+  CHANGE_TRANSPORTATION_MODE: 'CHANGE_TRANSPORTATION_MODE', // change the trans mode of a route
 };
 
 //////////////////// reducer ////////////////////
@@ -25,7 +25,7 @@ function routesInfoReducer(routesInfo, action) {
       return newRoutesInfo;
     }
     case routesInfo_actions.CHANGE_TRANSPORTATION_MODE: {
-      const { id, transportationMode, durationText } = action.payload;
+      const { id, transportationMode, durationText, durationValue } = action.payload;
       const newRoutes = routesInfo.routes.map((routesByDay) =>
         routesByDay.map((route) => {
           if (route.id === id)
@@ -33,6 +33,7 @@ function routesInfoReducer(routesInfo, action) {
               ...route,
               transportationMode: transportationMode,
               durationText: durationText,
+              durationValue: durationValue,
             };
           else return route;
         })

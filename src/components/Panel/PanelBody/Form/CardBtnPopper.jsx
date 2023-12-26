@@ -109,7 +109,7 @@ export default function CardBtnPopper({ day, destinationId }) {
       destinationId: destinationId,
       datetime: datetime,
     };
-    // 更新前端
+    // update frontend
     routesInfoDispatch({
       type: routesInfo_actions.SET_IS_Loaded,
       payload: false,
@@ -124,15 +124,15 @@ export default function CardBtnPopper({ day, destinationId }) {
       actionType: tripInfo_actions.CHANGE_DESTINATION_TIME,
       destinationData: destination_data,
     });
-    // 更新後端
+    // update backend
     patchDestinations(destinationId, datetime);
-    // 關閉popper與modal表單
+    // close popper & modal
     handlePopperClickAway();
     handleEditModalClose();
   }
 
   function handleDeleteBtnClick(_e) {
-    // 更新前端
+    // update frontend
     routesInfoDispatch({
       type: routesInfo_actions.SET_IS_Loaded,
       payload: false,
@@ -147,9 +147,9 @@ export default function CardBtnPopper({ day, destinationId }) {
       actionType: tripInfo_actions.DELETE_DESTINATION,
       destinationData: destinationId,
     });
-    // 更新後端
+    // update backend
     deleteDestinations(destinationId);
-    // 關閉popper表單
+    // close popper
     setOpenBtnPopper(false);
   }
 
