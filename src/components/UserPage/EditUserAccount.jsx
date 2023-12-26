@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Box, Button, TextField, Stack, Typography } from '@mui/material';
 import { editUser } from "../../api/userpage.jsx";
+import NameRepeatAlertModal from "./NameRepeatAlertModal.jsx";
 
 const style = {
   // position: 'absolute',
@@ -18,25 +19,36 @@ const style = {
 };
 
 export default function EditUserAccount({userName, userAvatar, setUserName, setUserAvatar}) {
-  const [tempName, setTempName] = useState('')
+  const [tempName, setTempName] = useState(userName)
   const [tempAvatar, setTempAvatar] = useState('')
   const { register, handleSubmit } = useForm();
+  
+  // use isNameRepeat as state variable passed to Alert modal for determine open or not
+  const [isNameRepeat, setIsNameRepeat] = useState(false)
 
   useEffect(() => {
     setTempName(userName)
     setTempAvatar(userAvatar)
   }, [userName, userAvatar]);
 
+  // after submit, update name, avatar and user info inside local storage if response success
+  // do error handling if response fail
   const onSubmit = async (data) => {
     try {
-      const responseData = await editUser(data.username, data.file[0]);
-      const name = responseData.data.user.name;
-      const avatar = responseData.data.user.avatar;
-      const userInfo = localStorage.getItem('user');
-      localStorage.removeItem('user');
-      localStorage.setItem('user', JSON.stringify({...JSON.parse(userInfo), name: name, avatar: avatar}));
-      setUserName(name)
-      setUserAvatar(avatar)
+      editUser(data.username, data.file[0])
+      .then(data => {
+        if (data.status === 'success') {
+          const name = data.data.user.name;
+          const avatar = data.data.user.avatar;
+          const userInfo = localStorage.getItem('user');
+          localStorage.removeItem('user');
+          localStorage.setItem('user', JSON.stringify({...JSON.parse(userInfo), name: name, avatar: avatar}));
+          setUserName(name)
+          setUserAvatar(avatar)
+        } else if (data.response.status === 409) {
+          setIsNameRepeat(true)
+        }
+      })
     } catch (error) {
       console.log(error);
     }
@@ -78,6 +90,7 @@ export default function EditUserAccount({userName, userAvatar, setUserName, setU
           </Box>
         </form>
       </Box>
+      <NameRepeatAlertModal isNameRepeat={isNameRepeat} setIsNameRepeat={setIsNameRepeat}/>
     </Box>
   );
 }
