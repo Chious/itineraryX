@@ -30,11 +30,12 @@ const ImageAvatars = ({avatar}) => {
 }
 
 export default function UserAccount() {
-  const [userInfo, setUserInfo] =useState({})
-  const [userName, setUserName] = useState('')
-  const [userAvatar, setUserAvatar] = useState('')
   const data = JSON.parse(localStorage.getItem('user'))
+  const [userInfo, setUserInfo] =useState(data)
+  const [userName, setUserName] = useState(data.name)
+  const [userAvatar, setUserAvatar] = useState(data.avatar)
 
+  // set user name & avatar up-to-date based on localstorage data
   useEffect(()=>{
     setUserInfo(data)
     setUserName(data.name)
