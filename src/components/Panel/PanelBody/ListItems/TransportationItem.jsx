@@ -43,9 +43,15 @@ export default function TransportationItem({ route }) {
   const handleRouteInfoBtnClick = () => setOpenBtnPopper((prev) => !prev);
 
   const handleTransModeEdit = async (mode) => {
-    // 更新後端
+    if (!route?.id) return;
+    // update backend
     const route_data = await patchRoutes(route.id, mode);
-    // 更新前端
+    if (!route_data)
+      // if there's no route data then terminate the execution and pop up the alert
+      return alert(
+        `Sorry, you can't change the transportation mode of this route to '${mode}' because there's no related route data.`
+      );
+    // update frontend
     routesInfoDispatch({
       type: routesInfo_actions.CHANGE_TRANSPORTATION_MODE,
       payload: route_data,
