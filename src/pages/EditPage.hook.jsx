@@ -141,7 +141,7 @@ export function useFetchDataAndCheckAuth() {
           if (!route) {
             const reqBody = {
               itineraryId: itineraryId,
-              transportationMode: 'walking', // 預設值walking
+              transportationMode: 'driving', // default value: driving
               originId: originId,
               destinationId: destinationId,
             };

@@ -28,7 +28,7 @@ function routesInfoReducer(routesInfo, action) {
       const { id, transportationMode, durationText, durationValue } = action.payload;
       const newRoutes = routesInfo.routes.map((routesByDay) =>
         routesByDay.map((route) => {
-          if (route.id === id)
+          if (route?.id === id)
             return {
               ...route,
               transportationMode: transportationMode,
