@@ -1,15 +1,10 @@
 import {
-  Avatar,
   Stack,
   Typography,
-  IconButton,
   Grid,
 } from "@mui/material";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import HomeIcon from "@mui/icons-material/Home";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import {data} from "../../data/our-info"
-import Image from "mui-image";
+import SingleDeveloperCard from "./SingleDeveloperCard";
 
 export default function DeveloperCard() {
   const style = {
@@ -17,8 +12,8 @@ export default function DeveloperCard() {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: "85%",
-    height: "auto",
+    width: "90%",
+    height: "700px",
     bgcolor: "#fdfdfd",
     border: "2px solid transparent",
     borderRadius: "10px",
@@ -29,7 +24,7 @@ export default function DeveloperCard() {
   const cards = data.map((item) => {
     const { name, work, avatar, description, link, id } = item;
     return (
-      <Card
+      <SingleDeveloperCard
         key={id}
         name={name}
         work={work}
@@ -42,12 +37,12 @@ export default function DeveloperCard() {
 
   return (
     <Stack sx={style} alignItems="center" justifyContent="center" spacing={1} bgcolor="white">
-      <Stack direction="row" spacing={2}>
+      <Stack direction="row" spacing={2} >
         <Typography 
           textTransform="uppercase" 
           fontFamily="Poppins" 
           fontWeight={500} 
-          fontSize={50}
+          fontSize={{xs: 40, md: 50}}
           color="#647680"
           letterSpacing={4}
         >
@@ -57,92 +52,36 @@ export default function DeveloperCard() {
           textTransform="uppercase" 
           fontFamily="Poppins" 
           fontWeight={700} 
-          fontSize={50}
+          fontSize={{xs: 40, md: 50}}
           color="#325269"
           letterSpacing={4}
         >
           Team
         </Typography>
       </Stack>
-      <Typography variant="h6" component="h2" color="gray" textAlign="center" fontFamily="Poppins">
+      <Typography 
+        variant="h6" 
+        component="h2" 
+        color="gray" 
+        textAlign="center" 
+        fontFamily="Poppins"
+        fontSize={{xs: 15, md: 20}}
+        style={{marginBottom:"10px"}}
+      >
         We are developers graduated from Alpha camp
         <br />
         This is an collaborative project for a travel application
-        {/* <a style={{ color: "gray", textDecoration: "underline" }}>
-          example.com
-        </a> */}
       </Typography>
       <Grid
         container
         direction="row"
         spacing={2}
+        overflow="scroll"
+        p={2}
+        style={{marginTop:0}}
       >
         {cards}
       </Grid>
     </Stack>
-  );
-}
-
-function Card({ name, work, avatar, description, link }) {
-  const avatarContent = avatar !== "" ? <Image src={avatar} duration={0} /> : name[0];
-
-  const getIcon = (link) => {
-    switch (true) {
-      case /github/i.test(link):
-        return <GitHubIcon className="iconButton" sx={{ color: "#647680" }}/>;
-      case /linkedin/i.test(link):
-        return <LinkedInIcon className="iconButton" sx={{ color: "#647680" }}/>;
-      default:
-        return <HomeIcon className="iconButton" sx={{ color: "#647680" }}/>;
-    }
-  };
-
-  const buttons = link.length !== 0 && link.map((link, index) => (
-    <IconButton key={index} onClick={() => window.open(link)}>
-      {getIcon(link)}
-    </IconButton>
-  ));
-
-  return (
-    <Grid item lg={3}>
-      <Stack
-        sx={{
-          "&:hover": {
-            boxShadow: "-5px 5px 10px 5px rgba(0,0,0,0.25)",
-            bgcolor: "white",
-            "& .iconButton": {
-              color: "#FCA510",
-              transition: "all 0.5s ease-in"
-            },
-          },
-          transition: "all 0.5s ease-in"
-        }}
-        p={3}
-        direction="column"
-        justifyContent="flex-start"
-        alignItems="center"
-        spacing={2}
-        border="1px solid transparent"
-        borderRadius="10px"
-        textAlign="center"
-        height={450}
-      >
-        <Avatar sx={{ width: "120px", height: "120px", borderRadius: "50% 50% 50% 10%" }}>{avatarContent}</Avatar>
-        <Stack spacing={1}>
-          <Typography fontFamily="Poppins" variant="h6" fontWeight={700} color="#FCA510">
-            {name}
-          </Typography>
-          <Typography fontFamily="Poppins" variant="body1" fontWeight={600} color="#325269">
-            {work}
-          </Typography>
-          <Typography fontFamily="Poppins" variant="body2" fontWeight={500} color="#647680">
-            {description}
-          </Typography>
-          <Stack className="btn-group" direction="row" alignItems="center" justifyContent="center">
-            {buttons}
-          </Stack>
-        </Stack>
-      </Stack>
-    </Grid>
   );
 }
