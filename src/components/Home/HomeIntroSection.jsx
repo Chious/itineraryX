@@ -52,7 +52,7 @@ export default function HomeIntroSection () {
         >
           <Typography
             variant="h1"
-            fontSize="8vw"
+            fontSize={{xs:"6vw", md:"8vw"}}
             style={{
               flex: 1,
               color: "white",

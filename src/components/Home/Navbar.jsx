@@ -2,13 +2,8 @@ import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import MoreIcon from '@mui/icons-material/MoreVert';
 import { Stack } from '@mui/material';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
@@ -19,6 +14,7 @@ import logo from '../../images/material/ItineraryX Logo.png'
 import NavbarMobileMoreModal from './NavbarMobileMoreModal';
 import { joinRoom } from '../../socket/socketManager';
 import { socket } from '../../socket/socket';
+import NavbarButtons from './NavbarButtons';
 
 export default function Navbar() {
   // state to store notification fetch data
@@ -104,16 +100,11 @@ export default function Navbar() {
     handleMobileMenuClose();
   };
 
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
-
   // state and function for notification icon
   const [anchorEl2, setAnchorEl2] = React.useState(null);
   const [mobileNotificationAnchorEl, setMobileNotificationAnchorEl] = React.useState(null);
 
   const isNotificationOpen = Boolean(anchorEl2);
-  const isMobileNotificationOpen = Boolean(mobileNotificationAnchorEl);
 
   const handleNotificationOpen = (event) => {
     setAnchorEl2(event.currentTarget);
@@ -185,126 +176,38 @@ export default function Navbar() {
     </Menu>
   );
 
-  // modal after click more icon under mobile mode
-  const mobileMenuId = 'primary-search-account-menu-mobile';
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{
-        vertical: 70,
-        horizontal: 'right',
-      }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{
-        vertical: 0,
-        horizontal: 0,
-      }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <Box style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-        <Button component={Link} to="/user" sx={{height: '50px', fontFamily: 'Poppins', fontWeight: '700'}}>
-          Start!
-        </Button>
-        <MenuItem onClick={handleNotificationOpen}>
-          <IconButton
-            size="large"
-            aria-label="show new notifications"
-            color="inherit"
-          >
-            <Badge badgeContent={unReadNotification.length} color="error">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-        </MenuItem>
-        <MenuItem onClick={handleProfileMenuOpen}>
-          <IconButton
-            size="large"
-            aria-label="account of current user"
-            aria-controls="primary-search-account-menu"
-            aria-haspopup="true"
-            color="inherit"
-          >
-            <AccountCircle />
-          </IconButton>
-        </MenuItem>
-      </Box>
-    </Menu>
-    // <NavbarMobileMoreModal notification={notification} unReadNotification={unReadNotification}/>
-  );
-
   return (
-    <Stack width='100vw' height='64px' flexGrow={1} boxSizing='border-box'>
-      <AppBar position="static" sx={{backgroundColor:'#325269'}} elevation={0}>
-        <Toolbar>
+    <Stack width='100vw' height={{ xs: '48px', md: '64px' }}  flexGrow={1} boxSizing='border-box' justifyContent="center">
+      <AppBar position="static" sx={{backgroundColor:'#325269'}} elevation={0} >
+        <Toolbar boxSizing='border-box' style={{minHeight:'36px'}} >
           <CardMedia
-            style={{width:'150px', height:'30px', objectFit:'cover', filter: 'invert(1)', WebkitFilter: 'invert(1)'}}
             component="img"
             src={logo}
             title="background"
             elevation={0}
             onClick={() => navigate('/home1')}
             sx={{
+              objectFit: 'cover',
+              filter: 'invert(1)',
+              WebkitFilter: 'invert(1)',
               cursor: 'pointer',
               '&:hover': {
                 cursor: 'pointer',
-              }
+              },
+              width: { xs: '80px', md: '150px' },
+              height: { xs: '20px', md: '30px' },
             }}
           />
           <Box sx={{ flexGrow: 1 }} />
-          <Stack direction="row" spacing={3}>
+          <Stack direction="row" spacing={3} height={{ xs: '48px', md: '64px' }} alignItems='center'>
             {/* use isTokenExist to determine whether button need to be rendered */}
             {isTokenExist && 
-              <div>
-                <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                  <Button component={Link} to="/user" sx={{color:'white', fontFamily:'Poppins', fontWeight:700}}>Start!</Button>
-                  <IconButton
-                    size="large"
-                    edge="end"
-                    aria-label="show new notifications"
-                    aria-controls={notificationId}
-                    aria-haspopup="true"
-                    onClick={handleNotificationOpen}
-                    sx={{
-                      margin:'0',
-                      '&:hover': {
-                        backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                      },
-                    }}
-                    disabled={!isTokenExist}
-                  >
-                    <Badge badgeContent={unReadNotification.length} color="error">
-                      <NotificationsIcon 
-                        sx={{
-                          color:'white'
-                        }}
-                      />
-                    </Badge>
-                  </IconButton>
-                  <IconButton
-                    size="large"
-                    edge="end"
-                    aria-label="account of current user"
-                    aria-controls={menuId}
-                    aria-haspopup="true"
-                    onClick={handleProfileMenuOpen}
-                    sx={{
-                      margin:'0',
-                      '&:hover': {
-                        backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                      },
-                    }}
-                    disabled={!isTokenExist}
-                  >
-                    <AccountCircle 
-                      sx={{
-                        color:'white'
-                      }}
-                    />
-                  </IconButton>
-                </Box>
-              </div>
+            <>
+              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                <NavbarButtons notificationId={notificationId} handleNotificationOpen={handleNotificationOpen} isTokenExist={isTokenExist} unReadNotification={unReadNotification} menuId={menuId} handleProfileMenuOpen={handleProfileMenuOpen}/>
+              </Box>
+              <NavbarMobileMoreModal sx={{ display: { xs: 'flex', md: 'none' } }} notificationId={notificationId} handleNotificationOpen={handleNotificationOpen} isTokenExist={isTokenExist} unReadNotification={unReadNotification} menuId={menuId} handleProfileMenuOpen={handleProfileMenuOpen} handleLogOut={handleLogOut}/>
+            </>
             }
             {!isTokenExist && 
               <Button 
@@ -315,30 +218,17 @@ export default function Navbar() {
                 sx={{ 
                   fontFamily:'Poppins', 
                   fontWeight:600, 
-                  fontSize: '16px',
                   backgroundColor:'#FE7A00',
                   color: 'white',
+                  fontSize: {xs:'12px', md:'16px'}
                 }}
               >
                 Login
               </Button>
             }
-            <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-              <IconButton
-                size="large"
-                aria-label="show more"
-                aria-controls={mobileMenuId}
-                aria-haspopup="true"
-                onClick={handleMobileMenuOpen}
-                color="inherit"
-              >
-                <MoreIcon />
-              </IconButton>
-            </Box>
           </Stack>
         </Toolbar>
       </AppBar>
-      {renderMobileMenu}
       {renderMenu}
       {renderNotification}
     </Stack>
