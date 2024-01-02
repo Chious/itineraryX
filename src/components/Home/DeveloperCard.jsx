@@ -13,7 +13,7 @@ export default function DeveloperCard() {
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: "90%",
-    height: "700px",
+    height: "80%",
     bgcolor: "#fdfdfd",
     border: "2px solid transparent",
     borderRadius: "10px",
@@ -42,7 +42,7 @@ export default function DeveloperCard() {
           textTransform="uppercase" 
           fontFamily="Poppins" 
           fontWeight={500} 
-          fontSize={{xs: 40, md: 50}}
+          fontSize={{xs: 20, md: 50}}
           color="#647680"
           letterSpacing={4}
         >
@@ -52,7 +52,7 @@ export default function DeveloperCard() {
           textTransform="uppercase" 
           fontFamily="Poppins" 
           fontWeight={700} 
-          fontSize={{xs: 40, md: 50}}
+          fontSize={{xs: 20, md: 50}}
           color="#325269"
           letterSpacing={4}
         >
@@ -65,7 +65,7 @@ export default function DeveloperCard() {
         color="gray" 
         textAlign="center" 
         fontFamily="Poppins"
-        fontSize={{xs: 15, md: 20}}
+        fontSize={{xs: 10, md: 20}}
         style={{marginBottom:"10px"}}
       >
         We are developers graduated from Alpha camp

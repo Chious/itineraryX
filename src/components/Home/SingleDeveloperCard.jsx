@@ -16,11 +16,11 @@ export default function SingleDeveloperCard({ name, work, avatar, description, l
   const getIcon = (link) => {
     switch (true) {
       case /github/i.test(link):
-        return <GitHubIcon className="iconButton" sx={{ color: "#647680" }}/>;
+        return <GitHubIcon className="iconButton" sx={{ color: "#647680", fontSize: { xs: '1rem', md: '2rem' } }}/>;
       case /linkedin/i.test(link):
-        return <LinkedInIcon className="iconButton" sx={{ color: "#647680" }}/>;
+        return <LinkedInIcon className="iconButton" sx={{ color: "#647680", fontSize: { xs: '1rem', md: '2rem' } }}/>;
       default:
-        return <HomeIcon className="iconButton" sx={{ color: "#647680" }}/>;
+        return <HomeIcon className="iconButton" sx={{ color: "#647680", fontSize: { xs: '1rem', md: '2rem' } }}/>;
     }
   };
 
@@ -31,12 +31,11 @@ export default function SingleDeveloperCard({ name, work, avatar, description, l
   ));
 
   return (
-    <Grid item md={3} xs={12} spacing={1} >
+    <Grid item md={3} xs={12} >
       <Stack
         sx={{
           "&:hover": {
             boxShadow: "-5px 5px 10px 5px rgba(0,0,0,0.25)",
-            bgcolor: "white",
             "& .iconButton": {
               color: "#FCA510",
               transition: "all 0.5s ease-in"
@@ -54,16 +53,36 @@ export default function SingleDeveloperCard({ name, work, avatar, description, l
         textAlign={{ xs: "flex-start", md: "center" }}
         height="auto"
       >
-        <Avatar sx={{ width: "120px", height: "120px", borderRadius: "50% 50% 50% 10%" }}>{avatarContent}</Avatar>
+        <Avatar 
+          sx={{ 
+            width: {xs:"50px" ,md:"120px"}, 
+            height: {xs:"50px" ,md:"120px"}, 
+            borderRadius: "50% 50% 50% 10%" 
+          }}
+        >
+          {avatarContent}
+        </Avatar>
         <Stack spacing={1} className="123">
-          <Typography fontFamily="Poppins" variant="h6" fontWeight={700} color="#FCA510">
+          <Typography 
+            fontFamily="Poppins" 
+            fontWeight={700} 
+            color="#FCA510"
+            sx={{
+              fontSize: { xs: '10px', md: '20px' },
+            }}
+          >
             {name}
           </Typography>
-          <Typography fontFamily="Poppins" variant="body1" fontWeight={600} color="#325269">
+          <Typography 
+            fontFamily="Poppins" 
+            variant="body1" 
+            fontWeight={600} 
+            color="#325269" 
+            sx={{
+              fontSize: { xs: '10px', md: '20px' },
+            }}
+          >
             {work}
-          </Typography>
-          <Typography fontFamily="Poppins" variant="body2" fontWeight={500} color="#647680">
-            {description}
           </Typography>
           <Stack 
             className="btn-group" 
@@ -73,6 +92,17 @@ export default function SingleDeveloperCard({ name, work, avatar, description, l
           >
             {buttons}
           </Stack>
+          <Typography 
+            fontFamily="Poppins" 
+            variant="body2" 
+            fontWeight={500} 
+            color="#647680"
+            sx={{
+              fontSize: { xs: '10px', md: '20px' },
+            }}
+          >
+            {description}
+          </Typography>
         </Stack>
       </Stack>
     </Grid>
