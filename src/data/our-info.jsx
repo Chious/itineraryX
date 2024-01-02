@@ -7,7 +7,7 @@ export const data = [
   {
     id: 1,
     name: "Chen Yu-Hao",
-    work: "Back-end Developer | PM",
+    work: "Backend Developer | PM",
     avatar: image1,
     description:
       "As a junior back-end developer and former facade consultant, my passion lies in tackling challenges to elevate user experiences.",
@@ -19,7 +19,7 @@ export const data = [
   {
     id: 2,
     name: "Chiou Jia-Sheng",
-    work: "Front-end Developer",
+    work: "Frontend Developer",
     avatar: image2,
     description:
       "I'm a front-end developer passionate about building human-centered web pages that provide solutions to users' problems.",
@@ -32,7 +32,7 @@ export const data = [
   {
     id: 3,
     name: "Jessie Liu",
-    work: "Front-end Developer",
+    work: "Frontend Developer",
     avatar: image3,
     description:
       "I'm a front-end developer enthusiastic about creating high-quality web apps with well-designed user interfaces and user experiences.",
@@ -44,7 +44,7 @@ export const data = [
   {
     id: 4,
     name: "Nien Ching",
-    work: "Front-end Developer",
+    work: "Frontend Developer",
     avatar: image4,
     description:
       "As a junior front-end developer with strong creation and communication skills, I am eager to seize any opportunity to contribute value.",

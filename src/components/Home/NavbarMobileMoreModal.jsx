@@ -1,18 +1,11 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import { IconButton, Button } from '@mui/material';
-import MoreIcon from '@mui/icons-material/MoreVert';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import { Badge, Stack } from '@mui/material';
-import { Link } from 'react-router-dom';
-import NotificationButton from './NotificationButton';
+import NavbarButtons from './NavbarButtons';
+import { IconButton } from '@mui/material';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-export default function NavbarMobileMoreModal({notification, unReadNotification, buttonClicked, setButtonClicked}) {
+export default function NavbarMobileMoreModal({notificationId, handleNotificationOpen, isTokenExist, unReadNotification, menuId, handleProfileMenuOpen, handleLogOut}) {
   const [state, setState] = React.useState({
     right: false,
   });
@@ -27,55 +20,37 @@ export default function NavbarMobileMoreModal({notification, unReadNotification,
 
   const list = (anchor) => (
     <Box
-      sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
+      sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : '150px' }}
       role="presentation"
-      // onClick={toggleDrawer(anchor, false)}
+      onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List>
-        <Stack>
-          <Button component={Link} to="/home1" sx={{height: '50px', fontFamily: 'Poppins', fontWeight: '700'}}>
-            Start!
-          </Button>
-        </Stack>
-        <Stack>
-          <Button>
-            <Badge badgeContent='2' color="error">
-              <NotificationsIcon/>
-            </Badge>
-          </Button>
-        </Stack>
-          {notification.map((item) => (
-            <Stack key={item.id} spacing={1} direction='row' justifyContent='flex-start' width={300}>
-              {item.isRead === 0 ? (
-                <Link to={item.redirectUrl}>
-                  <NotificationButton sx={{color: 'red', opacity:'0.7'}} item={item} buttonClicked={buttonClicked} setButtonClicked={setButtonClicked}/>
-                </Link>
-              ) : (
-                <NotificationButton sx={{opacity:'0'}} item={item} buttonClicked={buttonClicked} setButtonClicked={setButtonClicked}/>
-              )}
-            </Stack>
-          ))}
-        <Stack>
-          <Button>
-            <AccountCircle/>
-          </Button>
-        </Stack>
-      </List>
+      <NavbarButtons 
+        notificationId={notificationId} 
+        handleNotificationOpen={handleNotificationOpen} 
+        isTokenExist={isTokenExist} 
+        unReadNotification={unReadNotification} 
+        menuId={menuId} 
+        handleProfileMenuOpen={handleProfileMenuOpen}
+        handleLogOut={handleLogOut}
+      />
     </Box>
   );
 
   return (
-    <div>
-      {[ 'right' ].map((anchor) => (
-        <React.Fragment key={anchor}>
-          <IconButton onClick={toggleDrawer(anchor, true)}>
-            <MoreIcon />
+    <div style={{margin:0}}>
+      {['right'].map((anchor) => (
+        <React.Fragment key={anchor} >
+          <IconButton onClick={toggleDrawer(anchor, true)} sx={{ display: { xs: 'flex', md: 'none' } }}>
+            <MoreVertIcon style={{ color: 'white' }} />
           </IconButton>
           <Drawer
             anchor={anchor}
             open={state[anchor]}
             onClose={toggleDrawer(anchor, false)}
+            PaperProps={{
+              sx: { width: '150px',  } // Set the width here
+            }}
           >
             {list(anchor)}
           </Drawer>

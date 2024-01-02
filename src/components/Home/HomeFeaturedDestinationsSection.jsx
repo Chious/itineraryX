@@ -33,12 +33,12 @@ export default function HomeFeaturedDestinationsSection () {
           direction="column"
           justifyContent="center"
           alignItems="center"
-          spacing={2}
+          spacing={1.5}
           style={{ display: "flex" }}
         >
           <Typography
             variant="h4"
-            fontSize="1.5vw"
+            fontSize={{xs:"1.5vw", md:"2.2vw"}}
             style={{
               color: "#647680",
               fontFamily: "Poppins",
@@ -49,7 +49,7 @@ export default function HomeFeaturedDestinationsSection () {
           </Typography>
           <Typography
             variant="h1"
-            fontSize="3vw"
+            fontSize={{xs:"3vw", md:"4vw"}}
             style={{
               color: "#325269",
               marginTop: "0.5vw",
