@@ -125,7 +125,7 @@ export default function Navbar() {
     setIsTokenExist(false)
     setAnchorEl(false)
     setNotification([])
-    navigate('/home1')
+    navigate('/home')
   }
 
   // modal pop up after click profile icon
@@ -185,7 +185,7 @@ export default function Navbar() {
             src={logo}
             title="background"
             elevation={0}
-            onClick={() => navigate('/home1')}
+            onClick={() => navigate('/home')}
             sx={{
               objectFit: 'cover',
               filter: 'invert(1)',

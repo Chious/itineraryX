@@ -21,17 +21,26 @@ export default function HomeRecommendedSection () {
 
   return (
     <Box width='100vw'>
-      <Grid container spacing={0}>
-        <Grid item xs={7}>
+      <Grid container spacing={0} direction={{md:'row', xs:'column-reverse'}}>
+        <Grid item xs={12} md={7} >
           <Box style={{position:'relative'}}>
             <Card elevation={0}>
               <CardMedia         
                 image="/src/images/spot/California.jpeg"
                 title="background"
                 component="img"
-                style={{width:'60vw', height:'60vw', objectFit:'cover', opacity:'0.1'}}
+                style={{objectFit:'cover', opacity:'0.1'}}
+                sx={{
+                  width: { xs: '100vw', md: '100%' },
+                  height: { xs: '60vw', md: '60vw' },
+                }}
               />
-              <Box style={{position:'absolute', top:'50%', left:'50%', transform: 'translate(-50%, -50%)', width:'40vw'}}>
+              <Box 
+                style={{position:'absolute', top:'50%', left:'50%', transform: 'translate(-50%, -50%)'}}
+                sx={{
+                  width:{xs:'60vw',md:'40vw'}
+                }}
+              >
                 <Box>
                   <DailyCard place={place} image={image} intro={intro}/>
                 </Box>
@@ -39,7 +48,7 @@ export default function HomeRecommendedSection () {
             </Card>
           </Box>
         </Grid>
-        <Grid item xs={5}>
+        <Grid item xs={12} md={5} >
           <Box style={{ position: "relative" }}>
             <Card elevation={0}>
               <CardMedia
@@ -47,11 +56,23 @@ export default function HomeRecommendedSection () {
                 title="background"
                 component="img"
                 style={{
-                  width: "100%",
-                  height: "60vw",
                   objectFit: "cover",
                   opacity: "0.8",
-                  backgroundColor: "#B4C4D9",
+                }}
+                  sx={{
+                  width: { xs: '100vw', md: '100%' },
+                  height: { xs: '25vw', md: '60vw' },
+                }}
+              />
+              <div
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  background:
+                    "linear-gradient(0deg, hsl(205.09,35.48%,50.39%,0.4) 0%, hsl(205.09,35.48%,10.39%,0.4) 100%)",
                 }}
               />
             </Card>
@@ -61,8 +82,9 @@ export default function HomeRecommendedSection () {
                 top: "50%",
                 left: "50%",
                 transform: "translate(-100%, -50%)",
-                padding: "2vw",
-                width: "60vw",
+              }}
+              sx={{
+                width:{xs:'80vw', md:'40vw'}
               }}
             >
               <Stack
@@ -93,31 +115,30 @@ export default function HomeRecommendedSection () {
                           position: "absolute",
                           top: "50%",
                           left: "50%",
-                          transform: "translate(10%, -50%)",
-                          padding: "5vw",
-                          width: "40vw",
+                          padding: "3vw",
+                        }}
+                        sx={{
+                          width:{xs:'80vw', md:'35vw'},
+                          transform: {xs:"translate(-7%, -50%)", md:"translate(-5%, -50%)"},
                         }}
                       >
                         <Box>
-                          <Stack
-                            direction="column"
-                            justifyContent="center"
-                            alignItems="flex-start"
-                            style={{ display: "flex" }}
+                          <Typography
+                            variant="h1"
+                            fontSize="4.5vw"
+                            sx={{ 
+                              color: "white",
+                              fontSize: {xs:'4vw', md:'4vw'},
+                              textAlign:{xs:'center', md:'start'},
+                            }}
+                            style={{
+                              flex: 1,
+                              fontFamily: "Poppins",
+                              fontWeight: 600,
+                            }}
                           >
-                            <Typography
-                              variant="h1"
-                              fontSize="4.5vw"
-                              sx={{ color: "white" }}
-                              style={{
-                                flex: 1,
-                                fontFamily: "Poppins",
-                                fontWeight: 600,
-                              }}
-                            >
-                              Our daily recommended tour
-                            </Typography>
-                          </Stack>
+                            Our daily recommended tour
+                          </Typography>
                           <Typography
                             variant="h1"
                             fontSize="2.5vw"
@@ -128,6 +149,10 @@ export default function HomeRecommendedSection () {
                               color: "#B4C4D9",
                               fontFamily: "Poppins",
                               fontWeight: 600,
+                            }}
+                            sx={{
+                              textAlign:{xs:'center', md:'start'},
+                              fontSize: { xs: '1.6vw', md: '2vw' },
                             }}
                           >
                             Collection of most breath-taking places

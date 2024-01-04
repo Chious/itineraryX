@@ -40,7 +40,7 @@ function UserPageContent() {
         }
       })
     } else {
-      navigate('/home1')
+      navigate('/home')
     }
   }, [needRerender])
 

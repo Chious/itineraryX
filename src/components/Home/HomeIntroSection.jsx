@@ -1,8 +1,9 @@
 import React from "react";
-import { Card, CardMedia, Typography, Box, Stack } from "@mui/material";
+import { Card, CardMedia, Typography, Box, Stack, Button } from "@mui/material";
 import canada from "../../images/spot/Canada-1.jpeg";
+import { Link } from 'react-router-dom';
 
-export default function HomeIntroSection () {
+export default function HomeIntroSection ({isTokenExist}) {
   return (
     <Box style={{ position: "relative", width: "100vw", height: "auto"}} flexGrow={1}>
       <Card elevation={0} style={{ borderRadius: "0px" }}>
@@ -37,9 +38,11 @@ export default function HomeIntroSection () {
       </Card>
       <Box
         style={{
+          height:'45vw',
           position: "absolute",
-          top: "50%",
-          transform: "translate(0, -50%)",
+          // top: "50%",
+          bottom:'0%',
+          // transform: "translate(0, -50%)",
           padding: "5vw",
         }}
       >
@@ -61,12 +64,32 @@ export default function HomeIntroSection () {
             }}
           >
             Explore the world with your friends.
-            {/* <h1>1234</h1>
-            <h2>1234</h2>
-            <h3>1234</h3>
-            <button>123</button> */}
           </Typography>
         </Stack>
+        {isTokenExist && (
+          <Button 
+            variant="contained"  
+            component={Link} 
+            to="/user"
+            sx={{
+              position: 'absolute',
+              bottom: '30px',
+              right: '30px',
+              zIndex: 99,
+              backgroundColor: '#FE7A00',
+              display: {xs:'block', md:'none'}
+            }}
+            style={{
+              flex: 1,
+              color: "white",
+              fontWeight: "800",
+              fontFamily: "Poppins",
+              fontSize: '2vw'
+            }}
+          >
+            Start plan!
+          </Button>
+        )}
       </Box>
     </Box>
   )

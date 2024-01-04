@@ -42,7 +42,7 @@ export default function DeveloperCard() {
           textTransform="uppercase" 
           fontFamily="Poppins" 
           fontWeight={500} 
-          fontSize={{xs: 20, md: 50}}
+          fontSize={{xs: 20, md: 40}}
           color="#647680"
           letterSpacing={4}
         >
@@ -52,7 +52,7 @@ export default function DeveloperCard() {
           textTransform="uppercase" 
           fontFamily="Poppins" 
           fontWeight={700} 
-          fontSize={{xs: 20, md: 50}}
+          fontSize={{xs: 20, md: 40}}
           color="#325269"
           letterSpacing={4}
         >
@@ -65,7 +65,7 @@ export default function DeveloperCard() {
         color="gray" 
         textAlign="center" 
         fontFamily="Poppins"
-        fontSize={{xs: 10, md: 20}}
+        fontSize={{xs: 10, md: 15}}
         style={{marginBottom:"10px"}}
       >
         We are developers graduated from Alpha camp

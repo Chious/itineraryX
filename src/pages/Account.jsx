@@ -9,7 +9,7 @@ export default function Account () {
 
   useEffect(() => {
     if (!localStorage.getItem('token')){
-      navigate('/home1')
+      navigate('/home')
     }
   }, [])
 
