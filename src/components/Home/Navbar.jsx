@@ -177,9 +177,9 @@ export default function Navbar() {
   );
 
   return (
-    <Stack width='100vw' height={{ xs: '48px', md: '64px' }}  flexGrow={1} boxSizing='border-box' justifyContent="center">
+    <Stack width='100vw' height={{ xs: '48px', md: '64px' }}  flexGrow={1} justifyContent="center">
       <AppBar position="static" sx={{backgroundColor:'#325269'}} elevation={0} >
-        <Toolbar boxSizing='border-box' style={{minHeight:'36px'}} >
+        <Toolbar style={{minHeight:'36px'}} >
           <CardMedia
             component="img"
             src={logo}

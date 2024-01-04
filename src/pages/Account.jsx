@@ -18,7 +18,17 @@ export default function Account () {
       <Navbar/>
       <Box display="flex" flexDirection="column" minHeight="100vh">
           <Box sx={{ flexGrow: 1 }} bgcolor='white' >
-            <Box width="100%" height="100%" sx={{ background: "white", p: 5 }}>
+            <Box 
+              width="100%" 
+              height="100%"  
+              sx={{ 
+                background: "white", 
+                p: 5,
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}
+            >
               <UserAccount/>
             </Box>
           </Box>
