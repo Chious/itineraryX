@@ -23,7 +23,7 @@ const ImageAvatars = ({avatar}) => {
       <Avatar 
         alt="avatar" 
         src={avatar}
-        sx={{ width: 100, height: 100 }}
+        sx={{ width: {xs:65, md:90}, height: {xs:65, md:90} }}
       />
       <Types/>
     </Stack>
@@ -52,17 +52,17 @@ export default function UserAccount() {
   }, [localStorage.getItem('user')])
   
   return (
-    <div>
-      <Stack direction="row" spacing={2}>
+    <Stack width={{xs:'90%', md:'60%'}}>
+      <Stack direction="row" spacing={{xs:0, md:2}} justifyContent='start'>
         <ImageAvatars avatar={userInfo.avatar} />
-        <Stack direction='column' spacing={2} alignItems='center' justifyContent='center'>
-          <Types content={userName} sx={{fontSize:'30px'}}/>
-          <Types content={userInfo.email} />
+        <Stack direction='column' spacing={{xs:0, md:2}} alignItems='center' justifyContent='center'>
+          <Types content={userName} sx={{fontSize:{xs:'20px', md:'30px'}}}/>
+          <Types content={userInfo.email} sx={{fontSize:{xs:'10px', md:'20px'}}}/>
         </Stack>        
       </Stack>
-      <Stack direction='row' spacing={2} marginTop={4}>
+      <Stack direction='row' spacing={2} marginTop={{xs:0, md:1}} justifyContent='center'>
         <EditUserAccount userName={userName} userAvatar={userAvatar} setUserName={setUserName} setUserAvatar={setUserAvatar}/>
       </Stack>
-    </div>
+    </Stack>
   );
 }

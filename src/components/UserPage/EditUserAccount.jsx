@@ -1,26 +1,49 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Box, Button, TextField, Stack, Typography } from '@mui/material';
+import { Box, Button, TextField, Stack, Typography, Grid } from '@mui/material';
 import { editUser } from "../../api/userpage.jsx";
 import NameRepeatAlertModal from "./NameRepeatAlertModal.jsx";
+import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
 const style = {
-  // position: 'absolute',
-  // top: '50%',
-  // left: '50%',
-  // transform: 'translate(-50%, -50%)',
-  width: 600,
+  width: '100%',
   bgcolor: 'background.paper',
-  border: '2px solid transparent',
-  borderRadius: "10px",
-  boxShadow: 10,
-  p: 4,
+  p: 2,
   marginTop: 5
 };
+
+function CityName({ children }) {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const fontSize = windowWidth <= 900 ? '14px' : '20px';
+
+  return (
+    <div 
+      style={{ 
+        fontFamily: 'Poppins', 
+        fontWeight:500, 
+        color:"#647680",
+        fontSize: fontSize,
+        padding:'3px 0'
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
 
 export default function EditUserAccount({userName, userAvatar, setUserName, setUserAvatar}) {
   const [tempName, setTempName] = useState(userName)
   const [tempAvatar, setTempAvatar] = useState('')
+  const [tempNumber, setTempNumber] = useState('1234-567-890')
+  const [tempCity, setTempCity] = useState('Taipei')
   const { register, handleSubmit } = useForm();
   
   // use isNameRepeat as state variable passed to Alert modal for determine open or not
@@ -54,39 +77,125 @@ export default function EditUserAccount({userName, userAvatar, setUserName, setU
     }
   };
 
+  const cities = ['Keelung', 'Taipei', 'New Taipei', 'Taoyuan', 'Hsinchu', 'Taichung', 'Chiayi', 'Miaoli', 'Changhua', 'Nantou', 'Yunlin', 'Taichung City', 'Tainan City', 'Kaohsiung City', 'Pingtung', 'Yilan', 'Hualien', 'Taitung', 'Kinmen', 'Lienchiang', 'Penghu'];
+
   return (
     <Box sx={style}>
-      <Typography 
-        // sx={{ mt: 1 }}
-        fontFamily="Poppins"
-        fontSize={30}
-        fontWeight={600}
-        color="#325269"
-      >
-        Edit your account
-      </Typography>
       <Box marginTop={3}>
         <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form">
-          <Stack spacing={4}>
-            <TextField {...register("username")} 
-              type="text" 
-              label={<Typography fontFamily="Poppins" fontWeight={500} color="#647680">Update your username</Typography>}
-              variant="outlined" 
-              value={tempName} 
-              onChange={(e) => setTempName(e.target.value)}
-              InputLabelProps={{ shrink: true }}
-              inputProps={{ style: { fontFamily: 'Poppins', fontWeight:500, color:"#647680", fontSize:"20px" } }}
-            />
-            <TextField {...register("file")} 
-              type="file"  
-              variant="outlined" 
-              label={<Typography fontFamily="Poppins" fontWeight={500} color="#647680">Select your new avatar</Typography>}
-              InputLabelProps={{ shrink: true }}
-              inputProps={{ style: { fontFamily: 'Poppins', fontWeight:500, color:"#647680", fontSize:"20px" } }}
-            />
-          </Stack>
-          <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <Button type="submit" sx={{fontSize:20, marginTop:3, fontFamily:"Poppins", fontWeight:"700"}} >Confirm</Button>
+          <Grid container spacing={4}>
+            <Grid item xs={12} md={6}>
+              <TextField {...register("username")} 
+                fullWidth
+                type="text" 
+                label={<Typography fontFamily="Poppins" fontWeight={500} color="#647680">Username</Typography>}
+                variant="outlined" 
+                value={tempName} 
+                onChange={(e) => setTempName(e.target.value)}
+                InputLabelProps={{ shrink: true }}
+                inputProps={{ 
+                  style: { 
+                    fontFamily: 'Poppins', 
+                    fontWeight:500, 
+                    color:"#647680", 
+                  },
+                  sx:{
+                    fontSize:{xs:'14px', md:'20px'}
+                  }
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <TextField {...register("file")} 
+                fullWidth
+                type="file"  
+                variant="outlined" 
+                label={<Typography fontFamily="Poppins" fontWeight={500} color="#647680">Avatar</Typography>}
+                InputLabelProps={{ shrink: true }}
+                inputProps={{ 
+                  style: { 
+                    fontFamily: 'Poppins', 
+                    fontWeight:500, 
+                    color:"#647680" 
+                  } ,
+                  sx:{
+                    fontSize:{xs:'14px', md:'20px'}
+                  }
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <TextField 
+                fullWidth
+                type="tel" 
+                label={<Typography fontFamily="Poppins" fontWeight={500} color="#647680">Phone Number</Typography>}
+                variant="outlined" 
+                placeholder="1234-567-890"
+                onChange={(e) => setTempNumber(e.target.value)}
+                InputLabelProps={{ shrink: true }}
+                inputProps={{ 
+                  style: { 
+                    fontFamily: 'Poppins', 
+                    fontWeight:500, 
+                    color:"#647680" 
+                  },
+                  sx:{
+                    fontSize:{xs:'14px', md:'20px'}
+                  }
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} md={6} >
+              <FormControl fullWidth>
+                <InputLabel 
+                  id="city-label" 
+                  sx={{ 
+                    fontFamily: 'Poppins', 
+                    fontWeight:500, 
+                    color:"#647680", 
+                    fontSize:{xs:'1rem', md:'20px'},
+                    backgroundColor:'white',
+                    padding:'0 30px 0 8px'
+                  }}
+                >
+                  City
+                </InputLabel>
+                <Select
+                labelId="city-label"
+                id="city-selector"
+                value={tempCity}
+                onChange={(e) => setTempCity(e.target.value)}
+                renderValue={(selected) => <CityName>{selected}</CityName>}
+                >
+                {cities.map((city) => (
+                  <MenuItem 
+                    key={city} 
+                    value={city} 
+                    sx={{ 
+                      fontFamily: 'Poppins', 
+                      fontWeight:500, 
+                      color:"#647680", 
+                      fontSize:{xs:'14px', md:'20px'} 
+                    }}>
+                    {city}
+                  </MenuItem>
+                ))}
+                </Select>
+              </FormControl>
+            </Grid>
+          </Grid>
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <Button 
+              type="submit" 
+              sx={{
+                marginTop:5, 
+                fontFamily:"Poppins", 
+                fontWeight:"700",
+                fontSize:{xs:12, md:20}
+              }} 
+            >
+              Save change
+            </Button>
           </Box>
         </form>
       </Box>
