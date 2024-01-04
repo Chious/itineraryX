@@ -59,21 +59,38 @@ export default function Footer() {
         <Stack
           width="100vw"
           height="auto"
-          direction="row"
           backgroundColor="white"
-          display={"flex"}
           alignItems={"center"}
           justifyContent={"center"}
           marginTop={4}
           marginBottom={1}
           bgcolor={"#325269"}
+          direction={{xs:'column', md:'row'}}
         >
-          <Stack direction="row" spacing={4} alignItems={"center"}>
+          <Stack 
+            direction="row" 
+            spacing={4} 
+            alignItems={"center"}
+            sx={{
+              marginBottom:{
+                xs:1.5,
+                md:0
+              }
+            }}
+          >
             <Typography
               textAlign={"center"}
               color={"white"}
               fontSize={20}
-              sx={{ letterSpacing: 3, fontFamily: "Poppins", fontWeight: 600 }}
+              sx={{ 
+                letterSpacing: 3, 
+                fontFamily: "Poppins", 
+                fontWeight: 600,
+                fontSize:{
+                  xs:15,
+                  md:20
+                }
+              }}
             >
               ItineraryX
             </Typography>
@@ -84,10 +101,16 @@ export default function Footer() {
             alignItems={"center"}
             marginLeft={20}
             marginRight={20}
+            sx={{
+              marginBottom:{
+                xs:1,
+                md:0
+              }
+            }}
           >
             <FooterLink text="About" />
             <FooterLink text="Our Team" onClick={handleOpen} />
-            <FooterLink text="Contract" />
+            <FooterLink text="Contact" />
           </Stack>
           <Stack direction="row" spacing={0} alignItems={"center"}>
             {socialMediaIcons.map((icon, index) => (
@@ -130,7 +153,10 @@ export default function Footer() {
                 InputProps={{
                   sx: {
                     height: "38px",
-                    fontSize: "18px",
+                    fontSize: {
+                    xs:'10px',
+                    md:'15px'
+                  },
                     textAlign: "center",
                     "&::placeholder": {
                       fontSize: "8px",
@@ -144,7 +170,11 @@ export default function Footer() {
                   backgroundColor: "white",
                   fontFamily: "Poppins",
                   fontWeight: 600,
-                  color: '#325269'
+                  color: '#325269',
+                  fontSize:{
+                    xs:'10px',
+                    md:'15px'
+                  }
                 }}
               >
                 Subscribe

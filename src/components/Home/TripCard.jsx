@@ -8,12 +8,18 @@ import {Box} from '@mui/material';
 // trip card template in home page 'Our exclusive trip' section
 export default function TripCard({image, name, info}) {
   return (
-    <Card sx={{width:'15vw', borderRadius:3, boxShadow:'8'}}>
+    <Card sx={{
+      width:{xs:'20vw', md:'15vw'},
+      borderRadius:3, 
+      boxShadow:'8'
+    }}>
       <CardActionArea>
         <Box sx={{ position: 'relative' }}>
           <CardMedia
             component="img"
-            height="200vw"
+            sx={{
+              height:{xs:'25vw', md:'20vw'}
+            }}
             src={image}
             style={{opacity:'0.9'}}
             alt="green iguana"
@@ -28,8 +34,26 @@ export default function TripCard({image, name, info}) {
               padding: '15px',
             }}
           >
-            <Typography variant="h5" sx={{color:'white', fontFamily:'Poppins', fontWeight:600}}>{name}</Typography>
-            <Typography variant="h6" sx={{color:'white', fontSize:'1.5vw', fontFamily:'Poppins', fontWeight:600}}>{info}</Typography>
+            <Typography 
+              variant="h5" 
+              sx={{
+                color:'white', 
+                fontFamily:'Poppins', 
+                fontWeight:600,
+                fontSize:{xs:'3vw', md:'3vw'}
+              }}>
+                {name}
+              </Typography>
+            <Typography 
+              variant="h6" 
+              sx={{
+                color:'white', 
+                fontSize:{xs:'1.5vw', md:'1.5vw'},
+                fontFamily:'Poppins', 
+                fontWeight:600
+              }}>
+                {info}
+              </Typography>
           </Box>
         </Box>
       </CardActionArea>

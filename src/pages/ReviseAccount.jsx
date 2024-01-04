@@ -165,9 +165,9 @@ const ConfirmForm = () => {
       const response = await checkTokenValid({ token: token.current });
 
       if (response !== "success") {
-        navigate("/home1");
+        navigate("/home");
       } else if (token === null) {
-        navigate("/home1");
+        navigate("/home");
       }
     }
   }, []);
