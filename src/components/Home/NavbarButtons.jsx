@@ -20,18 +20,36 @@ export default function NavbarButtons ({
 
   return (
     <div>
-      <Stack direction={{ xs: 'column', md: 'row' }}>
-        <Button 
-          component={Link} 
-          to="/user" 
+      <Stack direction={{ xs: 'column', md: 'row' }} height={48} paddingTop={0}>
+        <IconButton
           sx={{
-            color: { xs: '#325269', md: 'white' }, 
-            fontFamily: 'Poppins', 
-            fontWeight: 700,
+            margin:'0',
+            borderRadius: '10px 10px 10px 10px',
+            '&:hover': {
+              backgroundColor: 'rgba(255, 255, 255, 0.08)',
+            },
           }}
         >
-          Start!
-        </Button>
+          <Button 
+            component={Link} 
+            to="/user" 
+            sx={{
+              width:'100%',
+              color: { xs: '#325269', md: 'white' }, 
+              fontFamily: 'Poppins', 
+              fontWeight: 700,
+              fontSize:{md:'18px'},
+              margin:{
+                xs:'0px', md:'8px'
+              },
+              '&:hover': {
+                color: {xs:'#325269', md:'white'}
+              }
+            }}
+          >
+            Start plan!
+          </Button>
+        </IconButton>
         <IconButton
           size="large"
           edge="end"
@@ -41,44 +59,61 @@ export default function NavbarButtons ({
           onClick={handleNotificationOpen}
           sx={{
             margin:'0',
+            borderRadius: '50%',
             '&:hover': {
               backgroundColor: 'rgba(255, 255, 255, 0.08)',
             },
           }}
           disabled={!isTokenExist}
         >
-          <Badge badgeContent={unReadNotification.length} color="error">
+          <Badge badgeContent={unReadNotification.length} color="error" >
             <NotificationsIcon 
               sx={{
-                color: { xs: '#325269', md: 'white' }
+                width:'100%',
+                color: { xs: '#325269', md: 'white' },
+                display: { xs: 'none', md: 'inline-block' }
               }}
             />
+            <Button
+              sx={{
+                color: { xs: '#325269', md: 'white' }, 
+                fontFamily: 'Poppins', 
+                fontWeight: 700,
+                textAlign:'center',
+                width:'100%',
+                display: { xs: 'block', md: 'none' },
+                margin:{
+                  xs:'0px', md:'8px'
+                },
+              }}
+            >
+              Notification
+            </Button>
           </Badge>
         </IconButton>
         <IconButton
           size="large"
           edge="end"
-          aria-label="account of current user"
+          aria-label="show new notifications"
           aria-controls={menuId}
           aria-haspopup="true"
           onClick={handleProfileMenuOpen}
           sx={{
             margin:'0',
+            borderRadius: '50%',
             '&:hover': {
               backgroundColor: 'rgba(255, 255, 255, 0.08)',
-              borderRadius: '50%'
             },
-            display: { md: 'block', xs: 'none' }
           }}
           disabled={!isTokenExist}
         >
           <AccountCircle 
             sx={{
-              color: { xs: '#325269', md: 'white' }
+              color: { xs: '#325269', md: 'white' },
+              display: { md: 'block', xs: 'none' },
             }}
           />
-        </IconButton>
-          <Button 
+          <Button
             component={Link} 
             to="/account" 
             sx={{
@@ -86,17 +121,25 @@ export default function NavbarButtons ({
               fontFamily: 'Poppins', 
               fontWeight: 700,
               textAlign:'center',
-              display: { md: 'none', xs: 'block' }
+              display: { xs: 'block', md: 'none' },
+              width:'100%',
+              '&:hover': {
+                color: '#325269',
+              }
             }}
           >
             Profile
           </Button>
+        </IconButton>
         <Button 
           sx={{
             color: { xs: '#325269', md: 'white' }, 
             fontFamily: 'Poppins', 
             fontWeight: 700,
-            display: { md: 'none', xs: 'block' }
+            display: { md: 'none', xs: 'block' },
+            margin:{
+              xs:'12px', md:'8px'
+            },
           }}
           onClick={handleLogOut}
         >

@@ -16,11 +16,11 @@ export default function SingleDeveloperCard({ name, work, avatar, description, l
   const getIcon = (link) => {
     switch (true) {
       case /github/i.test(link):
-        return <GitHubIcon className="iconButton" sx={{ color: "#647680", fontSize: { xs: '1rem', md: '2rem' } }}/>;
+        return <GitHubIcon className="iconButton" sx={{ color: "#647680", fontSize: { xs: '1rem', md: '1.5rem' } }}/>;
       case /linkedin/i.test(link):
-        return <LinkedInIcon className="iconButton" sx={{ color: "#647680", fontSize: { xs: '1rem', md: '2rem' } }}/>;
+        return <LinkedInIcon className="iconButton" sx={{ color: "#647680", fontSize: { xs: '1rem', md: '1.5rem' } }}/>;
       default:
-        return <HomeIcon className="iconButton" sx={{ color: "#647680", fontSize: { xs: '1rem', md: '2rem' } }}/>;
+        return <HomeIcon className="iconButton" sx={{ color: "#647680", fontSize: { xs: '1rem', md: '1.5rem' } }}/>;
     }
   };
 
@@ -31,7 +31,7 @@ export default function SingleDeveloperCard({ name, work, avatar, description, l
   ));
 
   return (
-    <Grid item md={3} xs={12} >
+    <Grid item md={3} xs={12} style={{padding:0}}>
       <Stack
         sx={{
           "&:hover": {
@@ -43,7 +43,7 @@ export default function SingleDeveloperCard({ name, work, avatar, description, l
           },
           transition: "all 0.5s ease-in"
         }}
-        p={2}
+        p={1}
         direction={{ xs: "row", md: "column" }}
         justifyContent="flex-start"
         alignItems="center"
@@ -62,13 +62,18 @@ export default function SingleDeveloperCard({ name, work, avatar, description, l
         >
           {avatarContent}
         </Avatar>
-        <Stack spacing={1} className="123">
+        <Stack 
+          className="123"
+          sx={{
+            spacing: {xs:0, md:1}
+          }}
+        >
           <Typography 
             fontFamily="Poppins" 
             fontWeight={700} 
             color="#FCA510"
             sx={{
-              fontSize: { xs: '10px', md: '20px' },
+              fontSize: { xs: '10px', md: '15px' },
             }}
           >
             {name}
@@ -79,7 +84,7 @@ export default function SingleDeveloperCard({ name, work, avatar, description, l
             fontWeight={600} 
             color="#325269" 
             sx={{
-              fontSize: { xs: '10px', md: '20px' },
+              fontSize: { xs: '10px', md: '12px' },
             }}
           >
             {work}
@@ -98,7 +103,7 @@ export default function SingleDeveloperCard({ name, work, avatar, description, l
             fontWeight={500} 
             color="#647680"
             sx={{
-              fontSize: { xs: '10px', md: '20px' },
+              fontSize: { xs: '10px', md: '12px' },
             }}
           >
             {description}
