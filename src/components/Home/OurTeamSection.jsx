@@ -8,7 +8,7 @@ export default function OurTeamSection() {
       sx={{
         position: "relative",
         width: "100%",
-        height: "100vh",
+        height: "90vh",
         backgroundColor: "white",
         "&::before": {
           content: '""',
