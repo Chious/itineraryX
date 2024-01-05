@@ -18,11 +18,18 @@ export default function DailyCard({place, image, intro}) {
       <CardActionArea>
         <CardMedia
           component="img"
-          height="130vw"
           src={image}
           alt="daily card"
+          height='200vw'
+          sx={{
+            height:{xs:'30vw', md:'30vw'}
+          }}
         />
-        <CardContent sx={{height:'22vw'}}>
+        <CardContent 
+          sx={{
+            height:{xs:'18vw', md:'15vw'}
+          }}
+        >
           <Typography 
             gutterBottom 
             variant="h4" 
@@ -31,7 +38,7 @@ export default function DailyCard({place, image, intro}) {
             sx={{
               fontFamily:'Poppins', 
               fontWeight:700, 
-              fontSize:{xs:'3vw', md:'3vw'} 
+              fontSize:{xs:'3vw', md:'2vw'} 
             }}
           >
             {place}
@@ -40,7 +47,7 @@ export default function DailyCard({place, image, intro}) {
             variant="body2" 
             color="#647680" 
             sx={{
-              fontSize:{xs:'2vw', md:'2vw'}, 
+              fontSize:{xs:'2vw', md:'1.5vw'}, 
               fontFamily:'Poppins', 
               fontWeight:600 
             }}
