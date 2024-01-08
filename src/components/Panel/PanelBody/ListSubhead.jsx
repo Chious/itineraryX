@@ -5,7 +5,8 @@ import Typography from '@mui/material/Typography';
 
 const dayNumberStyle = {
   width: '80%',
-  padding: '7px',
+  minWidth: '85px',
+  padding: 6,
   borderRadius: '1.1rem',
   color: 'white',
   fontWeight: '700',
@@ -39,8 +40,8 @@ export default function ListSubhead({ rwdColumn, day }) {
             <Grid container justifyContent="center" alignItems="center">
               <Typography
                 className="day-number"
+                variant="subtitle2"
                 color="white"
-                fontSize="0.95rem"
                 letterSpacing={1}
               >
                 Day {day}

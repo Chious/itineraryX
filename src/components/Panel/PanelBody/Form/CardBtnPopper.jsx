@@ -59,7 +59,6 @@ const EditModalStyle = {
 
 const fieldNameStyle = {
   color: 'primary',
-  fontSize: '1.2rem',
   fontWeight: '500',
   letterSpacing: 1.1,
 };
@@ -169,7 +168,9 @@ export default function CardBtnPopper({ day, destinationId }) {
                   sx={{ padding: '5px', marginTop: '5px' }}
                   onClick={handleEditModalOpen}
                 >
-                  <Typography color="primary">edit</Typography>
+                  <Typography variant="body1" color="primary">
+                    edit
+                  </Typography>
                 </ListItemButton>
 
                 {/* edit time form */}
@@ -184,9 +185,9 @@ export default function CardBtnPopper({ day, destinationId }) {
                         {/* form title */}
                         <Grid item sx={12}>
                           <Typography
+                            variant="h5"
                             color="primary"
                             sx={{
-                              fontSize: '1.7rem',
                               fontWeight: '700',
                               letterSpacing: 1.2,
                               textShadow: `1px 1px 1px ${primaryLightColor}`,
@@ -203,7 +204,11 @@ export default function CardBtnPopper({ day, destinationId }) {
                             xs={3}
                             sx={{ display: 'flex', alignItems: 'center' }}
                           >
-                            <Typography color="primary" sx={fieldNameStyle}>
+                            <Typography
+                              variant="body1"
+                              color="primary"
+                              sx={fieldNameStyle}
+                            >
                               Time
                             </Typography>
                           </Grid>
@@ -279,7 +284,9 @@ export default function CardBtnPopper({ day, destinationId }) {
                   sx={{ padding: '5px' }}
                   onClick={handleDeleteBtnClick}
                 >
-                  <Typography color="primary">delete</Typography>
+                  <Typography variant="body1" color="primary">
+                    delete
+                  </Typography>
                 </ListItemButton>
               </ListItem>
             </List>

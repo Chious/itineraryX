@@ -1,17 +1,19 @@
-import { useEffect, useState } from "react";
-import Stack from "@mui/material/Stack";
+import { useEffect, useState } from 'react';
+import { useMediaQuery } from '@mui/material';
+import Stack from '@mui/material/Stack';
 import PanelLoading from './PanelLoading';
-import PanelControl from "./PanelHead/PanelControl";
-import TabControl from "./PanelHead/TabControl";
-import PanelBody from "./PanelBody/PanelBody";
-import DestinationCreateForm from "./PanelBody/Form/DestinationCreateForm";
-import { useTripInfo } from "@/contexts/TripInfoContext";
+import PanelControl from './PanelHead/PanelControl';
+import TabControl from './PanelHead/TabControl';
+import PanelBody from './PanelBody/PanelBody';
+import DestinationCreateForm from './PanelBody/Form/DestinationCreateForm';
+import { useTripInfo } from '@/contexts/TripInfoContext';
 import {
   currentTarget_actions,
   useCurrentTargetDispatch,
-} from "@/contexts/CurrentTargetContext";
+} from '@/contexts/CurrentTargetContext';
 
 export default function Panel({ handleOpenChat }) {
+  const isDesktop = useMediaQuery((theme) => theme.breakpoints.up('md'));
   const tripInfo = useTripInfo();
   const currentTargetDispatch = useCurrentTargetDispatch();
   const [displayLoading, setDisplayLoading] = useState(true);
@@ -45,7 +47,7 @@ export default function Panel({ handleOpenChat }) {
         width="100%"
         height="100%"
         sx={{
-          boxShadow: 5,
+          boxShadow: isDesktop ? 5 : 0,
           backgroundColor: 'white',
         }}
       >
@@ -60,9 +62,9 @@ export default function Panel({ handleOpenChat }) {
       width="100%"
       height="100%"
       sx={{
-        position: "relative",
+        position: 'relative',
         zIndex: 1,
-        boxShadow: 5,
+        boxShadow: isDesktop ? 5 : 0,
         backgroundColor: 'white',
       }}
     >

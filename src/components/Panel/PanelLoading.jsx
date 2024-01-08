@@ -1,10 +1,12 @@
 import { Fragment } from 'react';
-import { Grid, Skeleton, Stack } from '@mui/material';
+import { Grid, Skeleton, Stack, useMediaQuery } from '@mui/material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 const rwdColumns = [4, 8];
 
 export default function PanelLoading() {
+  const isDesktop = useMediaQuery((theme) => theme.breakpoints.up('md'));
+
   return (
     <Grid container width="100%" height="100%">
       {/* panel head */}
@@ -140,17 +142,19 @@ export default function PanelLoading() {
                 }}
               >
                 {/* destination image */}
-                <Grid item width="100px">
-                  <Skeleton
-                    animation="wave"
-                    variant="rounded"
-                    sx={{
-                      width: '100px',
-                      height: '130px',
-                      borderRadius: '10px 0 0 10px',
-                    }}
-                  />
-                </Grid>
+                {isDesktop && (
+                  <Grid item width="100px">
+                    <Skeleton
+                      animation="wave"
+                      variant="rounded"
+                      sx={{
+                        width: '100px',
+                        height: '130px',
+                        borderRadius: '10px 0 0 10px',
+                      }}
+                    />
+                  </Grid>
+                )}
 
                 {/* destination info */}
                 <Grid
