@@ -24,6 +24,7 @@ export default function ListSubhead({ rwdColumn, day }) {
         margin: 0,
         padding: 0,
         backgroundColor: 'white',
+        position: { xs: 'relative', md: 'sticky' },
         transform: 'translate(0,-5px)', // solve the gap problem of 'position: sticky'
       }}
     >

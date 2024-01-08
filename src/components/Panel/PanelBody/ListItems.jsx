@@ -66,7 +66,7 @@ export default function ListItems({ rwdColumns, day }) {
   return destinationsByDay.map((_, order) => (
     <Box key={`destination-${destinationsByDay[order].destinationId}`}>
       {/* transportation */}
-      <ListItem sx={{ p: '0.7rem' }}>
+      <ListItem sx={{ p: { md: '0.7rem' } }}>
         <Grid container justifyContent="flex-end" p={0} height={35}>
           <Grid
             item

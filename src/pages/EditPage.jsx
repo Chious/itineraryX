@@ -96,7 +96,11 @@ export default function EditPage() {
       {isDesktop ? (
         <EditPageDesktop handleOpenChat={handleOpenChat} isLoaded={isLoaded} />
       ) : (
-        <EditPageMobile marginIndex={marginIndex} isLoaded={isLoaded} />
+        <EditPageMobile
+          marginIndex={marginIndex}
+          handleMarginIndexChange={handleMarginIndexChange}
+          isLoaded={isLoaded}
+        />
       )}
     </Box>
   );

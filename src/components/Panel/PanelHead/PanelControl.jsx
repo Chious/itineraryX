@@ -29,7 +29,7 @@ export default function PanelControl({ handleOpenChat }) {
       alignItems="center"
       position="relative"
       px={3}
-      py={1.5}
+      py={{ xs: 1, md: 1.5 }}
     >
       {/* return-to-user-page icon */}
       {isDesktop && (

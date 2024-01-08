@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Stack from '@mui/material/Stack';
 import Grid from '@mui/material/Grid';
 import Map from '../components/Map/Map';
@@ -18,17 +19,32 @@ function Puller() {
   );
 }
 
-export default function EditPageMobile({ marginIndex, isLoaded }) {
+export default function EditPageMobile({
+  marginIndex,
+  handleMarginIndexChange,
+  isLoaded,
+}) {
+  const [touchStartY, setTouchStartY] = useState(0);
+  const handleTouchStart = (e) => setTouchStartY(e.changedTouches[0].screenY);
+  const handleTouchEnd = (e) => {
+    const touchEndY = e.changedTouches[0].screenY;
+    if (touchEndY > touchStartY && marginIndex > 0)
+      handleMarginIndexChange(marginIndex - 1);
+    if (touchEndY < touchStartY && marginIndex < 2)
+      handleMarginIndexChange(marginIndex + 1);
+  };
+
   return (
     <>
       <Stack
         container
-        // direction="column"
         position="relative"
         sx={{ height: 'calc(100vh - 48px)' }}
       >
+        {/* map */}
         <Map isLoaded={isLoaded} />
 
+        {/* panel */}
         <Grid
           container
           justifyContent="center"
@@ -44,11 +60,21 @@ export default function EditPageMobile({ marginIndex, isLoaded }) {
             backgroundColor: 'white',
             boxShadow: 10,
             overflow: 'hidden',
+            transition: 'all 0.2s ease',
           }}
         >
-          <Grid item padding={1.5}>
+          <Grid
+            container
+            justifyContent="center"
+            alignItems="center"
+            width="100%"
+            padding={1.5}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+          >
             <Puller />
           </Grid>
+
           <Grid item width="100%" height="95%">
             <Panel />
           </Grid>

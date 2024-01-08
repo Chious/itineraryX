@@ -14,7 +14,7 @@ export default function PanelLoading() {
         <Skeleton animation="wave" variant="rectangular" height={40} />
       </Grid>
       <Grid item xs={12} px={7} paddingBottom={0.5}>
-        <Skeleton animation="wave" variant="rectangular" height={35} />
+        <Skeleton animation="wave" variant="rectangular" height={55} />
       </Grid>
 
       {/* panel body */}
