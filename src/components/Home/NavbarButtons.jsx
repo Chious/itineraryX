@@ -69,7 +69,6 @@ export default function NavbarButtons ({
           <Badge badgeContent={unReadNotification.length} color="error" >
             <NotificationsIcon 
               sx={{
-                width:'100%',
                 color: { xs: '#325269', md: 'white' },
                 display: { xs: 'none', md: 'inline-block' }
               }}
