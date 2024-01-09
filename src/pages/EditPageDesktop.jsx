@@ -2,7 +2,11 @@ import Grid from '@mui/material/Grid';
 import Panel from '../components/Panel/Panel';
 import Map from '../components/Map/Map';
 
-export default function EditPageDesktop({ handleOpenChat, isLoaded }) {
+export default function EditPageDesktop({
+  displayLoading,
+  handleOpenChat,
+  isLoaded,
+}) {
   return (
     <>
       <Grid
@@ -14,7 +18,10 @@ export default function EditPageDesktop({ handleOpenChat, isLoaded }) {
       >
         {/* Panel component */}
         <Grid item md={4} minWidth="480px" height="100%">
-          <Panel handleOpenChat={handleOpenChat} />
+          <Panel
+            displayLoading={displayLoading}
+            handleOpenChat={handleOpenChat}
+          />
         </Grid>
 
         {/* Map component */}

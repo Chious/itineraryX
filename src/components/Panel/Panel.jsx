@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useMediaQuery } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import PanelLoading from './PanelLoading';
@@ -6,17 +6,18 @@ import PanelControl from './PanelHead/PanelControl';
 import TabControl from './PanelHead/TabControl';
 import PanelBody from './PanelBody/PanelBody';
 import DestinationCreateForm from './PanelBody/Form/DestinationCreateForm';
-import { useTripInfo } from '@/contexts/TripInfoContext';
 import {
   currentTarget_actions,
   useCurrentTargetDispatch,
 } from '@/contexts/CurrentTargetContext';
 
-export default function Panel({ handleOpenChat, handleMarginIndexChange }) {
+export default function Panel({
+  displayLoading,
+  handleOpenChat,
+  handleMarginIndexChange,
+}) {
   const isDesktop = useMediaQuery((theme) => theme.breakpoints.up('md'));
-  const tripInfo = useTripInfo();
   const currentTargetDispatch = useCurrentTargetDispatch();
-  const [displayLoading, setDisplayLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('0');
   const [openForm, setOpenForm] = useState(false);
   const [dayOfForm, setDayOfForm] = useState(1);
@@ -30,16 +31,6 @@ export default function Panel({ handleOpenChat, handleMarginIndexChange }) {
       type: currentTarget_actions.DELETE_TARGET_PLACE,
     });
   };
-
-  // display loading animation before data-fetching completed
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (tripInfo.isLoaded) {
-        setDisplayLoading(false);
-        clearTimeout(timer);
-      }
-    }, 2000);
-  }, [tripInfo.isLoaded]);
 
   if (displayLoading) {
     return (

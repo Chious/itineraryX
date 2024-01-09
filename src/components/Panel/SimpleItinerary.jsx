@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
 import moment from 'moment';
+import Skeleton from '@mui/material/Skeleton';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
@@ -41,13 +42,17 @@ const orderStyle = {
   alignItems: 'center',
 };
 
-export default function SimpleItinerary() {
+export default function SimpleItinerary({ displayLoading }) {
   const targetDay = useCurrentTarget().targetDay;
   const tripInfo = useTripInfo();
   const startDate = moment(tripInfo.itinerary.startTime);
   const destinations = tripInfo.destinations;
   const destinationsToRender =
     targetDay === 0 ? destinations : [destinations[targetDay - 1]];
+
+  if (displayLoading) {
+    return <Skeleton width="100%" height="100%" />;
+  }
 
   return destinationsToRender.map((_, day) => (
     <Stack

@@ -21,6 +21,7 @@ function Puller() {
 }
 
 export default function EditPageMobile({
+  displayLoading,
   marginIndex,
   handleMarginIndexChange,
   isLoaded,
@@ -55,7 +56,7 @@ export default function EditPageMobile({
             borderTopRightRadius: 20,
             backgroundColor: 'white',
             boxShadow: 10,
-            transition: 'top 0.2s ease',
+            transition: 'all 0.2s ease',
           }}
         >
           {/* the puller for swiping */}
@@ -93,7 +94,7 @@ export default function EditPageMobile({
                     overflowY: 'hidden',
                   }}
                 >
-                  <SimpleItinerary />
+                  <SimpleItinerary displayLoading={displayLoading} />
                 </Grid>
               </Grid>
             ) : (

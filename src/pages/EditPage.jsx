@@ -29,9 +29,11 @@ export default function EditPage() {
   const [openChat, setOpenChat] = useState(false); // open the Chatroom
   const handleOpenChat = () => setOpenChat(true);
 
+  const [displayLoading, setDisplayLoading] = useState(true);
   const [marginIndex, setMarginIndex] = useState(0); // margin top of mobile panel
   const handleMarginIndexChange = (newIndex) => setMarginIndex(newIndex);
-  const tripInfoFetchFailed = useTripInfo().isFailed;
+  const tripInfo = useTripInfo();
+  const tripInfoFetchFailed = tripInfo.isFailed;
   useFetchDataAndCheckAuth();
 
   useEffect(() => {
@@ -40,9 +42,6 @@ export default function EditPage() {
       navigate('/home');
     }
   }, [tripInfoFetchFailed]);
-
-  // websocket
-  useEditPageSocket();
 
   // Load the Maps JavaScript API
   const { isLoaded } = useJsApiLoader({
@@ -58,6 +57,19 @@ export default function EditPage() {
     const isValidId = ids.includes(parseInt(itineraryId));
     setIsValid(isValidId);
   }, []);
+
+  // display loading animation before data-fetching completed
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (tripInfo.isLoaded) {
+        setDisplayLoading(false);
+        clearTimeout(timer);
+      }
+    }, 1000);
+  }, [tripInfo.isLoaded]);
+
+  // websocket
+  useEditPageSocket();
 
   return (
     <Box
@@ -94,9 +106,14 @@ export default function EditPage() {
 
       {/* edit page content */}
       {isDesktop ? (
-        <EditPageDesktop handleOpenChat={handleOpenChat} isLoaded={isLoaded} />
+        <EditPageDesktop
+          displayLoading={displayLoading}
+          handleOpenChat={handleOpenChat}
+          isLoaded={isLoaded}
+        />
       ) : (
         <EditPageMobile
+          displayLoading={displayLoading}
           marginIndex={marginIndex}
           handleMarginIndexChange={handleMarginIndexChange}
           isLoaded={isLoaded}
