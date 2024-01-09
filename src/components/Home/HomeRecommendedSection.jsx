@@ -3,11 +3,25 @@ import { Card, CardMedia, Typography, Box, Stack, Grid } from "@mui/material";
 import DailyCard from "../Home/DailyCard";
 import { destination } from "../../api/home";
 import fall from "../../images/spot/What to do in Lesotho_ Best Things to do in the Kingdom in the Sky.jpeg";
+import california from '../../images/spot/California.jpeg'
+import { Blurhash } from "react-blurhash";
 
 export default function HomeRecommendedSection () {
   const [place, setPlace] = useState(null);
   const [image, setImage] = useState(null);
   const [intro, setIntro] = useState(null);
+
+  // state for make sure image finish loaded or not
+  const [isLoaded, setIsLoaded] = useState(false)
+
+  // when image finished loaded, set isLoaded to true
+  useEffect(() => {
+    const img = new Image()
+    img.onload = () => {
+      setIsLoaded(true)
+    }
+    img.src = california
+  }, [california])
 
   useEffect(() => {
     destination().then((data) => {
@@ -24,17 +38,32 @@ export default function HomeRecommendedSection () {
       <Grid container spacing={0} direction={{md:'row', xs:'column-reverse'}}>
         <Grid item xs={12} md={7} >
           <Box style={{position:'relative'}}>
-            <Card elevation={0}>
-              <CardMedia         
-                image="/src/images/spot/California.jpeg"
-                title="background"
-                component="img"
-                style={{objectFit:'cover', opacity:'0.1'}}
-                sx={{
-                  width: { xs: '100vw', md: '100%' },
-                  height: { xs: '60vw', md: '60vw' },
-                }}
-              />
+              <div style={{backgroundColor:'white'}}>
+              {/* display blur image before image finish loaded */}
+                <div style={{display: isLoaded ? 'none' : 'inline', opacity:'0.2'}}>
+                  <Blurhash
+                    hash="LrBz@cp1WAV[OekEocj]RpaJofoz"
+                    width='100%'
+                    height='60vw'
+                    resolutionX={32}
+                    resolutionY={32}
+                    punch={ 1 }
+                  />
+                </div>
+                {/* actual background image */}
+                <img
+                  src={california}
+                  title="background"
+                  component="img"
+                  style={{
+                    width: "100%",
+                    height: "60vw",
+                    objectFit: "cover",
+                    opacity: "0.2",
+                    display: !isLoaded ? 'none' : 'inline'
+                  }}
+                />
+              </div>
               <Box 
                 style={{position:'absolute', top:'50%', left:'50%', transform: 'translate(-50%, -50%)'}}
                 sx={{
@@ -45,7 +74,6 @@ export default function HomeRecommendedSection () {
                   <DailyCard place={place} image={image} intro={intro}/>
                 </Box>
               </Box>
-            </Card>
           </Box>
         </Grid>
         <Grid item xs={12} md={5} >

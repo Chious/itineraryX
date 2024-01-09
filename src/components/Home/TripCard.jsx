@@ -22,7 +22,7 @@ export default function TripCard({image, name, info}) {
             }}
             src={image}
             style={{opacity:'0.9'}}
-            alt="green iguana"
+            alt={name}
           />
           <Box
             sx={{
