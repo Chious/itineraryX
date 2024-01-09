@@ -186,7 +186,8 @@ export default function HomeExclusiveTripSection () {
                           fontWeight: 600,
                         }}
                         sx={{
-                          marginBottom:{xs:'3vw', md:'40px'}
+                          marginBottom:{xs:'3vw', md:'40px'},
+                          fontSize: { xs: '4vw', md: '4vw' },
                         }}
                       >
                         Our exclusive trip
@@ -246,6 +247,10 @@ export default function HomeExclusiveTripSection () {
                           marginBottom: "1vw",
                           fontFamily: "Poppins",
                           fontWeight: 600,
+                        }}
+                        sx={{
+                          marginBottom:{xs:'3vw', md:'40px'},
+                          fontSize: { xs: '3vw', md: '3vw' },
                         }}
                       >
                         Your trip helper
