@@ -12,7 +12,7 @@ import {
   useCurrentTargetDispatch,
 } from '@/contexts/CurrentTargetContext';
 
-export default function Panel({ handleOpenChat }) {
+export default function Panel({ handleOpenChat, handleMarginIndexChange }) {
   const isDesktop = useMediaQuery((theme) => theme.breakpoints.up('md'));
   const tripInfo = useTripInfo();
   const currentTargetDispatch = useCurrentTargetDispatch();
@@ -80,6 +80,7 @@ export default function Panel({ handleOpenChat }) {
         <DestinationCreateForm
           dayOfForm={dayOfForm}
           handleFormClose={handleFormClose}
+          handleMarginIndexChange={handleMarginIndexChange}
         />
       )}
     </Stack>

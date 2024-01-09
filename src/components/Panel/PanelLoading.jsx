@@ -11,7 +11,7 @@ export default function PanelLoading() {
     <Grid container width="100%" height="100%">
       {/* panel head */}
       <Grid item xs={12} px={3} py={1.5}>
-        <Skeleton animation="wave" variant="rectangular" height={40} />
+        <Skeleton animation="wave" variant="rectangular" height={45} />
       </Grid>
       <Grid item xs={12} px={7} paddingBottom={0.5}>
         <Skeleton animation="wave" variant="rectangular" height={55} />
@@ -50,7 +50,7 @@ export default function PanelLoading() {
           <Skeleton
             animation="wave"
             variant="rounded"
-            height={40}
+            height={35}
             sx={{ borderRadius: '1.1rem' }}
           />
         </Grid>

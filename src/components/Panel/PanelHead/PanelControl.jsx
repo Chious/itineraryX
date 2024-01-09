@@ -32,8 +32,8 @@ export default function PanelControl({ handleOpenChat }) {
       py={{ xs: 1, md: 1.5 }}
     >
       {/* return-to-user-page icon */}
-      {isDesktop && (
-        <Grid item xs={1} flexShrink={0}>
+      <Grid item xs={1} flexShrink={0} flexGrow={0}>
+        {isDesktop && (
           <ArrowBackIosIcon
             onClick={returnToUserPage}
             fontSize="medium"
@@ -49,14 +49,15 @@ export default function PanelControl({ handleOpenChat }) {
               },
             }}
           />
-        </Grid>
-      )}
+        )}
+      </Grid>
 
       {/* itinerary title */}
       <Grid
         item
         xs={12}
-        md={9}
+        md={10}
+        px={1}
         sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
       >
         <Typography
@@ -80,8 +81,8 @@ export default function PanelControl({ handleOpenChat }) {
       </Grid>
 
       {/* chatroom icon */}
-      {isDesktop && canEdit && (
-        <Grid item xs={1} flexShrink={0}>
+      <Grid item xs={1} flexShrink={0} flexGrow={0}>
+        {isDesktop && canEdit && (
           <ForumIcon
             onClick={handleOpenChat}
             fontSize="medium"
@@ -97,8 +98,8 @@ export default function PanelControl({ handleOpenChat }) {
               },
             }}
           />
-        </Grid>
-      )}
+        )}
+      </Grid>
     </Grid>
   );
 }

@@ -60,20 +60,11 @@ const formStyle = {
   overflowY: { xs: 'scroll', md: 'hidden' },
 };
 
-const fieldNameStyle = {
-  marginTop: 1,
-  color: 'primary',
-  fontSize: '1.2rem',
-  fontWeight: '500',
-  letterSpacing: 1.1,
-};
-
-const center = {
-  lat: 23.42926,
-  lng: 120.92492,
-};
-
-export default function DestinationCreateForm({ dayOfForm, handleFormClose }) {
+export default function DestinationCreateForm({
+  dayOfForm,
+  handleFormClose,
+  handleMarginIndexChange,
+}) {
   const [inputValue, setInputValue] = useState('');
   const [autocomplete, setAutocomplete] = useState(null);
   const { itineraryId } = useParams();
@@ -113,6 +104,7 @@ export default function DestinationCreateForm({ dayOfForm, handleFormClose }) {
     if (autocomplete !== null) {
       const place = autocomplete.getPlace();
       setInputValue(place.name);
+      handleMarginIndexChange?.(1); // automatically swipe panel to view map (mobile version)
       // update backend
       const placeData = await postMaps(place.place_id);
       // update frontend

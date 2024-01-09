@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import Stack from '@mui/material/Stack';
 import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 import Map from '../components/Map/Map';
 import Panel from '../components/Panel/Panel';
 
-const marginTop = ['85%', '50%', '0.1%'];
+const marginTop = ['85%', '50%', '0.2%'];
 
 function Puller() {
   return (
@@ -36,19 +36,14 @@ export default function EditPageMobile({
 
   return (
     <>
-      <Stack
-        container
-        position="relative"
-        sx={{ height: 'calc(100vh - 48px)' }}
-      >
+      <Box width="100%" height="calc(100vh - 48px)" position="relative">
         {/* map */}
-        <Map isLoaded={isLoaded} />
+        <Box height="86%">
+          <Map width="100%" isLoaded={isLoaded} />
+        </Box>
 
         {/* panel */}
-        <Grid
-          container
-          justifyContent="center"
-          alignItems="center"
+        <Box
           sx={{
             position: 'absolute',
             top: marginTop[marginIndex],
@@ -59,8 +54,7 @@ export default function EditPageMobile({
             borderTopRightRadius: 20,
             backgroundColor: 'white',
             boxShadow: 10,
-            overflow: 'hidden',
-            transition: 'all 0.2s ease',
+            transition: 'top 0.2s ease',
           }}
         >
           <Grid
@@ -68,18 +62,18 @@ export default function EditPageMobile({
             justifyContent="center"
             alignItems="center"
             width="100%"
-            padding={1.5}
+            height="30px"
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
           >
             <Puller />
           </Grid>
 
-          <Grid item width="100%" height="95%">
-            <Panel />
-          </Grid>
-        </Grid>
-      </Stack>
+          <Box width="100%" height="calc(100% - 30px)">
+            <Panel handleMarginIndexChange={handleMarginIndexChange} />
+          </Box>
+        </Box>
+      </Box>
     </>
   );
 }
