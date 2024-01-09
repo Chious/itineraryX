@@ -3,6 +3,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Map from '../components/Map/Map';
 import Panel from '../components/Panel/Panel';
+import SimpleItinerary from '../components/Panel/SimpleItinerary';
 
 const marginTop = ['85%', '50%', '0.2%'];
 
@@ -57,6 +58,7 @@ export default function EditPageMobile({
             transition: 'top 0.2s ease',
           }}
         >
+          {/* the puller for swiping */}
           <Grid
             container
             justifyContent="center"
@@ -69,8 +71,34 @@ export default function EditPageMobile({
             <Puller />
           </Grid>
 
+          {/* itinerary */}
           <Box width="100%" height="calc(100% - 30px)">
-            <Panel handleMarginIndexChange={handleMarginIndexChange} />
+            {marginIndex === 0 ? (
+              <Grid
+                container
+                alignItems="center"
+                width="100%"
+                height="100%"
+                px={1}
+                overflow="hidden"
+              >
+                <Grid
+                  container
+                  flexDirection="row"
+                  flexWrap="nowrap"
+                  height="100%"
+                  px={1}
+                  sx={{
+                    overflowX: 'scroll',
+                    overflowY: 'hidden',
+                  }}
+                >
+                  <SimpleItinerary />
+                </Grid>
+              </Grid>
+            ) : (
+              <Panel handleMarginIndexChange={handleMarginIndexChange} />
+            )}
           </Box>
         </Box>
       </Box>
