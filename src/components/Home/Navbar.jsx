@@ -16,7 +16,7 @@ import { joinRoom } from '../../socket/socketManager';
 import { socket } from '../../socket/socket';
 import NavbarButtons from './NavbarButtons';
 
-export default function Navbar() {
+export default function Navbar({ children }) {
   // state to store notification fetch data
   const [notification, setNotification] = React.useState([])
 
@@ -194,22 +194,13 @@ export default function Navbar() {
               '&:hover': {
                 cursor: 'pointer',
               },
-              width: { xs: '80px', md: '150px' },
+              width: { xs: '100px', md: '150px' },
               height: { xs: '20px', md: '30px' },
             }}
           />
           <Box sx={{ flexGrow: 1 }} />
           <Stack direction="row" spacing={3} height={{ xs: '48px', md: '64px' }} alignItems='center'>
-            {/* use isTokenExist to determine whether button need to be rendered */}
-            {isTokenExist && 
-            <>
-              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                <NavbarButtons notificationId={notificationId} handleNotificationOpen={handleNotificationOpen} isTokenExist={isTokenExist} unReadNotification={unReadNotification} menuId={menuId} handleProfileMenuOpen={handleProfileMenuOpen}/>
-              </Box>
-              <NavbarMobileMoreModal sx={{ display: { xs: 'flex', md: 'none' } }} notificationId={notificationId} handleNotificationOpen={handleNotificationOpen} isTokenExist={isTokenExist} unReadNotification={unReadNotification} menuId={menuId} handleProfileMenuOpen={handleProfileMenuOpen} handleLogOut={handleLogOut}/>
-            </>
-            }
-            {!isTokenExist && 
+            {!isTokenExist ? (
               <Button 
                 component={Link} 
                 to="/login" 
@@ -225,6 +216,19 @@ export default function Navbar() {
               >
                 Login
               </Button>
+            ) : (
+              <Box sx={{ display: { xs: 'flex', md: 'none' }, alignItems: 'center' }}>
+                {children}
+              </Box>
+            )}
+            {/* use isTokenExist to determine whether button need to be rendered */}
+            {isTokenExist && 
+            <>
+              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                <NavbarButtons notificationId={notificationId} handleNotificationOpen={handleNotificationOpen} isTokenExist={isTokenExist} unReadNotification={unReadNotification} menuId={menuId} handleProfileMenuOpen={handleProfileMenuOpen}/>
+              </Box>
+              <NavbarMobileMoreModal sx={{ display: { xs: 'flex', md: 'none' } }} notificationId={notificationId} handleNotificationOpen={handleNotificationOpen} isTokenExist={isTokenExist} unReadNotification={unReadNotification} menuId={menuId} handleProfileMenuOpen={handleProfileMenuOpen} handleLogOut={handleLogOut}/>
+            </>
             }
           </Stack>
         </Toolbar>

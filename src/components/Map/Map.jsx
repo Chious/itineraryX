@@ -71,7 +71,7 @@ export default function Map({ isLoaded }) {
         setDisplayLoading(false);
         clearTimeout(timer);
       }
-    }, 2500);
+    }, 1500);
   }, [isLoaded]);
 
   if (displayLoading) {

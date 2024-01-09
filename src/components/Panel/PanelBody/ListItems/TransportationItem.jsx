@@ -83,7 +83,12 @@ export default function TransportationItem({ route }) {
     () => (
       <Stack height="100%" direction="row" spacing={1.3}>
         {icons[route?.transportationMode ?? 'driving'].icon}
-        <Typography color="primary" fontWeight="600" textTransform="none">
+        <Typography
+          variant="body1"
+          color="primary"
+          fontWeight="600"
+          textTransform="none"
+        >
           about {route?.durationText}
         </Typography>
       </Stack>
@@ -116,7 +121,7 @@ export default function TransportationItem({ route }) {
           <List sx={{ p: 1 }}>
             {/* form title */}
             <ListItem sx={{ px: 2, display: 'flex', justifyContent: 'center' }}>
-              <Typography color="primary" fontWeight="600">
+              <Typography variant="body1" color="primary" fontWeight="600">
                 Transportation Mode
               </Typography>
             </ListItem>
@@ -130,11 +135,7 @@ export default function TransportationItem({ route }) {
                   sx={{ p: 1, display: 'flex', flexDirection: 'column' }}
                 >
                   {entry[1].icon}
-                  <Typography
-                    color="primary"
-                    fontWeight="500"
-                    fontSize="0.85rem"
-                  >
+                  <Typography variant="body2" color="primary" fontWeight="500">
                     {entry[1].text}
                   </Typography>
                 </ListItemButton>

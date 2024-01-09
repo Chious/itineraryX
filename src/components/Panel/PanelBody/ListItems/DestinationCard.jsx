@@ -1,3 +1,4 @@
+import { useMediaQuery } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
@@ -14,6 +15,7 @@ export default function DestinationCard({
   stayingTime,
   formattedStayingTime,
 }) {
+  const isDesktop = useMediaQuery((theme) => theme.breakpoints.up('md'));
   const canEdit = useAuth().canEdit;
   const theme = useTheme();
   const infoColor = theme.palette.info.main;
@@ -37,22 +39,24 @@ export default function DestinationCard({
       )}
 
       {/* display the image of the destination */}
-      <div
-        className="img"
-        style={{
-          flexShrink: '0',
-          width: '100px',
-          backgroundImage: `url(${destination.placeImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      >
-        <a
-          href={destination.placeUrl}
-          target="_blank"
-          style={{ display: 'block', width: '100%', height: '100%' }}
-        ></a>
-      </div>
+      {isDesktop && (
+        <div
+          className="img"
+          style={{
+            flexShrink: '0',
+            width: '100px',
+            backgroundImage: `url(${destination.placeImage})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        >
+          <a
+            href={destination.placeUrl}
+            target="_blank"
+            style={{ display: 'block', width: '100%', height: '100%' }}
+          ></a>
+        </div>
+      )}
 
       {/* display the information of the destination */}
       <CardContent
@@ -60,7 +64,7 @@ export default function DestinationCard({
           flexGrow: '1',
           display: 'flex',
           alignItems: 'center',
-          // use ':last-child' when adjusting the padding of the MUI card component
+          // should use ':last-child' when adjusting the padding of the MUI card component
           '&:last-child': {
             py: '1.5rem',
             px: '1.2rem',
@@ -74,10 +78,7 @@ export default function DestinationCard({
             target="_blank"
             style={{ display: 'block', width: '100%', height: '100%' }}
           >
-            <Typography
-              color="primary"
-              sx={{ fontSize: '1.1rem', fontWeight: '700' }}
-            >
+            <Typography color="primary" fontSize="1.07rem" fontWeight="700">
               {destination.placeName}
             </Typography>
           </a>
