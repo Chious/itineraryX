@@ -7,8 +7,21 @@ import iceland from "../../images/spot/Iceland.jpeg";
 import tokyo from "../../images/spot/Tokyo.jpeg";
 import seoul from "../../images/spot/Seoul.jpeg";
 import osaka from "../../images/spot/Osaka.jpeg";
+import { Blurhash } from "react-blurhash";
 
 export default function HomeExclusiveTripSection () {
+  // state for make sure image finish loaded or not
+  const [isLoaded, setIsLoaded] = React.useState(false)
+
+  // when image finished loaded, set isLoaded to true
+  React.useEffect(() => {
+    const img = new Image()
+    img.onload = () => {
+      setIsLoaded(true)
+    }
+    img.src = iceland
+  }, [iceland])
+
   return (
     <Grid container spacing={0}>
       <Grid item xs={12} md={5}>
@@ -99,30 +112,40 @@ export default function HomeExclusiveTripSection () {
         </Box>
       </Grid>
       <Grid item xs={12} md={7}>
-        <Box style={{ position: "relative" }}>
-          <Card elevation={0}>
-            <CardMedia
+        <Box style={{ position: "relative" }} >
+          <div style={{backgroundColor:'white'}}>
+          {/* display blur image before image finish loaded */}
+            <div style={{display: isLoaded ? 'none' : 'inline', opacity:'0.2'}}>
+              <Blurhash
+                hash="LfH2TPR.WBjb?wWUjZbF%ioeogbI"
+                width='100%'
+                height='60vw'
+                resolutionX={32}
+                resolutionY={32}
+                punch={ 1 }
+              />
+            </div>
+            {/* actual background image */}
+            <img
               src={iceland}
               title="background"
               component="img"
               style={{
+                width: "100%",
+                height: "60vw",
                 objectFit: "cover",
-                opacity: "0.1",
-                backgroundColor: "#B4C4D9",
-              }}
-              sx={{
-                width: { xs: '100vw', md: '60vw' },
-                height: { xs: '60vw', md: '60vw' },
+                opacity: "0.2",
+                display: !isLoaded ? 'none' : 'inline'
               }}
             />
-          </Card>
+          </div>
           <Box
             style={{
               position: "absolute",
               top: "50%",
               left: "50%",
               transform: "translate(-100%, -50%)",
-              padding: "2vw",
+              // padding: "2vw",
               width: "60vw",
             }}
           >
