@@ -25,7 +25,7 @@ export default function ListItems({ rwdColumns, day }) {
   if (!destinationsByDay || destinationsByDay.length === 0) {
     return (
       <Grid key={`empty-${day}`} container justifyContent="flex-end">
-        <Grid item xs={11}>
+        <Grid item xs={9} md={11}>
           <Typography
             sx={{
               height: '250px',
@@ -48,8 +48,8 @@ export default function ListItems({ rwdColumns, day }) {
 
             {/* text */}
             <Typography
+              variant="subtitle1"
               color="primary"
-              fontSize="1.1rem"
               fontWeight="500"
               letterSpacing={1.1}
             >
@@ -66,7 +66,7 @@ export default function ListItems({ rwdColumns, day }) {
   return destinationsByDay.map((_, order) => (
     <Box key={`destination-${destinationsByDay[order].destinationId}`}>
       {/* transportation */}
-      <ListItem sx={{ p: '0.7rem' }}>
+      <ListItem sx={{ p: { md: '0.7rem' } }}>
         <Grid container justifyContent="flex-end" p={0} height={35}>
           <Grid
             item

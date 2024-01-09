@@ -67,7 +67,7 @@ export default function TabControl({ activeTab, setActiveTab }) {
       justifyContent="center"
       alignItems="center"
       sx={{
-        px: 7,
+        px: { xs: 3, md: 8 },
         paddingBottom: 1,
         backgroundColor: 'white',
         position: 'relative',
@@ -75,7 +75,7 @@ export default function TabControl({ activeTab, setActiveTab }) {
     >
       <Grid
         container
-        className='tab-control-container'
+        className="tab-control-container"
         flexWrap="nowrap"
         ref={TabContainerRef}
         style={{
@@ -87,7 +87,7 @@ export default function TabControl({ activeTab, setActiveTab }) {
           .map((_, index) => (
             <Button
               key={index}
-              className='tab'
+              className="tab"
               onClick={() => handleTabClick(index)}
               ref={TabRefs.current[index]}
               sx={{
@@ -107,11 +107,11 @@ export default function TabControl({ activeTab, setActiveTab }) {
                 alignItems="center"
               >
                 <Typography
+                  variant="subtitle2"
                   sx={{
                     color:
                       index === activeTab ? primaryColor : primaryLightColor,
                     fontWeight: index === activeTab ? 800 : 400,
-                    fontSize: 15,
                     fontFamily: 'Roboto',
                     textShadow: `0.5px 0.5px 1px ${primaryLightColor}`,
                     letterSpacing: '1.5px',

@@ -1,4 +1,4 @@
-import { createTheme, ThemeProvider } from '@mui/material';
+import { createTheme, responsiveFontSizes, ThemeProvider } from '@mui/material';
 
 const darkBlue = '#325269';
 const grayBlue = '#647680';
@@ -7,7 +7,7 @@ const darkRed = '#CC0000';
 const gray = '#999';
 
 export default function MUIthemeProvider(props) {
-  const theme = createTheme({
+  let theme = createTheme({
     palette: {
       primary: { main: darkBlue, light: grayBlue },
       secondary: { main: orange },
@@ -35,6 +35,8 @@ export default function MUIthemeProvider(props) {
       },
     },
   });
+
+  theme = responsiveFontSizes(theme);
 
   return <ThemeProvider theme={theme}>{props.children}</ThemeProvider>;
 }

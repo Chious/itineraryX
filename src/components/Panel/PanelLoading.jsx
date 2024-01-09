@@ -1,18 +1,20 @@
 import { Fragment } from 'react';
-import { Grid, Skeleton, Stack } from '@mui/material';
+import { Grid, Skeleton, Stack, useMediaQuery } from '@mui/material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 const rwdColumns = [4, 8];
 
 export default function PanelLoading() {
+  const isDesktop = useMediaQuery((theme) => theme.breakpoints.up('md'));
+
   return (
     <Grid container width="100%" height="100%">
       {/* panel head */}
       <Grid item xs={12} px={3} py={1.5}>
-        <Skeleton animation="wave" variant="rectangular" height={40} />
+        <Skeleton animation="wave" variant="rectangular" height={45} />
       </Grid>
       <Grid item xs={12} px={7} paddingBottom={0.5}>
-        <Skeleton animation="wave" variant="rectangular" height={35} />
+        <Skeleton animation="wave" variant="rectangular" height={55} />
       </Grid>
 
       {/* panel body */}
@@ -48,7 +50,7 @@ export default function PanelLoading() {
           <Skeleton
             animation="wave"
             variant="rounded"
-            height={40}
+            height={35}
             sx={{ borderRadius: '1.1rem' }}
           />
         </Grid>
@@ -140,17 +142,19 @@ export default function PanelLoading() {
                 }}
               >
                 {/* destination image */}
-                <Grid item width="100px">
-                  <Skeleton
-                    animation="wave"
-                    variant="rounded"
-                    sx={{
-                      width: '100px',
-                      height: '130px',
-                      borderRadius: '10px 0 0 10px',
-                    }}
-                  />
-                </Grid>
+                {isDesktop && (
+                  <Grid item width="100px">
+                    <Skeleton
+                      animation="wave"
+                      variant="rounded"
+                      sx={{
+                        width: '100px',
+                        height: '130px',
+                        borderRadius: '10px 0 0 10px',
+                      }}
+                    />
+                  </Grid>
+                )}
 
                 {/* destination info */}
                 <Grid

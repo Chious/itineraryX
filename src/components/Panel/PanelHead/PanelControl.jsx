@@ -1,11 +1,12 @@
-import { useNavigate } from "react-router-dom";
-import { useTheme } from "@emotion/react";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import ForumIcon from "@mui/icons-material/Forum";
-import { useAuth } from "@/contexts/AuthContext";
-import { useTripInfo } from "@/contexts/TripInfoContext";
+import { useNavigate } from 'react-router-dom';
+import { useTheme } from '@emotion/react';
+import { useMediaQuery } from '@mui/material';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ForumIcon from '@mui/icons-material/Forum';
+import { useAuth } from '@/contexts/AuthContext';
+import { useTripInfo } from '@/contexts/TripInfoContext';
 
 export default function PanelControl({ handleOpenChat }) {
   const navigate = useNavigate();
@@ -14,9 +15,10 @@ export default function PanelControl({ handleOpenChat }) {
   const theme = useTheme();
   const primaryColor = theme.palette.primary.main;
   const primaryLightColor = theme.palette.primary.light;
+  const isDesktop = useMediaQuery((theme) => theme.breakpoints.up('md'));
 
   function returnToUserPage() {
-    navigate("/user");
+    navigate('/user');
   }
 
   return (
@@ -27,46 +29,50 @@ export default function PanelControl({ handleOpenChat }) {
       alignItems="center"
       position="relative"
       px={3}
-      py={1.5}
+      py={{ xs: 1, md: 1.5 }}
     >
       {/* return-to-user-page icon */}
-      <Grid item xs={1} flexShrink={0}>
-        <ArrowBackIosIcon
-          onClick={returnToUserPage}
-          fontSize="medium"
-          sx={{
-            cursor: "pointer",
-            p: 1,
-            width: "2.5rem",
-            height: "2.5rem",
-            color: primaryLightColor,
-            "&:hover": {
-              backgroundColor: "#eee",
-              color: primaryColor,
-            },
-          }}
-        />
+      <Grid item xs={1} flexShrink={0} flexGrow={0}>
+        {isDesktop && (
+          <ArrowBackIosIcon
+            onClick={returnToUserPage}
+            fontSize="medium"
+            sx={{
+              cursor: 'pointer',
+              p: 1,
+              width: '2.5rem',
+              height: '2.5rem',
+              color: primaryLightColor,
+              '&:hover': {
+                backgroundColor: '#eee',
+                color: primaryColor,
+              },
+            }}
+          />
+        )}
       </Grid>
 
       {/* itinerary title */}
       <Grid
         item
-        xs={9}
-        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+        xs={12}
+        md={10}
+        px={1}
+        sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
       >
         <Typography
+          variant="h5"
           color={primaryColor}
           fontFamily="Roboto"
-          fontSize="1.5rem"
           fontWeight="800"
           letterSpacing={2.5}
           textAlign="center"
           sx={{
-            textOverflow: "ellipsis",
-            overflow: "hidden",
-            whiteSpace: "nowrap",
-            wordBreak: "break-all",
-            overflowWrap: "break-word",
+            textOverflow: 'ellipsis',
+            overflow: 'hidden',
+            whiteSpace: 'nowrap',
+            wordBreak: 'break-all',
+            overflowWrap: 'break-word',
             textShadow: `1px 1px 2px ${primaryLightColor}`,
           }}
         >
@@ -75,19 +81,19 @@ export default function PanelControl({ handleOpenChat }) {
       </Grid>
 
       {/* chatroom icon */}
-      <Grid item xs={1} flexShrink={0}>
-        {canEdit && (
+      <Grid item xs={1} flexShrink={0} flexGrow={0}>
+        {isDesktop && canEdit && (
           <ForumIcon
             onClick={handleOpenChat}
             fontSize="medium"
             sx={{
-              cursor: "pointer",
+              cursor: 'pointer',
               p: 1,
-              width: "2.5rem",
-              height: "2.5rem",
+              width: '2.5rem',
+              height: '2.5rem',
               color: primaryLightColor,
-              "&:hover": {
-                backgroundColor: "#eee",
+              '&:hover': {
+                backgroundColor: '#eee',
                 color: primaryColor,
               },
             }}
