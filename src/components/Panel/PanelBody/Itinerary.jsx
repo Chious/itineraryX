@@ -13,7 +13,7 @@ export default function Itinerary({ handleFormOpen, activeTab, setActiveTab }) {
   const listContainerRef = useRef(null);
   const listRefs = useRef(null);
   const observerRef = useRef(null);
-  const timerIdRef = useRef(null); // to store scrollIntoView events
+  const timerIdRef = useRef(null); // to judge if there's a scrollIntoView event
 
   // useRef of itinerary-by-day (for detecting PanelBody onScroll events)
   listRefs.current = Array(numOfDays)

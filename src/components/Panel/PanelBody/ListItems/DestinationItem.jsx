@@ -81,11 +81,14 @@ export default function DestinationItem({
             backgroundColor: primaryColor,
           }}
         >
-          <Box className="time" sx={{ position: 'absolute', right: '125%' }}>
+          <Box
+            className="time"
+            sx={{ position: 'absolute', right: { xs: '110%', md: '125%' } }}
+          >
             <Typography
-              color="primary.main"
+              variant="subtitle2"
+              color="primary"
               fontFamily="Roboto"
-              fontSize="0.95rem"
               fontWeight="500"
               textAlign="end"
               letterSpacing={0.8}
@@ -96,7 +99,7 @@ export default function DestinationItem({
             </Typography>
           </Box>
 
-          <Typography className="order" color="white" fontSize="0.9rem">
+          <Typography className="order" variant="subtitle2" color="white">
             {order + 1}
           </Typography>
         </Grid>

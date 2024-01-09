@@ -57,22 +57,14 @@ const formStyle = {
   right: 0,
   bottom: 0,
   zIndex: '10',
+  overflowY: { xs: 'scroll', md: 'hidden' },
 };
 
-const fieldNameStyle = {
-  marginTop: 1,
-  color: 'primary',
-  fontSize: '1.2rem',
-  fontWeight: '500',
-  letterSpacing: 1.1,
-};
-
-const center = {
-  lat: 23.42926,
-  lng: 120.92492,
-};
-
-export default function DestinationCreateForm({ dayOfForm, handleFormClose }) {
+export default function DestinationCreateForm({
+  dayOfForm,
+  handleFormClose,
+  handleMarginIndexChange,
+}) {
   const [inputValue, setInputValue] = useState('');
   const [autocomplete, setAutocomplete] = useState(null);
   const { itineraryId } = useParams();
@@ -112,6 +104,7 @@ export default function DestinationCreateForm({ dayOfForm, handleFormClose }) {
     if (autocomplete !== null) {
       const place = autocomplete.getPlace();
       setInputValue(place.name);
+      handleMarginIndexChange?.(1); // automatically swipe panel to view map (mobile version)
       // update backend
       const placeData = await postMaps(place.place_id);
       // update frontend
@@ -178,131 +171,138 @@ export default function DestinationCreateForm({ dayOfForm, handleFormClose }) {
   }
 
   return (
-    <form
-      noValidate
-      onSubmit={handleSubmit(handleDestinationAdd)}
-      className="create-form"
-      style={formStyle}
-    >
-      {/* header */}
-      <Box className="header" sx={headerStyle}>
-        <Typography
-          color="primary"
-          sx={{
-            fontSize: '1.5rem',
-            fontWeight: '700',
-            letterSpacing: 1.5,
-            textShadow: `1px 1px 2px ${primaryLightColor}`,
-          }}
+    <Box sx={formStyle}>
+      <form noValidate onSubmit={handleSubmit(handleDestinationAdd)}>
+        {/* header */}
+        <Box className="header" sx={headerStyle}>
+          <Typography
+            variant="h5"
+            color="primary"
+            sx={{
+              fontWeight: '700',
+              letterSpacing: 1.5,
+              textShadow: `1px 1px 2px ${primaryLightColor}`,
+            }}
+          >
+            Add New Location
+          </Typography>
+        </Box>
+
+        {/* body */}
+        <Grid
+          container
+          rowSpacing={4}
+          columnSpacing={3}
+          sx={{ padding: 4, paddingTop: 6 }}
         >
-          Add New Location
-        </Typography>
-      </Box>
+          {/* location */}
+          <Grid item xs={rwdColumns[0]} sx={gridItemStyle}>
+            <Typography variant="h6" marginTop={1}>
+              Location
+            </Typography>
+          </Grid>
+          <Grid item xs={rwdColumns[1]} sx={gridItemStyle}>
+            <Autocomplete
+              onLoad={(autocomplete) => {
+                setAutocomplete(autocomplete);
+                autocomplete.setFields([
+                  'place_id',
+                  'name',
+                  'formatted_address',
+                ]);
+              }}
+              onPlaceChanged={handleAutocompleteChange}
+            >
+              <TextField
+                {...register('location')}
+                error={Boolean(errors.location)}
+                helperText={
+                  errors.location
+                    ? errors.location.message
+                    : 'type & select from search results'
+                }
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                size="small"
+                placeholder="enter a location"
+              />
+            </Autocomplete>
+          </Grid>
 
-      {/* body */}
-      <Grid
-        container
-        rowSpacing={4}
-        columnSpacing={3}
-        sx={{ padding: 4, paddingTop: 6 }}
-      >
-        {/* location */}
-        <Grid item xs={rwdColumns[0]} sx={gridItemStyle}>
-          <Typography sx={fieldNameStyle}>Location</Typography>
-        </Grid>
-        <Grid item xs={rwdColumns[1]} sx={gridItemStyle}>
-          <Autocomplete
-            onLoad={(autocomplete) => {
-              setAutocomplete(autocomplete);
-              autocomplete.setFields(['place_id', 'name', 'formatted_address']);
-            }}
-            onPlaceChanged={handleAutocompleteChange}
-          >
-            <TextField
-              {...register('location')}
-              error={Boolean(errors.location)}
-              helperText={
-                errors.location
-                  ? errors.location.message
-                  : 'type & select from search results'
-              }
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
+          {/* day */}
+          <Grid item xs={rwdColumns[0]} sx={gridItemStyle}>
+            <Typography variant="h6" marginTop={1}>
+              Day
+            </Typography>
+          </Grid>
+          <Grid item xs={rwdColumns[1]} sx={gridItemStyle}>
+            <Select
+              {...register('day')}
+              error={Boolean(errors.day)}
+              helperText={errors.day && errors.day.message}
+              defaultValue={`${dayOfForm}`}
               size="small"
-              placeholder="enter a location"
+              sx={{ width: '50%' }}
+            >
+              <MenuItem value={'0'} disabled>
+                select day...
+              </MenuItem>
+              {Array(itinerary.totalDays)
+                .fill()
+                .map((_, index) => (
+                  <MenuItem key={`option-${index + 1}`} value={`${index + 1}`}>
+                    {`Day ${index + 1}`}
+                  </MenuItem>
+                ))}
+            </Select>
+          </Grid>
+
+          {/* time */}
+          <Grid item xs={rwdColumns[0]} sx={gridItemStyle}>
+            <Typography variant="h6" marginTop={1}>
+              Time
+            </Typography>
+          </Grid>
+          <Grid item xs={rwdColumns[1]} sx={gridItemStyle}>
+            <input
+              {...register('time')}
+              onFocus={(e) => e.target.showPicker()}
+              type="time"
+              style={{
+                width: '50%',
+                height: '100%',
+                padding: 8,
+                borderRadius: 3,
+                borderWidth: errors.time ? 2 : 1,
+                borderColor: errors.time ? errorColor : 'rgba(0, 0, 0, 0.3)',
+              }}
             />
-          </Autocomplete>
-        </Grid>
+            <Box
+              style={{
+                position: 'absolute',
+                top: '105%',
+                left: '2.3rem',
+                color: errorColor,
+                fontSize: '0.7rem',
+                fontWeight: '400',
+                fontFamily: fontFamily,
+              }}
+            >
+              {errors.time && errors.time.message}
+            </Box>
+          </Grid>
 
-        {/* day */}
-        <Grid item xs={rwdColumns[0]} sx={gridItemStyle}>
-          <Typography sx={fieldNameStyle}>Day</Typography>
+          {/* submit button */}
+          <Grid container justifyContent="flex-end" paddingTop={6} gap={3.5}>
+            <Button type="button" variant="text" onClick={handleFormClose}>
+              CANCEL
+            </Button>
+            <Button type="submit" variant="contained">
+              ADD
+            </Button>
+          </Grid>
         </Grid>
-        <Grid item xs={rwdColumns[1]} sx={gridItemStyle}>
-          <Select
-            {...register('day')}
-            error={Boolean(errors.day)}
-            helperText={errors.day && errors.day.message}
-            defaultValue={`${dayOfForm}`}
-            size="small"
-            sx={{ width: '50%' }}
-          >
-            <MenuItem value={'0'} disabled>
-              select day...
-            </MenuItem>
-            {Array(itinerary.totalDays)
-              .fill()
-              .map((_, index) => (
-                <MenuItem key={`option-${index + 1}`} value={`${index + 1}`}>
-                  {`Day ${index + 1}`}
-                </MenuItem>
-              ))}
-          </Select>
-        </Grid>
-
-        {/* time */}
-        <Grid item xs={rwdColumns[0]} sx={gridItemStyle}>
-          <Typography sx={fieldNameStyle}>Time</Typography>
-        </Grid>
-        <Grid item xs={rwdColumns[1]} sx={gridItemStyle}>
-          <input
-            {...register('time')}
-            onFocus={(e) => e.target.showPicker()}
-            type="time"
-            style={{
-              width: '50%',
-              height: '100%',
-              padding: 8,
-              borderRadius: 3,
-              borderWidth: errors.time ? 2 : 1,
-              borderColor: errors.time ? errorColor : 'rgba(0, 0, 0, 0.3)',
-            }}
-          />
-          <Box
-            style={{
-              position: 'absolute',
-              top: '105%',
-              left: '2.3rem',
-              color: errorColor,
-              fontSize: '0.7rem',
-              fontWeight: '400',
-              fontFamily: fontFamily,
-            }}
-          >
-            {errors.time && errors.time.message}
-          </Box>
-        </Grid>
-
-        {/* submit button */}
-        <Grid container justifyContent="flex-end" paddingTop={6} gap={3.5}>
-          <Button type="button" variant="text" onClick={handleFormClose}>
-            CANCEL
-          </Button>
-          <Button type="submit" variant="contained">
-            ADD
-          </Button>
-        </Grid>
-      </Grid>
-    </form>
+      </form>
+    </Box>
   );
 }
