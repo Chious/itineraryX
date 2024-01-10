@@ -132,6 +132,7 @@ export default function TransportationItem({ route }) {
                 <ListItemButton
                   key={`mode-${entry[0]}`}
                   onClick={() => handleTransModeEdit(entry[0])}
+                  onTouchEnd={() => handleTransModeEdit(entry[0])}
                   sx={{ p: 1, display: 'flex', flexDirection: 'column' }}
                 >
                   {entry[1].icon}
