@@ -39,7 +39,7 @@ const BtnPopperStyle = {
   top: '100%',
   right: 10,
   zIndex: 1,
-  p: 1,
+  p: { xs: 1, md: 1.1 },
   boxShadow: 3,
   borderRadius: 1,
   bgcolor: 'white',
@@ -161,11 +161,11 @@ export default function CardBtnPopper({ day, destinationId }) {
 
         {openBtnPopper && (
           <Box sx={BtnPopperStyle}>
-            <List sx={{ p: { xs: 0, md: '2px' } }}>
+            <List sx={{ p: 0 }}>
               <ListItem sx={{ p: 0 }}>
                 {/* option: edit destination time */}
                 <ListItemButton
-                  sx={{ p: 0, marginTop: '5px' }}
+                  sx={{ px: 0.5, py: 0.2 }}
                   onClick={handleEditModalOpen}
                 >
                   <Typography variant="body1" color="primary">
@@ -280,7 +280,10 @@ export default function CardBtnPopper({ day, destinationId }) {
 
               {/* option: delete destination */}
               <ListItem sx={{ p: 0 }}>
-                <ListItemButton sx={{ p: 0 }} onClick={handleDeleteBtnClick}>
+                <ListItemButton
+                  sx={{ px: 0.5, py: 0.2 }}
+                  onClick={handleDeleteBtnClick}
+                >
                   <Typography variant="body1" color="primary">
                     delete
                   </Typography>

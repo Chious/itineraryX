@@ -45,7 +45,10 @@ export default function EditPageMobile({
         </Box>
 
         {/* panel */}
-        <Box
+        <Grid
+          container
+          justifyContent="center"
+          alignItems="center"
           sx={{
             position: 'absolute',
             top: marginTop[marginIndex],
@@ -64,7 +67,7 @@ export default function EditPageMobile({
             container
             justifyContent="center"
             alignItems="center"
-            width="100%"
+            width="80%"
             height="30px"
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
@@ -101,7 +104,7 @@ export default function EditPageMobile({
               <Panel handleMarginIndexChange={handleMarginIndexChange} />
             )}
           </Box>
-        </Box>
+        </Grid>
       </Box>
     </>
   );

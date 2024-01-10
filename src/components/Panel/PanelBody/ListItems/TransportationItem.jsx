@@ -21,11 +21,11 @@ import {
 import { sendRoutes } from '@/socket/socketManager';
 
 const BtnPopperStyle = {
-  width: '230px',
+  width: 'max-content',
   position: 'absolute',
   top: '110%',
   zIndex: 1,
-  p: 0,
+  p: 1,
   boxShadow: 3,
   borderRadius: 1,
   bgcolor: 'white',
@@ -118,9 +118,14 @@ export default function TransportationItem({ route }) {
       {/* display transportation mode edit form */}
       {openBtnPopper && (
         <Box sx={BtnPopperStyle}>
-          <List sx={{ p: 1 }}>
+          <List sx={{ p: 0 }}>
             {/* form title */}
-            <ListItem sx={{ px: 2, display: 'flex', justifyContent: 'center' }}>
+            <ListItem
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+              }}
+            >
               <Typography variant="body1" color="primary" fontWeight="600">
                 Transportation Mode
               </Typography>

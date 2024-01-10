@@ -2,7 +2,6 @@ import { Fragment } from 'react';
 import moment from 'moment';
 import Skeleton from '@mui/material/Skeleton';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { useCurrentTarget } from '@/contexts/CurrentTargetContext';
@@ -10,12 +9,17 @@ import { useTripInfo } from '@/contexts/TripInfoContext';
 
 const height = '80%';
 const marginLeft = 2;
+const borderRadius = '0.8rem';
 
 const dayNumberStyle = {
-  width: '80px',
-  minWidth: '80px',
+  padding: '1rem',
   height: height,
-  borderRadius: '1rem',
+  borderRadius: borderRadius,
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: 0.3,
 };
 
 const cardStyle = {
@@ -24,7 +28,7 @@ const cardStyle = {
   minWidth: 'fit-content',
   height: height,
   marginLeft: marginLeft,
-  borderRadius: '1rem',
+  borderRadius: borderRadius,
   backgroundColor: 'white',
   boxShadow: 3,
   display: 'flex',
@@ -63,13 +67,8 @@ export default function SimpleItinerary({ displayLoading }) {
       marginLeft={day > 0 ? marginLeft : 0}
     >
       {/* day number */}
-      <Grid
-        container
-        flexDirection="column"
-        justifyContent="center"
-        alignItems="center"
-        gap={0.2}
-        sx={{
+      <div
+        style={{
           ...dayNumberStyle,
           backgroundColor: `hsl(${
             ((day * 50) % 360) + ((day * 60) / 360) * 25
@@ -85,7 +84,7 @@ export default function SimpleItinerary({ displayLoading }) {
             .add(targetDay > 0 ? targetDay - 1 : targetDay + day, 'days')
             .format('MM/DD')}
         </Typography>
-      </Grid>
+      </div>
 
       {/* destinations */}
       {destinationsToRender[day].map((_, order) => (
