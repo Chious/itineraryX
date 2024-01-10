@@ -93,7 +93,8 @@ export default function TabControl({ activeTab, setActiveTab }) {
               sx={{
                 boxSizing: 'content-box',
                 flexShrink: 0,
-                px: 1.5,
+                px: { xs: 0.5, md: 1.5 },
+                py: { xs: 0.3, md: 1 },
                 width: 'fit-content',
                 borderRadius: 0,
                 borderBottom:
@@ -107,10 +108,11 @@ export default function TabControl({ activeTab, setActiveTab }) {
                 alignItems="center"
               >
                 <Typography
-                  variant="subtitle2"
+                  variant="subtitle1"
                   sx={{
                     color:
                       index === activeTab ? primaryColor : primaryLightColor,
+                    fontSize: { md: 14 },
                     fontWeight: index === activeTab ? 800 : 400,
                     fontFamily: 'Roboto',
                     textShadow: `0.5px 0.5px 1px ${primaryLightColor}`,
@@ -120,10 +122,11 @@ export default function TabControl({ activeTab, setActiveTab }) {
                   Day {index + 1}
                 </Typography>
                 <Typography
+                  variant="subtitle2"
                   sx={{
                     color:
                       index === activeTab ? primaryColor : primaryLightColor,
-                    fontSize: 12,
+                    fontSize: { md: 12 },
                     fontFamily: 'Roboto',
                     textShadow: `0.5px 0.5px 1px ${primaryLightColor}`,
                     letterSpacing: '1.3px',
