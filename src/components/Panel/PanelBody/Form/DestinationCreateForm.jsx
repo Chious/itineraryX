@@ -29,6 +29,7 @@ import {
   useTripInfoDispatch,
 } from '@/contexts/TripInfoContext';
 import { sendDestinations } from '@/socket/socketManager';
+import './destinationCreateForm.css';
 
 const headerStyle = {
   width: '100%',
@@ -78,7 +79,7 @@ export default function DestinationCreateForm({
   const primaryLightColor = theme.palette.primary.light;
   const errorColor = theme.palette.error.main;
   const fontFamily = theme.typography.fontFamily;
-  const rwdColumns = [3, 9];
+  const rwdColumns = [3, 8];
 
   const schema = z.object({
     location: z.string().refine(() => placeId > 0, {
@@ -212,6 +213,7 @@ export default function DestinationCreateForm({
                 ]);
               }}
               onPlaceChanged={handleAutocompleteChange}
+              className="autocomplete"
             >
               <TextField
                 {...register('location')}
@@ -225,6 +227,7 @@ export default function DestinationCreateForm({
                 onChange={(e) => setInputValue(e.target.value)}
                 size="small"
                 placeholder="enter a location"
+                sx={{ width: '100%' }}
               />
             </Autocomplete>
           </Grid>
@@ -242,7 +245,7 @@ export default function DestinationCreateForm({
               helperText={errors.day && errors.day.message}
               defaultValue={`${dayOfForm}`}
               size="small"
-              sx={{ width: '50%' }}
+              sx={{ width: { xs: '100%', md: '50%' } }}
             >
               <MenuItem value={'0'} disabled>
                 select day...
@@ -264,19 +267,21 @@ export default function DestinationCreateForm({
             </Typography>
           </Grid>
           <Grid item xs={rwdColumns[1]} sx={gridItemStyle}>
-            <input
-              {...register('time')}
-              onFocus={(e) => e.target.showPicker()}
-              type="time"
-              style={{
-                width: '50%',
-                height: '100%',
-                padding: 8,
-                borderRadius: 3,
-                borderWidth: errors.time ? 2 : 1,
-                borderColor: errors.time ? errorColor : 'rgba(0, 0, 0, 0.3)',
-              }}
-            />
+            <Box width={{ xs: '100%', md: '50%' }}>
+              <input
+                {...register('time')}
+                onFocus={(e) => e.target.showPicker()}
+                type="time"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  padding: 8,
+                  borderRadius: 3,
+                  borderWidth: errors.time ? 2 : 1,
+                  borderColor: errors.time ? errorColor : 'rgba(0, 0, 0, 0.3)',
+                }}
+              />
+            </Box>
             <Box
               style={{
                 position: 'absolute',
