@@ -171,15 +171,20 @@ export default function SocketChat({
         setUpdateIcon={setUpdateIcon}
       />
       <Message data={chatroomMessage} openChat={openChat} />
-      <Stack direction="row">
+      <Stack
+        direction="row"
+        sx={{ borderTop: "1px solid #dddddd", alignItems: "center" }}
+      >
         <input
           style={{
             width: "100%",
-            height: "44px",
-            padding: "10px",
-            background: "white",
+            height: "35px",
+            paddingLeft: "10px",
+            paddingRight: "10px",
+            background: "#dddddd",
             color: "black",
             border: "1px solid transparent",
+            borderRadius: "10px",
             outline: "none",
           }}
           value={messageInput}

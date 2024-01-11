@@ -47,7 +47,7 @@ export default function Message({ data, openChat }) {
     if (openChat === true) {
       ref.current.scrollTop = ref.current.scrollHeight;
     }
-  }, [openChat]);
+  }, [openChat, chats]);
 
   return (
     <Stack
