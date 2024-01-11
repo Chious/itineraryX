@@ -37,7 +37,7 @@ export const data = [
     description:
       "I'm a front-end developer enthusiastic about creating high-quality web apps with well-designed user interfaces and user experiences.",
     link: [
-      "https://github.com/jessie963",
+      "https://github.com/jessie758",
       "https://www.linkedin.com/in/liu-jessie-369a602a5/",
     ],
   },

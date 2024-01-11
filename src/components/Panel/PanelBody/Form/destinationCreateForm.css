@@ -1,0 +1,4 @@
+/* adjust the width of the location autocomplete input */
+.autocomplete {
+  width: 100%;
+}

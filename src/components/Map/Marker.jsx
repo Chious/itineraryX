@@ -23,7 +23,10 @@ export default function Marker({ activeId, setActiveId, place, label, color, day
       onClick={() => setActiveId?.(place.placeId)}
     >
       {activeId === place.placeId && place.placeLatLng && (
-        <InfoWindowF position={place.placeLatLng}>
+        <InfoWindowF
+          position={place.placeLatLng}
+          onCloseClick={() => setActiveId?.(null)}
+        >
           <PlaceInfo place={place} day={day} />
         </InfoWindowF>
       )}

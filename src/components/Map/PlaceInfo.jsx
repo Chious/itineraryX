@@ -7,7 +7,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import MapIcon from '@mui/icons-material/Map';
 import { useCurrentTarget } from '@/contexts/CurrentTargetContext';
 
-export function PlaceInfo({ place, day }) {
+export function PlaceInfo({ place, day, display }) {
   const isDesktop = useMediaQuery((theme) => theme.breakpoints.up('md'));
   const theme = useTheme();
   const primaryLightColor = theme.palette.primary.light;
@@ -25,7 +25,7 @@ export function PlaceInfo({ place, day }) {
       }}
     >
       {/* place image */}
-      {isDesktop && (
+      {(isDesktop || display) && (
         <div
           className="img"
           style={{
@@ -63,7 +63,7 @@ export function PlaceInfo({ place, day }) {
           </Typography>
         )}
 
-        {place.placeIntro && isDesktop && (
+        {place.placeIntro && (isDesktop || display) && (
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <InfoIcon sx={{ color: primaryLightColor, fontSize: '1rem' }} />
             <Typography
