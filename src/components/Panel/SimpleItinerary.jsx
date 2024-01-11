@@ -1,9 +1,11 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import moment from 'moment';
 import Skeleton from '@mui/material/Skeleton';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+import { PlaceInfo } from '../Map/PlaceInfo';
 import { useCurrentTarget } from '@/contexts/CurrentTargetContext';
 import { useTripInfo } from '@/contexts/TripInfoContext';
 
@@ -30,7 +32,7 @@ const cardStyle = {
   marginLeft: marginLeft,
   borderRadius: borderRadius,
   backgroundColor: 'white',
-  boxShadow: 3,
+  boxShadow: 2,
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -40,13 +42,45 @@ const orderStyle = {
   width: '20px',
   height: '20px',
   borderRadius: '100%',
-  color: 'white',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
 };
 
+const modalStyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  borderRadius: 2,
+  bgcolor: 'white',
+  p: 2,
+};
+
+function DestinationModal({ openModalId, setOpenModalId, destination }) {
+  const handleModalOpen = () => setOpenModalId(destination.destinationId);
+  const handleModalClose = () => setOpenModalId(null);
+
+  return (
+    <>
+      <Box className="place-name" onClick={handleModalOpen}>
+        <Typography color="black">{destination.placeName}</Typography>
+      </Box>
+
+      <Modal
+        open={openModalId === destination.destinationId}
+        onClose={handleModalClose}
+      >
+        <Box sx={modalStyle}>
+          <PlaceInfo place={destination} display={true} />
+        </Box>
+      </Modal>
+    </>
+  );
+}
+
 export default function SimpleItinerary({ displayLoading }) {
+  const [openModalId, setOpenModalId] = useState(null);
   const targetDay = useCurrentTarget().targetDay;
   const tripInfo = useTripInfo();
   const startDate = moment(tripInfo.itinerary.startTime);
@@ -75,10 +109,15 @@ export default function SimpleItinerary({ displayLoading }) {
           }deg, 90%, 50%)`,
         }}
       >
-        <Typography color="white">
+        <Typography color="white" fontWeight="600">
           Day {targetDay > 0 ? targetDay + day : targetDay + day + 1}
         </Typography>
-        <Typography color="white" fontFamily="Roboto" fontSize="0.8rem">
+        <Typography
+          color="white"
+          fontFamily="Roboto"
+          fontSize="0.8rem"
+          fontWeight="600"
+        >
           {startDate
             .clone()
             .add(targetDay > 0 ? targetDay - 1 : targetDay + day, 'days')
@@ -100,13 +139,17 @@ export default function SimpleItinerary({ displayLoading }) {
                 }deg, 90%, 50%)`,
               }}
             >
-              {order + 1}
+              <Typography color="white" fontWeight="500">
+                {order + 1}
+              </Typography>
             </Box>
 
             {/* destination name */}
-            <Box className="place-name">
-              {destinationsToRender[day][order].placeName}
-            </Box>
+            <DestinationModal
+              openModalId={openModalId}
+              setOpenModalId={setOpenModalId}
+              destination={destinationsToRender[day][order]}
+            />
           </Stack>
         </Fragment>
       ))}
