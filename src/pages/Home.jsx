@@ -37,7 +37,7 @@ export default function Home() {
         <HomeIntroSection isTokenExist={isTokenExist}/>
         <HomeFeaturedDestinationsSection />
         <HomeExclusiveTripSection />
-        <HomeRecommendedSection />
+        {/* <HomeRecommendedSection /> */}
         <OurTeamSection />
         <Footer />
       </Stack>
