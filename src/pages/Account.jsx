@@ -7,11 +7,11 @@ import { useNavigate } from "react-router-dom";
 export default function Account () {
   const navigate = useNavigate()
 
-  useEffect(() => {
-    if (!localStorage.getItem('token')){
-      navigate('/home')
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (!localStorage.getItem('token')){
+  //     navigate('/home')
+  //   }
+  // }, [])
 
   return (
     <div>

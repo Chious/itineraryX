@@ -8,6 +8,7 @@ import HomeFeaturedDestinationsSection from "../components/Home/HomeFeaturedDest
 import HomeExclusiveTripSection from "../components/Home/HomeExclusiveTripSection";
 import HomeRecommendedSection from "../components/Home/HomeRecommendedSection";
 import OurTeamSection from "../components/Home/OurTeamSection";
+import HomeDemoVideoSection from "../components/Home/HomeDemoVideoSection";
 
 export default function Home() {
   const [place, setPlace] = useState(null);
@@ -32,11 +33,12 @@ export default function Home() {
 
   return (
     <>
-      <Stack height="auto" direction="column" width="100vw">
+      <Stack height="auto" direction="column" width="100%">
         <Navbar />
         <HomeIntroSection isTokenExist={isTokenExist}/>
-        <HomeFeaturedDestinationsSection />
-        <HomeExclusiveTripSection />
+        {/* <HomeFeaturedDestinationsSection /> */}
+        <HomeDemoVideoSection />
+        {/* <HomeExclusiveTripSection /> */}
         {/* <HomeRecommendedSection /> */}
         <OurTeamSection />
         <Footer />
